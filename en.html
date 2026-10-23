@@ -1,0 +1,1550 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Raise a Kitty</title>
+<meta name="description" content="On a rainy day, you find a tiny kitten in a cardboard box. Stay by its side as it grows up, grows old, and one day says goodbye. A free cat-raising game you can play in your browser.">
+<meta property="og:title" content="Raise a Kitty">
+<meta property="og:description" content="On a rainy day, you find a tiny kitten in a cardboard box. Stay by its side as it grows up, grows old, and one day says goodbye.">
+<meta property="og:image" content="https://mochachen1225-create.github.io/cat/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&family=LXGW+WenKai+TC:wght@400&display=swap">
+<style>
+/* Layout: one narrow storybook column — a lit room (the stage) above a wooden toy-shelf of controls, set on a night-ink page. */
+:root{
+  --ink:#1E2638;        /* page night */
+  --ink-2:#2A3450;      /* raised panels */
+  --paper:#F4EFE4;      /* text on ink, letter paper */
+  --wall:#DDE6DE;       /* room wall, pale sage */
+  --wood:#C7965F;       /* floor */
+  --wood-dk:#A57843;
+  --eye:#F2B53B;        /* accent: cat-eye amber */
+  --blush:#F08DA2;      /* hearts */
+  --muted:#9AA5BE;
+  --danger:#E7756A;
+  --ok:#8CC98A;
+  --display:"Huninn","jf-openhuninn","Yuanti TC","PingFang TC","Microsoft JhengHei",sans-serif;   /* rounded 粉圓 */
+  --body:"Huninn","jf-openhuninn","Yuanti TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --letter:"LXGW WenKai TC","Kaiti TC","STKaiti","BiauKai",serif;  /* the cat's handwritten letter */
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--body);font-size:15px;
+  background-image:radial-gradient(1px 1px at 20% 30%,#ffffff55 50%,transparent 51%),radial-gradient(1px 1px at 70% 10%,#ffffff44 50%,transparent 51%),radial-gradient(1.5px 1.5px at 85% 60%,#ffffff33 50%,transparent 51%),radial-gradient(1px 1px at 40% 80%,#ffffff33 50%,transparent 51%);
+  background-size:220px 220px;-webkit-tap-highlight-color:transparent}
+#app{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;gap:12px;
+  padding-block:14px 24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,.disp{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid var(--eye);outline-offset:2px}
+
+/* header */
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.top h1{font-size:28px;line-height:1.1}
+.top .sub{color:var(--muted);font-size:13px;margin-top:4px;font-variant-numeric:tabular-nums}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--ink-2);color:var(--paper);letter-spacing:.05em}
+.chip.amber{background:var(--eye);color:var(--ink);font-weight:700}
+
+/* room stage */
+.room{position:relative;width:100%;aspect-ratio:1/0.86;border-radius:22px;overflow:hidden;background:#FFF4EA;
+  box-shadow:0 0 0 6px var(--ink-2),0 18px 40px #0008;user-select:none}
+.room .floor{position:absolute;left:0;right:0;bottom:0;height:30%;
+  background:repeating-linear-gradient(90deg,var(--wood) 0 58px,var(--wood-dk) 58px 60px);box-shadow:inset 0 6px 0 #0000001a}
+.spot{position:absolute;pointer-events:none;z-index:1}
+.spot svg{display:block;width:100%;height:100%;overflow:visible}
+.s-wall{right:5%;top:10%;width:32%;height:28%}
+.s-floorL{left:1%;bottom:21%;width:25%;height:56%}
+.s-floorR{right:1%;bottom:21%;width:24%;height:32%}
+.s-floorC{right:27%;bottom:25%;width:17%;height:19%}
+.s-front{left:1%;bottom:1%;width:22%;height:22%;z-index:3}
+.room .dim{position:absolute;inset:0;background:#0B1030;opacity:0;pointer-events:none;transition:opacity 1s;z-index:4}
+.room.t2 .dim{opacity:.3}
+.room.t3 .dim{opacity:.62}
+.room .bg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.room .sun,.room .dusk,.room .moon{opacity:0;transition:opacity 1s}
+.room.t0 .sun,.room.t1 .dusk,.room.t2 .moon,.room.t3 .moon{opacity:1}
+.room .sky{fill:#BFE6FA;transition:fill 1s}.room.t1 .sky{fill:#FFD9A8}.room.t2 .sky,.room.t3 .sky{fill:#3C4A86}
+.room .star{opacity:0;transition:opacity 1s}.room.t2 .star,.room.t3 .star{opacity:1}
+.catwrap{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);cursor:pointer;transition:width .8s;touch-action:manipulation;z-index:2}
+.catwrap.kitten{width:36%}.catwrap.adult{width:48%}.catwrap.senior{width:48%}
+.catwrap svg{display:block;width:100%;height:auto;overflow:visible}
+.catwrap .bob{transform-origin:50% 100%;animation:breath 3.2s ease-in-out infinite}
+.catwrap.walking .bob{animation:walk .42s ease-in-out infinite}
+.catwrap.senior.walking .bob{animation-duration:.7s}
+.catwrap.right > svg{transform:scaleX(-1)}
+@keyframes walk{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-5%) rotate(3deg)}}
+.catwrap.flop .bob{animation:none;transform:translate(-6%,6%) rotate(-78deg) scale(.92);transition:transform .6s}
+.catwrap.senior .bob{animation-duration:4.4s}
+.catwrap.hop .bob{animation:hop .5s ease-out 2}
+.catwrap.wiggle .bob{animation:wiggle .35s ease-in-out 3}
+.catwrap.shrink .bob{animation:shrink .6s ease-in-out}
+@keyframes breath{0%,100%{transform:scale(1,1)}50%{transform:scale(1.015,.985)}}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-22%) scale(.96,1.05)}}
+@keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-5deg)}75%{transform:rotate(5deg)}}
+@keyframes shrink{0%,100%{transform:scale(1)}40%{transform:scale(1.06,.9)}}
+.tail{animation:tail 2.4s ease-in-out infinite;transform-box:view-box}
+.sleepy .tail{animation-duration:6s}
+@keyframes tail{0%,100%{transform:rotate(0)}50%{transform:rotate(-14deg)}}
+.eye{animation:blink 5.5s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
+
+
+.bubble{position:absolute;left:50%;white-space:normal;width:max-content;top:5%;transform:translateX(-50%);max-width:78%;background:#fff;color:#2b2b33;font-family:var(--display);
+  font-size:16px;line-height:1.45;padding:8px 14px;border-radius:16px;text-align:center;box-shadow:0 4px 12px #0002;z-index:5;transition:opacity .3s;z-index:5}
+.bubble::after{content:"";position:absolute;left:50%;bottom:-8px;margin-left:-8px;border:8px solid transparent;border-bottom:0;border-top-color:#fff}
+.bubble:empty{opacity:0}
+.fx{position:absolute;inset:0;pointer-events:none;z-index:6;overflow:hidden}
+.float{position:absolute;font-size:22px;animation:floatup 1.4s ease-out forwards;font-family:var(--display);font-weight:700;color:var(--blush);white-space:nowrap}
+@keyframes floatup{0%{opacity:0;transform:translateY(0) scale(.6)}15%{opacity:1;transform:translateY(-8px) scale(1)}100%{opacity:0;transform:translateY(-90px) scale(1.1)}}
+.zzz{position:absolute;font-family:var(--display);font-size:20px;color:#fff;animation:zzz 2.6s linear infinite;opacity:0}
+@keyframes zzz{0%{opacity:0;transform:translate(0,0)}20%{opacity:1}100%{opacity:0;transform:translate(20px,-50px)}}
+
+.narr{min-height:44px;font-family:var(--display);font-size:16px;line-height:1.6;color:var(--paper);padding:0 4px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.stat{display:flex;flex-direction:column;gap:5px;min-width:0}
+.stat .lab{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+.stat .bar{height:8px;border-radius:99px;background:#ffffff14;overflow:hidden}
+.stat .bar i{display:block;height:100%;border-radius:99px;background:var(--eye);transition:width .6s}
+.stat.low .bar i{background:var(--danger)}
+.stat.bond .bar i{background:var(--blush)}
+
+/* actions */
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.act{background:var(--ink-2);border:0;border-radius:14px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;
+  box-shadow:inset 0 -3px 0 #0003;transition:transform .1s}
+.act:active{transform:translateY(2px)}
+.act .ic{font-size:22px;line-height:1.2}
+.act .t{font-size:14px;font-weight:500}
+.act .d{font-size:11px;color:var(--muted)}
+.act:disabled{opacity:.4;cursor:default}
+.act.primary{background:var(--eye);color:var(--ink)} .act.primary .d{color:#1e263899}
+.ff{width:100%;border:2px dashed #ffffff26;background:none;border-radius:14px;padding:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px}
+.ff small{font-weight:400;font-size:11px;color:var(--muted)}
+.ff.on{border-style:solid;border-color:var(--eye);color:var(--eye)}
+.deltas{display:flex;flex-wrap:wrap;gap:6px}
+.deltas .d{font-size:12px;padding:3px 9px;border-radius:99px;font-variant-numeric:tabular-nums;font-weight:500}
+.deltas .up{background:#8CC98A33;color:#2f6b2d}.deltas .dn{background:#E7756A2b;color:#9b3328}.deltas .warn{background:#2a2a3314;color:#5a5348}
+.tabs{display:flex;gap:6px}
+.tabs button{flex:1;border:0;border-radius:10px;padding:8px;background:#2a2a330d;color:#2a2a33;font-size:14px}
+.tabs button[aria-pressed=true]{background:#2a2a33;color:#F4EFE4}
+.shop{display:flex;flex-direction:column;gap:8px}
+.shop .item{display:flex;align-items:center;gap:10px;padding:8px;border-radius:12px;background:#2a2a330a}
+.shop .ic{width:52px;height:52px;flex:none;display:grid;place-items:center}
+.shop .ic svg{width:100%;height:100%}
+.shop .empty{font-size:12px;color:#9a917f;border:2px dashed #2a2a3326;border-radius:10px;width:44px;height:44px;display:grid;place-items:center}
+.shop .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.shop .tx b{font-size:15px}.shop .tx small{font-size:12px;color:#7b7468;line-height:1.5}
+.shop .buy{border:0;border-radius:10px;padding:8px 12px;background:#F2B53B;color:#1E2638;font-weight:700;font-variant-numeric:tabular-nums}
+.shop .buy:disabled{background:#2a2a3314;color:#9a917f}
+.shop .own{font-size:12px;color:#5d8a5b}
+.swap{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.swap button{border:1px solid #2a2a3326;background:#fff;border-radius:99px;padding:3px 10px;font-size:12px;color:#2a2a33}
+.past{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.pc{border:0;background:#2a2a330a;border-radius:14px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:2px;color:#2a2a33}
+.pc .mini{width:72px;display:block}.pc .mini svg{width:100%;height:auto;display:block}
+.pc .ph{display:block;width:64px;height:64px;border-radius:50%;background:center/cover;margin:4px auto}
+.pc small{font-size:11px;color:#7b7468}
+.letter.small{font-size:15px;line-height:1.85;box-shadow:none;padding:14px;background-size:auto;min-height:0}
+.carry{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+.shopbtn{align-self:center;width:min(100%,320px);border:0;border-radius:20px;padding:14px 18px;background:#F08DA2;color:#2b1d24;
+  display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--display);font-size:20px;box-shadow:inset 0 -4px 0 #0002,0 6px 16px #F08DA233;transition:transform .1s}
+.shopbtn span{font-size:28px;line-height:1.1}
+.shopbtn small{font-family:var(--body);font-size:12px;color:#2b1d24b3}
+.shopbtn:active{transform:translateY(2px)}
+.guide{display:flex;flex-direction:column;gap:8px}
+.guide .row{display:grid;grid-template-columns:56px 1fr;gap:10px;align-items:center;font-size:14px;line-height:1.5}
+.guide .row b{font-weight:400;font-family:var(--display);font-size:16px}
+.guide .ex{display:flex;flex-direction:column;gap:4px;font-size:12px;color:#7b7468}
+.guide .bar{height:9px;border-radius:99px;background:#2a2a3314;overflow:hidden}.guide .bar i{display:block;height:100%;border-radius:99px}
+.guide .warn{background:#E7756A1f;border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.7;color:#7a2d24}
+.adj{width:100%;max-width:300px;align-self:center;background:#DDE6DE;border-radius:16px;cursor:grab;touch-action:none;padding:6px}
+.adj:active{cursor:grabbing}
+.adj svg{width:100%;height:auto;display:block;pointer-events:none}
+.zoom{display:flex;align-items:center;gap:10px;font-size:13px;color:#7b7468}
+.zoom input{flex:1;accent-color:#F2B53B}
+.foodcan{position:absolute;bottom:6%;width:11%;z-index:3;animation:fade .3s}
+.foodcan svg{width:100%;height:auto;display:block;overflow:visible}
+.langs{display:flex;gap:4px;background:var(--ink-2);border-radius:99px;padding:3px}
+.langs a{font-size:12px;color:var(--muted);text-decoration:none;padding:3px 10px;border-radius:99px}
+.langs a[aria-current]{background:var(--eye);color:var(--ink);font-weight:700}
+.links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:4px}
+
+/* intro */
+.street{background:linear-gradient(#5a6680,#7d879a)}
+.street .floor{background:#4d5466;height:24%}
+.rain{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(105deg,transparent 48%,#ffffff40 49%,#ffffff40 51%,transparent 52%);
+  background-size:26px 60px;animation:rain .45s linear infinite;opacity:.8}
+@keyframes rain{to{background-position:-12px 60px}}
+.box{position:absolute;left:50%;bottom:10%;width:52%;transform:translateX(-50%);z-index:3;pointer-events:none}
+.box .front{position:relative;height:0;padding-bottom:46%;background:#C39058;border-radius:4px;box-shadow:inset 0 -10px 0 #0001}
+.box .front span{position:absolute;left:0;right:0;top:30%;text-align:center;font-family:var(--display);color:#5a3d1e;font-size:clamp(12px,3.4vw,17px)}
+.box .flap{position:absolute;top:-16%;width:52%;height:22%;background:#B07D46;border-radius:3px}
+.box .flap.l{left:-6%;transform:rotate(-14deg)}.box .flap.r{right:-6%;transform:rotate(14deg)}
+.peek{position:absolute;left:50%;bottom:22%;width:30%;transform:translateX(-50%);z-index:2;transition:bottom .8s}
+.peek.up{bottom:26%}
+.panel{display:flex;flex-direction:column;gap:12px}
+.panel p{margin:0;font-family:var(--display);font-size:17px;line-height:1.75}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:11px 18px;background:var(--ink-2);font-weight:500;box-shadow:inset 0 -3px 0 #0003}
+.btn.primary{background:var(--eye);color:var(--ink);font-weight:700}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;color:var(--muted)}
+.field input[type=text]{font:inherit;font-size:18px;font-family:var(--display);padding:10px 12px;border-radius:12px;border:2px solid var(--ink-2);background:#ffffff0d;color:var(--paper)}
+.sugs{display:flex;gap:6px;flex-wrap:wrap}
+.sugs button{border:1px solid #ffffff22;background:none;border-radius:99px;padding:4px 12px;font-size:13px}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;border:2px solid var(--ink-2);background:none;border-radius:12px;padding:8px}
+.seg button[aria-pressed=true]{border-color:var(--eye);color:var(--eye)}
+.upload{display:flex;align-items:center;gap:12px;padding:12px;border:2px dashed #ffffff26;border-radius:14px}
+.upload .thumb{width:64px;height:56px;border-radius:12px;background:#ffffff10;flex:none;display:grid;place-items:center;font-size:22px}
+.upload .thumb svg{width:100%;height:auto;display:block}
+.upload .txt{flex:1;min-width:0;font-size:13px;color:var(--muted);line-height:1.5}
+.upload .txt b{color:var(--paper);font-weight:500;display:block;font-size:14px}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* modal */
+.modal{position:fixed;inset:0;background:#0b1020b3;display:grid;place-items:center;z-index:50;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:fade .25s}
+@keyframes fade{from{opacity:0}}
+.card{background:var(--paper);color:#2a2a33;border-radius:20px;padding:20px;max-width:420px;width:100%;max-height:86vh;overflow:auto;display:flex;flex-direction:column;gap:12px;
+  box-shadow:0 20px 50px #0008;animation:pop .3s cubic-bezier(.2,1.4,.5,1)}
+@keyframes pop{from{transform:scale(.9)}}
+.card .kicker{font-size:12px;letter-spacing:.12em;color:#8a7f6d}
+.card h2{font-size:24px}
+.card p{margin:0;white-space:pre-line;font-family:var(--display);font-size:17px;line-height:1.7}
+.card .opts{display:flex;flex-direction:column;gap:8px}
+.card .opt{text-align:left;border:0;border-radius:12px;padding:12px 14px;background:#2a2a330d;color:#2a2a33;font-size:15px;box-shadow:inset 0 -2px 0 #0001}
+.card .opt:hover{background:#2a2a331a}
+.card .opt small{display:block;color:#7b7468;font-size:12px;margin-top:2px}
+.card .res{background:#F2B53B2e;border-radius:12px;padding:10px 12px}
+.mem{display:grid;grid-template-columns:76px 1fr;gap:4px 12px;font-size:14px;line-height:1.6}
+.mem .a{color:#8a7f6d;font-variant-numeric:tabular-nums}
+.mem .x{font-family:var(--display);font-size:15px}
+
+/* ending */
+.sky{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:1/0.75;background:radial-gradient(ellipse at 50% 120%,#3b4a7a,#141a33 70%)}
+.sky .stars{position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 10% 20%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 30% 60%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 80% 30%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 60% 15%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 90% 70%,#fff 50%,transparent 51%);background-size:160px 160px;animation:twinkle 4s ease-in-out infinite alternate}
+@keyframes twinkle{to{opacity:.5}}
+.sky .bow{position:absolute;left:50%;bottom:-62%;width:120%;aspect-ratio:1;transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(circle,transparent 52%,#e7756a55 52% 55%,#f2b53b55 55% 58%,#8cc98a55 58% 61%,#7fb7e655 61% 64%,#b49ae055 64% 67%,transparent 67%)}
+.sky .soul{position:absolute;left:50%;bottom:24%;width:34%;transform:translateX(-50%);animation:drift 5s ease-in-out infinite;opacity:.95}
+@keyframes drift{50%{transform:translate(-50%,-6%)}}
+.letter{background:var(--paper);color:#2f2a26;border-radius:6px 6px 18px 18px;padding:22px 20px;font-family:var(--letter);font-size:17px;line-height:1.95;white-space:pre-wrap;
+  background-image:repeating-linear-gradient(transparent 0 32px,#c9bfae55 32px 33px);background-position:0 18px;box-shadow:0 12px 30px #0006;min-height:200px}
+.letter .cur{display:inline-block;width:2px;height:1em;background:#2f2a26;vertical-align:-2px;animation:blinkc 1s step-end infinite}
+@keyframes blinkc{50%{opacity:0}}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+.summary div{background:var(--ink-2);border-radius:12px;padding:10px 4px}
+.summary b{display:block;font-family:var(--display);font-size:22px;color:var(--eye);font-variant-numeric:tabular-nums}
+.summary span{font-size:11px;color:var(--muted)}
+.fadeout{animation:fadeout 2.2s forwards}
+@keyframes fadeout{to{opacity:0;filter:blur(4px)}}
+
+@media (max-width:420px){.stats{grid-template-columns:repeat(5,1fr);gap:6px}.stat .lab{font-size:11px}.top h1{font-size:24px}.summary{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="modalRoot"></div>
+<input type="file" id="photoInput" accept="image/*" class="visually-hidden" tabindex="-1">
+
+<script>
+(() => {
+'use strict';
+/* ---------- utilities ---------- */
+const $ = s => document.querySelector(s);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const KEY = 'cat-life-v1';
+
+/* ---------- coats ---------- */
+const WHITE = '#FBF8F3';
+const COATS = [
+  {id:'orange',  name:'Orange tabby',   base:'#EDA65E', stripe:'#CB7A33', tabby:true, eye:'#A6C85A', nose:'#E98A8A', names:['Mango','Nugget','Tater','Pumpkin']},
+  {id:'ow',      name:'Orange & white', base:'#EFAB68', stripe:'#D3843F', tabby:true, white:['muzzle','chest','paws'], eye:'#EDBB3A', nose:'#F09A9A', names:['Chai','Pudding','Cheddar']},
+  {id:'black',   name:'Black',   base:'#2C2A33', eye:'#F4C430', nose:'#6A5560', names:['Soot','Pepper','Licorice','Luna']},
+  {id:'white',   name:'White',   base:'#FAF7F1', eye:'#86BEEA', eye2:'#EDC33F', nose:'#F4A3AC', names:['Mochi','Dumpling','Snowball']},
+  {id:'grey',    name:'Grey',   base:'#8E98A6', eye:'#EAA93C', nose:'#82707C', names:['Smokey','Pebble','Misty']},
+  {id:'tabby',   name:'Brown tabby', base:'#A9896A', stripe:'#4E3C2C', tabby:true, white:['muzzle'], eye:'#B9C64B', nose:'#D88A80', names:['Tiger','Mocha','Chestnut']},
+  {id:'calico',  name:'Calico', base:'#FAF6EE', patches:['#E59B50','#33302F'], eye:'#DDAA36', nose:'#F2A0A6', names:['Patches','Callie','Daisy']},
+  {id:'tuxedo',  name:'Tuxedo', base:'#28262D', white:['muzzle','chest','paws'], eye:'#A0C760', nose:'#F2A3AB', names:['Oreo','Domino','Moo']},
+  {id:'siamese', name:'Siamese', base:'#F0E5D3', points:'#5D4538', eye:'#72AEE6', nose:'#5D4538', names:['Cocoa','Caramel','Latte']},
+  {id:'tortie',  name:'Tortoiseshell', base:'#3C2D27', patches:['#CD7B3D','#9A6238'], eye:'#E3AB3C', nose:'#6E4E46', names:['Toffee','Smudge','Brownie']},
+  {id:'gw',      name:'Grey & white', base:'#9299A4', white:['muzzle','chest','paws','belly'], eye:'#E6B53E', nose:'#F0A0A8', names:['Ash','Mimi','Casper']},
+];
+const COAT = Object.fromEntries(COATS.map(c => [c.id, c]));
+const lum = hex => {const n=parseInt(hex.slice(1),16);return (0.299*(n>>16)+0.587*(n>>8&255)+0.114*(n&255))/255};
+const darken = (hex, f) => {const n=parseInt(hex.slice(1),16);const r=Math.round((n>>16)*f),g=Math.round((n>>8&255)*f),b=Math.round((n&255)*f);return '#'+((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1)};
+
+/* ---------- drawing ---------- */
+const soften = (hex, k) => {const n=parseInt(hex.slice(1),16);const f=v=>Math.round(v+(255-v)*k);return '#'+((1<<24)|(f(n>>16)<<16)|(f(n>>8&255)<<8)|f(n&255)).toString(16).slice(1)};
+// the round silhouette an uploaded photo is cut into
+function dangoShape(stage){
+  const cx = 100;
+  const P = stage==='kitten' ? {T:112,Bm:200,a:46,b:52} : stage==='senior' ? {T:96,Bm:200,a:54,b:68} : {T:94,Bm:200,a:53,b:64};
+  const {T,Bm,a,b} = P, hy = T + a*.82, mid = Bm - hy;
+  const blob = `M${cx-a},${hy} C${cx-a},${T+a*.22} ${cx-a*.55},${T} ${cx},${T} C${cx+a*.55},${T} ${cx+a},${T+a*.22} ${cx+a},${hy}
+    C${cx+a*1.04},${hy+mid*.3} ${cx+b*1.06},${Bm-mid*.35} ${cx+b*.95},${Bm-7} C${cx+b*.82},${Bm+2} ${cx-b*.82},${Bm+2} ${cx-b*.95},${Bm-7}
+    C${cx-b*1.06},${Bm-mid*.35} ${cx-a*1.04},${hy+mid*.3} ${cx-a},${hy}Z`;
+  const earL = [[cx-a*.97,hy-a*.42],[cx-a*.8,T-a*.26],[cx-a*.3,T+a*.06]], earR = earL.map(([x,y])=>[2*cx-x,y]);
+  return {T,Bm,a,b,hy,mid,blob,earL,earR};
+}
+// "sticker" style: Japanese planner-sticker look — 1:1 head and body, thick #2B2B2B line, white die-cut edge, macaron colours
+const INK = '#2B2B2B';
+function duckSVG(x, y, s=1){
+  return `<g transform="translate(${x} ${y}) scale(${s})" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round">
+<ellipse cx="0" cy="6" rx="14" ry="9" fill="#FFE27A"/><circle cx="-5" cy="-6" r="8.5" fill="#FFE27A"/>
+<path d="M-13,-6 Q-20,-5 -13,-2Z" fill="#FFAE5C"/><path d="M6,4 Q12,0 13,6" fill="none"/>
+<circle cx="-7" cy="-8" r="1.6" fill="${INK}" stroke="none"/><ellipse cx="-2" cy="-3" rx="2.4" ry="1.4" fill="#FFB3C1" stroke="none"/></g>`;
+}
+function leafSVG(x, y){
+  return `<g transform="translate(${x} ${y}) rotate(-20)" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+<path d="M0,6 C-12,-2 -6,-18 8,-20 C12,-8 10,4 0,6Z" fill="#A8DDA0"/><path d="M0,6 L5,-12" fill="none" stroke-width="1.8"/><path d="M0,6 L-2,12" fill="none"/></g>`;
+}
+function canSVG(x, y, s=1){
+  return `<g transform="translate(${x} ${y}) scale(${s})" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round">
+<path d="M-16,0 L-14,16 Q0,20 14,16 L16,0Z" fill="#BFE3F5"/><ellipse cx="0" cy="0" rx="16" ry="5" fill="#E9F6FC"/>
+<ellipse cx="0" cy="-3" rx="13" ry="6" fill="#F6C59A"/><path d="M-6,-6 q3,-4 6,0 M2,-5 q3,-4 6,0" fill="none" stroke-width="1.6"/>
+<path d="M-7,9 q4,-4 8,0 q-4,4 -8,0Z M1,9 l4,-3 v6Z" fill="#FF9AAE" stroke-width="1.4"/></g>`;
+}
+const pawPrint = (x, y, r, k=1) => `<g transform="translate(${x} ${y}) rotate(${r}) scale(${k})" fill="#FFB3C1"><ellipse cx="0" cy="4" rx="5.5" ry="4.5"/><circle cx="-5.5" cy="-3" r="2.2"/><circle cx="-1.8" cy="-6" r="2.2"/><circle cx="2.2" cy="-6" r="2.2"/><circle cx="5.8" cy="-3" r="2.2"/></g>`;
+function stickerSVG(coatId, seed, stage, expr, ageM, deco){
+  const c0 = COAT[coatId], rnd = mulberry32(seed||1), id = 'k'+(++uidN);
+  const dark = lum(c0.base) < .3;
+  const mac = h => soften(h, dark ? .12 : .32);
+  const c = {...c0, base:mac(c0.base), stripe:c0.stripe&&mac(c0.stripe), points:c0.points&&mac(c0.points), patches:c0.patches&&c0.patches.map(mac)};
+  const W2 = dark ? WHITE : WHITE;
+  const cx = 100, kit = stage==='kitten', old = stage==='senior';
+  const H = kit ? {cy:132,rx:50,ry:42} : {cy:118,rx:52,ry:43};
+  const B = kit ? {cy:176,rx:38,ry:27} : {cy:170,rx:old?52:47,ry:33};
+  const earL = [[cx-H.rx*.92,H.cy-H.ry*.38],[cx-H.rx*.72,H.cy-H.ry*1.22],[cx-H.rx*.28,H.cy-H.ry*.92]], earR = earL.map(([x,y])=>[2*cx-x,y]);
+  const poly = p => p.map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ');
+  const inner = p => {const mx=(p[0][0]+p[1][0]+p[2][0])/3,my=(p[0][1]+p[1][1]+p[2][1])/3;return p.map(([x,y])=>[mx+(x-mx)*.45,my+(y-my)*.45+3])};
+  const bot = B.cy + B.ry, paws = [[cx-14,bot-3],[cx+14,bot-3]];
+  const tx = cx + B.rx*.7, ty = B.cy + B.ry*.45;
+  const tailD = `M${tx},${ty} C${tx+24},${ty+4} ${tx+30},${ty-22} ${tx+16},${ty-34}`;
+  const shapes = `<polygon points="${poly(earL)}"/><polygon points="${poly(earR)}"/><ellipse cx="${cx}" cy="${B.cy}" rx="${B.rx}" ry="${B.ry}"/><ellipse cx="${cx}" cy="${H.cy}" rx="${H.rx}" ry="${H.ry}"/>`;
+  const tw = 17;   // chunky tail
+  // union outline: stroke everything wide underneath, then fill on top (white die-cut edge, then ink)
+  const edge = (col, w) => `<g fill="${col}" stroke="${col}" stroke-width="${w}" stroke-linejoin="round">${shapes}</g>`;
+  const tailEdge = (col, w) => `<path d="${tailD}" stroke="${col}" stroke-width="${tw+w}" fill="none" stroke-linecap="round"/>`;
+  let tail = `<path d="${tailD}" stroke="${c.base}" stroke-width="${tw}" fill="none" stroke-linecap="round"/>`;
+  if(c.tabby) tail += `<path d="${tailD}" stroke="${c.stripe}" stroke-width="${tw}" fill="none" stroke-dasharray="6 7"/>`;
+  if(c.points) tail += `<path d="${tailD}" stroke="${c.points}" stroke-width="${tw}" fill="none" stroke-linecap="round" stroke-dasharray="0 18 200"/>`;
+  if(c.patches) tail += `<path d="${tailD}" stroke="${c.patches[0]}" stroke-width="${tw}" fill="none" stroke-linecap="round" stroke-dasharray="14 10"/>`;
+  // markings
+  const Wt = c.white || [];
+  const ey = H.cy + H.ry*.12, ex = H.rx*.48, my = H.cy + H.ry*.42;
+  let ov = '';
+  if(Wt.includes('belly') || Wt.includes('chest')) ov += `<ellipse cx="${cx}" cy="${B.cy+4}" rx="${B.rx*.55}" ry="${B.ry*.8}" fill="${W2}"/>`;
+  if(c.tabby){
+    for(let i=-1;i<=1;i++) ov += `<path d="M${cx+i*9},${H.cy-H.ry} L${cx+i*7.5},${H.cy-H.ry*.62}" stroke="${c.stripe}" stroke-width="4.5" stroke-linecap="round"/>`;
+    for(const s of [-1,1]){ for(let j=0;j<2;j++) ov += `<path d="M${cx+s*(H.rx+2)},${H.cy-6+j*10} L${cx+s*H.rx*.74},${H.cy-2+j*10}" stroke="${c.stripe}" stroke-width="4" stroke-linecap="round"/>`;
+      for(let j=0;j<3;j++) ov += `<path d="M${cx+s*(B.rx+3)},${B.cy-12+j*12} Q${cx+s*B.rx*.7},${B.cy-8+j*12} ${cx+s*B.rx*.55},${B.cy-14+j*12}" stroke="${c.stripe}" stroke-width="5" fill="none" stroke-linecap="round"/>`; }
+  }
+  if(c.patches){
+    const sL = rnd() < .5 ? -1 : 1;
+    ov += `<ellipse cx="${cx+sL*H.rx*.55}" cy="${H.cy-H.ry*.6}" rx="${H.rx*.6}" ry="${H.ry*.55}" fill="${c.patches[0]}"/>`;
+    if(rnd() < .6) ov += `<ellipse cx="${cx-sL*H.rx*.75}" cy="${H.cy-H.ry*.75}" rx="${H.rx*.32}" ry="${H.ry*.32}" fill="${c.patches[1]}"/>`;
+    ov += `<ellipse cx="${cx-sL*B.rx*.6}" cy="${B.cy+2}" rx="${B.rx*.42}" ry="${B.ry*.55}" fill="${c.patches[1%c.patches.length]}"/><ellipse cx="${cx+sL*B.rx*.8}" cy="${B.cy-6}" rx="${B.rx*.3}" ry="${B.ry*.4}" fill="${c.patches[0]}"/>`;
+  }
+  if(Wt.includes('muzzle')) ov += `<ellipse cx="${cx}" cy="${my+2}" rx="${H.rx*.5}" ry="${H.ry*.36}" fill="${W2}"/>` + (c.id==='tuxedo' ? `<path d="M${cx-8},${my-4} L${cx},${H.cy-H.ry*.7} L${cx+8},${my-4}Z" fill="${W2}"/>` : '');
+  if(c.points) ov += `<g filter="url(#${id}b)"><ellipse cx="${cx}" cy="${my-2}" rx="${H.rx*.46}" ry="${H.ry*.4}" fill="${c.points}"/><polygon points="${poly(earL)}" fill="${c.points}"/><polygon points="${poly(earR)}" fill="${c.points}"/></g>`;
+  if(ageM >= 132) ov += `<ellipse cx="${cx}" cy="${my}" rx="${H.rx*.5}" ry="${H.ry*.3}" fill="#fff" opacity=".45" filter="url(#${id}b)"/>`;
+  const pawFill = Wt.includes('paws') ? W2 : c.points || c.base;
+  // face
+  const faceBase = Wt.includes('muzzle') ? W2 : c.base;
+  const eyeDark = !!c.points || dark;
+  const fl = (c.points || lum(faceBase) < .3) ? '#FFF6EC' : INK;
+  const eyes = [-1,1].map((s,i) => {
+    const x = cx + s*ex;
+    if(expr==='happy') return `<path d="M${x-5},${ey+2} Q${x},${ey-5} ${x+5},${ey+2}" stroke="${fl}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+    if(expr==='sleep') return `<path d="M${x-5},${ey} Q${x},${ey+5} ${x+5},${ey}" stroke="${fl}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+    if(expr==='angry') return `<path d="M${x-s*4.5},${ey-4} L${x+s*3.5},${ey} L${x-s*4.5},${ey+4}" stroke="${fl}" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+    if(expr==='dizzy') return `<path d="M${x-4},${ey-4} L${x+4},${ey+4} M${x+4},${ey-4} L${x-4},${ey+4}" stroke="${fl}" stroke-width="2.8" stroke-linecap="round"/>`;
+    const k = kit ? 1.15 : 1;
+    const sad = expr==='sad' ? `<path d="M${x-5},${ey-8+(s<0?-1.5:1.5)} L${x+5},${ey-8+(s<0?1.5:-1.5)}" stroke="${fl}" stroke-width="2.2" stroke-linecap="round"/><ellipse cx="${x+s*3}" cy="${ey+9}" rx="2.2" ry="3" fill="#8FD0F5"/>` : '';
+    const dot = eyeDark
+      ? `<circle cx="${x}" cy="${ey}" r="${6*k}" fill="#FFF6EC"/><ellipse cx="${x}" cy="${ey+.5}" rx="${3.6*k}" ry="${4.4*k}" fill="${INK}"/>`
+      : `<ellipse cx="${x}" cy="${ey}" rx="${4*k}" ry="${4.8*k}" fill="${INK}"/>`;
+    return `<g class="eye">${dot}<circle cx="${x-1.3*k}" cy="${ey-1.8*k}" r="${1.5*k}" fill="#fff"/></g>${sad}`;
+  }).join('');
+  const nose = `<ellipse cx="${cx}" cy="${my-5}" rx="2.6" ry="1.8" fill="${c0.nose}"/>`;
+  const w = `M${cx-6},${my-1} Q${cx-3},${my+4} ${cx},${my-1} Q${cx+3},${my+4} ${cx+6},${my-1}`;
+  const mouth = expr==='angry'||expr==='dizzy'||expr==='sad'
+    ? `<path d="M${cx-4},${my+3} Q${cx},${my-1} ${cx+4},${my+3}" stroke="${fl}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`
+    : `<path d="${w}" stroke="${fl}" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>` + (expr==='happy' ? `<path d="M${cx-3},${my+1.5} Q${cx},${my+8} ${cx+3},${my+1.5}Z" fill="#FF8FA3"/>` : '');
+  const blush = [-1,1].map(s => `<ellipse cx="${cx+s*H.rx*.66}" cy="${my-1}" rx="8.5" ry="5" fill="#FFB3C1" opacity="${expr==='happy'?.9:.75}"/>`).join('');
+  const innerEar = '#FFC4CF';
+  const hat = kit ? leafSVG(cx+10, H.cy-H.ry*1.02) : duckSVG(cx+8, H.cy-H.ry*1.12, .95);
+  const bg = deco ? `<circle cx="100" cy="${(H.cy+B.cy)/2}" r="78" fill="${['#FFF1C9','#D9ECFA','#FFE0E6'][(seed||0)%3]}"/>${pawPrint(30,190,-20)}${pawPrint(178,92,25,.8)}${pawPrint(170,196,15,.9)}${pawPrint(36,100,-30,.7)}${canSVG(38,182,1)}` : '';
+  return `<svg viewBox="${deco?'14 42 184 168':'0 52 212 160'}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs><clipPath id="${id}c">${shapes}</clipPath><filter id="${id}b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
+<filter id="${id}w" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="${(seed%50)+1}"/><feDisplacementMap in="SourceGraphic" scale="1.8" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+${bg}
+<ellipse cx="100" cy="${bot+4}" rx="${B.rx+10}" ry="6" fill="#0000001a"/>
+<g class="bob ${expr==='sleep'?'sleepy':''}"><g filter="url(#${id}w)">
+${edge('#fff', 14)}
+<g class="tail" style="transform-origin:${tx}px ${ty}px">${tailEdge('#fff', 14)}${tailEdge(INK, 6)}${tail}</g>
+${edge(INK, 6)}
+<g fill="${c.base}">${shapes}</g>
+<g clip-path="url(#${id}c)">${ov}</g>
+<path d="M${cx-H.rx*.62},${H.cy+H.ry*.86} Q${cx},${H.cy+H.ry*1.12} ${cx+H.rx*.62},${H.cy+H.ry*.86}" stroke="${INK}" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".55"/>
+<polygon points="${poly(inner(earL))}" fill="${innerEar}" stroke="${innerEar}" stroke-width="3" stroke-linejoin="round"/><polygon points="${poly(inner(earR))}" fill="${innerEar}" stroke="${innerEar}" stroke-width="3" stroke-linejoin="round"/>
+<g stroke="${INK}" stroke-width="2.6">${paws.map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="10" ry="7" fill="${pawFill}"/>`).join('')}</g>
+${hat}</g>
+${blush}${eyes}${nose}${mouth}
+</g></svg>`;
+}
+let uidN = 0;
+function catSVG(coatId, seed, stage, expr, ageM, deco){
+  return stickerSVG(coatId, seed, stage, expr, ageM, deco);
+}
+// photo version: the user's own photo cut into the cat silhouette (body, ears and tail)
+function photoCat(photo, stage, expr, pos = S && S.photoPos){
+  const pz = pos || {x:0, y:0, z:1};
+  const {T,Bm,a,b,blob,earL,earR} = dangoShape(stage), cx = 100, id = 'k'+(++uidN), line = '#6B5A53';
+  const poly = p => p.map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ');
+  const tx = cx+b*.86, ty = Bm-10, tk = stage==='kitten' ? .75 : 1;
+  const tailD = `M${tx},${ty} C${tx+26*tk},${ty+2} ${tx+34*tk},${ty-30*tk} ${tx+18*tk},${ty-52*tk}`;
+  // the photo covers the body's bounding box; ears and tail sample it too
+  const by = T-a*.3, bh = Bm-by+4, bw = Math.max(bh, (b+4)*2), bx = cx - bw/2;
+  const ar = pz.ar || 1, iw = bw*pz.z*Math.max(1, ar), ih = bh*pz.z*Math.max(1, 1/ar);
+  const flt = stage==='senior' ? ' style="filter:saturate(.75) sepia(.15)"' : '';
+  const markX = cx + a*.75, markY = T - 2;
+  const marks = expr==='happy' ? `<text x="${markX}" y="${markY}" font-size="20">💕</text>`
+    : expr==='sleep' ? `<text x="${markX}" y="${markY}" font-size="18" fill="#fff" stroke="#6B5A53" stroke-width=".6" font-family="serif">z z</text>`
+    : expr==='angry' ? `<text x="${markX}" y="${markY}" font-size="20">💢</text>`
+    : expr==='sad'||expr==='dizzy' ? `<text x="${markX}" y="${markY}" font-size="18">💧</text>` : '';
+  return `<svg viewBox="4 66 204 146" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs><pattern id="${id}p" patternUnits="userSpaceOnUse" x="${bx}" y="${by}" width="${bw}" height="${bh}">
+<image href="${photo}" x="${(bw-iw)/2 + pz.x*bw}" y="${(bh-ih)/2 + pz.y*bh}" width="${iw}" height="${ih}" preserveAspectRatio="xMidYMid slice"${flt}/></pattern></defs>
+<ellipse cx="100" cy="${Bm+3}" rx="${b+14}" ry="6" fill="#0000001c"/>
+<g class="bob ${expr==='sleep'?'sleepy':''}">
+<g class="tail" style="transform-origin:${tx}px ${ty}px"><path d="${tailD}" stroke="${line}" stroke-width="12.5" fill="none" stroke-linecap="round"/><path d="${tailD}" stroke="url(#${id}p)" stroke-width="8.5" fill="none" stroke-linecap="round"/></g>
+<g stroke="${line}" stroke-width="2.3" stroke-linejoin="round" fill="url(#${id}p)"><polygon points="${poly(earL)}"/><polygon points="${poly(earR)}"/><path d="${blob}"/></g>
+<g fill="none" stroke="#ffffffcc" stroke-width="2" stroke-linecap="round">${[[cx-15,Bm-3],[cx+15,Bm-3]].map(([x,y])=>`<path d="M${x-9},${y+1} Q${x},${y-9} ${x+9},${y+1}"/>`).join('')}</g>
+${marks}
+</g></svg>`;
+}
+
+// drag to move, slider to zoom; preview is the real cat-shaped cut
+function photoAdjust(){
+  if(!S.photo) return;
+  const pos = {...(S.photoPos || {x:0, y:0, z:1})};
+  const st = S.phase==='life' ? stage() : 'adult';
+  modal(`<div class="kicker">Adjust photo</div><h2>Center your kitty</h2><p>Drag the photo with your finger and use the slider to zoom. Zoom in to move it around more.</p>
+    <div class="adj" id="adj"></div>
+    <div class="zoom"><span>−</span><input type="range" id="zoomIn" min="1" max="3" step="0.01" value="${pos.z}" aria-label="Zoom"><span>+</span></div>
+    <div class="opts"><button class="opt" id="adjOk" style="text-align:center;background:#F2B53B;font-weight:700">Done</button><button class="opt" id="adjReset" style="text-align:center;background:none">Reset</button></div>`, r => {
+    const box = $('#adj'), zoom = $('#zoomIn');
+    const draw = () => { box.innerHTML = photoCat(S.photo, st, 'normal', pos); };
+    const ar = pos.ar || 1;
+    // keep the photo covering the whole cat: it can only slide as far as it is bigger than the cat
+    const lim = () => { const mx = (pos.z*Math.max(1,ar) - 1)/2, my = (pos.z*Math.max(1,1/ar) - 1)/2; pos.x = clamp(pos.x, -mx, mx); pos.y = clamp(pos.y, -my, my); };
+    let drag = null;
+    box.onpointerdown = e => { drag = {x:e.clientX, y:e.clientY, px:pos.x, py:pos.y}; box.setPointerCapture(e.pointerId); };
+    box.onpointermove = e => {
+      if(!drag) return;
+      // the preview is ~1.5x the photo tile wide, so scale finger movement to the tile
+      const w = box.clientWidth / 1.5;
+      pos.x = drag.px + (e.clientX - drag.x) / w; pos.y = drag.py + (e.clientY - drag.y) / w; lim(); draw();
+    };
+    box.onpointerup = box.onpointercancel = () => { drag = null; };
+    zoom.oninput = () => { pos.z = +zoom.value; lim(); draw(); };
+    $('#adjReset').onclick = () => { pos.x = 0; pos.y = 0; pos.z = 1; zoom.value = 1; draw(); };
+    $('#adjOk').onclick = () => { S.photoPos = {...pos}; save(); closeModal(); render(); };
+    draw();
+  });
+}
+
+/* ---------- language: index.html is Chinese; en.html / ja.html are generated from it (tools/build-i18n.py) ---------- */
+const LANG = 'en';
+const LANGS = [['zh','中文','index.html'],['en','English','en.html'],['ja','日本語','ja.html']];   // i18n-skip
+function langLinks(){ return `<nav class="langs">${LANGS.map(([k,name,href]) => `<a href="${href}" data-lang="${k}" ${k===LANG?'aria-current="page"':''}>${name}</a>`).join('')}</nav>`; }   // i18n-skip
+function bindLangLinks(root){ root.querySelectorAll('[data-lang]').forEach(a => a.addEventListener('click', () => { try{ localStorage.setItem('cat-lang', a.dataset.lang); }catch(e){} })); }
+function langPicker(){
+  modal(`<div class="kicker">Language · 語言 · 言語</div><h2>🐾</h2><div class="opts">${LANGS.map(([k,name,href]) => `<a class="opt" style="text-align:center;text-decoration:none" href="${href}" data-lang="${k}">${name}</a>`).join('')}</div>`, r => bindLangLinks(r));   // i18n-skip
+}
+
+/* ---------- state ---------- */
+const SLOTS = ['Morning','Afternoon','Evening'];
+let S = null;
+function fresh(){
+  return {v:1, phase:'intro', coatId:pick(COATS).id, seed:Math.floor(Math.random()*1e9), gender:Math.random()<.5?'f':'m', name:'', photo:null,
+    ageM:1, slot:0, day:1, lifespanM:(13+Math.floor(Math.random()*6))*12, stats:{full:45,mood:40,clean:30,health:55,bond:5},
+    counts:{pet:0,meal:0,play:0,brush:0,vet:0,bite:0,trip:0,er:0}, memories:[], flags:{}, seen:{}, sick:false, later:[], weight:0, neglect:{full:0,clean:0,mood:0}, money:300, owned:[], placed:{}, past:[], petsToday:0, treatsToday:0, bondFromPets:0, narr:''};
+}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1)return s}catch(e){}return null}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){try{const t={...S,photo:null};localStorage.setItem(KEY,JSON.stringify(t))}catch(_){}}}
+
+const P = () => S.gender==='f' ? 'her' : 'him';
+const N = () => S.name || 'Kitty';
+const PRON = {f:{she:'she', She:'She', her:'her', his:'her'}, m:{she:'he', She:'He', her:'him', his:'his'}};
+const fill = (t, v = {}) => t.replace(/\{(\w+)\}/g, (m, k) => k === 'n' ? N() : k === 'p' ? P() : (PRON[S.gender] && PRON[S.gender][k]) || (k in v ? v[k] : m));
+const add = (k, d) => { S.stats[k] = clamp(S.stats[k] + d, 0, 100); };
+const stage = (m = S.ageM) => m < 12 ? 'kitten' : m < 120 ? 'adult' : 'senior';
+const stageName = m => m < 12 ? 'Kitten' : m < 84 ? 'Adult' : m < 132 ? 'Mature' : 'Senior';
+const ageLabel = m => m < 12 ? `${m} month${m===1?'':'s'}` : `${Math.floor(m/12)}${m%12>=6?'½':''} year${m<18?'':'s'}`;
+function humanAge(m){ if(m<=12) return [0,1,3,4,6,8,10,11,12,13,14,14,15][m]; const y=m/12; return y<2 ? Math.round(15+(y-1)*9) : Math.round(24+(y-2)*4); }
+function mem(text){ S.memories.push({ageM:S.ageM, text:fill(text)}); }
+
+/* ---------- events ----------
+   choice.fx returns a result string, or {text, next:event} for a follow-up question. */
+const EVENTS = [
+  // travel — the big one
+  {id:'trip', min:12, repeat:true, title:'A trip abroad?', text:'A friend invites you on a ten-day trip, and the flights are super cheap. {n} watches you open your suitcase.', choices:[
+    {label:'Go!', hint:'You’ll need someone to look after {her}', fx:()=>({text:'You booked the tickets. But what about {n}?', next:{title:'Who will look after {n}?', text:'Ten days is a long time. Plan carefully.', choices:[
+      {label:'Hire a pet sitter to visit daily', hint:'Safest for {her}, but {she}’ll miss you', fx:()=>{S.counts.trip++;add('mood',-8);add('health',2);mem('While you were away, the sitter sent you photos of {her} every day');return 'The sitter sends you photos every day. {n} sleeps on your pillow the whole time. When you get home, {she} pretends not to know you for three minutes, then sticks to you all night.';}},
+      {label:'Cat hotel', hint:'New places are stressful', fx:()=>{S.counts.trip++;add('mood',-18);add('health',-5);later('hotelStress',1,1);return '{n} hid in a corner of the cat hotel for ten days. Back home, {she} sniffed every inch of the house before finally falling asleep.';}},
+      {label:'Ask a friend to drop by', hint:'Cheap, but a bit risky', fx:()=>{S.counts.trip++;if(Math.random()<.5){add('full',-30);add('clean',-35);add('mood',-12);later('uti',1,2);return 'Your friend got busy and forgot for two days. When you get home the litter box is overflowing, and {n} yells at you for a long, long time.';}add('mood',-5);mem('You came home from a trip to find {her} a little chubbier');return 'Your friend totally spoiled {n} with wet food every day. {She} looks a little chubbier.';}},
+    ]}})},
+    {label:'Stay home with {her}', hint:'', fx:()=>{add('bond',6);add('mood',8);mem('You gave up a trip to stay home and sunbathe with {her}');return 'You put the suitcase away. {n} immediately hops in and naps there all afternoon.';}},
+  ]},
+  {id:'mouse', min:6, title:'A mouse in the house!', text:'Rustle, rustle… something’s in the kitchen at midnight. {n}’s ears swivel toward it, and {his} bottom starts to wiggle.', choices:[
+    {label:'Go get it!', fx:()=>{if(stage()==='senior'||Math.random()<.35){add('mood',-3);return '{n} pounces… and the mouse runs right past {her}. {She} starts licking {his} fur like nothing happened.';}add('mood',15);add('bond',3);if(Math.random()<.6)later('worms',2,4);mem('You praised {her} for catching the mouse in the house');return 'After a big commotion, {n} trots over with the mouse, drops it at your feet, and looks up at you, waiting for praise.';}},
+    {label:'Set a trap, keep {her} in a room', fx:()=>{add('mood',-4);return 'The mouse is caught the next day. {n} sulks at the door {she} was shut behind all day long.';}},
+  ]},
+  {id:'cup', min:4, title:'Crash!', text:'{n} looks you right in the eye and slowly pushes your cup off the table with one paw.', choices:[
+    {label:'Scold {her}', fx:()=>{add('mood',-4);return '{She} turns away and licks {his} fur. Not listening at all.';}},
+    {label:'Oh well, take a photo', fx:()=>{add('bond',3);mem('You laughed and took a photo of {her} pushing a cup off the table');return 'In the photo, {n} looks totally innocent.';}},
+  ]},
+  {id:'gift', min:6, title:'A gift', text:'You wake up to find… a cockroach next to your pillow. {n} sits beside it, very proud.', choices:[
+    {label:'Th-thank you (tiny scream)', fx:()=>{add('bond',4);mem('You got a cockroach from {her} as a gift');return '{n} looks very pleased. Apparently you’re a big cat who can’t hunt.';}},
+    {label:'Quietly toss it in a tissue', fx:()=>{add('mood',-2);return '{n} watches the gift get thrown away and looks a little sad.';}},
+  ]},
+  {id:'keyboard', min:6, title:'Working late', text:'You’re rushing to finish a report, and {n} plops right down on the keyboard: ggggggggggggggggg', choices:[
+    {label:'Take a break with {her}', fx:()=>{add('mood',10);add('bond',3);mem('You stopped working to play with {her} after a keyboard sit-in');return 'You close the laptop. {n} happily curls up on top of it while it’s still warm.';}},
+    {label:'Move {her} and keep working', fx:()=>{add('mood',-5);return 'Thirty seconds later, {she}’s back.';}},
+  ]},
+  {id:'box', min:2, title:'Cardboard box', text:'Your package arrived. {n} doesn’t care what’s inside. {She} only wants the box.', choices:[
+    {label:'The box is yours', fx:()=>{add('mood',12);mem('You gave {her} a first-ever cardboard castle');return '{n} climbs in until only two ears poke out.';}},
+  ]},
+  {id:'bird', min:3, title:'By the window', text:'{n} stares at the sparrows outside, jaw trembling, making little “ek-ek-ek” sounds.', choices:[
+    {label:'Bird-watch with {her}', fx:()=>{add('bond',3);add('mood',5);return 'You spend the whole afternoon watching birds together.';}},
+  ]},
+  {id:'hairball', min:8, title:'Hurk—', text:'In the middle of the night, a familiar sound: “hurk, hurk, hurk.” {n} left a hairball on the rug.', choices:[
+    {label:'Clean up and brush {her}', fx:()=>{add('clean',10);add('health',5);return 'You brush out enough fur to make a whole new cat.';}},
+    {label:'Deal with it tomorrow', fx:()=>{add('clean',-15);return 'In the morning, you step on it barefoot.';}},
+  ]},
+  {id:'bath', min:12, title:'Bath day', text:'Time to give {n} a bath. {She} seems to sense something and hides under the bed.', choices:[
+    {label:'Bite the bullet', fx:()=>{add('clean',30);add('mood',-15);mem('The Great Bath Battle left you with three scratches');return 'After the bath, {n} is half {his} size and gives you a deeply wounded look.';}},
+    {label:'Maybe next time', fx:()=>{add('clean',-5);return '{n} breathes a sigh of relief.';}},
+  ]},
+  {id:'sick', min:12, repeat:true, title:'Something’s not right', text:'{n} has been hiding under the bed all day and has barely eaten.', choices:[
+    {label:'Go to the vet now', fx:()=>{add('health',10);add('mood',-6);S.counts.vet++;return 'The vet says you caught it early, and one shot fixes it. {She} grumbles in the carrier the whole way home.';}},
+    {label:'Wait one more day', fx:()=>{S.sick=true;add('health',-15);later('sickWorse',1,1);return '{n} looks even more tired.';}},
+  ]},
+  {id:'sunbath', min:3, title:'Sunbathing', text:'Afternoon sun pours into the living room, and {n} stretches out into one long, long cat.', choices:[
+    {label:'Lie down next to {her}', fx:()=>{add('bond',3);add('mood',5);mem('You lay on the floor in the sun, side by side');return 'The floor is warm, and you both fall asleep.';}},
+  ]},
+  {id:'lap', min:2, title:'Lap cat', text:'The moment you sit down, {n} hops into your lap, turns three circles, and falls asleep. You were just about to go to the bathroom.', choices:[
+    {label:'Don’t move (legs going numb)', fx:()=>{add('bond',5);mem('You held it in for an hour so you wouldn’t wake {her} on your lap');return 'An hour later, you can’t feel your legs. Worth it.';}},
+    {label:'Gently move {her}', fx:()=>{add('mood',-3);return '{n} gives you a look and moves to the sofa to keep sleeping.';}},
+  ]},
+  {id:'rain', min:24, title:'Rainy day', text:'It’s raining outside, just like the day you found {n}. {She} snuggles up beside you.', choices:[
+    {label:'“I’m so glad I found you that day”', fx:()=>{add('bond',5);mem('On a rainy day, you told {her}: I’m so glad I found you');return '{n} bumps {his} head against your hand.';}},
+  ]},
+  {id:'fish', min:8, title:'Dinner thief', text:'You turn around to grab the soy sauce, and half your fried fish is gone. {n} is licking {his} lips.', choices:[
+    {label:'Share the rest with {her}', fx:()=>{add('full',10);add('mood',8);add('health',-3);if(Math.random()<.7)later('diarrhea',1,1);return '{n} decides today is a great day.';}},
+    {label:'Lift {her} down and have a talk', fx:()=>{add('mood',-3);return '{She} listens to your whole lecture, then lets out a giant yawn.';}},
+  ]},
+  {id:'toilet', min:6, title:'Bathroom patrol', text:'The second you step into the bathroom, there’s scratching at the door and dramatic wailing.', choices:[
+    {label:'Let {her} in', fx:()=>{add('bond',3);return '{n} comes in, sits at your feet, and watches you, like {she}’s making sure you’re okay.';}},
+    {label:'Privacy, please', fx:()=>{add('mood',-3);return 'A fuzzy paw reaches in under the door.';}},
+  ]},
+  {id:'xmas', min:10, title:'Christmas tree', text:'You set up a little Christmas tree. {n} stares at the sparkly ornaments, eyes getting rounder and rounder.', choices:[
+    {label:'Let {her} play', fx:()=>{add('mood',12);add('clean',-10);if(Math.random()<.6)later('ribbon',1,1);mem('You sat with {her} in a pile of ornaments after the tree came crashing down');return 'Down goes the tree. {n} sits in the middle of it all, the happiest cat in the world.';}},
+    {label:'Move it where {she} can’t jump', fx:()=>{return '{n} studies it for three days, then jumps up anyway.';}},
+  ]},
+  {id:'stray', min:24, title:'Cat at the window', text:'A stray cat visits your windowsill every day. {n} hisses at it through the glass.', choices:[
+    {label:'Leave a bowl of food downstairs', fx:()=>{add('mood',-3);later('kittens',2,4);mem('You fed a stray outside, just like the day you found {her}');return '{n} gets jealous and sits on you all night to show who’s boss.';}},
+    {label:'Close the curtains', fx:()=>{add('mood',2);return '{n} feels like {she} won.';}},
+  ]},
+  {id:'vetcheck', min:96, title:'Yearly checkup', text:'The vet says {n} is getting older, so keep an eye on {his} kidneys.', choices:[
+    {label:'Switch to vet food, add water bowls', fx:()=>{add('health',12);S.lifespanM+=4;return '{n} turns up {his} nose at the new food for two days, then gets used to it.';}},
+    {label:'Should be fine', fx:()=>{add('health',-10);later('kidney',3,6);return 'The vet looks like they want to say something, but doesn’t.';}},
+  ]},
+  {id:'stairs', min:132, title:'Can’t jump up', text:'{n} stares up at the sofa for a long time, then doesn’t jump. {She} quietly lies down on the floor.', choices:[
+    {label:'Lift {her} up, add a little step', fx:()=>{add('bond',4);add('mood',6);mem('You put a little step by the sofa for {her}');return 'The next day, {n} climbs the little step, one paw at a time, back to {his} favorite spot.';}},
+  ]},
+];
+// night-time cat behaviours (the cute/annoying ones)
+const NIGHT = [
+  {id:'knead', min:2, title:'2 a.m.', text:'Halfway through the night, you feel something kneading your tummy, left, right, left. It’s {n}, purring away, claws poking you now and then.', choices:[
+    {label:'Let {her} knead (ouch, but cute)', fx:()=>{add('bond',5);add('mood',6);mem('You woke up to {her} kneading your tummy, purring like a little motor');return 'When {she}’s done, {n} curls up on your chest and falls asleep. You don’t dare roll over.';}},
+    {label:'Roll over and sleep', fx:()=>{add('mood',-3);return '{n} moves to your face and kneads there instead.';}},
+  ]},
+  {id:'yowl', min:6, title:'3 a.m.', text:'“Mrrooowww——ooowww——” {n} carries {his} toy mouse around the living room, yowling.', choices:[
+    {label:'Get up and praise {her} hunting', fx:()=>{add('bond',4);add('mood',8);mem('You got up at 3 a.m. to praise {her} for catching a toy mouse');return '{n} drops the toy at your feet and goes quiet. {She} just wanted you to see.';}},
+    {label:'Hide under the blanket', fx:()=>{return '{She} yowls for ten more minutes, then jumps on the bed and steps on your face.';}},
+  ]},
+  {id:'zoomies', min:2, title:'Midnight zoomies', text:'Thud-thud-thud-thud— {n} suddenly races through the house, flying from the sofa to the bookshelf, and from the bookshelf onto you.', choices:[
+    {label:'Grab the feather wand and play', fx:()=>{add('mood',10);add('full',-6);return 'All tired out, {n} pants and falls happily asleep. Now you’re wide awake.';}},
+    {label:'Pretend not to hear', fx:()=>{return 'In the morning, you find a potted plant knocked over.';}},
+  ]},
+  {id:'face', min:4, title:'5 a.m.', text:'Your alarm hasn’t even gone off. {n} sits by your pillow, patting your face with a soft paw. Pat. Pat. Pat.', choices:[
+    {label:'Get up and feed {her}', fx:()=>{add('full',15);add('bond',2);S.flags.alarmCat=1;return '{n} has learned a lesson: pat your face at 5 a.m. and breakfast appears. {She}’ll be back every day now.';}},
+    {label:'Bury your face in the pillow', fx:()=>{add('mood',-2);return '{She} starts chewing on your hair.';}},
+  ]},
+  {id:'snore', min:24, title:'Late at night', text:'You hear a tiny “snrk… snrk…” It’s {n}, snoring, belly up with all four paws in the air.', choices:[
+    {label:'Secretly record it', fx:()=>{add('bond',3);mem('You recorded {her} snoring, belly up, paws in the air');return 'You’ll listen to that recording for years.';}},
+  ]},
+  {id:'pillow', min:12, title:'Pillow thief', text:'You wake up in the middle of the night at the very edge of the bed. {n} has taken over the entire pillow.', choices:[
+    {label:'Let {her} have it', fx:()=>{add('bond',3);add('mood',4);return 'You curl up in the corner with your blanket. Just another day as a cat’s servant.';}},
+  ]},
+  {id:'dream', min:3, title:'Dreaming', text:'As {she} sleeps, {n}’s whiskers and paws twitch, and {she} makes a tiny little “mew…”', choices:[
+    {label:'Gently pet {his} head', fx:()=>{add('bond',2);mem('You heard {her} mewing softly in a dream');return '{She} stops twitching and keeps sleeping, purring away.';}},
+  ]},
+];
+// one-time story beats by age (months)
+const MILESTONES = [
+  {at:2, ev:{title:'Vaccines', text:'The vet calls with a reminder: it’s time for {n}’s first vaccine.', choices:[
+    {label:'Take {her}', fx:()=>{add('health',15);add('mood',-8);S.counts.vet++;mem('First vaccine. Shook like a leaf at the vet');return '{n} shakes like a leaf at the vet, but is very brave. Back home, {she} gets a lickable treat as a reward.';}},
+    {label:'Maybe later', fx:()=>{add('health',-5);later('panleuk',2,4);return 'The vet says the sooner the better.';}}]}},
+  {at:3, ev:{title:'Purr', text:'You’re scratching {n}’s chin when you suddenly feel a tiny rumble.', choices:[
+    {label:'…It’s a purr!', fx:()=>{add('bond',8);mem('The first time you heard {her} purr');return '{n} purrs next to you for the very first time. You decide you want to hear this sound for the rest of your life.';}}]}},
+  {at:6, ev:{title:'Getting fixed', text:'{n} is six months old now. The vet says it’s a good time to get {her} fixed.', choices:[
+    {label:'Book the surgery', fx:()=>{add('health',8);add('mood',-10);S.lifespanM+=6;S.flags.neutered=1;mem('After getting fixed, wore a cone and bumped into doors all day');return '{n} wears a cone and bumps into doors all day. Poor thing, but also very funny.';}},
+    {label:'Let me think', fx:()=>{add('mood',-5);later('spray',1,2);return 'That night, {n} yowls the whole night long.';}}]}},
+  {at:12, ev:{title:'First birthday', text:'{n} is one year old! The tiny fluffball has grown into a big cat.', choices:[
+    {label:'Open a birthday can', fx:()=>{add('mood',15);add('full',20);mem('First birthday: you opened a special birthday can');return '{n} finishes, then rubs {his} head against your leg. Happy birthday.';}}]}},
+  {at:84, ev:{title:'Seven years old', text:'{n} is seven now. The vet says {she}’s entering {his} mature years. {She}’s still just as cuddly, just sleepier.', choices:[
+    {label:'Yearly checkups from now on', fx:()=>{add('health',10);S.lifespanM+=6;return 'You circle the date on your calendar.';}}]}},
+  {at:132, ev:{title:'White whiskers', text:'You notice a few white hairs around {n}’s mouth, and {she}’s slower at jumping on the bed.', choices:[
+    {label:'Put a little step by the bed', fx:()=>{add('bond',4);mem('You spotted the first white hairs on {her}');return 'Now every night, {n} climbs the little step and slowly walks over to your pillow.';}}]}},
+];
+
+// delayed consequences of earlier choices; stored in S.later as {day, id}
+function later(id, a, b){ S.later.push({day: S.day + a + Math.floor(Math.random()*(b-a+1)), id}); }
+const CONSEQ = {
+  panleuk:{title:'Very sick', text:'{n} keeps throwing up and has diarrhea, and {she}’s gone all limp. The vet says it’s feline panleukopenia. Kittens without their vaccines catch it easily.', pose:'flop', choices:[
+    {label:'Hospital care', hint:'A week in the hospital', fx:()=>{S.counts.vet++;S.counts.er++;add('health',-25);add('mood',-20);S.lifespanM-=6;S.flags.m2=1;mem('You stood by {her} through panleukopenia and a week in the hospital');return '{n} pulled through. On the day {she} came home, {she} watched you from the carrier the whole time. The vet gave {her} the vaccine {she} missed, too.';}}]},
+  spray:{title:'Spraying everywhere', text:'{n} has started spraying the corners and curtains to mark territory, and yowls all night. Cats who aren’t fixed often do this.', choices:[
+    {label:'Get fixed now', fx:()=>{S.counts.vet++;S.flags.neutered=1;add('mood',-10);S.lifespanM+=4;mem('After getting fixed, wore a cone and bumped into doors all day');return 'The surgery went well. Two weeks later, the spraying and midnight yowling stopped.';}},
+    {label:'Just put up with it', hint:'It won’t go away on its own', fx:()=>{add('clean',-25);add('mood',-6);later('spray',2,3);return 'The whole house smells like pee. Even washing the curtains doesn’t help.';}}]},
+  hotelStress:{title:'Back home', text:'Since coming back from the cat hotel, {n} has barely eaten for two days and keeps hiding in the closet.', choices:[
+    {label:'Open {his} favorite can, sit by {her}', fx:()=>{add('full',10);add('bond',3);return 'On the third day, {n} finally comes out and rests {his} head on your foot.';}}]},
+  uti:{title:'Can’t pee', text:'{n} keeps going in and out of the litter box, squatting a long time but only making a few drops, and crying. A dirty litter box or too much stress can cause bladder problems.', choices:[
+    {label:'Rush to the vet', fx:()=>{S.counts.vet++;add('health',-5);add('mood',-12);S.sick=false;mem('Cystitis taught you to scoop the litter twice a day');return 'The vet says it’s cystitis, and you caught it early. From now on: more water, and keep the litter box clean.';}},
+    {label:'Probably nothing, wait and see', hint:'Especially dangerous for boys', fx:()=>{add('health',-20);later('uticrit',1,1);return '{n} spends the whole night squatting in the litter box.';}}]},
+  uticrit:{title:'Emergency', text:'{n} hasn’t peed all day. {She} has a swollen, hard belly, and {she} cries when you touch it. The vet says it’s a urinary blockage. Any later and it could have been fatal.', pose:'flop', choices:[
+    {label:'Hospital and catheter now', fx:()=>{S.counts.vet++;S.counts.er++;add('health',-10);add('mood',-20);S.lifespanM-=12;mem('You visited {her} in the hospital for five days after a urinary blockage');return '{n} made it. The vet says to be extra careful from now on. The damage to {his} body is permanent.';}}]},
+  worms:{title:'Rice in the litter', text:'You see things like little white grains of rice in the litter. It’s tapeworms, probably from eating that mouse.', choices:[
+    {label:'Get dewormer', fx:()=>{S.counts.vet++;add('health',-3);add('mood',-5);return 'Operation Pill Time. {n} spits it out three times and finally swallows it on the fourth try.';}},
+    {label:'It’s probably fine', fx:()=>{add('health',-15);add('full',-15);return '{n} eats and eats but keeps getting thinner. (Remember to take {her} to the vet.)';}}]},
+  diarrhea:{title:'Tummy trouble', text:'{n} ate your fried fish and has had diarrhea all day. Seasoned human food is hard on a cat’s tummy.', choices:[
+    {label:'Clean up, feed plain food', fx:()=>{add('clean',-20);add('health',-8);return 'You scoop litter all day long. Maybe don’t share next time.';}}]},
+  sickWorse:{title:'Getting worse', text:'{n} hasn’t eaten in two days and won’t come out from under the bed.', pose:'flop', choices:[
+    {label:'Go to the vet now', fx:()=>{S.counts.vet++;S.sick=false;add('health',5);add('mood',-10);S.lifespanM-=4;return 'The vet says you waited too long. {She} needs an IV drip for a few days. Slowly, {n} gets better.';}}]},
+  kidney:{title:'Always thirsty', text:'Lately {n} drinks a lot of water, the litter clumps are big and many, and {she}’s lost weight. The vet says it’s chronic kidney disease.', choices:[
+    {label:'Learn to give {her} fluids at home daily', fx:()=>{add('health',5);add('mood',-5);add('bond',4);S.lifespanM-=6;mem('You learned to give {her} fluids at home. Such a good patient');return 'At first your hands shook the whole time. Later, {n} would walk over on {his} own and lie down in the usual spot, waiting for you.';}},
+    {label:'Just medicine', fx:()=>{S.lifespanM-=18;add('health',-10);return '{n} has good days and bad days.';}}]},
+  ribbon:{title:'A ribbon!', text:'{n} threw up, and there’s a piece of Christmas tree ribbon in it. If string-like things get stuck in the gut, a cat may need surgery.', choices:[
+    {label:'Put all the shiny ornaments away', fx:()=>{add('health',-6);return 'Phew, it came out. Next year, the tree only gets things that can’t be swallowed.';}}]},
+  kittens:{title:'Kittens downstairs', text:'The stray you’ve been feeding had three kittens. They’re hiding next to a scooter downstairs. {n} watches them from the window.', choices:[
+    {label:'Find them homes, get mom spayed', fx:()=>{add('mood',3);mem('You found homes for all three kittens downstairs');return 'All three kittens got adopted. One of the new families sends you a photo: the kitten asleep in a cardboard box.';}},
+    {label:'Just keep feeding them', fx:()=>{add('mood',-4);return 'Six months later, there are seven cats downstairs.';}}]},
+};
+// what really happens when needs are ignored; checked every morning, worst first
+function neglectEvent(){
+  const s = S.stats, ng = S.neglect;
+  if(s.health <= 5 && s.full > 5) return {id:'collapse2', title:'Collapsed', text:'Halfway across the room, {n} suddenly collapses, breathing fast and shallow. {She} has pushed {his} body to its limit.', pose:'flop', choices:[
+    {label:'Scoop {her} up, rush to the ER', fx:()=>{S.counts.vet++;S.counts.er++;S.sick=false;S.stats.health=35;add('mood',-15);S.lifespanM-=12;mem('You rushed {her} to the ER after a sudden collapse');return 'After a few days in the hospital, {n} can come home. The vet says to come back often, and not to wait when {his} health gets worse.';}}]};
+  if(s.full <= 5 || ng.full >= 3) return {id:'collapse', title:'Collapsed', text:'You walk in and see {n} lying on {his} side on the floor. {She} doesn’t get up when you call. {She} hasn’t eaten properly in far too long.', pose:'flop', choices:[
+    {label:'Scoop {her} up, rush to the ER', fx:()=>{S.counts.vet++;S.counts.er++;S.stats.full=45;S.stats.health=Math.max(s.health,30);add('mood',-15);add('bond',-8);S.lifespanM-=18;ng.full=0;mem('You rushed {her} to the ER, collapsed from hunger');return 'The vet says it’s low blood sugar and dehydration. Any later would have been too late. After the IV drip, the first thing {n} does is eat. This hurt {his} body, and {his} life will be shorter now.';}}]};
+  if(ng.clean >= 2 || s.clean <= 8) return {id:'pee', title:'Pee on the bed', text:'You pull back the covers and find a big wet spot… {n} peed on your bed. The litter box is so dirty {she} won’t go in.', choices:[
+    {label:'Wash the bedding, all-new litter', fx:()=>{S.stats.clean=70;ng.clean=0;add('mood',3);mem('You got a wet bed from {her}, a protest against the dirty litter');return 'Once the litter is clean, {n} hops right in, then spends a long, serious time digging.';}},
+    {label:'Scold {her}', fx:()=>{add('bond',-6);add('mood',-12);return '{n} doesn’t understand why you’re mad. Scolding doesn’t work. If the litter box isn’t clean, {she}’ll just do it again.';}}]};
+  if(s.full <= 20 || ng.full >= 2) return {id:'trash', title:'Trash raid', text:'You wake up to the kitchen trash tipped over and chicken bones everywhere. {n} has something on {his} face. A hungry cat will eat anything.', choices:[
+    {label:'Clean up, feed {her} quick', fx:()=>{add('full',20);add('clean',-10);add('health',-5);return '{n} wolfs it down, then stares at you, like {she}’s afraid the next meal won’t come.';}}]};
+  if(s.clean <= 22) return S.stats.bond >= 30
+    ? {id:'litterbite', title:'Follow me', text:'{n} bites your ankle and drags you all the way to the litter box, then sits down and stares at you.', choices:[
+        {label:'Okay, okay, cleaning now', fx:()=>{add('clean',35);add('bond',1);S.counts.bite++;return '{n} supervises until the very last scoop and only leaves once it’s clean.';}}]}
+    : {id:'poopout', title:'Outside the box', text:'{n} pooped on the floor next to the litter box. {She} thinks the litter is too dirty.', choices:[
+        {label:'Clean it up, and the litter too', fx:()=>{add('clean',30);return 'You swear you’ll scoop every single day from now on.';}}]};
+  if(s.mood <= 15 || ng.mood >= 2) return Math.random() < .5 && !hasItem('scratch')
+    ? {id:'sofa', title:'The sofa', text:'The sofa is scratched to ribbons, and {n} is still at it, ignoring you when you call. Bored or stressed cats let it out like this.', choices:[
+        {label:'Buy a scratcher, play daily', fx:()=>{add('mood',18);ng.mood=0;return '{n} scratches the new scratcher once, then goes back to the sofa. But at least {she}’s a bit happier.';}}]}
+    : {id:'overgroom', title:'Bald spot', text:'You notice {n} has licked a bald patch on {his} belly. The vet says it’s from stress: too much grooming.', choices:[
+        {label:'More playtime, and a cat tree', fx:()=>{add('mood',20);add('health',-5);ng.mood=0;return 'You play together for fifteen minutes every day. Slowly the fur grows back.';}}]};
+  if(S.weight >= 14 && S.day - (S.flags.fatDay||-99) >= 6) return {id:'fat', title:'Round and round', text:'The vet frowns at the scale: “{n} is too heavy. It’s bad for {his} joints and heart.” Maybe too many treats and cans.', choices:[
+    {label:'Diet: fewer treats, more play', fx:()=>{S.flags.fatDay=S.day;S.weight=4;add('mood',-8);S.lifespanM+=3;return '{n} sits by the empty bowl every day in protest. Three months later {she}’s back in shape, and jumping on the table is easy again.';}},
+    {label:'Chubby is cute', fx:()=>{S.flags.fatDay=S.day;S.lifespanM-=8;mem('You watched {her} waddle, belly swaying side to side');return '{n}’s belly sways side to side when {she} walks. Cute, but the vet shakes their head.';}}]};
+  return null;
+}
+
+/* ---------- rendering ---------- */
+const app = $('#app');
+let idleTimer = null, recentPets = [], expr = 'normal', exprTimer = null;
+
+function catHTML(st = stage(), ex = expr){
+  return S.photo ? photoCat(S.photo, st, ex) : catSVG(S.coatId, S.seed, st, ex, S.ageM);
+}
+function render(){
+  clearInterval(idleTimer); clearTimeout(wanderT);
+  if(S.phase==='intro') return renderIntro();
+  if(S.phase==='name') return renderName();
+  if(S.phase==='end') return renderEnd();
+  renderLife();
+}
+
+function renderIntro(){
+  const c = COAT[S.coatId], revealed = !!S.flags.revealed;
+  app.innerHTML = `
+  <header class="top"><div><h1>Raise a Kitty</h1><div class="sub">A cat’s life is about fifteen years</div></div>${langLinks()}</header>
+  <section class="room street">
+    <div class="floor"></div><div class="rain"></div>
+    <div class="peek ${revealed?'up':''}">${revealed ? catSVG(S.coatId,S.seed,'kitten','normal',1) : catSVG(S.coatId,S.seed,'kitten','sleep',1)}</div>
+    <div class="box"><div class="flap l"></div><div class="flap r"></div><div class="front"><span>Free to a good home</span></div></div>
+  </section>
+  <section class="panel">
+    ${revealed
+      ? `<p>It’s a little ${S.gender==='f'?'girl':'boy'}! A <b style="color:var(--eye)">${c.name}</b> kitten, shivering with cold, who lets out a tiny “mew” at you.</p>
+         <div class="btnrow"><button class="btn primary" id="take">Take ${P()} home</button><button class="btn" id="reroll">Check another box</button></div>`
+      : `<p>${S.past.length?`After ${esc(S.past[S.past.length-1].name)} was gone, the house stayed quiet for a long time.<br>`:''}One rainy night, in a cardboard box at the end of the alley, you spot something small and soggy.</p>
+         <div class="btnrow"><button class="btn primary" id="look">Crouch down and look</button><button class="btn" id="howto">📖 How to play</button></div>`}
+  </section>`;
+  bindLangLinks(app);
+  const ht = $('#howto'); if(ht) ht.onclick = showGuide;
+  const look = $('#look'); if(look) look.onclick = () => { S.flags.revealed = true; save(); render(); };
+  const rr = $('#reroll'); if(rr) rr.onclick = () => { const id=S.coatId; do{S.coatId=pick(COATS).id}while(S.coatId===id); S.seed=Math.floor(Math.random()*1e9); S.gender=Math.random()<.5?'f':'m'; save(); render(); };
+  const tk = $('#take'); if(tk) tk.onclick = () => { S.phase='name'; save(); render(); };
+}
+
+function renderName(){
+  const c = COAT[S.coatId];
+  app.innerHTML = `
+  <header class="top"><div><h1>Give ${P()} a name</h1><div class="sub">${c.name} · about 1 month old</div></div></header>
+  <section class="room t0">${roomDecor()}
+    <div class="catwrap kitten" id="cw">${catHTML('kitten','happy')}</div></section>
+  <section class="panel">
+    <div class="field"><label for="nameIn">Name</label><input type="text" id="nameIn" maxlength="10" value="${esc(S.name||c.names[0])}" autocomplete="off">
+      <div class="sugs">${c.names.map(n=>`<button type="button" data-n="${esc(n)}">${esc(n)}</button>`).join('')}</div></div>
+    <div class="field"><label>Boy or girl?</label><div class="seg"><button type="button" data-g="f" aria-pressed="${S.gender==='f'}">Girl</button><button type="button" data-g="m" aria-pressed="${S.gender==='m'}">Boy</button></div></div>
+    <div class="field"><label>Photo (optional)</label>
+      <div class="upload"><div class="thumb">${S.photo?photoCat(S.photo,'adult','normal'):'📷'}</div>
+      <div class="txt"><b>${S.photo?'Using your cat’s photo':'Using our drawn kitty'}</b> Upload a photo of your own cat. It’ll be cut into a cat shape and grow up with you. Photos with the face right in the middle look best.</div>
+      <button class="btn" type="button" id="up">${S.photo?'Change':'Upload'}</button>${S.photo?'<button class="btn" type="button" id="rmPhoto">Remove</button>':''}</div>${S.photo?'<button class="btn" type="button" id="adjPhoto">✋ Adjust photo</button>':''}</div>
+    <div class="btnrow"><button class="btn primary" id="go">Let’s go home</button></div>
+  </section>`;
+  const inp = $('#nameIn');
+  inp.oninput = () => { S.name = inp.value.trim(); save(); };
+  S.name = inp.value.trim();
+  app.querySelectorAll('[data-n]').forEach(b => b.onclick = () => { inp.value = b.dataset.n; S.name = b.dataset.n; save(); });
+  app.querySelectorAll('[data-g]').forEach(b => b.onclick = () => { S.gender = b.dataset.g; save(); render(); });
+  $('#up').onclick = () => $('#photoInput').click();
+  const rm = $('#rmPhoto'); if(rm) rm.onclick = () => { S.photo = null; save(); render(); };
+  const ap = $('#adjPhoto'); if(ap) ap.onclick = photoAdjust;
+  $('#go').onclick = () => {
+    S.name = (inp.value.trim() || c.names[0]).slice(0,10);
+    S.phase = 'life'; S.narr = fill('You dry {n} off with a towel and set {her} on a warm little blanket. {She} eats a little, then falls asleep right by your hand.');
+    mem('On that rainy day, you found {her} in a cardboard box');
+    save(); render();
+  };
+}
+
+$('#photoInput').addEventListener('change', e => {
+  const f = e.target.files && e.target.files[0]; e.target.value = '';
+  if(!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      // keep the whole picture (so it can be moved around later), just shrink it to fit local storage
+      const k = Math.min(1, 480 / Math.max(img.width, img.height)), cv = document.createElement('canvas');
+      cv.width = Math.round(img.width*k); cv.height = Math.round(img.height*k);
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      S.photo = cv.toDataURL('image/jpeg', .82); S.photoPos = {x:0, y:0, z:1, ar: cv.width/cv.height}; save(); render(); photoAdjust();
+    };
+    img.src = rd.result;
+  };
+  rd.readAsDataURL(f);
+});
+
+function statRow(k, label){
+  const v = Math.round(S.stats[k]);
+  return `<div class="stat ${k==='bond'?'bond':''} ${k!=='bond'&&v<30?'low':''}"><div class="lab"><span>${label}</span><span>${v}</span></div><div class="bar"><i style="width:${v}%"></i></div></div>`;
+}
+function renderLife(){
+  const st = stage(), farewell = S.phase==='farewell';
+  const t = farewell ? 3 : S.slot;
+  app.innerHTML = `
+  <header class="top"><div><h1>${esc(N())}</h1>
+    <div class="sub">${ageLabel(S.ageM)} (≈ ${humanAge(S.ageM)} in human years)· ${COAT[S.coatId].name}</div></div>
+    <div class="chips"><span class="chip">${stageName(S.ageM)}</span>${S.sick?'<span class="chip" style="background:var(--danger)">Sick</span>':''}<span class="chip" id="money">$${S.money}</span><span class="chip amber">${farewell?'Last day':SLOTS[S.slot]}</span></div></header>
+  <section class="room t${t}" id="room">
+    ${roomDecor()}
+    <div class="bubble" id="bubble"></div>
+    <div class="catwrap ${st} ${!farewell&&S.stats.full<12?'flop':''}" id="cw" style="left:${clamp(catX, catHalfWidth()+2, 98-catHalfWidth())}%" role="button" tabindex="0" aria-label="Pet ${esc(N())}">${catHTML(st, farewell?'sleep':expr)}</div>
+    <div class="dim"></div><div class="fx" id="fx"></div>
+  </section>
+  <div class="narr" id="narr">${esc(S.narr||'')}</div>
+  ${farewell ? `
+  <section class="actions" style="grid-template-columns:1fr 1fr">
+    <button class="act" id="fpet"><span class="ic">🤲</span><span class="t">Pet ${P()}</span><span class="d">Gently</span></button>
+    <button class="act primary" id="fhug"><span class="ic">🫂</span><span class="t">Hold ${P()}</span><span class="d">Stay till the end with ${P()}</span></button>
+  </section>` : `
+  <section class="stats">${statRow('full','Full')}${statRow('mood','Mood')}${statRow('clean','Clean')}${statRow('health','Health')}${statRow('bond','Bond')}</section>
+  <section class="actions">
+    <button class="act" data-a="feed"><span class="ic">🍚</span><span class="t">Feed</span><span class="d">Kibble · Cans · Treats</span></button>
+    <button class="act" data-a="play"><span class="ic">🪶</span><span class="t">Feather wand</span><span class="d">Play together</span></button>
+    <button class="act" data-a="brush"><span class="ic">🪮</span><span class="t">Brush</span><span class="d">Shedding season</span></button>
+    <button class="act" data-a="litter"><span class="ic">🧹</span><span class="t">Scoop litter</span><span class="d">A poop scooper’s life</span></button>
+    <button class="act" data-a="vet"><span class="ic">🏥</span><span class="t">Vet</span><span class="d">${S.sick?'Go now!':'Checkup'}</span></button>
+    <button class="act primary" data-a="sleep"><span class="ic">🌙</span><span class="t">Good night</span><span class="d">End the day</span></button>
+  </section>
+  <button class="ff ${ffOn?'on':''}" id="ff">${ffOn?'⏸ Stop fast-forward<small>Fast-forwarding. Pauses for events, then keeps going</small>':'⏩ Fast-forward<small>Auto feeds, scoops and plays. Pauses for events, then keeps going</small>'}</button>
+  <button class="shopbtn" id="shop"><span>🛍</span>Cat shop<small>Savings $${S.money} · Decorate your room</small></button>
+  <div class="links"><button class="linkbtn" id="guide">📖 Cat care guide</button>${S.past.length?`<button class="linkbtn" id="rainbow">🌈 Rainbow Bridge (${S.past.length})</button>`:''}<button class="linkbtn" id="album">Memory album (${S.memories.length})</button><button class="linkbtn" id="photoBtn">${S.photo?'Change photo / use drawing':'Upload my cat’s photo'}</button><button class="linkbtn" id="mute">${muted?'🔇 Sound off':'🔊 Sound on'}</button><button class="linkbtn" id="restart">Start over</button></div>`}`;
+  const cw = $('#cw');
+  if(farewell){
+    $('#fpet').onclick = farewellPet; $('#fhug').onclick = farewellHug;
+    cw.onclick = farewellPet;
+    sleepZ();
+    return;
+  }
+  cw.onclick = petCat;
+  cw.onkeydown = e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); petCat(e); } };
+  app.querySelectorAll('[data-a]').forEach(b => b.onclick = () => act(b.dataset.a));
+  $('#album').onclick = showAlbum;
+  $('#ff').onclick = fastForward;
+  $('#mute').onclick = toggleMute;
+  $('#shop').onclick = () => shopModal();
+  $('#guide').onclick = () => showGuide();
+  if(S.guided !== 2) showGuide();   // every new cat, and once more for older saves
+  const rb = $('#rainbow'); if(rb) rb.onclick = rainbowModal;
+  if(ffOn) app.querySelectorAll('[data-a]').forEach(b => b.disabled = true);
+  startWander();
+  $('#photoBtn').onclick = photoMenu;
+  $('#restart').onclick = confirmRestart;
+  say(idleLine());
+  idleTimer = setInterval(() => { if(!$('#modalRoot').innerHTML) say(idleLine()); }, 9000);
+}
+function say(t){ const b = $('#bubble'); if(b) b.textContent = t; }
+function narr(t){ S.narr = t; const n = $('#narr'); if(n) n.textContent = t; }
+function refreshCat(){
+  const cw = $('#cw'); if(!cw) return;
+  const cls = cw.className.replace(/\b(kitten|adult|senior)\b/g,'').trim();
+  cw.className = cls.replace('flop','').trim() + ' ' + stage() + (S.phase!=='farewell' && S.stats.full<12 ? ' flop' : '');
+  cw.innerHTML = catHTML(stage(), S.phase==='farewell'?'sleep':expr);
+}
+function setExpr(e, ms = 1600){ expr = e; refreshCat(); clearTimeout(exprTimer); exprTimer = setTimeout(() => { expr = S.sick ? 'sad' : 'normal'; refreshCat(); }, ms); }
+function anim(cls){ const cw = $('#cw'); if(!cw) return; cw.classList.remove('hop','wiggle','shrink'); void cw.offsetWidth; cw.classList.add(cls); }
+function floatFx(txt, x, y, color){
+  const fx = $('#fx'); if(!fx) return;
+  const el = document.createElement('div'); el.className = 'float'; el.textContent = txt;
+  el.style.left = x + 'px'; el.style.top = y + 'px'; if(color) el.style.color = color;
+  fx.appendChild(el); setTimeout(() => el.remove(), 1500);
+}
+function showCan(){
+  const room = $('#room'), cw = $('#cw'); if(!room || !cw) return;
+  const old = room.querySelector('.foodcan'); if(old) old.remove();
+  const el = document.createElement('div'); el.className = 'foodcan';
+  el.innerHTML = `<svg viewBox="-22 -14 44 38">${canSVG(0,0,1)}</svg>`;
+  el.style.left = `calc(${cw.style.left || '50%'} - ${cw.offsetWidth*.62}px)`;
+  room.appendChild(el); setTimeout(() => el.remove(), 4000);
+}
+function fxAtCat(txt, color){
+  const room = $('#room'), cw = $('#cw'); if(!room||!cw) return;
+  const r = room.getBoundingClientRect(), c = cw.getBoundingClientRect();
+  floatFx(txt, c.left - r.left + c.width*(.25+Math.random()*.5), c.top - r.top + c.height*.2, color);
+}
+function sleepZ(){
+  const fx = $('#fx'), cw = $('#cw'), room = $('#room'); if(!fx||!cw) return;
+  const r = room.getBoundingClientRect(), c = cw.getBoundingClientRect();
+  for(let i=0;i<3;i++){ const z = document.createElement('div'); z.className='zzz'; z.textContent='z'; z.style.left=(c.right-r.left-c.width*.2)+'px'; z.style.top=(c.top-r.top+c.height*.15)+'px'; z.style.animationDelay=(i*.85)+'s'; fx.appendChild(z); }
+}
+
+function idleLine(){
+  const s = S.stats, st = stage();
+  if(s.full < 12) return '(lying on the floor, too hungry to even meow)';
+  if(s.clean < 15) return 'Mrow! Mrow! (yelling at you from beside the litter box)';
+  if(S.sick) return 'Mew… (curled up in a ball, not feeling well)';
+  const low = Object.entries({full:s.full,mood:s.mood,clean:s.clean,health:s.health}).sort((a,b)=>a[1]-b[1])[0];
+  if(low[1] < 25) return {full:'Mrrrow—! (The bowl is empty!)', mood:'(tail swishing back and forth, so bored)', clean:'(looks at the litter box, totally grossed out)', health:'(curled up in a corner, doesn’t want to move)'}[low[0]];
+  if(s.bond > 60 && Math.random() < .25) return '(slow-blinks at you. That’s cat for “I love you”)';
+  if(S.placed && S.placed.wall && Math.random() < .2) return ITEM[S.placed.wall].line;
+  const lines = {
+    kitten:['Mew!','Mew~ mew~','(chasing tail in circles)','(chewing your slipper)','(stuck halfway up the curtains)','(a tiny little sneeze)','(belly up, paws in the air… is it a trap?)'],
+    adult:['Meow~','(squinting at you)','Mrrp?','(stopped mid-groom, forgot to put tongue away)','(staring at absolutely nothing in the air)','(pushes head into your palm)','(rolls over, belly up)','(weaving figure eights around your legs)'],
+    senior:['(a great big yawn)','Meow…','(fell asleep in the warmest spot)','(slowly walks over and sits leaning on you)','(purr, purr)'],
+  }[st];
+  return pick(lines);
+}
+
+/* ---------- petting ---------- */
+function petCat(e){
+  const now = Date.now();
+  recentPets = recentPets.filter(t => now - t < 4000); recentPets.push(now);
+  freezeCat();
+  const cw = $('#cw'), rect = cw.getBoundingClientRect();
+  const y = e && e.clientY ? (e.clientY - rect.top) / rect.height : .3;
+  const belly = y > .62;
+  S.counts.pet++;
+  if(S.stats.bond < 12 && Math.random() < .35){ setExpr('sad'); anim('shrink'); say('(flinches back, still a little scared of you)'); meow('soft'); narr('Take it slow. ' + N() + ' is still getting to know you.'); add('bond',1); save(); return; }
+  if(recentPets.length > 6){ S.counts.bite++; setExpr('angry'); anim('wiggle'); say('Hsss—! (Enough!)'); hiss(); narr(fill('{n} nips you and hops away to groom. A cat’s patience has its limits.')); fxAtCat('💢','#E7756A'); recentPets = []; add('mood',-3); save(); return; }
+  if(belly && Math.random() < (S.stats.bond > 80 ? .15 : .4)){ S.counts.bite++; setExpr('angry'); anim('wiggle'); say('(grabs your hand, biting and kicking)'); hiss(); narr('You touched the belly. You knew it was a trap.'); fxAtCat('💢','#E7756A'); save(); return; }
+  setExpr('happy');
+  anim('shrink');
+  const purring = Math.random() < .35;
+  fxAtCat(purring ? 'Purr' : '♥');
+  if(purring) purr(); else meow(Math.random() < .3 ? 'chirp' : 'short');
+  add('mood', 3);
+  if(S.bondFromPets < 6){ add('bond',1); S.bondFromPets++; }
+  S.petsToday++;
+  say(purring ? 'Purr purr purr…' : pick(belly ? ['Mew? (rolls over for a belly rub)','Mrrow~'] : y < .35 ? ['Meow~ (eyes half-closed, head-bonking your hand)','Mrrm~','Mew! (chin up, right there, right there)'] : ['Meow~ (tail held high)','Mrrow~','Mew~ (arches back, rubs against you)']));
+  save(); updateStats();
+}
+function updateStats(){
+  const box = app.querySelector('.stats'); if(!box) return;
+  box.innerHTML = `${statRow('full','Full')}${statRow('mood','Mood')}${statRow('clean','Clean')}${statRow('health','Health')}${statRow('bond','Bond')}`;
+}
+
+/* ---------- actions ---------- */
+function act(a){
+  if(a==='feed') return feedMenu();
+  if(a==='sleep') return endDay();
+  const st = stage();
+  // a filthy litter box gets in the way of everything else
+  if(a!=='litter' && a!=='vet' && S.stats.clean < 20 && Math.random() < .45){
+    S.counts.bite++; setExpr('angry'); anim('wiggle'); fxAtCat('💢','#E7756A');
+    say('Mrow! (bites your ankle, drags you toward the litter box)'); meow('long');
+    narr(fill('{n} nips you and keeps dragging you toward the litter box. It’s too dirty, and {she} can’t think about anything else.'));
+    return spend();
+  }
+  if(a==='play' && S.stats.full < 12){ setExpr('sad'); narr(fill('{n} lies on the floor watching the wand, not moving. {She}’s too hungry to play.')); return spend(); }
+  if(a==='play'){
+    if(S.sick || S.stats.health < 25){ narr(fill('{n} glances at the wand, then tucks {his} head back down. No energy today.')); return spend(); }
+    S.weight = Math.max(0, S.weight - 2); add('mood', st==='kitten'?22:st==='senior'?10:18); add('full', st==='senior'?-4:-8); add('clean',-4); add('bond',2); S.counts.play++;
+    anim('hop'); setExpr('happy', 1400); fxAtCat('🪶'); meow('chirp');
+    narr(pick(st==='senior' ? ['{n} lies there and bats at the wand with one paw. Just going through the motions.','{n} stares at the feather for a long, long time, then pounces once. So cool.']
+      : ['{n}’s bottom wiggles, wiggles, wiggles… pounce! {She} goes flying.','{n} chases the wand across the living room, tumbles three times, and bonks into the sofa.','{n} catches the feather and won’t let go, bunny-kicking with {his} back legs.','Halfway through playing, {n} decides the cardboard box is way more fun.']).replace(/\{n\}/g,N()));
+  } else if(a==='brush'){
+    add('clean',22); add('bond',3); S.counts.brush++;
+    if(Math.random()<.2){ add('mood',-4); setExpr('angry'); anim('wiggle'); narr(fill('When you get to the tail, {n} turns around and bites the brush. Not in the mood today.')); }
+    else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); narr(fill(pick(['You brush out a huge clump of fur. Enough to make another kitten.','{n} is so comfy {she} starts drooling.','{n} leans in. The cheeks need brushing too.']))); }
+  } else if(a==='litter'){
+    add('clean',30); add('health',2);
+    narr(fill(pick(['The second you finish scooping, {n} runs in and makes a fresh one.','Good work today, poop scooper.','{n} supervises, making sure you got every bit.'])));
+  } else if(a==='vet'){
+    S.counts.vet++; add('health',25); add('mood',-14);
+    if(S.sick){ S.sick=false; narr(fill('The vet gives {n} a shot and some medicine. {She} grumbles in the carrier the whole way home, but already seems much better.')); mem('You took {her} to the vet when sick. So brave'); }
+    else narr(fill(pick(['The vet says {n} is very healthy. {She} growls in the exam room, then gets a thermometer in the bottom.','{n} sees the carrier and dives under the bed. It takes twenty minutes to catch {her}.'])));
+    setExpr('sad', 2500); meow('long');
+  }
+  spend();
+}
+function feedMenu(){
+  modal(`<div class="kicker">${SLOTS[S.slot]} · Mealtime</div><h2>What’ll it be?</h2>
+  <div class="opts">
+    <button class="opt" data-f="dry">Kibble<small>Full +35, balanced nutrition</small></button>
+    <button class="opt" data-f="wet">Wet food<small>Full +30, Mood +8. Comes running at the sound of a can</small></button>
+    <button class="opt" data-f="treat">Lickable treat<small>Mood +16. Don’t overdo the treats!</small></button>
+  </div><button class="opt" data-f="x" style="text-align:center;background:none">Not now</button>`, root => {
+    root.querySelectorAll('[data-f]').forEach(b => b.onclick = () => {
+      const f = b.dataset.f; closeModal(); if(f==='x') return;
+      S.counts.meal++;
+      if(f==='dry'){ add('full',35); add('health',2); narr(fill(pick(['{n} crunches away at the kibble, then double-checks the bottom of the bowl.','{n} takes two bites and looks up at you: that’s it?']))); fxAtCat('🍚'); }
+      if(f==='wet'){ S.weight += 1; add('full',30); add('mood',8); add('health',3); narr(fill(pick(['At the sound of the can, {n} comes racing from the other side of the house.','{n} buries {his} whole face in the bowl, going “nom nom nom.”']))); fxAtCat('🐟'); }
+      if(f==='treat'){ S.weight += 2; add('full',8); add('mood',16); S.treatsToday++; if(S.treatsToday>1) add('health',-5); narr(fill(S.treatsToday>1?'{n} has another lickable treat. So happy! But too many treats aren’t good for {her}.':'{n} hugs your hand and licks the treat like crazy. That rough little tongue tickles.')); fxAtCat('♥'); }
+      if(S.stats.full >= 100 && f!=='treat') narr(fill('{n} is too full and paws at the floor to “bury” the leftovers.'));
+      anim('hop'); setExpr('happy'); meow('short'); showCan();
+      spend();
+    });
+  });
+}
+function spend(){
+  updateStats();
+  S.slot++;
+  save();
+  if(S.slot >= SLOTS.length) return setTimeout(endDay, 900);
+  const room = $('#room'); if(room){ room.className = 'room t' + S.slot; }
+  const chip = app.querySelector('.chip.amber'); if(chip) chip.textContent = SLOTS[S.slot];
+  updateStats();
+}
+
+/* ---------- day cycle ---------- */
+function nightTick(){
+  const st = S.stats;
+  // overnight needs
+  add('full', -26); add('mood', -10); add('clean', -14);
+  S.neglect.full = st.full < 20 ? S.neglect.full + 1 : 0;
+  S.neglect.clean = st.clean < 20 ? S.neglect.clean + 1 : 0;
+  S.neglect.mood = st.mood < 20 ? S.neglect.mood + 1 : 0;
+  let dh = 0;
+  if(st.full < 20) dh -= 12; if(st.clean < 20) dh -= 6; if(st.mood < 20) dh -= 4;
+  if(st.full > 50 && st.clean > 50 && st.mood > 50) dh += 4;
+  if(S.sick) dh -= 10;
+  if(stage() === 'senior') dh -= 3;
+  if(S.weight >= 14) dh -= 2;
+  add('health', dh);
+  S.weight = Math.max(0, S.weight - 1);
+  // care nudges lifespan either way; neglect can end a life early
+  if(st.health < 25) S.lifespanM -= 3;
+  if(st.full > 60 && st.mood > 60 && st.clean > 60 && st.health > 60) S.lifespanM += 1;
+  applyItems();
+  S.money += SALARY;
+  S.lifespanM = clamp(S.lifespanM, S.ageM + 1, 252);
+  const prev = S.ageM;
+  S.ageM += S.ageM < 6 ? 1 : S.ageM < 12 ? 2 : 6;
+  S.day++; S.slot = 0; S.petsToday = 0; S.treatsToday = 0; S.bondFromPets = 0;
+  if(Math.random() < .07 + (stage()==='senior'?.08:0) && !S.sick && S.ageM > 12) { S.sick = true; add('health', -12); }
+  expr = S.sick ? 'sad' : 'normal';
+  return prev;
+}
+function endDay(){
+  const room = $('#room'); if(room) room.className = 'room t3';
+  const prev = nightTick();
+  save();
+  modal(`<div class="kicker">Good night</div><h2>Good night, ${esc(N())}</h2><p>${fill(pick(['{n} falls asleep curled up at your feet.','{n} squeezes under your covers with just {his} head poking out.','{n} curls up into a ball next to your pillow.']))}</p>`, null, true);
+  setTimeout(() => { closeModal(); morning(prev); }, 1500);
+}
+// returns the events waiting this morning, or null when the life has ended
+function buildMorning(prevAge){
+  if(S.ageM >= S.lifespanM){
+    S.phase = 'farewell';
+    S.narr = fill(`{n} is ${ageLabel(S.ageM)} old now. Today {she} has been sleeping since morning. When you call {his} name, just the tip of {his} tail gives a little twitch. {She} is breathing so softly, so very softly.`);
+    return null;
+  }
+  const queue = [];
+  for(const m of MILESTONES) if(prevAge < m.at && S.ageM >= m.at && !S.flags['m'+m.at]){ S.flags['m'+m.at] = 1; queue.push(m.ev); }
+  const due = S.later.filter(l => l.day <= S.day);
+  S.later = S.later.filter(l => l.day > S.day);
+  for(const l of due){ if(l.id==='spray' && S.flags.neutered) continue; if(l.id==='sickWorse' && !S.sick) continue; if(CONSEQ[l.id]) queue.push(CONSEQ[l.id]); }
+  const ng = neglectEvent(); if(ng) queue.push(ng);
+  if(S.neglect.clean >= 1 && S.ageM >= 12 && !S.later.some(l=>l.id==='uti') && Math.random() < (hasItem('fountain') ? .08 : .2)) queue.push(CONSEQ.uti);
+  const yrs = Math.floor(S.ageM/12);
+  if(S.ageM >= 24 && yrs > Math.floor(prevAge/12)) queue.push({title:`Turning ${yrs}!`, text:`Today is {n}’s birthday. {She}’s ${yrs}!`, choices:[{label:'Celebrate with a can', fx:()=>{add('mood',10);add('full',15);if(yrs%5===0) mem('You threw {her} a birthday party: cake for you, a can for {her}');return '{n} finishes and lets out a happy little burp at your feet.';}}]});
+  if(S.flags.alarmCat && Math.random() < .3) queue.push(NIGHT.find(e=>e.id==='face'));
+  else if(queue.length < 3 && Math.random() < .4){ const ev = pickEvent(NIGHT); if(ev) queue.push(ev); }
+  if(queue.length < 3 && Math.random() < .45){ const ev = pickEvent(EVENTS); if(ev) queue.push(ev); }
+  S.narr = fill(pick(stage()==='senior' ? ['Good morning. {n} wakes up after you and slowly stretches.','Sunlight falls across the bed. {n} is still asleep.'] : ['Good morning! {n} is already sitting by the bowl, waiting for you.','{n} kneads you awake. A brand new day.','This morning, {n} is watching birds by the window.']));
+  return queue;
+}
+function morning(prevAge){
+  const q = buildMorning(prevAge);
+  save(); render();
+  if(q) runQueue(q);
+}
+function pickEvent(list){
+  const ok = list.filter(e => S.ageM >= (e.min||0) && (e.repeat || !S.seen[e.id]) && !(e.id==='sick' && S.sick) && !(e.id==='hairball' && hasItem('grass')) && !(e.id==='stairs' && hasItem('stairs')));
+  if(!ok.length) return null;
+  const unseen = ok.filter(e => !S.seen[e.id]);
+  const ev = pick(unseen.length && Math.random() < .8 ? unseen : ok);
+  S.seen[ev.id] = (S.seen[ev.id]||0) + 1;
+  return ev;
+}
+function runQueue(q, after){
+  if(!q.length){ save(); render(); if(after) after(); return; }
+  const ev = q.shift();
+  if(ev.id === 'yowl') meow('long'); else if(Math.random() < .5) meow('short');
+  showEvent(ev, () => runQueue(q, after));
+}
+const LABEL = {full:'Full',mood:'Mood',clean:'Clean',health:'Health',bond:'Bond'};
+function showEvent(ev, done){
+  if(ev.pose === 'flop'){ const cw = $('#cw'); if(cw){ cw.classList.add('flop'); expr = 'dizzy'; refreshCat(); } }
+  modal(`<div class="kicker">${ageLabel(S.ageM)} · ${stageName(S.ageM)}</div><h2>${esc(fill(ev.title))}</h2><p>${esc(fill(ev.text))}</p>
+    <div class="opts">${ev.choices.map((c,i)=>`<button class="opt" data-i="${i}">${esc(fill(c.label))}${c.hint?`<small>${esc(fill(c.hint))}</small>`:''}</button>`).join('')}</div>`, root => {
+    root.querySelectorAll('[data-i]').forEach(b => b.onclick = () => {
+      const before = {...S.stats}, life = S.lifespanM, nLater = S.later.length;
+      const r = ev.choices[+b.dataset.i].fx();
+      save();
+      if(r && typeof r === 'object' && r.next){ closeModal(); return showEvent({...r.next, text: (r.text ? r.text + '\n' : '') + r.next.text}, done); }
+      const chips = Object.keys(LABEL).map(k => { const d = Math.round(S.stats[k] - before[k]); return d ? `<span class="d ${d>0?'up':'dn'}">${LABEL[k]} ${d>0?'+':'−'}${Math.abs(d)}</span>` : ''; }).join('')
+        + (S.lifespanM < life ? `<span class="d dn">Lasting health effects</span>` : S.lifespanM > life ? `<span class="d up">A longer life for ${P()}</span>` : '')
+        + (S.later.length > nLater ? `<span class="d warn">This isn’t over yet…</span>` : '');
+      root.querySelector('.opts').outerHTML = `<p class="res">${esc(fill(r||''))}</p>${chips?`<div class="deltas">${chips}</div>`:''}<div class="opts"><button class="opt" id="okb" style="text-align:center">OK</button></div>`;
+      $('#okb').focus();
+      $('#okb').onclick = () => { closeModal(); done(); };
+    });
+  });
+}
+
+/* ---------- fast-forward: stays on until you stop it; pauses for events, then keeps going ---------- */
+let ffOn = false, ffTimer = null;
+function autoCare(slots){
+  for(let i=0;i<slots;i++){
+    const s = S.stats;
+    if(s.full < 70){ add('full',33); S.counts.meal++; }
+    else if(s.clean < 70) add('clean',30);
+    else { add('mood',14); add('full',-4); S.counts.play++; }
+  }
+  add('bond', .5);
+}
+const ffNeedsYou = () => S.sick || S.stats.health < 30;
+function ffStop(msg){
+  ffOn = false; clearTimeout(ffTimer);
+  if(msg) S.narr = msg;
+  save(); render();
+}
+function fastForward(){
+  if(ffOn) return ffStop(fill('Fast-forward stopped. {n} yawns beside you.'));
+  if(ffNeedsYou()) { narr(fill(S.sick ? '{n} is sick. Take {her} to the vet before fast-forwarding.' : '{n}’s health is too low. Take {her} to the vet before fast-forwarding.')); return; }
+  ffOn = true;
+  autoCare(SLOTS.length - S.slot);
+  render();
+  ffTimer = setTimeout(ffStep, 500);
+}
+function ffResume(){
+  if(!ffOn || S.phase !== 'life') return;
+  if(ffNeedsYou()) return ffStop(fill(S.sick ? '{n} seems sick. Fast-forward paused.' : '{n}’s health is getting worse. Fast-forward paused. Take {her} to the vet.'));
+  autoCare(SLOTS.length);
+  save(); updateStats();
+  ffTimer = setTimeout(ffStep, 650);
+}
+function ffStep(){
+  if(!ffOn || S.phase !== 'life') return;
+  const prev = nightTick();
+  const q = buildMorning(prev);
+  if(q === null){ ffOn = false; save(); render(); return; }
+  if(q.length){ save(); render(); runQueue(q, ffResume); return; }   // pause for the event, then carry on
+  if(ffNeedsYou()) return ffStop(fill(S.sick ? '{n} seems sick. Fast-forward paused.' : '{n}’s health is getting worse. Fast-forward paused. Take {her} to the vet.'));
+  autoCare(SLOTS.length);
+  const sub = app.querySelector('.top .sub'); if(sub) sub.textContent = `${ageLabel(S.ageM)} (≈ ${humanAge(S.ageM)} in human years)· ${COAT[S.coatId].name}`;
+  const cw = $('#cw'); if(cw && !cw.classList.contains(stage())) refreshCat();
+  narr(`⏩ ${ageLabel(S.ageM)}… quiet, ordinary days go by.`);
+  const mc = $('#money'); if(mc) mc.textContent = '$' + S.money;
+  const sb = app.querySelector('.shopbtn small'); if(sb) sb.textContent = `Savings $${S.money} · Decorate your room`;
+  updateStats(); save();
+  ffTimer = setTimeout(ffStep, 650);
+}
+
+/* ---------- sound: synthesized meows, purrs and hisses (no audio files) ---------- */
+let actx = null, muted = false;
+try{ muted = localStorage.getItem('cat-mute') === '1'; }catch(e){}
+function ac(){
+  if(muted) return null;
+  try{ if(!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); if(actx.state === 'suspended') actx.resume(); }catch(e){ return null; }
+  return actx;
+}
+function meow(kind = 'short'){
+  const a = ac(); if(!a) return;
+  const t = a.currentTime + .02, st = stage();
+  const base = (st === 'kitten' ? 950 : st === 'senior' ? 540 : 700) * (.92 + Math.random()*.16);
+  const dur = kind === 'long' ? 1.1 : kind === 'soft' ? .7 : kind === 'chirp' ? .22 : .5;
+  const o = a.createOscillator(), vib = a.createOscillator(), vg = a.createGain(), f = a.createBiquadFilter(), f2 = a.createBiquadFilter(), g = a.createGain();
+  o.type = 'sawtooth';
+  o.frequency.setValueAtTime(base*.75, t);
+  o.frequency.linearRampToValueAtTime(base*1.2, t + dur*.35);
+  o.frequency.linearRampToValueAtTime(base*(kind==='long'?.6:.8), t + dur);
+  vib.frequency.value = 6; vg.gain.value = base*.02; vib.connect(vg); vg.connect(o.frequency);
+  // "m-e-ow": the formant opens then closes
+  f.type = 'bandpass'; f.Q.value = 2.5;
+  f.frequency.setValueAtTime(700, t); f.frequency.linearRampToValueAtTime(2100, t + dur*.4); f.frequency.linearRampToValueAtTime(800, t + dur);
+  f2.type = 'lowpass'; f2.frequency.value = 3500;
+  const peak = kind === 'soft' ? .12 : .28;
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + .05);
+  g.gain.setValueAtTime(peak, t + dur*.55); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  o.connect(f); f.connect(f2); f2.connect(g); g.connect(a.destination);
+  o.start(t); vib.start(t); o.stop(t + dur + .05); vib.stop(t + dur + .05);
+}
+function noise(a, dur){
+  const b = a.createBuffer(1, Math.ceil(a.sampleRate*dur), a.sampleRate), d = b.getChannelData(0);
+  for(let i=0;i<d.length;i++) d[i] = Math.random()*2-1;
+  const s = a.createBufferSource(); s.buffer = b; return s;
+}
+function purr(){
+  const a = ac(); if(!a) return;
+  const t = a.currentTime + .02, dur = 1.6, n = noise(a, dur), lp = a.createBiquadFilter(), g = a.createGain(), lfo = a.createOscillator(), lg = a.createGain(), out = a.createGain();
+  lp.type = 'lowpass'; lp.frequency.value = 220;
+  lfo.frequency.value = 24; lg.gain.value = .5; g.gain.value = .5; lfo.connect(lg); lg.connect(g.gain);
+  out.gain.setValueAtTime(.0001, t); out.gain.exponentialRampToValueAtTime(.9, t + .25); out.gain.setValueAtTime(.9, t + dur - .4); out.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  n.connect(lp); lp.connect(g); g.connect(out); out.connect(a.destination);
+  n.start(t); lfo.start(t); n.stop(t + dur); lfo.stop(t + dur);
+}
+function hiss(){
+  const a = ac(); if(!a) return;
+  const t = a.currentTime + .02, dur = .6, n = noise(a, dur), hp = a.createBiquadFilter(), g = a.createGain();
+  hp.type = 'highpass'; hp.frequency.value = 2800;
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.25, t + .04); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  n.connect(hp); hp.connect(g); g.connect(a.destination); n.start(t); n.stop(t + dur);
+}
+function toggleMute(){
+  muted = !muted;
+  try{ localStorage.setItem('cat-mute', muted ? '1' : '0'); }catch(e){}
+  const b = $('#mute'); if(b) b.textContent = muted ? '🔇 Sound off' : '🔊 Sound on';
+  if(!muted) meow('chirp');
+}
+
+/* ---------- wandering: the cat strolls around the room on its own ---------- */
+let wanderT = null, holdUntil = 0, catX = 50;
+function catHalfWidth(){ return stage() === 'kitten' ? 18 : 24; }
+function placeCat(x, ms){
+  const cw = $('#cw'), bub = $('#bubble'); if(!cw) return;
+  cw.style.transition = `left ${ms}ms linear, width .8s`;
+  cw.style.left = x + '%'; catX = x;
+  if(bub){ bub.style.transition = `left ${ms}ms linear, opacity .3s`; bub.style.left = clamp(x, 34, 66) + '%'; }
+}
+function freezeCat(){
+  const cw = $('#cw'), room = $('#room'); if(!cw || !room) return;
+  const r = room.getBoundingClientRect(), c = cw.getBoundingClientRect();
+  const x = ((c.left + c.width/2) - r.left) / r.width * 100;
+  cw.classList.remove('walking');
+  placeCat(x, 0);
+  holdUntil = Date.now() + 3000;
+}
+function startWander(){
+  clearTimeout(wanderT);
+  const tick = () => {
+    const cw = $('#cw');
+    if(!cw || S.phase !== 'life') return;
+    const busy = $('#modalRoot').innerHTML || cw.classList.contains('flop') || Date.now() < holdUntil || ffOn;
+    if(!busy){
+      const half = catHalfWidth(), cur = parseFloat(cw.style.left) || 50;
+      const night = S.slot === 2, st = stage();
+      const moveChance = st === 'kitten' ? .8 : st === 'senior' ? .35 : night ? .4 : .6;
+      const spots = Object.keys(SPOT_X).filter(k => S.placed[k]);
+      const visit = spots.length && Math.random() < .35 ? pick(spots) : null;
+      if(visit || Math.random() < moveChance){
+        const nx = visit ? clamp(SPOT_X[visit], half + 2, 98 - half) : half + 2 + Math.random() * (100 - 2*half - 4);
+        if(visit) setTimeout(() => { if(!$('#modalRoot').innerHTML) say(ITEM[S.placed[visit]].line); }, Math.round(Math.abs(nx - cur) * (st === 'kitten' ? 38 : st === 'senior' ? 110 : 60)));
+        if(Math.abs(nx - cur) > 5){
+          const speed = st === 'kitten' ? 38 : st === 'senior' ? 110 : 60;   // ms per % of room
+          const ms = Math.round(Math.abs(nx - cur) * speed);
+          cw.classList.toggle('right', nx > cur);
+          cw.classList.add('walking');
+          placeCat(nx, ms);
+          setTimeout(() => { const c = $('#cw'); if(c) c.classList.remove('walking'); }, ms);
+        }
+      } else if(st === 'kitten' && Math.random() < .5){ anim('hop'); }
+    }
+    wanderT = setTimeout(tick, 2600 + Math.random()*3800);
+  };
+  wanderT = setTimeout(tick, 1500);
+}
+
+/* ---------- home: shop items placed in the room; carried over to the next cat ---------- */
+const SALARY = 150;
+const SPOTS = [
+  {id:'wall',   name:'On the wall',     kind:'wall'},
+  {id:'floorL', name:'Left corner', kind:'floor'},
+  {id:'floorR', name:'Right corner', kind:'floor'},
+  {id:'floorC', name:'Back center', kind:'floor'},
+  {id:'front',  name:'Front corner', kind:'floor'},
+];
+const SPOT_X = {floorL:14, floorR:84, floorC:66, front:14};   // where the cat walks to visit
+const ITEMS = [
+  {id:'box',     name:'Box house',     kind:'floor', price:80,  desc:'Mood +3/day. Cats will always love boxes', eff:()=>add('mood',3),
+   line:'(climbs into the box house, only ears poking out)', vb:'0 0 100 100',
+   svg:`<rect x="14" y="44" width="72" height="52" rx="6" fill="#F6D7A7"/><polygon points="16,46 27,24 40,46" fill="#F6D7A7"/><polygon points="60,46 73,24 84,46" fill="#F6D7A7"/><polygon points="24,42 27,32 33,42" fill="#FFC4CF" stroke="none"/><polygon points="67,42 73,32 76,42" fill="#FFC4CF" stroke="none"/><path d="M37 96 V76 Q50 60 63 76 V96Z" fill="#C9A27E"/><ellipse cx="26" cy="64" rx="5" ry="3" fill="#FFB3C1" stroke="none"/><ellipse cx="74" cy="64" rx="5" ry="3" fill="#FFB3C1" stroke="none"/>`},
+  {id:'grass',   name:'Cat grass',   kind:'floor', price:100, desc:'Mood +2/day, fewer hairballs', eff:()=>add('mood',2),
+   line:'(nibbles some cat grass, looking content)', vb:'0 0 100 100',
+   svg:`<g fill="none" stroke-width="3.2"><path d="M40 62 Q36 42 30 32" stroke="#2B2B2B"/><path d="M46 62 Q46 38 44 22"/><path d="M53 62 Q55 36 59 24"/><path d="M59 62 Q65 44 72 36"/></g><g fill="#A8DDA0"><ellipse cx="30" cy="31" rx="5" ry="8" transform="rotate(-30 30 31)"/><ellipse cx="44" cy="21" rx="5" ry="9"/><ellipse cx="59" cy="23" rx="5" ry="9" transform="rotate(15 59 23)"/><ellipse cx="72" cy="35" rx="5" ry="8" transform="rotate(40 72 35)"/></g><path d="M32 66 L68 66 L63 96 L37 96Z" fill="#FFC4A8"/><rect x="28" y="60" width="44" height="10" rx="5" fill="#FFD9C4"/>`},
+  {id:'scratch', name:'Scratcher',     kind:'floor', price:150, desc:'Mood +3/day. Bye-bye, sofa scratching', eff:()=>add('mood',3),
+   line:'(scratch scratch scratching away)', vb:'0 0 100 100',
+   svg:`<path d="M10 90 L70 52 Q76 50 80 56 L92 90Z" fill="#F6D7A7"/><g stroke="#D9B48A" stroke-width="2.4"><path d="M26 84 L72 58"/><path d="M38 87 L77 64"/><path d="M52 89 L82 72"/></g><rect x="5" y="88" width="90" height="9" rx="4.5" fill="#E7B98F"/><path d="M80 56 V34" fill="none" stroke-width="2"/><circle cx="80" cy="30" r="6" fill="#FFB3C1"/>`},
+  {id:'stairs',  name:'Pet stairs',   kind:'floor', price:180, desc:'Senior mood +4/day, easy sofa access', eff:()=>{ if(stage()==='senior') add('mood',4); else add('mood',1); },
+   line:'(slowly climbing the stairs, one step at a time)', vb:'0 0 100 100',
+   svg:`<path d="M10 96 V74 Q10 72 12 72 H34 V52 Q34 50 36 50 H60 V30 Q60 28 62 28 H88 Q90 28 90 30 V96Z" fill="#F6D7A7"/><g stroke="#FFB3C1" stroke-width="6" stroke-linecap="round"><path d="M14 76 H32"/><path d="M38 54 H58"/><path d="M64 32 H86"/></g>`},
+  {id:'tunnel',  name:'Cat tunnel',     kind:'floor', price:200, desc:'Mood +4/day, kittens +6', eff:()=>add('mood', stage()==='kitten'?6:4),
+   line:'(zooms into the tunnel and peeks out the other end)', vb:'0 0 100 100',
+   svg:`<rect x="20" y="54" width="64" height="42" rx="6" fill="#BFE3F5"/><g stroke="#9CCDEB" stroke-width="3"><path d="M36 56 v38"/><path d="M52 56 v38"/><path d="M68 56 v38"/></g><ellipse cx="84" cy="75" rx="10" ry="21" fill="#BFE3F5"/><ellipse cx="20" cy="75" rx="13" ry="21" fill="#D9ECFA"/><ellipse cx="20" cy="76" rx="8" ry="15" fill="#6B7FA8"/>`},
+  {id:'heat',    name:'Heat pad',     kind:'floor', price:220, desc:'Health +1/day, seniors +3', eff:()=>add('health', stage()==='senior'?3:1),
+   line:'(melted flat on the heat pad like a cat pancake)', vb:'0 0 100 100',
+   svg:`<path d="M8 90 L22 70 Q24 68 27 68 H92 L78 90 Q76 92 73 92 H10Z" fill="#FFB3A7"/><g stroke="#FFE0D6" stroke-width="3"><path d="M18 76 H86"/><path d="M13 84 H81"/><path d="M38 70 L28 90"/><path d="M60 70 L50 90"/></g><path d="M64 60 q4 -6 0 -12 M74 60 q4 -6 0 -12" fill="none" stroke="#FF9AAE" stroke-width="2.4"/>`},
+  {id:'bed',     name:'Donut bed', kind:'floor', price:250, desc:'Health +1, Mood +2/day', eff:()=>{ add('health',1); add('mood',2); },
+   line:'(turns three circles in the bed and curls up)', vb:'0 0 100 100',
+   svg:`<ellipse cx="50" cy="80" rx="44" ry="17" fill="#FFC4CF"/><ellipse cx="50" cy="76" rx="28" ry="8" fill="#FFE6EC"/><g fill="#fff" stroke="none" opacity=".8"><circle cx="18" cy="78" r="2.5"/><circle cx="82" cy="78" r="2.5"/><circle cx="50" cy="93" r="2.5"/></g>`},
+  {id:'fountain',name:'Water fountain',     kind:'floor', price:300, desc:'Health +2/day, fewer bladder problems', eff:()=>add('health',2),
+   line:'(splashing water everywhere with a paw)', vb:'0 0 100 100',
+   svg:`<ellipse cx="50" cy="90" rx="34" ry="7" fill="#D9ECFA"/><path d="M18 90 Q18 56 50 56 Q82 56 82 90Z" fill="#FFFFFF"/><ellipse cx="50" cy="58" rx="25" ry="6" fill="#A9DDF7"/><path d="M44 58 Q50 36 56 58" fill="#D9F1FC"/><circle cx="50" cy="38" r="3.5" fill="#A9DDF7"/><path d="M34 76 q4 -4 8 0 q-4 4 -8 0Z M42 76 l4 -3 v6Z" fill="#FF9AAE" stroke-width="1.6"/>`},
+  {id:'hammock', name:'Window hammock',   kind:'wall',  price:350, desc:'Mood +3, Bond +1/day', eff:()=>{ add('mood',3); add('bond',1); },
+   line:'(lounging in the hammock, watching birds)', vb:'0 0 120 80',
+   svg:`<path d="M14 12 L24 40 M106 12 L96 40" fill="none" stroke-width="2.4"/><circle cx="14" cy="11" r="7" fill="#D9ECFA"/><circle cx="106" cy="11" r="7" fill="#D9ECFA"/><path d="M20 40 Q60 80 100 40 Q60 52 20 40Z" fill="#FFE27A"/><g fill="#FFF6C9" stroke="none"><circle cx="44" cy="54" r="3"/><circle cx="60" cy="60" r="3"/><circle cx="76" cy="54" r="3"/></g>`},
+  {id:'shelf',   name:'Wall shelves', kind:'wall',  price:450, desc:'Mood +4/day. Cats love watching you from up high', eff:()=>add('mood',4),
+   line:'(hops onto the wall shelves and looks down at you)', vb:'0 0 120 80',
+   svg:`<g fill="#F6D7A7"><rect x="6" y="60" width="40" height="10" rx="5"/><rect x="40" y="36" width="40" height="10" rx="5"/><rect x="74" y="12" width="40" height="10" rx="5"/></g><g fill="#E7B98F"><rect x="20" y="70" width="6" height="8" rx="2"/><rect x="54" y="46" width="6" height="8" rx="2"/><rect x="88" y="22" width="6" height="8" rx="2"/></g><g fill="#FFB3C1" stroke="none"><circle cx="26" cy="52" r="3"/><circle cx="60" cy="28" r="3"/><circle cx="94" cy="4" r="3"/></g>`},
+  {id:'portrait',name:'Cat portrait',   kind:'wall',  price:120, desc:'Bond +1/day. A painting of your current cat', eff:()=>add('bond',1),
+   line:'(stares at the portrait. Is that… me?)', vb:'0 0 100 100', svg:''},
+  {id:'tank',    name:'Fish tank',     kind:'floor', price:500, desc:'Mood +4/day. Fish-watching all day long', eff:()=>add('mood',4),
+   line:'(face pressed to the tank, tail swishing)', vb:'0 0 100 100',
+   svg:`<rect x="12" y="82" width="76" height="14" rx="5" fill="#F6D7A7"/><rect x="14" y="34" width="72" height="50" rx="8" fill="#CFEFFA"/><path d="M14 46 H86" fill="none" stroke="#A9DDF7" stroke-width="3"/><path d="M38 62 q10 -10 20 0 q-10 10 -20 0Z M58 62 l9 -7 v14Z" fill="#FFAE5C" stroke-width="2.4"/><circle cx="43" cy="61" r="1.4" fill="#2B2B2B" stroke="none"/><path d="M26 82 q-4 -14 2 -24 M32 82 q4 -10 0 -18" fill="none" stroke="#7CC48A" stroke-width="3.4"/><g fill="#fff" stroke="none"><circle cx="72" cy="54" r="2.4"/><circle cx="68" cy="47" r="1.8"/></g>`},
+  {id:'tree',    name:'Cat tree',     kind:'floor', price:600, desc:'Mood +5/day, Bond +1', eff:()=>{ add('mood',5); add('bond',1); },
+   line:'(climbs to the top of the cat tree, looking smug)', vb:'0 0 100 160',
+   svg:`<g fill="#F6D7A7"><rect x="29" y="40" width="13" height="112" rx="4"/><rect x="63" y="82" width="13" height="70" rx="4"/></g><g stroke="#D9B48A" stroke-width="2"><path d="M31 60h9M31 76h9M31 92h9M31 108h9M31 124h9M31 140h9M65 98h9M65 114h9M65 130h9"/></g><g fill="#FFE0E6"><rect x="8" y="146" width="84" height="11" rx="5.5"/><rect x="50" y="76" width="44" height="10" rx="5"/><rect x="14" y="36" width="46" height="10" rx="5"/></g><ellipse cx="37" cy="30" rx="22" ry="10" fill="#D9ECFA"/><ellipse cx="37" cy="27" rx="13" ry="4" fill="#BFE3F5" stroke="none"/><path d="M90 86 V104" fill="none" stroke-width="2"/><circle cx="90" cy="109" r="6" fill="#FFB3C1"/>`},
+  {id:'autolitter',name:'Auto litter box',kind:'floor', price:900, desc:'Clean +10/day. A poop scooper’s hero', eff:()=>add('clean',10),
+   line:'(watches the auto litter box spin, very suspicious)', vb:'0 0 100 100',
+   svg:`<path d="M14 92 Q14 28 50 28 Q86 28 86 92Z" fill="#FFFFFF"/><circle cx="50" cy="64" r="17" fill="#6B7FA8"/><rect x="12" y="86" width="76" height="10" rx="5" fill="#D9ECFA"/><circle cx="50" cy="40" r="4" fill="#A8DDA0"/><path d="M27 52 Q30 44 36 40" fill="none" stroke="#fff" stroke-width="3"/>`},
+];
+const ITEM = Object.fromEntries(ITEMS.map(i => [i.id, i]));
+const placedIds = () => Object.values(S.placed).filter(Boolean);
+const hasItem = id => placedIds().includes(id);
+// every item gets the planner-sticker treatment: thick ink line, then a white die-cut edge around the whole shape
+function stickerDefs(id){
+  return `<defs><filter id="${id}" x="-15%" y="-15%" width="130%" height="130%">
+<feMorphology in="SourceAlpha" operator="dilate" radius="3.5" result="d"/><feFlood flood-color="#fff"/><feComposite in2="d" operator="in" result="edge"/>
+<feMerge><feMergeNode in="edge"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
+}
+function itemSVG(id){
+  const it = ITEM[id], fid = 'st' + (++uidN);
+  if(id === 'portrait'){
+    const inner = S.photo ? photoCat(S.photo, stage(), 'happy').replace('<svg ', '<svg x="18" y="20" width="64" height="60" ')
+      : catSVG(S.coatId,S.seed,stage(),'happy',S.ageM).replace('<svg ', '<svg x="16" y="16" width="68" height="68" ');
+    return `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">${stickerDefs(fid)}<g filter="url(#${fid})" stroke="${INK}" stroke-width="3" stroke-linejoin="round">
+<rect x="8" y="8" width="84" height="84" rx="10" fill="#F6D7A7"/><rect x="16" y="16" width="68" height="68" rx="6" fill="#FFF6EC" stroke-width="2.4"/></g>${inner}
+<g fill="#FFB3C1"><circle cx="12" cy="12" r="4"/><circle cx="88" cy="88" r="4"/></g></svg>`;
+  }
+  return `<svg viewBox="${it.vb}" preserveAspectRatio="xMidYMax meet">${stickerDefs(fid)}<g filter="url(#${fid})" stroke="${INK}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">${it.svg}</g></svg>`;
+}
+function roomDecor(){
+  const flags = ['#FFB3C1','#FFE27A','#BFE3F5','#A8DDA0','#D9C6F2'];
+  const bunting = Array.from({length:11}, (_,i) => { const x = 14 + i*34, y = 14 + Math.sin(i/10*Math.PI)*10;
+    return `<path d="M${x},${y} L${x+26},${y+1} L${x+13},${y+24}Z" fill="${flags[i%5]}"/>`; }).join('');
+  return `<svg class="bg" viewBox="0 0 400 344" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<defs><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="3.2" fill="#FFE0E8"/><circle cx="21" cy="21" r="3.2" fill="#FFE9D2"/></pattern>
+<clipPath id="winclip"><path d="M44,160 V84 Q44,46 92,46 Q140,46 140,84 V160Z"/></clipPath></defs>
+<rect width="400" height="240" fill="#FFF4EA"/><rect width="400" height="240" fill="url(#dots)"/>
+<g stroke="${INK}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+<path d="M4,12 Q200,34 396,12" fill="none"/>${bunting}
+<!-- window -->
+<path d="M36,166 V84 Q36,38 92,38 Q148,38 148,84 V166Z" fill="#FFFFFF" stroke-width="3"/>
+<g clip-path="url(#winclip)" stroke="none"><rect class="sky" x="40" y="40" width="104" height="124"/>
+<circle class="sun" cx="72" cy="78" r="15" fill="#FFE27A" stroke="${INK}" stroke-width="2.5"/>
+<circle class="dusk" cx="116" cy="128" r="17" fill="#FFAE5C" stroke="${INK}" stroke-width="2.5"/>
+<g class="moon"><circle cx="74" cy="76" r="14" fill="#FFF6C9" stroke="${INK}" stroke-width="2.5"/><circle cx="82" cy="70" r="12" fill="#3C4A86"/></g>
+<g class="star" fill="#FFF6C9"><circle cx="118" cy="62" r="2.2"/><circle cx="104" cy="96" r="1.6"/><circle cx="128" cy="110" r="1.8"/></g>
+<path d="M98,124 q4,-10 14,-6 q6,-8 14,0 q8,0 6,8 h-34Z" fill="#fff" opacity=".9"/></g>
+<path d="M44,160 V84 Q44,46 92,46 Q140,46 140,84 V160Z" fill="none" stroke-width="3"/>
+<path d="M92,46 V160 M44,104 H140" fill="none" stroke-width="3"/>
+<rect x="30" y="160" width="124" height="12" rx="6" fill="#F6D7A7" stroke-width="3"/>
+<!-- plant on the sill -->
+<path d="M114,160 L132,160 L129,146 L117,146Z" fill="#FFC4A8"/>
+<g fill="#A8DDA0"><ellipse cx="118" cy="138" rx="5" ry="8" transform="rotate(-25 118 138)"/><ellipse cx="128" cy="137" rx="5" ry="8" transform="rotate(25 128 137)"/><ellipse cx="123" cy="132" rx="4.5" ry="8"/></g>
+<!-- curtains -->
+<path d="M18,30 H166" fill="none" stroke-width="4"/><circle cx="18" cy="30" r="5" fill="#F6D7A7"/><circle cx="166" cy="30" r="5" fill="#F6D7A7"/>
+<path d="M24,32 H46 Q44,90 54,150 Q48,158 40,150 Q32,158 24,150Z" fill="#CDE7F7"/>
+<path d="M160,32 H138 Q140,90 130,150 Q136,158 144,150 Q152,158 160,150Z" fill="#CDE7F7"/>
+<path d="M28,96 Q40,100 50,94 M156,96 Q144,100 134,94" fill="none" stroke="#FFB3C1" stroke-width="4"/>
+<!-- clock -->
+<circle cx="206" cy="66" r="19" fill="#FFFFFF" stroke-width="3"/><path d="M206,66 V54 M206,66 L215,71" fill="none" stroke-width="2.6"/><circle cx="206" cy="66" r="2" fill="${INK}"/>
+<g fill="#FFB3C1" stroke="none"><circle cx="206" cy="51" r="1.8"/><circle cx="221" cy="66" r="1.8"/><circle cx="206" cy="81" r="1.8"/><circle cx="191" cy="66" r="1.8"/></g>
+<!-- floor -->
+<rect x="0" y="232" width="400" height="12" fill="#FFFFFF" stroke-width="3"/>
+<rect x="-4" y="244" width="408" height="104" fill="#F9DDB5" stroke-width="3"/>
+<g stroke="#EFC994" stroke-width="2.4"><path d="M0,278 H400 M0,314 H400"/><path d="M70,244 V278 M190,244 V278 M320,244 V278 M20,278 V314 M140,278 V314 M260,278 V314 M370,278 V314 M90,314 V344 M220,314 V344 M340,314 V344"/></g>
+<!-- rug -->
+<ellipse cx="200" cy="314" rx="128" ry="25" fill="#FFE9A8" stroke-width="3"/>
+<ellipse cx="200" cy="314" rx="108" ry="17" fill="none" stroke="#FFB3C1" stroke-width="3" stroke-dasharray="8 7"/>
+</g></svg>
+    ${SPOTS.map(sp => S.placed[sp.id] ? `<div class="spot s-${sp.id}">${itemSVG(S.placed[sp.id])}</div>` : '').join('')}`;
+}
+function applyItems(){ for(const id of placedIds()) ITEM[id].eff(); }
+
+function shopModal(tab = 'shop'){
+  const owned = new Set(S.owned);
+  const body = tab === 'shop'
+    ? `<div class="shop">${ITEMS.map(it => `<div class="item"><div class="ic">${itemSVG(it.id)}</div>
+        <div class="tx"><b>${it.name}</b><small>${it.kind==='wall'?'Wall':'Floor'} · ${esc(it.desc)}</small></div>
+        ${owned.has(it.id) ? '<span class="own">Owned</span>' : `<button class="buy" data-buy="${it.id}" ${S.money<it.price?'disabled':''}>$${it.price}</button>`}</div>`).join('')}</div>`
+    : `<div class="shop">${SPOTS.map(sp => { const cur = S.placed[sp.id];
+        const choices = S.owned.filter(id => ITEM[id].kind === sp.kind && !placedIds().includes(id));
+        return `<div class="item"><div class="ic">${cur ? itemSVG(cur) : '<span class="empty">Empty</span>'}</div>
+          <div class="tx"><b>${sp.name}</b><small>${cur ? ITEM[cur].name : 'Nothing here yet'}</small>
+          <div class="swap">${choices.map(id => `<button data-put="${sp.id}:${id}">${cur?'Swap in ':'Place '}${ITEM[id].name}</button>`).join('')}${cur?`<button data-put="${sp.id}:">Put away</button>`:''}</div></div></div>`; }).join('')}</div>`;
+  modal(`<div class="kicker">Savings $${S.money} · Pay +$${SALARY}/day</div><h2>${tab==='shop'?'Cat shop':'Decorate'}</h2>
+    <div class="tabs"><button data-tab="shop" aria-pressed="${tab==='shop'}">Shop</button><button data-tab="room" aria-pressed="${tab==='room'}">Decorate (${placedIds().length}/${SPOTS.length})</button></div>
+    ${body}<button class="opt" id="cl" style="text-align:center">Close</button>`, r => {
+    r.dataset.dismiss = '1';
+    $('#cl').onclick = () => { closeModal(); render(); };
+    r.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => shopModal(b.dataset.tab));
+    r.querySelectorAll('[data-buy]').forEach(b => b.onclick = () => buy(b.dataset.buy));
+    r.querySelectorAll('[data-put]').forEach(b => b.onclick = () => { const [sp, id] = b.dataset.put.split(':'); S.placed[sp] = id || null; save(); shopModal('room'); });
+  });
+}
+function buy(id){
+  const it = ITEM[id]; if(S.money < it.price || S.owned.includes(id)) return;
+  S.money -= it.price; S.owned.push(id);
+  const free = SPOTS.find(sp => sp.kind === it.kind && !S.placed[sp.id]);
+  if(free){ S.placed[free.id] = id; save(); closeModal(); render(); narr(fill(`New ${it.name}! {n} walks over to sniff it.`)); return; }
+  save();
+  // room full: pick something to swap out
+  const same = SPOTS.filter(sp => sp.kind === it.kind);
+  modal(`<div class="kicker">The room is full</div><h2>Where should the ${it.name} go?</h2><p>Whatever you swap out goes into storage. You can swap it back later.</p>
+    <div class="opts">${same.map(sp => `<button class="opt" data-sw="${sp.id}">Replace ${ITEM[S.placed[sp.id]].name}<small>${sp.name}</small></button>`).join('')}
+    <button class="opt" data-sw="" style="text-align:center;background:none">Store it for now</button></div>`, r => {
+    r.querySelectorAll('[data-sw]').forEach(b => b.onclick = () => { if(b.dataset.sw) S.placed[b.dataset.sw] = id; save(); closeModal(); render(); if(b.dataset.sw) narr(fill(`${it.name}: all set! {n} goes right over to investigate.`)); });
+  });
+}
+
+/* ---------- the rainbow bridge: cats who lived here before ---------- */
+function rainbowModal(){
+  modal(`<div class="kicker">Rainbow Bridge</div><h2>Cats who shared your life</h2>
+    ${S.past.length ? `<div class="past">${S.past.map((c,i) => `<button class="pc" data-past="${i}"><span class="mini">${c.photo?`<span class="ph" style="background-image:url('${c.photo}')"></span>`:catSVG(c.coatId,c.seed,'adult','happy',60,true)}</span><b>${esc(c.name)}</b><small>${COAT[c.coatId].name} · lived ${ageLabel(c.ageM)}</small></button>`).join('')}</div>` : '<p>None yet.</p>'}
+    <button class="opt" id="cl" style="text-align:center">Close</button>`, r => {
+    r.dataset.dismiss = '1'; $('#cl').onclick = closeModal;
+    r.querySelectorAll('[data-past]').forEach(b => b.onclick = () => {
+      const c = S.past[+b.dataset.past];
+      modal(`<div class="kicker">A letter from ${esc(c.name)}</div><div class="letter small">${esc(c.letter||'')}</div>
+        ${c.memories && c.memories.length ? `<div class="mem">${c.memories.map(m=>`<span class="a">${ageLabel(m.ageM)}</span><span class="x">${esc(m.text)}</span>`).join('')}</div>` : ''}
+        <button class="opt" id="bk" style="text-align:center">Back</button>`, r2 => { r2.dataset.dismiss = '1'; $('#bk').onclick = rainbowModal; });
+    });
+  });
+}
+// a new cat moves into the same home: money, furniture and the cats before carry over
+function newLife(remember){
+  const home = {money:S.money, owned:S.owned, placed:S.placed, past:S.past};
+  if(remember) home.past = home.past.concat([{name:N(), coatId:S.coatId, seed:S.seed, gender:S.gender, ageM:S.ageM, photo:S.photo, letter:S.letter||'', memories:S.memories}]);
+  S = Object.assign(fresh(), home);
+  save(); render();
+}
+
+/* ---------- first-day guide: what to look after ---------- */
+function showGuide(){
+  const row = (ic, name, how) => `<div class="row"><span style="font-size:26px;text-align:center">${ic}</span><span><b>${name}</b><br>${how}</span></div>`;
+  modal(`<div class="kicker">Cat care guide</div><h2>Taking care of ${esc(N())}</h2>
+    <p>The five bars at the bottom show how ${esc(N())} is doing. Every day the first three go down, and it’s up to you to fill them back up.</p>
+    <div class="guide">
+      ${row('🍚','Full','Feed. Kibble or wet food. Lickable treats are snacks')}
+      ${row('😺','Mood','Feather wand, pets, toys')}
+      ${row('🧹','Clean','Scoop the litter, brushing')}
+      ${row('❤️','Health','Slowly improves when the three above are good. If sick, go to the vet')}
+      ${row('💗','Bond','Pets and time together. The closer you are, the cuddlier')}
+      <div class="ex"><span>This is safe</span><div class="bar"><i style="width:70%;background:#F2B53B"></i></div>
+        <span><b style="color:#c4473b;font-weight:400">Red</b> (below 30) means danger</span><div class="bar"><i style="width:18%;background:#E7756A"></i></div></div>
+      <div class="warn">⚠️ Don’t let the bars turn red!<br>Let the litter get too dirty, and you’ll find a wet bed thanks to ${P()}. Skip meals for too long, and you’ll be rushing ${P()} to the ER after a hunger collapse. Each time takes years off ${esc(N())}’s life.</div>
+      <p style="font-size:14px">Each day has a morning, afternoon, and evening, and you can do one thing in each. Tap ${esc(N())} for pets. That doesn’t use up any time. Busy? Press “Fast-forward” and the basic care happens on its own.</p>
+    </div>
+    <button class="opt" id="okg" style="text-align:center;background:#F2B53B;font-weight:700">I’ll take good care of ${P()} ♥</button>`, r => {
+    $('#okg').onclick = () => { S.guided = 2; save(); closeModal(); meow('chirp'); };
+  });
+}
+
+/* ---------- farewell & ending ---------- */
+let fPets = 0;
+function farewellPet(){
+  fPets++;
+  const ms = S.memories.slice(1);
+  const m = ms.length ? ms[(ms.length - fPets % ms.length) % ms.length] : null;
+  fxAtCat('♥');
+  narr(m ? `A memory from ${ageLabel(m.ageM)} old: ${m.text}.` : fill('{n}’s fur is still just as soft.'));
+  if(fPets === 3) say('(a tail softly curls around your hand)');
+}
+function farewellHug(){
+  const fh = $('#fhug'), fp = $('#fpet'); if(fh) fh.disabled = true; if(fp) fp.disabled = true;
+  expr = 'normal'; refreshCat();
+  say('Meow…'); meow('soft');
+  narr(fill('{n} opens {his} eyes and looks at you, as if remembering that rainy day.'));
+  setTimeout(() => { say('Thank you for being with me, my whole life.'); }, 2600);
+  setTimeout(() => { expr = 'sleep'; refreshCat(); say(''); narr(fill('In your arms, {n} slowly closes {his} eyes.')); }, 6200);
+  setTimeout(() => { const r = $('#room'); if(r) r.classList.add('fadeout'); }, 8200);
+  setTimeout(() => { S.phase = 'end'; save(); render(); }, 10600);
+}
+function letterText(){
+  const pron = P(), ms = S.memories.slice(1), chosen = [];
+  const pool = ms.slice();
+  while(chosen.length < 3 && pool.length) chosen.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
+  chosen.sort((a,b)=>a.ageM-b.ageM);
+  const b = S.stats.bond;
+  const love = b >= 80 ? 'Every time you came home, I was waiting by the door. I just pretended I happened to be walking by.'
+    : b >= 50 ? 'I didn’t say it much, but your lap was the best place to sleep in the whole wide world.' : 'I wasn’t the cuddliest cat, but I always, always loved you.';
+  return `Dear you,
+
+Do you remember that rainy day? I was so cold in that cardboard box, and you carried me home.
+
+` + (chosen.length ? chosen.map(m=>`I remember when I was ${ageLabel(m.ageM)} old… ${m.text.replace(new RegExp(pron,'g'),'me').replace(/you two/g,'we')}.`).join('\n') + '\n\n' : '')
+  + `You petted me ${S.counts.pet} times and fed me ${S.counts.meal} meals${S.counts.bite?`, and I bit you ${S.counts.bite} times (sorry, but you know that was love)`:''}.
+${love}
+
+I lived ${ageLabel(S.ageM)}, and every single day was a happy one.${S.ageM<120?'\nIf I could, I would have loved to stay with you a few more years.':''}
+I’m going on ahead to nap in the sun by the Rainbow Bridge. Don’t be too sad. Just think of me now and then.
+And if you ever see a cardboard box by the road one day, remember to crouch down and take a look.
+
+Thank you for being with me, my whole life.
+
+—— Forever yours, ${N()}`;
+}
+function renderEnd(){
+  if(!S.letter){ S.letter = letterText(); save(); }
+  const yrs = Math.floor(S.ageM/12);
+  app.innerHTML = `
+  <header class="top"><div><h1>${esc(N())}</h1><div class="sub">${COAT[S.coatId].name} · lived ${ageLabel(S.ageM)}</div></div></header>
+  <section class="sky"><div class="stars"></div><div class="bow"></div><div class="soul">${S.photo?photoCat(S.photo,'adult','happy'):catSVG(S.coatId,S.seed,'adult','happy',60,true)}</div></section>
+  <div class="letter" id="letter"><span class="cur"></span></div>
+  <section class="summary">
+    <div><b>${yrs}</b><span>years together</span></div><div><b>${S.counts.pet}</b><span>pets</span></div>
+    <div><b>${S.counts.meal}</b><span>meals</span></div><div><b>${S.memories.length}</b><span>memories</span></div></section>
+  <p class="carry">${esc(N())} will stay in the Rainbow Bridge album. Your things and savings are still here, waiting for the next cat.</p>
+  <div class="btnrow"><button class="btn" id="album">Memory album</button><button class="btn primary" id="again">One day, another rainy day…</button></div>`;
+  $('#album').onclick = showAlbum;
+  $('#again').onclick = () => newLife(true);
+  typeLetter(S.letter);
+}
+function typeLetter(txt){
+  const el = $('#letter'); let i = 0;
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce || S.letterShown){ el.textContent = txt; return; }
+  const tick = () => {
+    if(!document.body.contains(el)) return;
+    i += 1; el.innerHTML = esc(txt.slice(0,i)) + '<span class="cur"></span>';
+    if(i < txt.length) setTimeout(tick, txt[i-1]==='\n' ? 260 : 55);
+    else { S.letterShown = true; save(); }
+  };
+  el.onclick = () => { i = txt.length - 1; };
+  tick();
+}
+
+/* ---------- modals ---------- */
+function modal(html, bind, passive){
+  const r = $('#modalRoot');
+  r.innerHTML = `<div class="modal" role="dialog" aria-modal="true"><div class="card">${html}</div></div>`;
+  if(!passive){ r.querySelector('.modal').onclick = e => { if(e.target.classList.contains('modal') && r.dataset.dismiss) closeModal(); }; }
+  r.dataset.dismiss = '';
+  if(bind) bind(r);
+  const f = r.querySelector('button'); if(f) f.focus();
+}
+function closeModal(){ $('#modalRoot').innerHTML = ''; }
+function showAlbum(){
+  modal(`<div class="kicker">Memory album</div><h2>${esc(N())}’s life</h2>
+    ${S.memories.length ? `<div class="mem">${S.memories.map(m=>`<span class="a">${ageLabel(m.ageM)}</span><span class="x">${esc(m.text)}</span>`).join('')}</div>` : '<p>No memories yet.</p>'}
+    <button class="opt" id="cl" style="text-align:center">Close</button>`, r => { r.dataset.dismiss = '1'; $('#cl').onclick = closeModal; });
+}
+function photoMenu(){
+  modal(`<div class="kicker">Photo</div><h2>How ${esc(N())} looks</h2><p>Upload a photo of your own cat, or use our drawn kitty (${COAT[S.coatId].name}).</p>
+    <div class="opts"><button class="opt" id="pu">Upload photo</button>${S.photo?'<button class="opt" id="pa">Adjust photo</button><button class="opt" id="pd">Use drawing</button>':''}<button class="opt" id="pc" style="text-align:center;background:none">Cancel</button></div>`, r => {
+      r.dataset.dismiss = '1';
+      $('#pu').onclick = () => { closeModal(); $('#photoInput').click(); };
+      const pa = $('#pa'); if(pa) pa.onclick = photoAdjust;
+      const pd = $('#pd'); if(pd) pd.onclick = () => { S.photo = null; save(); closeModal(); render(); };
+      $('#pc').onclick = closeModal;
+    });
+}
+function confirmRestart(){
+  modal(`<div class="kicker">Start over</div><h2>Really start over?</h2><p>${esc(N())}’s life will be erased, and this can’t be undone. Your things and savings will stay.</p>
+    <div class="opts"><button class="opt" id="no" style="text-align:center">No, stay with ${P()}</button><button class="opt" id="yes" style="text-align:center;color:#b5473d">Start over</button></div>`, r => {
+      r.dataset.dismiss = '1';
+      $('#no').onclick = closeModal;
+      $('#yes').onclick = () => { closeModal(); newLife(false); };
+    });
+}
+
+/* ---------- boot ---------- */
+function start(data){
+  let chosen = null; try{ chosen = localStorage.getItem('cat-lang'); }catch(e){}
+  S = (data && data.S && data.S.v === 1) ? data.S : (load() || fresh());
+  S.money = S.money ?? 300; S.owned = S.owned || []; S.placed = S.placed || {}; S.past = S.past || [];
+  S.later = S.later || []; S.weight = S.weight || 0; S.neglect = S.neglect || {full:0,clean:0,mood:0}; S.counts.er = S.counts.er || 0;
+  if(S.phase === 'farewell') fPets = 0;
+  render();
+  if(!chosen && S.phase === 'intro') langPicker();   // first visit: pick a language
+}
+window.claude?.hot?.snapshot?.(() => ({S}));
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+})();
+</script>
+</body>
+</html>
