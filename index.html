@@ -177,6 +177,7 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .langs{display:flex;gap:4px;background:var(--ink-2);border-radius:99px;padding:3px}
 .langs a{font-size:12px;color:var(--muted);text-decoration:none;padding:3px 10px;border-radius:99px}
 .langs a[aria-current]{background:var(--eye);color:var(--ink);font-weight:700}
+.field .hint{font-size:12px;color:var(--muted)}
 .links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:4px}
 
@@ -200,7 +201,7 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .btn.primary{background:var(--eye);color:var(--ink);font-weight:700}
 .field{display:flex;flex-direction:column;gap:6px}
 .field label{font-size:13px;color:var(--muted)}
-.field input[type=text]{font:inherit;font-size:18px;font-family:var(--display);padding:10px 12px;border-radius:12px;border:2px solid var(--ink-2);background:#ffffff0d;color:var(--paper)}
+.field input[type=text],.field input[type=number]{font:inherit;font-size:18px;font-family:var(--display);padding:10px 12px;border-radius:12px;border:2px solid var(--ink-2);background:#ffffff0d;color:var(--paper)}
 .sugs{display:flex;gap:6px;flex-wrap:wrap}
 .sugs button{border:1px solid #ffffff22;background:none;border-radius:99px;padding:4px 12px;font-size:13px}
 .seg{display:flex;gap:6px}
@@ -742,6 +743,13 @@ function renderName(){
       <button class="btn" type="button" id="up">${S.photo?'換一張':'上傳'}</button>${S.photo?'<button class="btn" type="button" id="rmPhoto">移除</button>':''}</div>${S.photo?'<button class="btn" type="button" id="adjPhoto">✋ 調整照片位置</button>':''}</div>
     <div class="btnrow"><button class="btn primary" id="go">回家囉</button></div>
   </section>`;
+  if(S.ownerAge === undefined) S.ownerAge = 30;   // default; the player can change or clear it
+  const photoField = app.querySelector('.upload') && app.querySelector('.upload').closest('.field');
+  if(photoField) photoField.insertAdjacentHTML('beforebegin', `<div class="field"><label for="ageIn">${'你現在幾歲？（可以不填）'}</label>
+    <input type="number" id="ageIn" min="3" max="120" inputmode="numeric" value="${S.ownerAge ?? ''}" placeholder="${'例如 30'}">
+    <small class="hint">${'到最後，貓咪會記得遇見你的時候你幾歲。'}</small></div>`);
+  const ageIn = $('#ageIn');
+  if(ageIn) ageIn.oninput = () => { const v = parseInt(ageIn.value, 10); S.ownerAge = v >= 3 && v <= 120 ? v : null; save(); };
   const inp = $('#nameIn');
   inp.oninput = () => { S.name = inp.value.trim(); save(); };
   S.name = inp.value.trim();
@@ -1397,7 +1405,8 @@ function rainbowModal(){
 }
 // a new cat moves into the same home: money, furniture and the cats before carry over
 function newLife(remember){
-  const home = {money:S.money, owned:S.owned, placed:S.placed, past:S.past};
+  const home = {money:S.money, owned:S.owned, placed:S.placed, past:S.past,
+    ownerAge: S.ownerAge ? Math.min(120, S.ownerAge + Math.round(S.ageM/12)) : S.ownerAge};
   if(remember) home.past = home.past.concat([{name:N(), coatId:S.coatId, seed:S.seed, gender:S.gender, ageM:S.ageM, photo:S.photo, letter:S.letter||'', memories:S.memories}]);
   S = Object.assign(fresh(), home);
   save(); render();
@@ -1444,6 +1453,21 @@ function farewellHug(){
   setTimeout(() => { const r = $('#room'); if(r) r.classList.add('fadeout'); }, 8200);
   setTimeout(() => { S.phase = 'end'; save(); render(); }, 10600);
 }
+// a cat’s whole life is a short stretch of yours: from the cat’s side, you are the one who never ages
+function lifeStage(age){
+  return age < 12 ? '小朋友' : age < 16 ? '國中生' : age < 19 ? '高中生' : age < 23 ? '大學生' : age < 60 ? '大人' : '有白頭髮的大人';
+}
+function lifespanLines(){
+  const yrs = Math.max(1, Math.round(S.ageM/12)), out = [];
+  if(S.ownerAge){
+    const a = S.ownerAge, b = a + yrs, old = S.gender==='f' ? '老奶奶' : '老爺爺';
+    out.push(fill('我遇見你的時候，你 {a} 歲。我走的時候，你 {b} 歲。', {a, b}));
+    out.push(lifeStage(a) === lifeStage(b) ? fill('我從小貓變成了{old}，你卻好像一點都沒變。', {old})
+      : fill('我從小貓變成了{old}，你只是從{from}變成了{to}。', {old, from:lifeStage(a), to:lifeStage(b)}));
+  }
+  out.push(fill('我的一輩子，只是你的 {yrs} 年。', {yrs}) + '\n' + '但你，是我的一整個一輩子。');
+  return out.join('\n');
+}
 function letterText(){
   const pron = P(), ms = S.memories.slice(1), chosen = [];
   const pool = ms.slice();
@@ -1475,6 +1499,7 @@ function letterText(){
     + fill('你摸了我 {pets} 次，餵了我 {meals} 頓飯。', {pets:S.counts.pet, meals:S.counts.meal}) + '\n'
     + love + '\n' + said.join('\n') + '\n\n'
     + fill('我活了 {age}，每一天都很幸福。', {age:ageLabel(S.ageM)}) + (S.ageM < 120 ? '\n' + '如果可以，我好想再多陪你幾年。' : '') + '\n'
+    + '\n' + lifespanLines() + '\n\n'
     + goodbye + '\n' + '如果哪天你在路邊看到一個紙箱，記得蹲下來看看。' + '\n\n'
     + '謝謝你，陪我一生。' + '\n\n' + '—— ' + fill(sign);
 }

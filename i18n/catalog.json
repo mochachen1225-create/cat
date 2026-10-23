@@ -1492,6 +1492,10 @@
   "context": "app.innerHTML = `\n  <header class=\"top\"><div><h1>幫${P()}取個名字</h1><div class=\"sub\">${c.name} · 大約 1 個月大</div></div></header>\n  <section class=\"room t0\">${roomDecor()}\n    <div class=\"catwrap kitten\" id=\"cw\">${catHTML('kitten','happy')}</div></section>\n  <section class=\"panel\">\n    <div class=\"field\">"
  },
  {
+  "zh": "<div class=\"field\"><label for=\"ageIn\">${'你現在幾歲？（可以不填）'}</label>\n    <input type=\"number\" id=\"ageIn\" min=\"3\" max=\"120\" inputmode=\"numeric\" value=\"${S.ownerAge ?? ''}\" placeholder=\"${'例如 30'}\">\n    <small class=\"hint\">${'到最後，貓咪會記得遇見你的時候你幾歲。'}</small></div>",
+  "context": "if(photoField) photoField.insertAdjacentHTML('beforebegin', `<div class=\"field\"><label for=\"ageIn\">${'你現在幾歲？（可以不填）'}</label>\n    <input type=\"number\" id=\"ageIn\" min=\"3\" max=\"120\" inputmode=\"numeric\" value=\"${S.ownerAge ?? ''}\" placeholder=\"${'例如 30'}\">\n    <small class=\"hint\">${'到最後，貓咪會記得遇見你的時候你幾歲。'"
+ },
+ {
   "zh": "你用毛巾把 {n} 擦乾，放在暖暖的小毯子上。{p}吃了一點東西，就在你手邊睡著了。",
   "context": "S.phase = 'life'; S.narr = fill('你用毛巾把 {n} 擦乾，放在暖暖的小毯子上。{p}吃了一點東西，就在你手邊睡著了。');"
  },
@@ -2166,6 +2170,58 @@
  {
   "zh": "{n} 在你懷裡，慢慢閉上了眼睛。",
   "context": "setTimeout(() => { expr = 'sleep'; fAwake = false; refreshCat(); say(''); narr(fill('{n} 在你懷裡，慢慢閉上了眼睛。')); }, 6200);"
+ },
+ {
+  "zh": "小朋友",
+  "context": "return age < 12 ? '小朋友' : age < 16 ? '國中生' : age < 19 ? '高中生' : age < 23 ? '大學生' : age < 60 ? '大人' : '有白頭髮的大人';"
+ },
+ {
+  "zh": "國中生",
+  "context": "return age < 12 ? '小朋友' : age < 16 ? '國中生' : age < 19 ? '高中生' : age < 23 ? '大學生' : age < 60 ? '大人' : '有白頭髮的大人';"
+ },
+ {
+  "zh": "高中生",
+  "context": "return age < 12 ? '小朋友' : age < 16 ? '國中生' : age < 19 ? '高中生' : age < 23 ? '大學生' : age < 60 ? '大人' : '有白頭髮的大人';"
+ },
+ {
+  "zh": "大學生",
+  "context": "return age < 12 ? '小朋友' : age < 16 ? '國中生' : age < 19 ? '高中生' : age < 23 ? '大學生' : age < 60 ? '大人' : '有白頭髮的大人';"
+ },
+ {
+  "zh": "大人",
+  "context": "return age < 12 ? '小朋友' : age < 16 ? '國中生' : age < 19 ? '高中生' : age < 23 ? '大學生' : age < 60 ? '大人' : '有白頭髮的大人';"
+ },
+ {
+  "zh": "有白頭髮的大人",
+  "context": "return age < 12 ? '小朋友' : age < 16 ? '國中生' : age < 19 ? '高中生' : age < 23 ? '大學生' : age < 60 ? '大人' : '有白頭髮的大人';"
+ },
+ {
+  "zh": "老奶奶",
+  "context": "const a = S.ownerAge, b = a + yrs, old = S.gender==='f' ? '老奶奶' : '老爺爺';"
+ },
+ {
+  "zh": "老爺爺",
+  "context": "const a = S.ownerAge, b = a + yrs, old = S.gender==='f' ? '老奶奶' : '老爺爺';"
+ },
+ {
+  "zh": "我遇見你的時候，你 {a} 歲。我走的時候，你 {b} 歲。",
+  "context": "out.push(fill('我遇見你的時候，你 {a} 歲。我走的時候，你 {b} 歲。', {a, b}));"
+ },
+ {
+  "zh": "我從小貓變成了{old}，你卻好像一點都沒變。",
+  "context": "out.push(lifeStage(a) === lifeStage(b) ? fill('我從小貓變成了{old}，你卻好像一點都沒變。', {old})"
+ },
+ {
+  "zh": "我從小貓變成了{old}，你只是從{from}變成了{to}。",
+  "context": ": fill('我從小貓變成了{old}，你只是從{from}變成了{to}。', {old, from:lifeStage(a), to:lifeStage(b)}));"
+ },
+ {
+  "zh": "我的一輩子，只是你的 {yrs} 年。",
+  "context": "out.push(fill('我的一輩子，只是你的 {yrs} 年。', {yrs}) + '\\n' + '但你，是我的一整個一輩子。');"
+ },
+ {
+  "zh": "但你，是我的一整個一輩子。",
+  "context": "out.push(fill('我的一輩子，只是你的 {yrs} 年。', {yrs}) + '\\n' + '但你，是我的一整個一輩子。');"
  },
  {
   "zh": "還記得那個下雨天嗎？我在紙箱裡好冷，是你把我抱回家的。",
