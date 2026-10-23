@@ -7,7 +7,7 @@
 <meta name="description" content="On a rainy day, you find a tiny kitten in a cardboard box. Stay by its side as it grows up, grows old, and one day says goodbye. A free cat-raising game you can play in your browser.">
 <meta property="og:title" content="Raise a Kitty">
 <meta property="og:description" content="On a rainy day, you find a tiny kitten in a cardboard box. Stay by its side as it grows up, grows old, and one day says goodbye.">
-<meta property="og:image" content="https://mochachen1225-create.github.io/cat/og.png">
+<meta property="og:image" content="https://mochachen1225-create.github.io/cat/og.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
@@ -183,6 +183,9 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .pausebtn{position:absolute;top:0;right:0;border:0;background:var(--ink-2);color:var(--paper);border-radius:99px;padding:5px 12px;font-size:13px;box-shadow:inset 0 -2px 0 #0003}
 .pausecat{width:46%;align-self:center}.pausecat svg{width:100%;height:auto;display:block}
 .chip.wish{background:#FFB3C1;color:#2B2B2B}.chip.wish.done{background:#A8DDA0}
+.room.painted{aspect-ratio:900/840;background:#F6EEDF}
+.sky.painted{aspect-ratio:784/900;max-height:72vh;background:#F6EEDF;display:flex;justify-content:center}
+.painted img{display:block;width:100%;height:100%;object-fit:cover;animation:fade 1.2s}
 .links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:4px}
 
@@ -835,6 +838,7 @@ function renderIntro(){
          <div class="btnrow"><button class="btn primary" id="look">Crouch down and look</button><button class="btn" id="howto">📖 How to play</button></div>`}
   </section>`;
   bindLangLinks(app);
+  if(!revealed){ const st = app.querySelector('.room.street'); if(st){ st.className = 'room painted'; st.innerHTML = '<img src="img/rain.jpg" alt="">'; } }
   const ht = $('#howto'); if(ht) ht.onclick = showGuide;
   const look = $('#look'); if(look) look.onclick = () => { S.flags.revealed = true; save(); render(); };
   const rr = $('#reroll'); if(rr) rr.onclick = () => { const id=S.coatId; do{S.coatId=pick(COATS).id}while(S.coatId===id); S.seed=Math.floor(Math.random()*1e9); S.gender=Math.random()<.5?'f':'m'; save(); render(); };
@@ -1658,6 +1662,7 @@ function renderEnd(){
     <div><b>${S.counts.meal}</b><span>meals</span></div><div><b>${S.memories.length}</b><span>memories</span></div></section>
   <p class="carry">${esc(N())} will stay in the Rainbow Bridge album. Your things and savings are still here, waiting for the next cat.</p>
   <div class="btnrow"><button class="btn" id="album">Memory album</button><button class="btn primary" id="again">One day, another rainy day…</button></div>`;
+  const sky = app.querySelector('.sky'); if(sky){ sky.className = 'sky painted'; sky.innerHTML = '<img src="img/rainbow.jpg" alt="">'; }
   $('#album').onclick = showAlbum;
   $('#again').onclick = () => newLife(true);
   typeLetter(S.letter);
