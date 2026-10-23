@@ -1450,23 +1450,33 @@ function letterText(){
   while(chosen.length < 3 && pool.length) chosen.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
   chosen.sort((a,b)=>a.ageM-b.ageM);
   const b = S.stats.bond;
-  const love = b >= 80 ? 'Every time you came home, I was waiting by the door. I just pretended I happened to be walking by.'
-    : b >= 50 ? 'I didn’t say it much, but your lap was the best place to sleep in the whole wide world.' : 'I wasn’t the cuddliest cat, but I always, always loved you.';
-  return `Dear you,
-
-Do you remember that rainy day? I was so cold in that cardboard box, and you carried me home.
-
-` + (chosen.length ? chosen.map(m=>`I remember when I was ${ageLabel(m.ageM)} old… ${m.text.replace(new RegExp(pron,'g'),'me').replace(/you two/g,'we')}.`).join('\n') + '\n\n' : '')
-  + `You petted me ${S.counts.pet} times and fed me ${S.counts.meal} meals${S.counts.bite?`, and I bit you ${S.counts.bite} times (sorry, but you know that was love)`:''}.
-${love}
-
-I lived ${ageLabel(S.ageM)}, and every single day was a happy one.${S.ageM<120?'\nIf I could, I would have loved to stay with you a few more years.':''}
-I’m going on ahead to nap in the sun by the Rainbow Bridge. Don’t be too sad. Just think of me now and then.
-And if you ever see a cardboard box by the road one day, remember to crouch down and take a look.
-
-Thank you for being with me, my whole life.
-
-—— Forever yours, ${N()}`;
+  // every letter is a little different: random wording, plus lines about what really happened
+  const opening = pick(['Do you remember that rainy day? I was so cold in that cardboard box, and you carried me home.', 'The first time I saw you was through a gap in that cardboard box. Your hands were so warm.', 'It was raining so hard that day. I thought nobody would ever stop. But you crouched down.']);
+  const love = pick(b >= 80 ? ['Every time you came home, I was waiting by the door. I just pretended I happened to be walking by.', 'Whatever room you were in, that’s where I’d end up. Did you ever notice?']
+    : b >= 50 ? ['I didn’t say it much, but your lap was the best place to sleep in the whole wide world.', 'When I blinked at you really slowly, I was saying I love you.']
+    : ['I wasn’t the cuddliest cat, but I always, always loved you.', 'I didn’t let you hold me much, but I always slept somewhere I could see you.']);
+  const happened = [];
+  if(S.counts.trip) happened.push('When you went away on trips, I slept on your pillow every night, because it smelled like you.');
+  if(S.counts.er) happened.push('That time at the emergency vet, I was so scared. But you stayed right beside me, so I pulled through.');
+  if(S.owned.includes('tree')) happened.push('Thank you for the cat tree. The very top was my throne.');
+  if(S.owned.includes('hammock')) happened.push('The hammock by the window was my secret base for watching sparrows.');
+  if(S.owned.includes('box')) happened.push('The cardboard house was the cheapest thing you bought, but it was my favorite.');
+  if(S.flags.fatDay) happened.push('The vet said I was too chubby, but wet food is just so yummy.');
+  if(S.counts.bite >= 5) happened.push('I bit you so many times. Sorry! But you know those were love bites.');
+  if(S.counts.pet >= 150) happened.push('Your hands were so gentle. Chin scratches were my favorite.');
+  if(S.counts.play >= 30) happened.push('The feather wand was my favorite toy, because you were the one holding it.');
+  happened.push(pick(['When you were sad, I’d come and sit right next to you. Remember?', 'On rainy days, my favorite spot was curled up by your feet.', 'When I sat on your keyboard, it was because I wanted you to look at me.', 'Waking you up every morning was my most important job.']));
+  const said = [];
+  while(said.length < 2 && happened.length) said.push(happened.splice(Math.floor(Math.random()*happened.length), 1)[0]);
+  const goodbye = pick(['I’m going on ahead to nap in the sun by the Rainbow Bridge. Don’t be too sad. Just think of me now and then.', 'I’m heading to the Rainbow Bridge first. I hear there’s all the wet food you could ever eat. Take your time, no rush.', 'I’ll be waiting at the Rainbow Bridge. When you get there, I’ll pretend I just happened to be walking by.']);
+  const sign = pick(['Forever yours, {n}', 'With all my love, {n}', 'Your cat, {n}']);
+  return 'Dear you,' + '\n\n' + opening + '\n\n'
+    + (chosen.length ? chosen.map(m=>`I remember when I was ${ageLabel(m.ageM)} old… ${m.text.replace(new RegExp(pron,'g'),'me').replace(/you two/g,'we')}.`).join('\n') + '\n\n' : '')
+    + fill('You petted me {pets} times and fed me {meals} meals.', {pets:S.counts.pet, meals:S.counts.meal}) + '\n'
+    + love + '\n' + said.join('\n') + '\n\n'
+    + fill('I lived {age}, and every single day was a happy one.', {age:ageLabel(S.ageM)}) + (S.ageM < 120 ? '\n' + 'If I could, I would have stayed with you a few more years.' : '') + '\n'
+    + goodbye + '\n' + 'And if you ever see a cardboard box by the road one day, remember to crouch down and take a look.' + '\n\n'
+    + 'Thank you for being with me, my whole life.' + '\n\n' + '—— ' + fill(sign);
 }
 function renderEnd(){
   if(!S.letter){ S.letter = letterText(); save(); }

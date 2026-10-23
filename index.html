@@ -1450,23 +1450,33 @@ function letterText(){
   while(chosen.length < 3 && pool.length) chosen.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
   chosen.sort((a,b)=>a.ageM-b.ageM);
   const b = S.stats.bond;
-  const love = b >= 80 ? '每次你回家，我都會在門口等你，只是假裝剛好路過。'
-    : b >= 50 ? '雖然我不常說，但你的腿是全世界最好睡的地方。' : '我是一隻不太會撒嬌的貓，但我一直都很喜歡你。';
-  return `親愛的你：
-
-還記得那個下雨天嗎？我在紙箱裡好冷，是你把我抱回家的。
-
-` + (chosen.length ? chosen.map(m=>`我記得 ${ageLabel(m.ageM)} 的時候，${m.text.replace(new RegExp(pron,'g'),'我').replace(/你們/g,'我們')}。`).join('\n') + '\n\n' : '')
-  + `你摸了我 ${S.counts.pet} 次，餵了我 ${S.counts.meal} 頓飯${S.counts.bite?`，我咬了你 ${S.counts.bite} 次（對不起，但你知道那是愛）`:''}。
-${love}
-
-我活了 ${ageLabel(S.ageM)}，每一天都很幸福。${S.ageM<120?'\n如果可以，我好想再多陪你幾年。':''}
-我先去彩虹橋那邊曬太陽了。不要太難過，偶爾想起我就好。
-如果哪天你在路邊看到一個紙箱，記得蹲下來看看。
-
-謝謝你，陪我一生。
-
-—— 永遠是你的 ${N()}`;
+  // every letter is a little different: random wording, plus lines about what really happened
+  const opening = pick(['還記得那個下雨天嗎？我在紙箱裡好冷，是你把我抱回家的。', '我第一次看到你，是從紙箱的縫縫裡。你的手好暖。', '那天雨好大，我以為不會有人停下來。可是你蹲下來了。']);
+  const love = pick(b >= 80 ? ['每次你回家，我都會在門口等你，只是假裝剛好路過。', '你在哪個房間，我就會跑到哪個房間。你沒發現吧？']
+    : b >= 50 ? ['雖然我不常說，但你的腿是全世界最好睡的地方。', '我對你慢慢眨眼睛的時候，就是在說我愛你。']
+    : ['我是一隻不太會撒嬌的貓，但我一直都很喜歡你。', '我不太讓你抱，可是我都睡在看得到你的地方。']);
+  const happened = [];
+  if(S.counts.trip) happened.push('你出國的時候，我每天都睡在你的枕頭上，因為那裡有你的味道。');
+  if(S.counts.er) happened.push('去急診那次，我其實好害怕。可是你一直在我旁邊，所以我撐過來了。');
+  if(S.owned.includes('tree')) happened.push('謝謝你買的貓跳台，最高那層是我的王位。');
+  if(S.owned.includes('hammock')) happened.push('窗邊的吊床，是我看麻雀的秘密基地。');
+  if(S.owned.includes('box')) happened.push('紙箱屋雖然很便宜，但它是我最喜歡的家具。');
+  if(S.flags.fatDay) happened.push('雖然醫生說我太胖，可是罐罐真的很好吃嘛。');
+  if(S.counts.bite >= 5) happened.push('我咬了你好多次，對不起。但你知道那是愛的咬咬。');
+  if(S.counts.pet >= 150) happened.push('你的手好溫柔。我最喜歡你摸我的下巴。');
+  if(S.counts.play >= 30) happened.push('逗貓棒是我最喜歡的玩具，因為拿著它的人是你。');
+  happened.push(pick(['你難過的時候，我會跑過來坐在你旁邊，你記得嗎？', '下雨天，我最喜歡窩在你的腳邊。', '你打電腦的時候我坐在鍵盤上，是因為我想要你看我。', '每天早上叫你起床，是我最重要的工作。']));
+  const said = [];
+  while(said.length < 2 && happened.length) said.push(happened.splice(Math.floor(Math.random()*happened.length), 1)[0]);
+  const goodbye = pick(['我先去彩虹橋那邊曬太陽了。不要太難過，偶爾想起我就好。', '我要先去彩虹橋了，聽說那裡有吃不完的罐罐。你慢慢來，不要急。', '我會在彩虹橋那邊等你。你來的時候，我會假裝剛好路過。']);
+  const sign = pick(['永遠是你的 {n}', '最愛你的 {n}', '你的貓 {n}']);
+  return '親愛的你：' + '\n\n' + opening + '\n\n'
+    + (chosen.length ? chosen.map(m=>`我記得 ${ageLabel(m.ageM)} 的時候，${m.text.replace(new RegExp(pron,'g'),'我').replace(/你們/g,'我們')}。`).join('\n') + '\n\n' : '')
+    + fill('你摸了我 {pets} 次，餵了我 {meals} 頓飯。', {pets:S.counts.pet, meals:S.counts.meal}) + '\n'
+    + love + '\n' + said.join('\n') + '\n\n'
+    + fill('我活了 {age}，每一天都很幸福。', {age:ageLabel(S.ageM)}) + (S.ageM < 120 ? '\n' + '如果可以，我好想再多陪你幾年。' : '') + '\n'
+    + goodbye + '\n' + '如果哪天你在路邊看到一個紙箱，記得蹲下來看看。' + '\n\n'
+    + '謝謝你，陪我一生。' + '\n\n' + '—— ' + fill(sign);
 }
 function renderEnd(){
   if(!S.letter){ S.letter = letterText(); save(); }
