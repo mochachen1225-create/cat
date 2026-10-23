@@ -3,7 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>陪我一生的貓</title>
+<title>養一隻貓貓</title>
+<meta name="description" content="在雨天的紙箱裡撿到一隻小貓，陪牠長大、變老，直到說再見。免費在瀏覽器上玩的養貓遊戲。">
+<meta property="og:title" content="養一隻貓貓">
+<meta property="og:description" content="在雨天的紙箱裡撿到一隻小貓，陪牠長大、變老，直到說再見。">
+<meta property="og:image" content="https://mochachen1225-create.github.io/cat/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -167,6 +174,9 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .zoom input{flex:1;accent-color:#F2B53B}
 .foodcan{position:absolute;bottom:6%;width:11%;z-index:3;animation:fade .3s}
 .foodcan svg{width:100%;height:auto;display:block;overflow:visible}
+.langs{display:flex;gap:4px;background:var(--ink-2);border-radius:99px;padding:3px}
+.langs a{font-size:12px;color:var(--muted);text-decoration:none;padding:3px 10px;border-radius:99px}
+.langs a[aria-current]{background:var(--eye);color:var(--ink);font-weight:700}
 .links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:4px}
 
@@ -462,6 +472,15 @@ function photoAdjust(){
   });
 }
 
+/* ---------- language: index.html is Chinese; en.html / ja.html are generated from it (tools/build-i18n.py) ---------- */
+const LANG = 'zh';
+const LANGS = [['zh','中文','index.html'],['en','English','en.html'],['ja','日本語','ja.html']];   // i18n-skip
+function langLinks(){ return `<nav class="langs">${LANGS.map(([k,name,href]) => `<a href="${href}" data-lang="${k}" ${k===LANG?'aria-current="page"':''}>${name}</a>`).join('')}</nav>`; }   // i18n-skip
+function bindLangLinks(root){ root.querySelectorAll('[data-lang]').forEach(a => a.addEventListener('click', () => { try{ localStorage.setItem('cat-lang', a.dataset.lang); }catch(e){} })); }
+function langPicker(){
+  modal(`<div class="kicker">Language · 語言 · 言語</div><h2>🐾</h2><div class="opts">${LANGS.map(([k,name,href]) => `<a class="opt" style="text-align:center;text-decoration:none" href="${href}" data-lang="${k}">${name}</a>`).join('')}</div>`, r => bindLangLinks(r));   // i18n-skip
+}
+
 /* ---------- state ---------- */
 const SLOTS = ['早上','下午','晚上'];
 let S = null;
@@ -475,7 +494,8 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){try{con
 
 const P = () => S.gender==='f' ? '她' : '他';
 const N = () => S.name || '小貓';
-const fill = t => t.replace(/\{n\}/g, N()).replace(/\{p\}/g, P());
+const PRON = {f:{she:'she', She:'She', her:'her', his:'her'}, m:{she:'he', She:'He', her:'him', his:'his'}};
+const fill = (t, v = {}) => t.replace(/\{(\w+)\}/g, (m, k) => k === 'n' ? N() : k === 'p' ? P() : (PRON[S.gender] && PRON[S.gender][k]) || (k in v ? v[k] : m));
 const add = (k, d) => { S.stats[k] = clamp(S.stats[k] + d, 0, 100); };
 const stage = (m = S.ageM) => m < 12 ? 'kitten' : m < 120 ? 'adult' : 'senior';
 const stageName = m => m < 12 ? '幼貓' : m < 84 ? '成貓' : m < 132 ? '熟齡貓' : '老貓';
@@ -686,7 +706,7 @@ function render(){
 function renderIntro(){
   const c = COAT[S.coatId], revealed = !!S.flags.revealed;
   app.innerHTML = `
-  <header class="top"><div><h1>陪我一生的貓</h1><div class="sub">一隻貓的一生，大約十五年</div></div></header>
+  <header class="top"><div><h1>養一隻貓貓</h1><div class="sub">一隻貓的一生，大約十五年</div></div>${langLinks()}</header>
   <section class="room street">
     <div class="floor"></div><div class="rain"></div>
     <div class="peek ${revealed?'up':''}">${revealed ? catSVG(S.coatId,S.seed,'kitten','normal',1) : catSVG(S.coatId,S.seed,'kitten','sleep',1)}</div>
@@ -699,6 +719,7 @@ function renderIntro(){
       : `<p>${S.past.length?`${esc(S.past[S.past.length-1].name)} 走了以後，家裡安靜了好久。<br>`:''}下雨的晚上，你在巷口的紙箱裡，看見一團小小的、濕濕的東西。</p>
          <div class="btnrow"><button class="btn primary" id="look">蹲下來看看</button><button class="btn" id="howto">📖 怎麼玩</button></div>`}
   </section>`;
+  bindLangLinks(app);
   const ht = $('#howto'); if(ht) ht.onclick = showGuide;
   const look = $('#look'); if(look) look.onclick = () => { S.flags.revealed = true; save(); render(); };
   const rr = $('#reroll'); if(rr) rr.onclick = () => { const id=S.coatId; do{S.coatId=pick(COATS).id}while(S.coatId===id); S.seed=Math.floor(Math.random()*1e9); S.gender=Math.random()<.5?'f':'m'; save(); render(); };
@@ -1031,7 +1052,7 @@ function pickEvent(list){
 function runQueue(q, after){
   if(!q.length){ save(); render(); if(after) after(); return; }
   const ev = q.shift();
-  if(/鬼叫|嗷嗚/.test(ev.text)) meow('long'); else if(Math.random() < .5) meow('short');
+  if(ev.id === 'yowl') meow('long'); else if(Math.random() < .5) meow('short');
   showEvent(ev, () => runQueue(q, after));
 }
 const LABEL = {full:'飽足',mood:'心情',clean:'清潔',health:'健康',bond:'親密'};
@@ -1513,11 +1534,13 @@ function confirmRestart(){
 
 /* ---------- boot ---------- */
 function start(data){
+  let chosen = null; try{ chosen = localStorage.getItem('cat-lang'); }catch(e){}
   S = (data && data.S && data.S.v === 1) ? data.S : (load() || fresh());
   S.money = S.money ?? 300; S.owned = S.owned || []; S.placed = S.placed || {}; S.past = S.past || [];
   S.later = S.later || []; S.weight = S.weight || 0; S.neglect = S.neglect || {full:0,clean:0,mood:0}; S.counts.er = S.counts.er || 0;
   if(S.phase === 'farewell') fPets = 0;
   render();
+  if(!chosen && S.phase === 'intro') langPicker();   // first visit: pick a language
 }
 window.claude?.hot?.snapshot?.(() => ({S}));
 window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});

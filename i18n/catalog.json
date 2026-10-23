@@ -1,0 +1,2210 @@
+[
+ {
+  "zh": "養一隻貓貓",
+  "context": "<title>養一隻貓貓</title>"
+ },
+ {
+  "zh": "在雨天的紙箱裡撿到一隻小貓，陪牠長大、變老，直到說再見。免費在瀏覽器上玩的養貓遊戲。",
+  "context": "<meta name=\"description\" content=\"在雨天的紙箱裡撿到一隻小貓，陪牠長大、變老，直到說再見。免費在瀏覽器上玩的養貓遊戲。\">"
+ },
+ {
+  "zh": "在雨天的紙箱裡撿到一隻小貓，陪牠長大、變老，直到說再見。",
+  "context": "<meta property=\"og:description\" content=\"在雨天的紙箱裡撿到一隻小貓，陪牠長大、變老，直到說再見。\">"
+ },
+ {
+  "zh": "橘貓",
+  "context": "{id:'orange',  name:'橘貓',   base:'#EDA65E', stripe:'#CB7A33', tabby:true, eye:'#A6C85A', nose:'#E98A8A', names:['小橘','肉鬆','地瓜','南瓜']},"
+ },
+ {
+  "zh": "小橘",
+  "context": "{id:'orange',  name:'橘貓',   base:'#EDA65E', stripe:'#CB7A33', tabby:true, eye:'#A6C85A', nose:'#E98A8A', names:['小橘','肉鬆','地瓜','南瓜']},"
+ },
+ {
+  "zh": "肉鬆",
+  "context": "{id:'orange',  name:'橘貓',   base:'#EDA65E', stripe:'#CB7A33', tabby:true, eye:'#A6C85A', nose:'#E98A8A', names:['小橘','肉鬆','地瓜','南瓜']},"
+ },
+ {
+  "zh": "地瓜",
+  "context": "{id:'orange',  name:'橘貓',   base:'#EDA65E', stripe:'#CB7A33', tabby:true, eye:'#A6C85A', nose:'#E98A8A', names:['小橘','肉鬆','地瓜','南瓜']},"
+ },
+ {
+  "zh": "南瓜",
+  "context": "{id:'orange',  name:'橘貓',   base:'#EDA65E', stripe:'#CB7A33', tabby:true, eye:'#A6C85A', nose:'#E98A8A', names:['小橘','肉鬆','地瓜','南瓜']},"
+ },
+ {
+  "zh": "橘白貓",
+  "context": "{id:'ow',      name:'橘白貓', base:'#EFAB68', stripe:'#D3843F', tabby:true, white:['muzzle','chest','paws'], eye:'#EDBB3A', nose:'#F09A9A', names:['奶茶','布丁','起司']},"
+ },
+ {
+  "zh": "奶茶",
+  "context": "{id:'ow',      name:'橘白貓', base:'#EFAB68', stripe:'#D3843F', tabby:true, white:['muzzle','chest','paws'], eye:'#EDBB3A', nose:'#F09A9A', names:['奶茶','布丁','起司']},"
+ },
+ {
+  "zh": "布丁",
+  "context": "{id:'ow',      name:'橘白貓', base:'#EFAB68', stripe:'#D3843F', tabby:true, white:['muzzle','chest','paws'], eye:'#EDBB3A', nose:'#F09A9A', names:['奶茶','布丁','起司']},"
+ },
+ {
+  "zh": "起司",
+  "context": "{id:'ow',      name:'橘白貓', base:'#EFAB68', stripe:'#D3843F', tabby:true, white:['muzzle','chest','paws'], eye:'#EDBB3A', nose:'#F09A9A', names:['奶茶','布丁','起司']},"
+ },
+ {
+  "zh": "黑貓",
+  "context": "{id:'black',   name:'黑貓',   base:'#2C2A33', eye:'#F4C430', nose:'#6A5560', names:['煤球','芝麻','黑糖','Luna']},"
+ },
+ {
+  "zh": "煤球",
+  "context": "{id:'black',   name:'黑貓',   base:'#2C2A33', eye:'#F4C430', nose:'#6A5560', names:['煤球','芝麻','黑糖','Luna']},"
+ },
+ {
+  "zh": "芝麻",
+  "context": "{id:'black',   name:'黑貓',   base:'#2C2A33', eye:'#F4C430', nose:'#6A5560', names:['煤球','芝麻','黑糖','Luna']},"
+ },
+ {
+  "zh": "黑糖",
+  "context": "{id:'black',   name:'黑貓',   base:'#2C2A33', eye:'#F4C430', nose:'#6A5560', names:['煤球','芝麻','黑糖','Luna']},"
+ },
+ {
+  "zh": "白貓",
+  "context": "{id:'white',   name:'白貓',   base:'#FAF7F1', eye:'#86BEEA', eye2:'#EDC33F', nose:'#F4A3AC', names:['麻糬','湯圓','雪球']},"
+ },
+ {
+  "zh": "麻糬",
+  "context": "{id:'white',   name:'白貓',   base:'#FAF7F1', eye:'#86BEEA', eye2:'#EDC33F', nose:'#F4A3AC', names:['麻糬','湯圓','雪球']},"
+ },
+ {
+  "zh": "湯圓",
+  "context": "{id:'white',   name:'白貓',   base:'#FAF7F1', eye:'#86BEEA', eye2:'#EDC33F', nose:'#F4A3AC', names:['麻糬','湯圓','雪球']},"
+ },
+ {
+  "zh": "雪球",
+  "context": "{id:'white',   name:'白貓',   base:'#FAF7F1', eye:'#86BEEA', eye2:'#EDC33F', nose:'#F4A3AC', names:['麻糬','湯圓','雪球']},"
+ },
+ {
+  "zh": "藍貓",
+  "context": "{id:'grey',    name:'藍貓',   base:'#8E98A6', eye:'#EAA93C', nose:'#82707C', names:['灰灰','鐵蛋','霧霧']},"
+ },
+ {
+  "zh": "灰灰",
+  "context": "{id:'grey',    name:'藍貓',   base:'#8E98A6', eye:'#EAA93C', nose:'#82707C', names:['灰灰','鐵蛋','霧霧']},"
+ },
+ {
+  "zh": "鐵蛋",
+  "context": "{id:'grey',    name:'藍貓',   base:'#8E98A6', eye:'#EAA93C', nose:'#82707C', names:['灰灰','鐵蛋','霧霧']},"
+ },
+ {
+  "zh": "霧霧",
+  "context": "{id:'grey',    name:'藍貓',   base:'#8E98A6', eye:'#EAA93C', nose:'#82707C', names:['灰灰','鐵蛋','霧霧']},"
+ },
+ {
+  "zh": "虎斑貓",
+  "context": "{id:'tabby',   name:'虎斑貓', base:'#A9896A', stripe:'#4E3C2C', tabby:true, white:['muzzle'], eye:'#B9C64B', nose:'#D88A80', names:['虎虎','咖啡','栗子']},"
+ },
+ {
+  "zh": "虎虎",
+  "context": "{id:'tabby',   name:'虎斑貓', base:'#A9896A', stripe:'#4E3C2C', tabby:true, white:['muzzle'], eye:'#B9C64B', nose:'#D88A80', names:['虎虎','咖啡','栗子']},"
+ },
+ {
+  "zh": "咖啡",
+  "context": "{id:'tabby',   name:'虎斑貓', base:'#A9896A', stripe:'#4E3C2C', tabby:true, white:['muzzle'], eye:'#B9C64B', nose:'#D88A80', names:['虎虎','咖啡','栗子']},"
+ },
+ {
+  "zh": "栗子",
+  "context": "{id:'tabby',   name:'虎斑貓', base:'#A9896A', stripe:'#4E3C2C', tabby:true, white:['muzzle'], eye:'#B9C64B', nose:'#D88A80', names:['虎虎','咖啡','栗子']},"
+ },
+ {
+  "zh": "三花貓",
+  "context": "{id:'calico',  name:'三花貓', base:'#FAF6EE', patches:['#E59B50','#33302F'], eye:'#DDAA36', nose:'#F2A0A6', names:['花花','三三','豆花']},"
+ },
+ {
+  "zh": "花花",
+  "context": "{id:'calico',  name:'三花貓', base:'#FAF6EE', patches:['#E59B50','#33302F'], eye:'#DDAA36', nose:'#F2A0A6', names:['花花','三三','豆花']},"
+ },
+ {
+  "zh": "三三",
+  "context": "{id:'calico',  name:'三花貓', base:'#FAF6EE', patches:['#E59B50','#33302F'], eye:'#DDAA36', nose:'#F2A0A6', names:['花花','三三','豆花']},"
+ },
+ {
+  "zh": "豆花",
+  "context": "{id:'calico',  name:'三花貓', base:'#FAF6EE', patches:['#E59B50','#33302F'], eye:'#DDAA36', nose:'#F2A0A6', names:['花花','三三','豆花']},"
+ },
+ {
+  "zh": "賓士貓",
+  "context": "{id:'tuxedo',  name:'賓士貓', base:'#28262D', white:['muzzle','chest','paws'], eye:'#A0C760', nose:'#F2A3AB', names:['賓賓','黑白','乳牛']},"
+ },
+ {
+  "zh": "賓賓",
+  "context": "{id:'tuxedo',  name:'賓士貓', base:'#28262D', white:['muzzle','chest','paws'], eye:'#A0C760', nose:'#F2A3AB', names:['賓賓','黑白','乳牛']},"
+ },
+ {
+  "zh": "黑白",
+  "context": "{id:'tuxedo',  name:'賓士貓', base:'#28262D', white:['muzzle','chest','paws'], eye:'#A0C760', nose:'#F2A3AB', names:['賓賓','黑白','乳牛']},"
+ },
+ {
+  "zh": "乳牛",
+  "context": "{id:'tuxedo',  name:'賓士貓', base:'#28262D', white:['muzzle','chest','paws'], eye:'#A0C760', nose:'#F2A3AB', names:['賓賓','黑白','乳牛']},"
+ },
+ {
+  "zh": "暹羅貓",
+  "context": "{id:'siamese', name:'暹羅貓', base:'#F0E5D3', points:'#5D4538', eye:'#72AEE6', nose:'#5D4538', names:['可可','焦糖','拿鐵']},"
+ },
+ {
+  "zh": "可可",
+  "context": "{id:'siamese', name:'暹羅貓', base:'#F0E5D3', points:'#5D4538', eye:'#72AEE6', nose:'#5D4538', names:['可可','焦糖','拿鐵']},"
+ },
+ {
+  "zh": "焦糖",
+  "context": "{id:'siamese', name:'暹羅貓', base:'#F0E5D3', points:'#5D4538', eye:'#72AEE6', nose:'#5D4538', names:['可可','焦糖','拿鐵']},"
+ },
+ {
+  "zh": "拿鐵",
+  "context": "{id:'siamese', name:'暹羅貓', base:'#F0E5D3', points:'#5D4538', eye:'#72AEE6', nose:'#5D4538', names:['可可','焦糖','拿鐵']},"
+ },
+ {
+  "zh": "玳瑁貓",
+  "context": "{id:'tortie',  name:'玳瑁貓', base:'#3C2D27', patches:['#CD7B3D','#9A6238'], eye:'#E3AB3C', nose:'#6E4E46', names:['玳玳','焦焦','黑糖糕']},"
+ },
+ {
+  "zh": "玳玳",
+  "context": "{id:'tortie',  name:'玳瑁貓', base:'#3C2D27', patches:['#CD7B3D','#9A6238'], eye:'#E3AB3C', nose:'#6E4E46', names:['玳玳','焦焦','黑糖糕']},"
+ },
+ {
+  "zh": "焦焦",
+  "context": "{id:'tortie',  name:'玳瑁貓', base:'#3C2D27', patches:['#CD7B3D','#9A6238'], eye:'#E3AB3C', nose:'#6E4E46', names:['玳玳','焦焦','黑糖糕']},"
+ },
+ {
+  "zh": "黑糖糕",
+  "context": "{id:'tortie',  name:'玳瑁貓', base:'#3C2D27', patches:['#CD7B3D','#9A6238'], eye:'#E3AB3C', nose:'#6E4E46', names:['玳玳','焦焦','黑糖糕']},"
+ },
+ {
+  "zh": "灰白貓",
+  "context": "{id:'gw',      name:'灰白貓', base:'#9299A4', white:['muzzle','chest','paws','belly'], eye:'#E6B53E', nose:'#F0A0A8', names:['小灰','米米','阿飄']},"
+ },
+ {
+  "zh": "小灰",
+  "context": "{id:'gw',      name:'灰白貓', base:'#9299A4', white:['muzzle','chest','paws','belly'], eye:'#E6B53E', nose:'#F0A0A8', names:['小灰','米米','阿飄']},"
+ },
+ {
+  "zh": "米米",
+  "context": "{id:'gw',      name:'灰白貓', base:'#9299A4', white:['muzzle','chest','paws','belly'], eye:'#E6B53E', nose:'#F0A0A8', names:['小灰','米米','阿飄']},"
+ },
+ {
+  "zh": "阿飄",
+  "context": "{id:'gw',      name:'灰白貓', base:'#9299A4', white:['muzzle','chest','paws','belly'], eye:'#E6B53E', nose:'#F0A0A8', names:['小灰','米米','阿飄']},"
+ },
+ {
+  "zh": "<div class=\"kicker\">調整照片</div><h2>把貓咪移到中間</h2><p>用手指拖曳照片，拉桿可以放大縮小。放大以後可以移動得更多。</p>\n    <div class=\"adj\" id=\"adj\"></div>\n    <div class=\"zoom\"><span>小</span><input type=\"range\" id=\"zoomIn\" min=\"1\" max=\"3\" step=\"0.01\" value=\"${pos.z}\" aria-label=\"放大縮小\"><span>大</span></div>\n    <div class=\"opts\"><button class=\"opt\" id=\"adjOk\" style=\"text-align:center;background:#F2B53B;font-weight:700\">完成</button><button class=\"opt\" id=\"adjReset\" style=\"text-align:center;background:none\">重設</button></div>",
+  "context": "modal(`<div class=\"kicker\">調整照片</div><h2>把貓咪移到中間</h2><p>用手指拖曳照片，拉桿可以放大縮小。放大以後可以移動得更多。</p>\n    <div class=\"adj\" id=\"adj\"></div>\n    <div class=\"zoom\"><span>小</span><input type=\"range\" id=\"zoomIn\" min=\"1\" max=\"3\" step=\"0.01\" value=\"${pos.z}\" aria-label=\"放大縮小\"><span>大</span></div>\n    <div class=\"opts\""
+ },
+ {
+  "zh": "早上",
+  "context": "const SLOTS = ['早上','下午','晚上'];"
+ },
+ {
+  "zh": "下午",
+  "context": "const SLOTS = ['早上','下午','晚上'];"
+ },
+ {
+  "zh": "晚上",
+  "context": "const SLOTS = ['早上','下午','晚上'];"
+ },
+ {
+  "zh": "她",
+  "context": "const P = () => S.gender==='f' ? '她' : '他';"
+ },
+ {
+  "zh": "他",
+  "context": "const P = () => S.gender==='f' ? '她' : '他';"
+ },
+ {
+  "zh": "小貓",
+  "context": "const N = () => S.name || '小貓';"
+ },
+ {
+  "zh": "幼貓",
+  "context": "const stageName = m => m < 12 ? '幼貓' : m < 84 ? '成貓' : m < 132 ? '熟齡貓' : '老貓';"
+ },
+ {
+  "zh": "成貓",
+  "context": "const stageName = m => m < 12 ? '幼貓' : m < 84 ? '成貓' : m < 132 ? '熟齡貓' : '老貓';"
+ },
+ {
+  "zh": "熟齡貓",
+  "context": "const stageName = m => m < 12 ? '幼貓' : m < 84 ? '成貓' : m < 132 ? '熟齡貓' : '老貓';"
+ },
+ {
+  "zh": "老貓",
+  "context": "const stageName = m => m < 12 ? '幼貓' : m < 84 ? '成貓' : m < 132 ? '熟齡貓' : '老貓';"
+ },
+ {
+  "zh": "${m} 個月",
+  "context": "const ageLabel = m => m < 12 ? `${m} 個月` : `${Math.floor(m/12)} 歲${m%12>=6?'半':''}`;"
+ },
+ {
+  "zh": "${Math.floor(m/12)} 歲${m%12>=6?'半':''}",
+  "context": "const ageLabel = m => m < 12 ? `${m} 個月` : `${Math.floor(m/12)} 歲${m%12>=6?'半':''}`;"
+ },
+ {
+  "zh": "要出國嗎？",
+  "context": "{id:'trip', min:12, repeat:true, title:'要出國嗎？', text:'朋友揪你去旅行十天，機票很便宜。{n} 在旁邊看著你打開行李箱。', choices:["
+ },
+ {
+  "zh": "朋友揪你去旅行十天，機票很便宜。{n} 在旁邊看著你打開行李箱。",
+  "context": "{id:'trip', min:12, repeat:true, title:'要出國嗎？', text:'朋友揪你去旅行十天，機票很便宜。{n} 在旁邊看著你打開行李箱。', choices:["
+ },
+ {
+  "zh": "去！",
+  "context": "{label:'去！', hint:'接下來要安排誰照顧{p}', fx:()=>({text:'你訂了機票。那 {n} 怎麼辦？', next:{title:'誰來照顧{n}？', text:'十天不短，要好好安排。', choices:["
+ },
+ {
+  "zh": "接下來要安排誰照顧{p}",
+  "context": "{label:'去！', hint:'接下來要安排誰照顧{p}', fx:()=>({text:'你訂了機票。那 {n} 怎麼辦？', next:{title:'誰來照顧{n}？', text:'十天不短，要好好安排。', choices:["
+ },
+ {
+  "zh": "你訂了機票。那 {n} 怎麼辦？",
+  "context": "{label:'去！', hint:'接下來要安排誰照顧{p}', fx:()=>({text:'你訂了機票。那 {n} 怎麼辦？', next:{title:'誰來照顧{n}？', text:'十天不短，要好好安排。', choices:["
+ },
+ {
+  "zh": "誰來照顧{n}？",
+  "context": "{label:'去！', hint:'接下來要安排誰照顧{p}', fx:()=>({text:'你訂了機票。那 {n} 怎麼辦？', next:{title:'誰來照顧{n}？', text:'十天不短，要好好安排。', choices:["
+ },
+ {
+  "zh": "十天不短，要好好安排。",
+  "context": "{label:'去！', hint:'接下來要安排誰照顧{p}', fx:()=>({text:'你訂了機票。那 {n} 怎麼辦？', next:{title:'誰來照顧{n}？', text:'十天不短，要好好安排。', choices:["
+ },
+ {
+  "zh": "請專業貓保母每天到府",
+  "context": "{label:'請專業貓保母每天到府', hint:'{p}最安心，但會想你', fx:()=>{S.counts.trip++;add('mood',-8);add('health',2);mem('你出國時，保母每天傳{p}的照片給你');return '保母每天傳照片給你，{n} 都睡在你的枕頭上。回家那天，{p}假裝不認識你三分鐘，然後一整晚黏著不放。';}},"
+ },
+ {
+  "zh": "{p}最安心，但會想你",
+  "context": "{label:'請專業貓保母每天到府', hint:'{p}最安心，但會想你', fx:()=>{S.counts.trip++;add('mood',-8);add('health',2);mem('你出國時，保母每天傳{p}的照片給你');return '保母每天傳照片給你，{n} 都睡在你的枕頭上。回家那天，{p}假裝不認識你三分鐘，然後一整晚黏著不放。';}},"
+ },
+ {
+  "zh": "你出國時，保母每天傳{p}的照片給你",
+  "context": "{label:'請專業貓保母每天到府', hint:'{p}最安心，但會想你', fx:()=>{S.counts.trip++;add('mood',-8);add('health',2);mem('你出國時，保母每天傳{p}的照片給你');return '保母每天傳照片給你，{n} 都睡在你的枕頭上。回家那天，{p}假裝不認識你三分鐘，然後一整晚黏著不放。';}},"
+ },
+ {
+  "zh": "保母每天傳照片給你，{n} 都睡在你的枕頭上。回家那天，{p}假裝不認識你三分鐘，然後一整晚黏著不放。",
+  "context": "{label:'請專業貓保母每天到府', hint:'{p}最安心，但會想你', fx:()=>{S.counts.trip++;add('mood',-8);add('health',2);mem('你出國時，保母每天傳{p}的照片給你');return '保母每天傳照片給你，{n} 都睡在你的枕頭上。回家那天，{p}假裝不認識你三分鐘，然後一整晚黏著不放。';}},"
+ },
+ {
+  "zh": "送去貓旅館",
+  "context": "{label:'送去貓旅館', hint:'換環境會緊張', fx:()=>{S.counts.trip++;add('mood',-18);add('health',-5);later('hotelStress',1,1);return '{n} 在貓旅館躲在角落十天。回家後{p}聞遍了整個家，才終於放心地睡著。';}},"
+ },
+ {
+  "zh": "換環境會緊張",
+  "context": "{label:'送去貓旅館', hint:'換環境會緊張', fx:()=>{S.counts.trip++;add('mood',-18);add('health',-5);later('hotelStress',1,1);return '{n} 在貓旅館躲在角落十天。回家後{p}聞遍了整個家，才終於放心地睡著。';}},"
+ },
+ {
+  "zh": "{n} 在貓旅館躲在角落十天。回家後{p}聞遍了整個家，才終於放心地睡著。",
+  "context": "{label:'送去貓旅館', hint:'換環境會緊張', fx:()=>{S.counts.trip++;add('mood',-18);add('health',-5);later('hotelStress',1,1);return '{n} 在貓旅館躲在角落十天。回家後{p}聞遍了整個家，才終於放心地睡著。';}},"
+ },
+ {
+  "zh": "拜託朋友有空來看看",
+  "context": "{label:'拜託朋友有空來看看', hint:'省錢，但有點冒險', fx:()=>{S.counts.trip++;if(Math.random()<.5){add('full',-30);add('clean',-35);add('mood',-12);later('uti',1,2);return '朋友忙到忘了兩天。你回來時貓砂盆滿出來，{n} 對你大叫了好久。';}add('mood',-5);mem('朋友幫忙照顧，回來時{p}胖了一圈');return '朋友超寵{n}，每天開罐罐。{p}好像胖了一點。';}},"
+ },
+ {
+  "zh": "省錢，但有點冒險",
+  "context": "{label:'拜託朋友有空來看看', hint:'省錢，但有點冒險', fx:()=>{S.counts.trip++;if(Math.random()<.5){add('full',-30);add('clean',-35);add('mood',-12);later('uti',1,2);return '朋友忙到忘了兩天。你回來時貓砂盆滿出來，{n} 對你大叫了好久。';}add('mood',-5);mem('朋友幫忙照顧，回來時{p}胖了一圈');return '朋友超寵{n}，每天開罐罐。{p}好像胖了一點。';}},"
+ },
+ {
+  "zh": "朋友忙到忘了兩天。你回來時貓砂盆滿出來，{n} 對你大叫了好久。",
+  "context": "{label:'拜託朋友有空來看看', hint:'省錢，但有點冒險', fx:()=>{S.counts.trip++;if(Math.random()<.5){add('full',-30);add('clean',-35);add('mood',-12);later('uti',1,2);return '朋友忙到忘了兩天。你回來時貓砂盆滿出來，{n} 對你大叫了好久。';}add('mood',-5);mem('朋友幫忙照顧，回來時{p}胖了一圈');return '朋友超寵{n}，每天開罐罐。{p}好像胖了一點。';}},"
+ },
+ {
+  "zh": "朋友幫忙照顧，回來時{p}胖了一圈",
+  "context": "{label:'拜託朋友有空來看看', hint:'省錢，但有點冒險', fx:()=>{S.counts.trip++;if(Math.random()<.5){add('full',-30);add('clean',-35);add('mood',-12);later('uti',1,2);return '朋友忙到忘了兩天。你回來時貓砂盆滿出來，{n} 對你大叫了好久。';}add('mood',-5);mem('朋友幫忙照顧，回來時{p}胖了一圈');return '朋友超寵{n}，每天開罐罐。{p}好像胖了一點。';}},"
+ },
+ {
+  "zh": "朋友超寵{n}，每天開罐罐。{p}好像胖了一點。",
+  "context": "{label:'拜託朋友有空來看看', hint:'省錢，但有點冒險', fx:()=>{S.counts.trip++;if(Math.random()<.5){add('full',-30);add('clean',-35);add('mood',-12);later('uti',1,2);return '朋友忙到忘了兩天。你回來時貓砂盆滿出來，{n} 對你大叫了好久。';}add('mood',-5);mem('朋友幫忙照顧，回來時{p}胖了一圈');return '朋友超寵{n}，每天開罐罐。{p}好像胖了一點。';}},"
+ },
+ {
+  "zh": "不去了，留在家陪{p}",
+  "context": "{label:'不去了，留在家陪{p}', hint:'', fx:()=>{add('bond',6);add('mood',8);mem('你放棄了一趟旅行，留在家陪{p}曬太陽');return '你把行李箱收起來。{n} 立刻跳進去，在裡面睡了一下午。';}},"
+ },
+ {
+  "zh": "你放棄了一趟旅行，留在家陪{p}曬太陽",
+  "context": "{label:'不去了，留在家陪{p}', hint:'', fx:()=>{add('bond',6);add('mood',8);mem('你放棄了一趟旅行，留在家陪{p}曬太陽');return '你把行李箱收起來。{n} 立刻跳進去，在裡面睡了一下午。';}},"
+ },
+ {
+  "zh": "你把行李箱收起來。{n} 立刻跳進去，在裡面睡了一下午。",
+  "context": "{label:'不去了，留在家陪{p}', hint:'', fx:()=>{add('bond',6);add('mood',8);mem('你放棄了一趟旅行，留在家陪{p}曬太陽');return '你把行李箱收起來。{n} 立刻跳進去，在裡面睡了一下午。';}},"
+ },
+ {
+  "zh": "家裡有老鼠！",
+  "context": "{id:'mouse', min:6, title:'家裡有老鼠！', text:'半夜廚房傳來窸窸窣窣的聲音。{n} 的耳朵轉向那邊，屁股開始左右扭。', choices:["
+ },
+ {
+  "zh": "半夜廚房傳來窸窸窣窣的聲音。{n} 的耳朵轉向那邊，屁股開始左右扭。",
+  "context": "{id:'mouse', min:6, title:'家裡有老鼠！', text:'半夜廚房傳來窸窸窣窣的聲音。{n} 的耳朵轉向那邊，屁股開始左右扭。', choices:["
+ },
+ {
+  "zh": "讓{p}去抓！",
+  "context": "{label:'讓{p}去抓！', fx:()=>{if(stage()==='senior'||Math.random()<.35){add('mood',-3);return '{n} 衝過去……然後老鼠從{p}旁邊跑掉了。{p}假裝在舔毛，好像什麼都沒發生。';}add('mood',15);add('bond',3);if(Math.random()<.6)later('worms',2,4);mem('{p}抓到了家裡的老鼠，還叼來給你看');return '一陣混亂後，{n} 叼著老鼠走到你面前，放下，抬頭看你。是在等你稱讚。';}},"
+ },
+ {
+  "zh": "{n} 衝過去……然後老鼠從{p}旁邊跑掉了。{p}假裝在舔毛，好像什麼都沒發生。",
+  "context": "{label:'讓{p}去抓！', fx:()=>{if(stage()==='senior'||Math.random()<.35){add('mood',-3);return '{n} 衝過去……然後老鼠從{p}旁邊跑掉了。{p}假裝在舔毛，好像什麼都沒發生。';}add('mood',15);add('bond',3);if(Math.random()<.6)later('worms',2,4);mem('{p}抓到了家裡的老鼠，還叼來給你看');return '一陣混亂後，{n} 叼著老鼠走到你面前，放下，抬頭看你。是在等你稱讚。';}},"
+ },
+ {
+  "zh": "{p}抓到了家裡的老鼠，還叼來給你看",
+  "context": "{label:'讓{p}去抓！', fx:()=>{if(stage()==='senior'||Math.random()<.35){add('mood',-3);return '{n} 衝過去……然後老鼠從{p}旁邊跑掉了。{p}假裝在舔毛，好像什麼都沒發生。';}add('mood',15);add('bond',3);if(Math.random()<.6)later('worms',2,4);mem('{p}抓到了家裡的老鼠，還叼來給你看');return '一陣混亂後，{n} 叼著老鼠走到你面前，放下，抬頭看你。是在等你稱讚。';}},"
+ },
+ {
+  "zh": "一陣混亂後，{n} 叼著老鼠走到你面前，放下，抬頭看你。是在等你稱讚。",
+  "context": "{label:'讓{p}去抓！', fx:()=>{if(stage()==='senior'||Math.random()<.35){add('mood',-3);return '{n} 衝過去……然後老鼠從{p}旁邊跑掉了。{p}假裝在舔毛，好像什麼都沒發生。';}add('mood',15);add('bond',3);if(Math.random()<.6)later('worms',2,4);mem('{p}抓到了家裡的老鼠，還叼來給你看');return '一陣混亂後，{n} 叼著老鼠走到你面前，放下，抬頭看你。是在等你稱讚。';}},"
+ },
+ {
+  "zh": "放捕鼠籠，把{p}關在房間",
+  "context": "{label:'放捕鼠籠，把{p}關在房間', fx:()=>{add('mood',-4);return '隔天老鼠被抓到了。{n} 對著關過{p}的房門生了一整天的氣。';}},"
+ },
+ {
+  "zh": "隔天老鼠被抓到了。{n} 對著關過{p}的房門生了一整天的氣。",
+  "context": "{label:'放捕鼠籠，把{p}關在房間', fx:()=>{add('mood',-4);return '隔天老鼠被抓到了。{n} 對著關過{p}的房門生了一整天的氣。';}},"
+ },
+ {
+  "zh": "匡啷！",
+  "context": "{id:'cup', min:4, title:'匡啷！', text:'{n} 看著你的眼睛，用前腳慢慢把桌上的杯子推了下去。', choices:["
+ },
+ {
+  "zh": "{n} 看著你的眼睛，用前腳慢慢把桌上的杯子推了下去。",
+  "context": "{id:'cup', min:4, title:'匡啷！', text:'{n} 看著你的眼睛，用前腳慢慢把桌上的杯子推了下去。', choices:["
+ },
+ {
+  "zh": "唸{p}一頓",
+  "context": "{label:'唸{p}一頓', fx:()=>{add('mood',-4);return '{p}轉頭舔毛，完全沒在聽。';}},"
+ },
+ {
+  "zh": "{p}轉頭舔毛，完全沒在聽。",
+  "context": "{label:'唸{p}一頓', fx:()=>{add('mood',-4);return '{p}轉頭舔毛，完全沒在聽。';}},"
+ },
+ {
+  "zh": "算了，拍照留念",
+  "context": "{label:'算了，拍照留念', fx:()=>{add('bond',3);mem('{p}把杯子推下桌，你笑著拍了照');return '照片裡的 {n} 一臉無辜。';}},"
+ },
+ {
+  "zh": "{p}把杯子推下桌，你笑著拍了照",
+  "context": "{label:'算了，拍照留念', fx:()=>{add('bond',3);mem('{p}把杯子推下桌，你笑著拍了照');return '照片裡的 {n} 一臉無辜。';}},"
+ },
+ {
+  "zh": "照片裡的 {n} 一臉無辜。",
+  "context": "{label:'算了，拍照留念', fx:()=>{add('bond',3);mem('{p}把杯子推下桌，你笑著拍了照');return '照片裡的 {n} 一臉無辜。';}},"
+ },
+ {
+  "zh": "禮物",
+  "context": "{id:'gift', min:6, title:'禮物', text:'早上醒來，枕頭旁邊有一隻……蟑螂。{n} 很驕傲地坐在旁邊。', choices:["
+ },
+ {
+  "zh": "早上醒來，枕頭旁邊有一隻……蟑螂。{n} 很驕傲地坐在旁邊。",
+  "context": "{id:'gift', min:6, title:'禮物', text:'早上醒來，枕頭旁邊有一隻……蟑螂。{n} 很驕傲地坐在旁邊。', choices:["
+ },
+ {
+  "zh": "謝謝你喔（小聲尖叫）",
+  "context": "{label:'謝謝你喔（小聲尖叫）', fx:()=>{add('bond',4);mem('{p}送你一隻蟑螂當禮物');return '{n} 很滿意。看來你被當成不會打獵的大貓了。';}},"
+ },
+ {
+  "zh": "{p}送你一隻蟑螂當禮物",
+  "context": "{label:'謝謝你喔（小聲尖叫）', fx:()=>{add('bond',4);mem('{p}送你一隻蟑螂當禮物');return '{n} 很滿意。看來你被當成不會打獵的大貓了。';}},"
+ },
+ {
+  "zh": "{n} 很滿意。看來你被當成不會打獵的大貓了。",
+  "context": "{label:'謝謝你喔（小聲尖叫）', fx:()=>{add('bond',4);mem('{p}送你一隻蟑螂當禮物');return '{n} 很滿意。看來你被當成不會打獵的大貓了。';}},"
+ },
+ {
+  "zh": "默默拿衛生紙處理掉",
+  "context": "{label:'默默拿衛生紙處理掉', fx:()=>{add('mood',-2);return '{n} 看著禮物被丟掉，有點失落。';}},"
+ },
+ {
+  "zh": "{n} 看著禮物被丟掉，有點失落。",
+  "context": "{label:'默默拿衛生紙處理掉', fx:()=>{add('mood',-2);return '{n} 看著禮物被丟掉，有點失落。';}},"
+ },
+ {
+  "zh": "加班中",
+  "context": "{id:'keyboard', min:6, title:'加班中', text:'你在趕報告，{n} 一屁股坐上鍵盤：ggggggggggggggggg', choices:["
+ },
+ {
+  "zh": "你在趕報告，{n} 一屁股坐上鍵盤：ggggggggggggggggg",
+  "context": "{id:'keyboard', min:6, title:'加班中', text:'你在趕報告，{n} 一屁股坐上鍵盤：ggggggggggggggggg', choices:["
+ },
+ {
+  "zh": "休息一下陪{p}",
+  "context": "{label:'休息一下陪{p}', fx:()=>{add('mood',10);add('bond',3);mem('{p}坐在你的鍵盤上，要你陪{p}');return '你闔上電腦。{n} 心滿意足地趴在還熱熱的筆電上。';}},"
+ },
+ {
+  "zh": "{p}坐在你的鍵盤上，要你陪{p}",
+  "context": "{label:'休息一下陪{p}', fx:()=>{add('mood',10);add('bond',3);mem('{p}坐在你的鍵盤上，要你陪{p}');return '你闔上電腦。{n} 心滿意足地趴在還熱熱的筆電上。';}},"
+ },
+ {
+  "zh": "你闔上電腦。{n} 心滿意足地趴在還熱熱的筆電上。",
+  "context": "{label:'休息一下陪{p}', fx:()=>{add('mood',10);add('bond',3);mem('{p}坐在你的鍵盤上，要你陪{p}');return '你闔上電腦。{n} 心滿意足地趴在還熱熱的筆電上。';}},"
+ },
+ {
+  "zh": "把{p}抱開繼續工作",
+  "context": "{label:'把{p}抱開繼續工作', fx:()=>{add('mood',-5);return '三十秒後，{p}又回來了。';}},"
+ },
+ {
+  "zh": "三十秒後，{p}又回來了。",
+  "context": "{label:'把{p}抱開繼續工作', fx:()=>{add('mood',-5);return '三十秒後，{p}又回來了。';}},"
+ },
+ {
+  "zh": "紙箱",
+  "context": "{id:'box', min:2, title:'紙箱', text:'網購的東西到了。{n} 對裡面的東西沒興趣，只想要那個紙箱。', choices:["
+ },
+ {
+  "zh": "網購的東西到了。{n} 對裡面的東西沒興趣，只想要那個紙箱。",
+  "context": "{id:'box', min:2, title:'紙箱', text:'網購的東西到了。{n} 對裡面的東西沒興趣，只想要那個紙箱。', choices:["
+ },
+ {
+  "zh": "紙箱給你",
+  "context": "{label:'紙箱給你', fx:()=>{add('mood',12);mem('{p}擁有了人生第一座紙箱城堡');return '{n} 鑽進去，只露出兩隻耳朵。';}},"
+ },
+ {
+  "zh": "{p}擁有了人生第一座紙箱城堡",
+  "context": "{label:'紙箱給你', fx:()=>{add('mood',12);mem('{p}擁有了人生第一座紙箱城堡');return '{n} 鑽進去，只露出兩隻耳朵。';}},"
+ },
+ {
+  "zh": "{n} 鑽進去，只露出兩隻耳朵。",
+  "context": "{label:'紙箱給你', fx:()=>{add('mood',12);mem('{p}擁有了人生第一座紙箱城堡');return '{n} 鑽進去，只露出兩隻耳朵。';}},"
+ },
+ {
+  "zh": "窗邊",
+  "context": "{id:'bird', min:3, title:'窗邊', text:'{n} 盯著窗外的麻雀，下巴發抖，發出「咔咔咔咔」的聲音。', choices:["
+ },
+ {
+  "zh": "{n} 盯著窗外的麻雀，下巴發抖，發出「咔咔咔咔」的聲音。",
+  "context": "{id:'bird', min:3, title:'窗邊', text:'{n} 盯著窗外的麻雀，下巴發抖，發出「咔咔咔咔」的聲音。', choices:["
+ },
+ {
+  "zh": "陪{p}一起看鳥",
+  "context": "{label:'陪{p}一起看鳥', fx:()=>{add('bond',3);add('mood',5);return '你們一起看了一下午的鳥。';}},"
+ },
+ {
+  "zh": "你們一起看了一下午的鳥。",
+  "context": "{label:'陪{p}一起看鳥', fx:()=>{add('bond',3);add('mood',5);return '你們一起看了一下午的鳥。';}},"
+ },
+ {
+  "zh": "嘔——",
+  "context": "{id:'hairball', min:8, title:'嘔——', text:'半夜聽到熟悉的「嘔、嘔、嘔」。{n} 吐了一團毛球在地毯上。', choices:["
+ },
+ {
+  "zh": "半夜聽到熟悉的「嘔、嘔、嘔」。{n} 吐了一團毛球在地毯上。",
+  "context": "{id:'hairball', min:8, title:'嘔——', text:'半夜聽到熟悉的「嘔、嘔、嘔」。{n} 吐了一團毛球在地毯上。', choices:["
+ },
+ {
+  "zh": "起來清理，順便幫{p}梳毛",
+  "context": "{label:'起來清理，順便幫{p}梳毛', fx:()=>{add('clean',10);add('health',5);return '梳下來的毛多到可以再做一隻貓。';}},"
+ },
+ {
+  "zh": "梳下來的毛多到可以再做一隻貓。",
+  "context": "{label:'起來清理，順便幫{p}梳毛', fx:()=>{add('clean',10);add('health',5);return '梳下來的毛多到可以再做一隻貓。';}},"
+ },
+ {
+  "zh": "明天再說",
+  "context": "{label:'明天再說', fx:()=>{add('clean',-15);return '早上你光腳踩到了。';}},"
+ },
+ {
+  "zh": "早上你光腳踩到了。",
+  "context": "{label:'明天再說', fx:()=>{add('clean',-15);return '早上你光腳踩到了。';}},"
+ },
+ {
+  "zh": "洗澡日",
+  "context": "{id:'bath', min:12, title:'洗澡日', text:'該幫 {n} 洗澡了。{p}好像已經察覺到什麼，躲到床底下。', choices:["
+ },
+ {
+  "zh": "該幫 {n} 洗澡了。{p}好像已經察覺到什麼，躲到床底下。",
+  "context": "{id:'bath', min:12, title:'洗澡日', text:'該幫 {n} 洗澡了。{p}好像已經察覺到什麼，躲到床底下。', choices:["
+ },
+ {
+  "zh": "硬著頭皮洗",
+  "context": "{label:'硬著頭皮洗', fx:()=>{add('clean',30);add('mood',-15);mem('洗澡大戰，你手上多了三道抓痕');return '洗完的 {n} 縮水了一半，用很受傷的眼神看你。';}},"
+ },
+ {
+  "zh": "洗澡大戰，你手上多了三道抓痕",
+  "context": "{label:'硬著頭皮洗', fx:()=>{add('clean',30);add('mood',-15);mem('洗澡大戰，你手上多了三道抓痕');return '洗完的 {n} 縮水了一半，用很受傷的眼神看你。';}},"
+ },
+ {
+  "zh": "洗完的 {n} 縮水了一半，用很受傷的眼神看你。",
+  "context": "{label:'硬著頭皮洗', fx:()=>{add('clean',30);add('mood',-15);mem('洗澡大戰，你手上多了三道抓痕');return '洗完的 {n} 縮水了一半，用很受傷的眼神看你。';}},"
+ },
+ {
+  "zh": "下次吧",
+  "context": "{label:'下次吧', fx:()=>{add('clean',-5);return '{n} 鬆了一口氣。';}},"
+ },
+ {
+  "zh": "{n} 鬆了一口氣。",
+  "context": "{label:'下次吧', fx:()=>{add('clean',-5);return '{n} 鬆了一口氣。';}},"
+ },
+ {
+  "zh": "不太對勁",
+  "context": "{id:'sick', min:12, repeat:true, title:'不太對勁', text:'{n} 今天一直躲在床底下，飯也沒吃幾口。', choices:["
+ },
+ {
+  "zh": "{n} 今天一直躲在床底下，飯也沒吃幾口。",
+  "context": "{id:'sick', min:12, repeat:true, title:'不太對勁', text:'{n} 今天一直躲在床底下，飯也沒吃幾口。', choices:["
+ },
+ {
+  "zh": "馬上帶去看醫生",
+  "context": "{label:'馬上帶去看醫生', fx:()=>{add('health',10);add('mood',-6);S.counts.vet++;return '醫生說發現得早，打了一針就好了。回家路上{p}在提籠裡罵了一路。';}},"
+ },
+ {
+  "zh": "醫生說發現得早，打了一針就好了。回家路上{p}在提籠裡罵了一路。",
+  "context": "{label:'馬上帶去看醫生', fx:()=>{add('health',10);add('mood',-6);S.counts.vet++;return '醫生說發現得早，打了一針就好了。回家路上{p}在提籠裡罵了一路。';}},"
+ },
+ {
+  "zh": "再觀察一天看看",
+  "context": "{label:'再觀察一天看看', fx:()=>{S.sick=true;add('health',-15);later('sickWorse',1,1);return '{n} 看起來更沒精神了。';}},"
+ },
+ {
+  "zh": "{n} 看起來更沒精神了。",
+  "context": "{label:'再觀察一天看看', fx:()=>{S.sick=true;add('health',-15);later('sickWorse',1,1);return '{n} 看起來更沒精神了。';}},"
+ },
+ {
+  "zh": "曬太陽",
+  "context": "{id:'sunbath', min:3, title:'曬太陽', text:'下午的陽光照進客廳，{n} 把自己攤成長長的一條。', choices:["
+ },
+ {
+  "zh": "下午的陽光照進客廳，{n} 把自己攤成長長的一條。",
+  "context": "{id:'sunbath', min:3, title:'曬太陽', text:'下午的陽光照進客廳，{n} 把自己攤成長長的一條。', choices:["
+ },
+ {
+  "zh": "躺在{p}旁邊",
+  "context": "{label:'躺在{p}旁邊', fx:()=>{add('bond',3);add('mood',5);mem('你們一起躺在地板上曬太陽');return '地板暖暖的，你們一起睡著了。';}},"
+ },
+ {
+  "zh": "你們一起躺在地板上曬太陽",
+  "context": "{label:'躺在{p}旁邊', fx:()=>{add('bond',3);add('mood',5);mem('你們一起躺在地板上曬太陽');return '地板暖暖的，你們一起睡著了。';}},"
+ },
+ {
+  "zh": "地板暖暖的，你們一起睡著了。",
+  "context": "{label:'躺在{p}旁邊', fx:()=>{add('bond',3);add('mood',5);mem('你們一起躺在地板上曬太陽');return '地板暖暖的，你們一起睡著了。';}},"
+ },
+ {
+  "zh": "腿上",
+  "context": "{id:'lap', min:2, title:'腿上', text:'你一坐下，{n} 就跳上你的腿，轉三圈，睡著了。你正想去上廁所。', choices:["
+ },
+ {
+  "zh": "你一坐下，{n} 就跳上你的腿，轉三圈，睡著了。你正想去上廁所。",
+  "context": "{id:'lap', min:2, title:'腿上', text:'你一坐下，{n} 就跳上你的腿，轉三圈，睡著了。你正想去上廁所。', choices:["
+ },
+ {
+  "zh": "一動也不動（腳麻了）",
+  "context": "{label:'一動也不動（腳麻了）', fx:()=>{add('bond',5);mem('{p}在你腿上睡著，你憋尿憋了一小時');return '一個小時後，你的腳已經沒有知覺了。值得。';}},"
+ },
+ {
+  "zh": "{p}在你腿上睡著，你憋尿憋了一小時",
+  "context": "{label:'一動也不動（腳麻了）', fx:()=>{add('bond',5);mem('{p}在你腿上睡著，你憋尿憋了一小時');return '一個小時後，你的腳已經沒有知覺了。值得。';}},"
+ },
+ {
+  "zh": "一個小時後，你的腳已經沒有知覺了。值得。",
+  "context": "{label:'一動也不動（腳麻了）', fx:()=>{add('bond',5);mem('{p}在你腿上睡著，你憋尿憋了一小時');return '一個小時後，你的腳已經沒有知覺了。值得。';}},"
+ },
+ {
+  "zh": "把{p}輕輕移開",
+  "context": "{label:'把{p}輕輕移開', fx:()=>{add('mood',-3);return '{n} 看了你一眼，換到沙發上繼續睡。';}},"
+ },
+ {
+  "zh": "{n} 看了你一眼，換到沙發上繼續睡。",
+  "context": "{label:'把{p}輕輕移開', fx:()=>{add('mood',-3);return '{n} 看了你一眼，換到沙發上繼續睡。';}},"
+ },
+ {
+  "zh": "下雨天",
+  "context": "{id:'rain', min:24, title:'下雨天', text:'外面下著雨，跟你撿到 {n} 的那天好像。{p}窩在你身邊。', choices:["
+ },
+ {
+  "zh": "外面下著雨，跟你撿到 {n} 的那天好像。{p}窩在你身邊。",
+  "context": "{id:'rain', min:24, title:'下雨天', text:'外面下著雨，跟你撿到 {n} 的那天好像。{p}窩在你身邊。', choices:["
+ },
+ {
+  "zh": "「還好那天有遇到你」",
+  "context": "{label:'「還好那天有遇到你」', fx:()=>{add('bond',5);mem('下雨天，你對{p}說：還好那天有遇到你');return '{n} 用頭頂了頂你的手。';}},"
+ },
+ {
+  "zh": "下雨天，你對{p}說：還好那天有遇到你",
+  "context": "{label:'「還好那天有遇到你」', fx:()=>{add('bond',5);mem('下雨天，你對{p}說：還好那天有遇到你');return '{n} 用頭頂了頂你的手。';}},"
+ },
+ {
+  "zh": "{n} 用頭頂了頂你的手。",
+  "context": "{label:'「還好那天有遇到你」', fx:()=>{add('bond',5);mem('下雨天，你對{p}說：還好那天有遇到你');return '{n} 用頭頂了頂你的手。';}},"
+ },
+ {
+  "zh": "晚餐不見了",
+  "context": "{id:'fish', min:8, title:'晚餐不見了', text:'你轉身拿個醬油，盤子裡的煎魚少了一半。{n} 在舔嘴巴。', choices:["
+ },
+ {
+  "zh": "你轉身拿個醬油，盤子裡的煎魚少了一半。{n} 在舔嘴巴。",
+  "context": "{id:'fish', min:8, title:'晚餐不見了', text:'你轉身拿個醬油，盤子裡的煎魚少了一半。{n} 在舔嘴巴。', choices:["
+ },
+ {
+  "zh": "剩下的分{p}吃",
+  "context": "{label:'剩下的分{p}吃', fx:()=>{add('full',10);add('mood',8);add('health',-3);if(Math.random()<.7)later('diarrhea',1,1);return '{n} 覺得今天是好日子。';}},"
+ },
+ {
+  "zh": "{n} 覺得今天是好日子。",
+  "context": "{label:'剩下的分{p}吃', fx:()=>{add('full',10);add('mood',8);add('health',-3);if(Math.random()<.7)later('diarrhea',1,1);return '{n} 覺得今天是好日子。';}},"
+ },
+ {
+  "zh": "把{p}抱下桌，認真教育",
+  "context": "{label:'把{p}抱下桌，認真教育', fx:()=>{add('mood',-3);return '{p}聽完你的訓話，打了一個大哈欠。';}},"
+ },
+ {
+  "zh": "{p}聽完你的訓話，打了一個大哈欠。",
+  "context": "{label:'把{p}抱下桌，認真教育', fx:()=>{add('mood',-3);return '{p}聽完你的訓話，打了一個大哈欠。';}},"
+ },
+ {
+  "zh": "廁所監視",
+  "context": "{id:'toilet', min:6, title:'廁所監視', text:'你一進廁所，門外就傳來抓門聲跟淒厲的叫聲。', choices:["
+ },
+ {
+  "zh": "你一進廁所，門外就傳來抓門聲跟淒厲的叫聲。",
+  "context": "{id:'toilet', min:6, title:'廁所監視', text:'你一進廁所，門外就傳來抓門聲跟淒厲的叫聲。', choices:["
+ },
+ {
+  "zh": "開門讓{p}進來",
+  "context": "{label:'開門讓{p}進來', fx:()=>{add('bond',3);return '{n} 進來坐在你腳邊看著你，好像在確認你沒事。';}},"
+ },
+ {
+  "zh": "{n} 進來坐在你腳邊看著你，好像在確認你沒事。",
+  "context": "{label:'開門讓{p}進來', fx:()=>{add('bond',3);return '{n} 進來坐在你腳邊看著你，好像在確認你沒事。';}},"
+ },
+ {
+  "zh": "堅持隱私",
+  "context": "{label:'堅持隱私', fx:()=>{add('mood',-3);return '門縫底下伸進來一隻毛毛的手。';}},"
+ },
+ {
+  "zh": "門縫底下伸進來一隻毛毛的手。",
+  "context": "{label:'堅持隱私', fx:()=>{add('mood',-3);return '門縫底下伸進來一隻毛毛的手。';}},"
+ },
+ {
+  "zh": "聖誕樹",
+  "context": "{id:'xmas', min:10, title:'聖誕樹', text:'你搭了一棵小聖誕樹。{n} 盯著那些亮晶晶的吊飾，眼睛越來越圓。', choices:["
+ },
+ {
+  "zh": "你搭了一棵小聖誕樹。{n} 盯著那些亮晶晶的吊飾，眼睛越來越圓。",
+  "context": "{id:'xmas', min:10, title:'聖誕樹', text:'你搭了一棵小聖誕樹。{n} 盯著那些亮晶晶的吊飾，眼睛越來越圓。', choices:["
+ },
+ {
+  "zh": "讓{p}玩",
+  "context": "{label:'讓{p}玩', fx:()=>{add('mood',12);add('clean',-10);if(Math.random()<.6)later('ribbon',1,1);mem('聖誕樹被{p}推倒了，你們一起坐在吊飾堆裡');return '聖誕樹倒了。{n} 坐在中間，看起來是全世界最開心的貓。';}},"
+ },
+ {
+  "zh": "聖誕樹被{p}推倒了，你們一起坐在吊飾堆裡",
+  "context": "{label:'讓{p}玩', fx:()=>{add('mood',12);add('clean',-10);if(Math.random()<.6)later('ribbon',1,1);mem('聖誕樹被{p}推倒了，你們一起坐在吊飾堆裡');return '聖誕樹倒了。{n} 坐在中間，看起來是全世界最開心的貓。';}},"
+ },
+ {
+  "zh": "聖誕樹倒了。{n} 坐在中間，看起來是全世界最開心的貓。",
+  "context": "{label:'讓{p}玩', fx:()=>{add('mood',12);add('clean',-10);if(Math.random()<.6)later('ribbon',1,1);mem('聖誕樹被{p}推倒了，你們一起坐在吊飾堆裡');return '聖誕樹倒了。{n} 坐在中間，看起來是全世界最開心的貓。';}},"
+ },
+ {
+  "zh": "把樹移到{p}跳不到的地方",
+  "context": "{label:'把樹移到{p}跳不到的地方', fx:()=>{return '{n} 研究了三天，還是跳上去了。';}},"
+ },
+ {
+  "zh": "{n} 研究了三天，還是跳上去了。",
+  "context": "{label:'把樹移到{p}跳不到的地方', fx:()=>{return '{n} 研究了三天，還是跳上去了。';}},"
+ },
+ {
+  "zh": "窗外的貓",
+  "context": "{id:'stray', min:24, title:'窗外的貓', text:'有一隻浪浪每天來你家窗台。{n} 隔著玻璃對牠哈氣。', choices:["
+ },
+ {
+  "zh": "有一隻浪浪每天來你家窗台。{n} 隔著玻璃對牠哈氣。",
+  "context": "{id:'stray', min:24, title:'窗外的貓', text:'有一隻浪浪每天來你家窗台。{n} 隔著玻璃對牠哈氣。', choices:["
+ },
+ {
+  "zh": "在樓下放一碗飯給浪浪",
+  "context": "{label:'在樓下放一碗飯給浪浪', fx:()=>{add('mood',-3);later('kittens',2,4);mem('你在樓下餵了一隻浪浪，就像當年撿到{p}那樣');return '{n} 吃醋了，整晚坐在你身上宣示主權。';}},"
+ },
+ {
+  "zh": "你在樓下餵了一隻浪浪，就像當年撿到{p}那樣",
+  "context": "{label:'在樓下放一碗飯給浪浪', fx:()=>{add('mood',-3);later('kittens',2,4);mem('你在樓下餵了一隻浪浪，就像當年撿到{p}那樣');return '{n} 吃醋了，整晚坐在你身上宣示主權。';}},"
+ },
+ {
+  "zh": "{n} 吃醋了，整晚坐在你身上宣示主權。",
+  "context": "{label:'在樓下放一碗飯給浪浪', fx:()=>{add('mood',-3);later('kittens',2,4);mem('你在樓下餵了一隻浪浪，就像當年撿到{p}那樣');return '{n} 吃醋了，整晚坐在你身上宣示主權。';}},"
+ },
+ {
+  "zh": "拉上窗簾",
+  "context": "{label:'拉上窗簾', fx:()=>{add('mood',2);return '{n} 覺得自己贏了。';}},"
+ },
+ {
+  "zh": "{n} 覺得自己贏了。",
+  "context": "{label:'拉上窗簾', fx:()=>{add('mood',2);return '{n} 覺得自己贏了。';}},"
+ },
+ {
+  "zh": "年度健檢",
+  "context": "{id:'vetcheck', min:96, title:'年度健檢', text:'醫生說 {n} 年紀大了，腎臟指數要多注意。', choices:["
+ },
+ {
+  "zh": "醫生說 {n} 年紀大了，腎臟指數要多注意。",
+  "context": "{id:'vetcheck', min:96, title:'年度健檢', text:'醫生說 {n} 年紀大了，腎臟指數要多注意。', choices:["
+ },
+ {
+  "zh": "改吃處方飼料，多放幾個水碗",
+  "context": "{label:'改吃處方飼料，多放幾個水碗', fx:()=>{add('health',12);S.lifespanM+=4;return '{n} 嫌棄新飼料兩天，然後就習慣了。';}},"
+ },
+ {
+  "zh": "{n} 嫌棄新飼料兩天，然後就習慣了。",
+  "context": "{label:'改吃處方飼料，多放幾個水碗', fx:()=>{add('health',12);S.lifespanM+=4;return '{n} 嫌棄新飼料兩天，然後就習慣了。';}},"
+ },
+ {
+  "zh": "應該還好吧",
+  "context": "{label:'應該還好吧', fx:()=>{add('health',-10);later('kidney',3,6);return '醫生欲言又止。';}},"
+ },
+ {
+  "zh": "醫生欲言又止。",
+  "context": "{label:'應該還好吧', fx:()=>{add('health',-10);later('kidney',3,6);return '醫生欲言又止。';}},"
+ },
+ {
+  "zh": "跳不上去了",
+  "context": "{id:'stairs', min:132, title:'跳不上去了', text:'{n} 站在沙發前看了好久，最後沒有跳上去，默默趴在地上。', choices:["
+ },
+ {
+  "zh": "{n} 站在沙發前看了好久，最後沒有跳上去，默默趴在地上。",
+  "context": "{id:'stairs', min:132, title:'跳不上去了', text:'{n} 站在沙發前看了好久，最後沒有跳上去，默默趴在地上。', choices:["
+ },
+ {
+  "zh": "抱{p}上來，再放一個小樓梯",
+  "context": "{label:'抱{p}上來，再放一個小樓梯', fx:()=>{add('bond',4);add('mood',6);mem('你幫{p}在沙發旁邊放了一個小樓梯');return '隔天，{n} 一步一步走上小樓梯，回到{p}最愛的位置。';}},"
+ },
+ {
+  "zh": "你幫{p}在沙發旁邊放了一個小樓梯",
+  "context": "{label:'抱{p}上來，再放一個小樓梯', fx:()=>{add('bond',4);add('mood',6);mem('你幫{p}在沙發旁邊放了一個小樓梯');return '隔天，{n} 一步一步走上小樓梯，回到{p}最愛的位置。';}},"
+ },
+ {
+  "zh": "隔天，{n} 一步一步走上小樓梯，回到{p}最愛的位置。",
+  "context": "{label:'抱{p}上來，再放一個小樓梯', fx:()=>{add('bond',4);add('mood',6);mem('你幫{p}在沙發旁邊放了一個小樓梯');return '隔天，{n} 一步一步走上小樓梯，回到{p}最愛的位置。';}},"
+ },
+ {
+  "zh": "凌晨兩點",
+  "context": "{id:'knead', min:2, title:'凌晨兩點', text:'你睡到一半，感覺肚子上有東西一左一右地踩。是 {n}，邊踩邊呼嚕，爪子偶爾刺進你的肉。', choices:["
+ },
+ {
+  "zh": "你睡到一半，感覺肚子上有東西一左一右地踩。是 {n}，邊踩邊呼嚕，爪子偶爾刺進你的肉。",
+  "context": "{id:'knead', min:2, title:'凌晨兩點', text:'你睡到一半，感覺肚子上有東西一左一右地踩。是 {n}，邊踩邊呼嚕，爪子偶爾刺進你的肉。', choices:["
+ },
+ {
+  "zh": "讓{p}踩（痛並快樂著）",
+  "context": "{label:'讓{p}踩（痛並快樂著）', fx:()=>{add('bond',5);add('mood',6);mem('{p}半夜在你肚子上踩奶，呼嚕聲像小馬達');return '{n} 踩完，在你胸口捲成一團睡著了。你不敢翻身。';}},"
+ },
+ {
+  "zh": "{p}半夜在你肚子上踩奶，呼嚕聲像小馬達",
+  "context": "{label:'讓{p}踩（痛並快樂著）', fx:()=>{add('bond',5);add('mood',6);mem('{p}半夜在你肚子上踩奶，呼嚕聲像小馬達');return '{n} 踩完，在你胸口捲成一團睡著了。你不敢翻身。';}},"
+ },
+ {
+  "zh": "{n} 踩完，在你胸口捲成一團睡著了。你不敢翻身。",
+  "context": "{label:'讓{p}踩（痛並快樂著）', fx:()=>{add('bond',5);add('mood',6);mem('{p}半夜在你肚子上踩奶，呼嚕聲像小馬達');return '{n} 踩完，在你胸口捲成一團睡著了。你不敢翻身。';}},"
+ },
+ {
+  "zh": "翻身繼續睡",
+  "context": "{label:'翻身繼續睡', fx:()=>{add('mood',-3);return '{n} 換到你的臉上踩。';}},"
+ },
+ {
+  "zh": "{n} 換到你的臉上踩。",
+  "context": "{label:'翻身繼續睡', fx:()=>{add('mood',-3);return '{n} 換到你的臉上踩。';}},"
+ },
+ {
+  "zh": "凌晨三點",
+  "context": "{id:'yowl', min:6, title:'凌晨三點', text:'「嗷嗚————嗚嗚————」{n} 叼著{p}的玩具老鼠，在客廳鬼叫。', choices:["
+ },
+ {
+  "zh": "「嗷嗚————嗚嗚————」{n} 叼著{p}的玩具老鼠，在客廳鬼叫。",
+  "context": "{id:'yowl', min:6, title:'凌晨三點', text:'「嗷嗚————嗚嗚————」{n} 叼著{p}的玩具老鼠，在客廳鬼叫。', choices:["
+ },
+ {
+  "zh": "起床稱讚{p}很會抓",
+  "context": "{label:'起床稱讚{p}很會抓', fx:()=>{add('bond',4);add('mood',8);mem('{p}半夜鬼叫，叼玩具來邀功');return '{n} 把玩具放在你腳邊，安靜了。原來只是想讓你看。';}},"
+ },
+ {
+  "zh": "{p}半夜鬼叫，叼玩具來邀功",
+  "context": "{label:'起床稱讚{p}很會抓', fx:()=>{add('bond',4);add('mood',8);mem('{p}半夜鬼叫，叼玩具來邀功');return '{n} 把玩具放在你腳邊，安靜了。原來只是想讓你看。';}},"
+ },
+ {
+  "zh": "{n} 把玩具放在你腳邊，安靜了。原來只是想讓你看。",
+  "context": "{label:'起床稱讚{p}很會抓', fx:()=>{add('bond',4);add('mood',8);mem('{p}半夜鬼叫，叼玩具來邀功');return '{n} 把玩具放在你腳邊，安靜了。原來只是想讓你看。';}},"
+ },
+ {
+  "zh": "用棉被蓋住頭",
+  "context": "{label:'用棉被蓋住頭', fx:()=>{return '{p}又叫了十分鐘，然後跳上床踩你的臉。';}},"
+ },
+ {
+  "zh": "{p}又叫了十分鐘，然後跳上床踩你的臉。",
+  "context": "{label:'用棉被蓋住頭', fx:()=>{return '{p}又叫了十分鐘，然後跳上床踩你的臉。';}},"
+ },
+ {
+  "zh": "半夜跑酷",
+  "context": "{id:'zoomies', min:2, title:'半夜跑酷', text:'咚咚咚咚咚——{n} 突然在家裡狂奔，從沙發飛到書櫃，再從書櫃飛到你身上。', choices:["
+ },
+ {
+  "zh": "咚咚咚咚咚——{n} 突然在家裡狂奔，從沙發飛到書櫃，再從書櫃飛到你身上。",
+  "context": "{id:'zoomies', min:2, title:'半夜跑酷', text:'咚咚咚咚咚——{n} 突然在家裡狂奔，從沙發飛到書櫃，再從書櫃飛到你身上。', choices:["
+ },
+ {
+  "zh": "拿逗貓棒陪{p}瘋",
+  "context": "{label:'拿逗貓棒陪{p}瘋', fx:()=>{add('mood',10);add('full',-6);return '跑完的 {n} 喘著氣，滿足地睡著了。你醒了。';}},"
+ },
+ {
+  "zh": "跑完的 {n} 喘著氣，滿足地睡著了。你醒了。",
+  "context": "{label:'拿逗貓棒陪{p}瘋', fx:()=>{add('mood',10);add('full',-6);return '跑完的 {n} 喘著氣，滿足地睡著了。你醒了。';}},"
+ },
+ {
+  "zh": "假裝沒聽到",
+  "context": "{label:'假裝沒聽到', fx:()=>{return '早上你發現一盆植物倒了。';}},"
+ },
+ {
+  "zh": "早上你發現一盆植物倒了。",
+  "context": "{label:'假裝沒聽到', fx:()=>{return '早上你發現一盆植物倒了。';}},"
+ },
+ {
+  "zh": "早上五點",
+  "context": "{id:'face', min:4, title:'早上五點', text:'鬧鐘還沒響，{n} 坐在你枕頭旁邊，用肉球一下、一下地拍你的臉。', choices:["
+ },
+ {
+  "zh": "鬧鐘還沒響，{n} 坐在你枕頭旁邊，用肉球一下、一下地拍你的臉。",
+  "context": "{id:'face', min:4, title:'早上五點', text:'鬧鐘還沒響，{n} 坐在你枕頭旁邊，用肉球一下、一下地拍你的臉。', choices:["
+ },
+ {
+  "zh": "起來放飯",
+  "context": "{label:'起來放飯', fx:()=>{add('full',15);add('bond',2);S.flags.alarmCat=1;return '{n} 學會了：五點拍你的臉就有飯吃。以後每天都會來。';}},"
+ },
+ {
+  "zh": "{n} 學會了：五點拍你的臉就有飯吃。以後每天都會來。",
+  "context": "{label:'起來放飯', fx:()=>{add('full',15);add('bond',2);S.flags.alarmCat=1;return '{n} 學會了：五點拍你的臉就有飯吃。以後每天都會來。';}},"
+ },
+ {
+  "zh": "把頭埋進枕頭",
+  "context": "{label:'把頭埋進枕頭', fx:()=>{add('mood',-2);return '{p}開始咬你的頭髮。';}},"
+ },
+ {
+  "zh": "{p}開始咬你的頭髮。",
+  "context": "{label:'把頭埋進枕頭', fx:()=>{add('mood',-2);return '{p}開始咬你的頭髮。';}},"
+ },
+ {
+  "zh": "深夜",
+  "context": "{id:'snore', min:24, title:'深夜', text:'你聽見很小聲的「呼……呼……」。是 {n} 在打呼，四腳朝天，肚子露出來。', choices:["
+ },
+ {
+  "zh": "你聽見很小聲的「呼……呼……」。是 {n} 在打呼，四腳朝天，肚子露出來。",
+  "context": "{id:'snore', min:24, title:'深夜', text:'你聽見很小聲的「呼……呼……」。是 {n} 在打呼，四腳朝天，肚子露出來。', choices:["
+ },
+ {
+  "zh": "偷偷錄下來",
+  "context": "{label:'偷偷錄下來', fx:()=>{add('bond',3);mem('你錄下了{p}四腳朝天打呼的聲音');return '這段錄音你聽了好多年。';}},"
+ },
+ {
+  "zh": "你錄下了{p}四腳朝天打呼的聲音",
+  "context": "{label:'偷偷錄下來', fx:()=>{add('bond',3);mem('你錄下了{p}四腳朝天打呼的聲音');return '這段錄音你聽了好多年。';}},"
+ },
+ {
+  "zh": "這段錄音你聽了好多年。",
+  "context": "{label:'偷偷錄下來', fx:()=>{add('bond',3);mem('你錄下了{p}四腳朝天打呼的聲音');return '這段錄音你聽了好多年。';}},"
+ },
+ {
+  "zh": "搶枕頭",
+  "context": "{id:'pillow', min:12, title:'搶枕頭', text:'你半夜醒來，發現自己睡在床的邊緣，{n} 佔據了整個枕頭。', choices:["
+ },
+ {
+  "zh": "你半夜醒來，發現自己睡在床的邊緣，{n} 佔據了整個枕頭。",
+  "context": "{id:'pillow', min:12, title:'搶枕頭', text:'你半夜醒來，發現自己睡在床的邊緣，{n} 佔據了整個枕頭。', choices:["
+ },
+ {
+  "zh": "就讓給{p}吧",
+  "context": "{label:'就讓給{p}吧', fx:()=>{add('bond',3);add('mood',4);return '你捲著棉被睡在角落。貓奴的日常。';}},"
+ },
+ {
+  "zh": "你捲著棉被睡在角落。貓奴的日常。",
+  "context": "{label:'就讓給{p}吧', fx:()=>{add('bond',3);add('mood',4);return '你捲著棉被睡在角落。貓奴的日常。';}},"
+ },
+ {
+  "zh": "做夢",
+  "context": "{id:'dream', min:3, title:'做夢', text:'{n} 睡著睡著，鬍鬚跟爪子一直抖，嘴裡發出小小的「咪……」。', choices:["
+ },
+ {
+  "zh": "{n} 睡著睡著，鬍鬚跟爪子一直抖，嘴裡發出小小的「咪……」。",
+  "context": "{id:'dream', min:3, title:'做夢', text:'{n} 睡著睡著，鬍鬚跟爪子一直抖，嘴裡發出小小的「咪……」。', choices:["
+ },
+ {
+  "zh": "輕輕摸摸{p}的頭",
+  "context": "{label:'輕輕摸摸{p}的頭', fx:()=>{add('bond',2);mem('{p}睡覺時做夢，小聲地咪咪叫');return '{p}不抖了，呼嚕呼嚕地繼續睡。';}},"
+ },
+ {
+  "zh": "{p}睡覺時做夢，小聲地咪咪叫",
+  "context": "{label:'輕輕摸摸{p}的頭', fx:()=>{add('bond',2);mem('{p}睡覺時做夢，小聲地咪咪叫');return '{p}不抖了，呼嚕呼嚕地繼續睡。';}},"
+ },
+ {
+  "zh": "{p}不抖了，呼嚕呼嚕地繼續睡。",
+  "context": "{label:'輕輕摸摸{p}的頭', fx:()=>{add('bond',2);mem('{p}睡覺時做夢，小聲地咪咪叫');return '{p}不抖了，呼嚕呼嚕地繼續睡。';}},"
+ },
+ {
+  "zh": "預防針",
+  "context": "{at:2, ev:{title:'預防針', text:'獸醫打電話來提醒：{n} 該打第一劑預防針了。', choices:["
+ },
+ {
+  "zh": "獸醫打電話來提醒：{n} 該打第一劑預防針了。",
+  "context": "{at:2, ev:{title:'預防針', text:'獸醫打電話來提醒：{n} 該打第一劑預防針了。', choices:["
+ },
+ {
+  "zh": "帶{p}去",
+  "context": "{label:'帶{p}去', fx:()=>{add('health',15);add('mood',-8);S.counts.vet++;mem('第一次打預防針，在診間抖個不停');return '{n} 在診間抖成一團，但很勇敢。回家後吃了一個肉泥獎勵。';}},"
+ },
+ {
+  "zh": "第一次打預防針，在診間抖個不停",
+  "context": "{label:'帶{p}去', fx:()=>{add('health',15);add('mood',-8);S.counts.vet++;mem('第一次打預防針，在診間抖個不停');return '{n} 在診間抖成一團，但很勇敢。回家後吃了一個肉泥獎勵。';}},"
+ },
+ {
+  "zh": "{n} 在診間抖成一團，但很勇敢。回家後吃了一個肉泥獎勵。",
+  "context": "{label:'帶{p}去', fx:()=>{add('health',15);add('mood',-8);S.counts.vet++;mem('第一次打預防針，在診間抖個不停');return '{n} 在診間抖成一團，但很勇敢。回家後吃了一個肉泥獎勵。';}},"
+ },
+ {
+  "zh": "晚點再說",
+  "context": "{label:'晚點再說', fx:()=>{add('health',-5);later('panleuk',2,4);return '醫生說盡快喔。';}}]}},"
+ },
+ {
+  "zh": "醫生說盡快喔。",
+  "context": "{label:'晚點再說', fx:()=>{add('health',-5);later('panleuk',2,4);return '醫生說盡快喔。';}}]}},"
+ },
+ {
+  "zh": "呼嚕",
+  "context": "{at:3, ev:{title:'呼嚕', text:'你摸著 {n} 的下巴，突然感覺到一陣小小的震動。', choices:["
+ },
+ {
+  "zh": "你摸著 {n} 的下巴，突然感覺到一陣小小的震動。",
+  "context": "{at:3, ev:{title:'呼嚕', text:'你摸著 {n} 的下巴，突然感覺到一陣小小的震動。', choices:["
+ },
+ {
+  "zh": "……是呼嚕聲！",
+  "context": "{label:'……是呼嚕聲！', fx:()=>{add('bond',8);mem('你第一次聽到{p}呼嚕');return '{n} 第一次在你身邊呼嚕。你決定這輩子都要聽這個聲音。';}}]}},"
+ },
+ {
+  "zh": "你第一次聽到{p}呼嚕",
+  "context": "{label:'……是呼嚕聲！', fx:()=>{add('bond',8);mem('你第一次聽到{p}呼嚕');return '{n} 第一次在你身邊呼嚕。你決定這輩子都要聽這個聲音。';}}]}},"
+ },
+ {
+  "zh": "{n} 第一次在你身邊呼嚕。你決定這輩子都要聽這個聲音。",
+  "context": "{label:'……是呼嚕聲！', fx:()=>{add('bond',8);mem('你第一次聽到{p}呼嚕');return '{n} 第一次在你身邊呼嚕。你決定這輩子都要聽這個聲音。';}}]}},"
+ },
+ {
+  "zh": "結紮",
+  "context": "{at:6, ev:{title:'結紮', text:'{n} 六個月大了，醫生建議可以結紮。', choices:["
+ },
+ {
+  "zh": "{n} 六個月大了，醫生建議可以結紮。",
+  "context": "{at:6, ev:{title:'結紮', text:'{n} 六個月大了，醫生建議可以結紮。', choices:["
+ },
+ {
+  "zh": "預約手術",
+  "context": "{label:'預約手術', fx:()=>{add('health',8);add('mood',-10);S.lifespanM+=6;S.flags.neutered=1;mem('結紮手術後戴著頭套，撞了一整天的門');return '{n} 戴著頭套撞了一整天的門，很可憐也很好笑。';}},"
+ },
+ {
+  "zh": "結紮手術後戴著頭套，撞了一整天的門",
+  "context": "{label:'預約手術', fx:()=>{add('health',8);add('mood',-10);S.lifespanM+=6;S.flags.neutered=1;mem('結紮手術後戴著頭套，撞了一整天的門');return '{n} 戴著頭套撞了一整天的門，很可憐也很好笑。';}},"
+ },
+ {
+  "zh": "{n} 戴著頭套撞了一整天的門，很可憐也很好笑。",
+  "context": "{label:'預約手術', fx:()=>{add('health',8);add('mood',-10);S.lifespanM+=6;S.flags.neutered=1;mem('結紮手術後戴著頭套，撞了一整天的門');return '{n} 戴著頭套撞了一整天的門，很可憐也很好笑。';}},"
+ },
+ {
+  "zh": "再想想",
+  "context": "{label:'再想想', fx:()=>{add('mood',-5);later('spray',1,2);return '那天晚上，{n} 叫了一整夜。';}}]}},"
+ },
+ {
+  "zh": "那天晚上，{n} 叫了一整夜。",
+  "context": "{label:'再想想', fx:()=>{add('mood',-5);later('spray',1,2);return '那天晚上，{n} 叫了一整夜。';}}]}},"
+ },
+ {
+  "zh": "一歲生日",
+  "context": "{at:12, ev:{title:'一歲生日', text:'{n} 一歲了！小小的毛球長成一隻大貓了。', choices:["
+ },
+ {
+  "zh": "{n} 一歲了！小小的毛球長成一隻大貓了。",
+  "context": "{at:12, ev:{title:'一歲生日', text:'{n} 一歲了！小小的毛球長成一隻大貓了。', choices:["
+ },
+ {
+  "zh": "開一個生日罐罐",
+  "context": "{label:'開一個生日罐罐', fx:()=>{add('mood',15);add('full',20);mem('一歲生日，你開了一個生日罐罐');return '{n} 吃完，用頭磨蹭你的腳。生日快樂。';}}]}},"
+ },
+ {
+  "zh": "一歲生日，你開了一個生日罐罐",
+  "context": "{label:'開一個生日罐罐', fx:()=>{add('mood',15);add('full',20);mem('一歲生日，你開了一個生日罐罐');return '{n} 吃完，用頭磨蹭你的腳。生日快樂。';}}]}},"
+ },
+ {
+  "zh": "{n} 吃完，用頭磨蹭你的腳。生日快樂。",
+  "context": "{label:'開一個生日罐罐', fx:()=>{add('mood',15);add('full',20);mem('一歲生日，你開了一個生日罐罐');return '{n} 吃完，用頭磨蹭你的腳。生日快樂。';}}]}},"
+ },
+ {
+  "zh": "七歲",
+  "context": "{at:84, ev:{title:'七歲', text:'{n} 七歲了，醫生說{p}開始進入熟齡期。{p}還是一樣愛撒嬌，只是睡得比較多了。', choices:["
+ },
+ {
+  "zh": "{n} 七歲了，醫生說{p}開始進入熟齡期。{p}還是一樣愛撒嬌，只是睡得比較多了。",
+  "context": "{at:84, ev:{title:'七歲', text:'{n} 七歲了，醫生說{p}開始進入熟齡期。{p}還是一樣愛撒嬌，只是睡得比較多了。', choices:["
+ },
+ {
+  "zh": "以後每年都帶{p}健檢",
+  "context": "{label:'以後每年都帶{p}健檢', fx:()=>{add('health',10);S.lifespanM+=6;return '你在月曆上圈好了日子。';}}]}},"
+ },
+ {
+  "zh": "你在月曆上圈好了日子。",
+  "context": "{label:'以後每年都帶{p}健檢', fx:()=>{add('health',10);S.lifespanM+=6;return '你在月曆上圈好了日子。';}}]}},"
+ },
+ {
+  "zh": "白鬍子",
+  "context": "{at:132, ev:{title:'白鬍子', text:'你發現 {n} 的嘴邊多了幾根白毛，跳上床的動作也慢了。', choices:["
+ },
+ {
+  "zh": "你發現 {n} 的嘴邊多了幾根白毛，跳上床的動作也慢了。",
+  "context": "{at:132, ev:{title:'白鬍子', text:'你發現 {n} 的嘴邊多了幾根白毛，跳上床的動作也慢了。', choices:["
+ },
+ {
+  "zh": "在床邊放一個小台階",
+  "context": "{label:'在床邊放一個小台階', fx:()=>{add('bond',4);mem('{p}的嘴邊長出了白毛');return '{n} 現在每天晚上都踩著台階，慢慢走到你枕頭旁。';}}]}},"
+ },
+ {
+  "zh": "{p}的嘴邊長出了白毛",
+  "context": "{label:'在床邊放一個小台階', fx:()=>{add('bond',4);mem('{p}的嘴邊長出了白毛');return '{n} 現在每天晚上都踩著台階，慢慢走到你枕頭旁。';}}]}},"
+ },
+ {
+  "zh": "{n} 現在每天晚上都踩著台階，慢慢走到你枕頭旁。",
+  "context": "{label:'在床邊放一個小台階', fx:()=>{add('bond',4);mem('{p}的嘴邊長出了白毛');return '{n} 現在每天晚上都踩著台階，慢慢走到你枕頭旁。';}}]}},"
+ },
+ {
+  "zh": "上吐下瀉",
+  "context": "panleuk:{title:'上吐下瀉', text:'{n} 一直吐，又拉肚子，整隻軟趴趴的。醫生說是貓瘟，沒打預防針的小貓很容易得。', pose:'flop', choices:["
+ },
+ {
+  "zh": "{n} 一直吐，又拉肚子，整隻軟趴趴的。醫生說是貓瘟，沒打預防針的小貓很容易得。",
+  "context": "panleuk:{title:'上吐下瀉', text:'{n} 一直吐，又拉肚子，整隻軟趴趴的。醫生說是貓瘟，沒打預防針的小貓很容易得。', pose:'flop', choices:["
+ },
+ {
+  "zh": "住院治療",
+  "context": "{label:'住院治療', hint:'要住一個禮拜', fx:()=>{S.counts.vet++;S.counts.er++;add('health',-25);add('mood',-20);S.lifespanM-=6;S.flags.m2=1;mem('{p}得了貓瘟，在醫院住了一個禮拜，撐過來了');return '{n} 撐過來了。出院那天，{p}在提籠裡一直看著你。醫生順便幫{p}補打了預防針。';}}]},"
+ },
+ {
+  "zh": "要住一個禮拜",
+  "context": "{label:'住院治療', hint:'要住一個禮拜', fx:()=>{S.counts.vet++;S.counts.er++;add('health',-25);add('mood',-20);S.lifespanM-=6;S.flags.m2=1;mem('{p}得了貓瘟，在醫院住了一個禮拜，撐過來了');return '{n} 撐過來了。出院那天，{p}在提籠裡一直看著你。醫生順便幫{p}補打了預防針。';}}]},"
+ },
+ {
+  "zh": "{p}得了貓瘟，在醫院住了一個禮拜，撐過來了",
+  "context": "{label:'住院治療', hint:'要住一個禮拜', fx:()=>{S.counts.vet++;S.counts.er++;add('health',-25);add('mood',-20);S.lifespanM-=6;S.flags.m2=1;mem('{p}得了貓瘟，在醫院住了一個禮拜，撐過來了');return '{n} 撐過來了。出院那天，{p}在提籠裡一直看著你。醫生順便幫{p}補打了預防針。';}}]},"
+ },
+ {
+  "zh": "{n} 撐過來了。出院那天，{p}在提籠裡一直看著你。醫生順便幫{p}補打了預防針。",
+  "context": "{label:'住院治療', hint:'要住一個禮拜', fx:()=>{S.counts.vet++;S.counts.er++;add('health',-25);add('mood',-20);S.lifespanM-=6;S.flags.m2=1;mem('{p}得了貓瘟，在醫院住了一個禮拜，撐過來了');return '{n} 撐過來了。出院那天，{p}在提籠裡一直看著你。醫生順便幫{p}補打了預防針。';}}]},"
+ },
+ {
+  "zh": "到處噴尿",
+  "context": "spray:{title:'到處噴尿', text:'{n} 開始在牆角跟窗簾上噴尿做記號，晚上還一直大叫。沒結紮的貓常常會這樣。', choices:["
+ },
+ {
+  "zh": "{n} 開始在牆角跟窗簾上噴尿做記號，晚上還一直大叫。沒結紮的貓常常會這樣。",
+  "context": "spray:{title:'到處噴尿', text:'{n} 開始在牆角跟窗簾上噴尿做記號，晚上還一直大叫。沒結紮的貓常常會這樣。', choices:["
+ },
+ {
+  "zh": "現在就去結紮",
+  "context": "{label:'現在就去結紮', fx:()=>{S.counts.vet++;S.flags.neutered=1;add('mood',-10);S.lifespanM+=4;mem('結紮手術後戴著頭套，撞了一整天的門');return '手術很順利。過了兩週，噴尿跟半夜大叫都停了。';}},"
+ },
+ {
+  "zh": "手術很順利。過了兩週，噴尿跟半夜大叫都停了。",
+  "context": "{label:'現在就去結紮', fx:()=>{S.counts.vet++;S.flags.neutered=1;add('mood',-10);S.lifespanM+=4;mem('結紮手術後戴著頭套，撞了一整天的門');return '手術很順利。過了兩週，噴尿跟半夜大叫都停了。';}},"
+ },
+ {
+  "zh": "再忍忍",
+  "context": "{label:'再忍忍', hint:'不會自己變好', fx:()=>{add('clean',-25);add('mood',-6);later('spray',2,3);return '整個家都是尿騷味，洗了窗簾也沒用。';}}]},"
+ },
+ {
+  "zh": "不會自己變好",
+  "context": "{label:'再忍忍', hint:'不會自己變好', fx:()=>{add('clean',-25);add('mood',-6);later('spray',2,3);return '整個家都是尿騷味，洗了窗簾也沒用。';}}]},"
+ },
+ {
+  "zh": "整個家都是尿騷味，洗了窗簾也沒用。",
+  "context": "{label:'再忍忍', hint:'不會自己變好', fx:()=>{add('clean',-25);add('mood',-6);later('spray',2,3);return '整個家都是尿騷味，洗了窗簾也沒用。';}}]},"
+ },
+ {
+  "zh": "回家以後",
+  "context": "hotelStress:{title:'回家以後', text:'從貓旅館回來後，{n} 兩天都不太吃東西，一直躲在衣櫃裡。', choices:["
+ },
+ {
+  "zh": "從貓旅館回來後，{n} 兩天都不太吃東西，一直躲在衣櫃裡。",
+  "context": "hotelStress:{title:'回家以後', text:'從貓旅館回來後，{n} 兩天都不太吃東西，一直躲在衣櫃裡。', choices:["
+ },
+ {
+  "zh": "開{p}最愛的罐罐，坐在衣櫃旁陪{p}",
+  "context": "{label:'開{p}最愛的罐罐，坐在衣櫃旁陪{p}', fx:()=>{add('full',10);add('bond',3);return '第三天，{n} 終於走出來，把頭靠在你腳上。';}}]},"
+ },
+ {
+  "zh": "第三天，{n} 終於走出來，把頭靠在你腳上。",
+  "context": "{label:'開{p}最愛的罐罐，坐在衣櫃旁陪{p}', fx:()=>{add('full',10);add('bond',3);return '第三天，{n} 終於走出來，把頭靠在你腳上。';}}]},"
+ },
+ {
+  "zh": "尿不出來",
+  "context": "uti:{title:'尿不出來', text:'{n} 一直進出貓砂盆，蹲很久卻只尿出幾滴，邊尿邊叫。貓砂太髒、壓力太大，都可能引起泌尿道問題。', choices:["
+ },
+ {
+  "zh": "{n} 一直進出貓砂盆，蹲很久卻只尿出幾滴，邊尿邊叫。貓砂太髒、壓力太大，都可能引起泌尿道問題。",
+  "context": "uti:{title:'尿不出來', text:'{n} 一直進出貓砂盆，蹲很久卻只尿出幾滴，邊尿邊叫。貓砂太髒、壓力太大，都可能引起泌尿道問題。', choices:["
+ },
+ {
+  "zh": "馬上送醫",
+  "context": "{label:'馬上送醫', fx:()=>{S.counts.vet++;add('health',-5);add('mood',-12);S.sick=false;mem('{p}得了膀胱炎，從此你每天都會清兩次貓砂');return '醫生說是膀胱炎，發現得早。之後要多喝水、貓砂盆要保持乾淨。';}},"
+ },
+ {
+  "zh": "{p}得了膀胱炎，從此你每天都會清兩次貓砂",
+  "context": "{label:'馬上送醫', fx:()=>{S.counts.vet++;add('health',-5);add('mood',-12);S.sick=false;mem('{p}得了膀胱炎，從此你每天都會清兩次貓砂');return '醫生說是膀胱炎，發現得早。之後要多喝水、貓砂盆要保持乾淨。';}},"
+ },
+ {
+  "zh": "醫生說是膀胱炎，發現得早。之後要多喝水、貓砂盆要保持乾淨。",
+  "context": "{label:'馬上送醫', fx:()=>{S.counts.vet++;add('health',-5);add('mood',-12);S.sick=false;mem('{p}得了膀胱炎，從此你每天都會清兩次貓砂');return '醫生說是膀胱炎，發現得早。之後要多喝水、貓砂盆要保持乾淨。';}},"
+ },
+ {
+  "zh": "可能只是一時的，再看看",
+  "context": "{label:'可能只是一時的，再看看', hint:'公貓特別危險', fx:()=>{add('health',-20);later('uticrit',1,1);return '{n} 晚上一直在貓砂盆裡蹲著。';}}]},"
+ },
+ {
+  "zh": "公貓特別危險",
+  "context": "{label:'可能只是一時的，再看看', hint:'公貓特別危險', fx:()=>{add('health',-20);later('uticrit',1,1);return '{n} 晚上一直在貓砂盆裡蹲著。';}}]},"
+ },
+ {
+  "zh": "{n} 晚上一直在貓砂盆裡蹲著。",
+  "context": "{label:'可能只是一時的，再看看', hint:'公貓特別危險', fx:()=>{add('health',-20);later('uticrit',1,1);return '{n} 晚上一直在貓砂盆裡蹲著。';}}]},"
+ },
+ {
+  "zh": "急診",
+  "context": "uticrit:{title:'急診', text:'{n} 已經一整天沒尿出來了，肚子脹脹硬硬的，一摸就叫。醫生說是尿道阻塞，再晚一點會有生命危險。', pose:'flop', choices:["
+ },
+ {
+  "zh": "{n} 已經一整天沒尿出來了，肚子脹脹硬硬的，一摸就叫。醫生說是尿道阻塞，再晚一點會有生命危險。",
+  "context": "uticrit:{title:'急診', text:'{n} 已經一整天沒尿出來了，肚子脹脹硬硬的，一摸就叫。醫生說是尿道阻塞，再晚一點會有生命危險。', pose:'flop', choices:["
+ },
+ {
+  "zh": "馬上住院導尿",
+  "context": "{label:'馬上住院導尿', fx:()=>{S.counts.vet++;S.counts.er++;add('health',-10);add('mood',-20);S.lifespanM-=12;mem('{p}尿道阻塞，在醫院住了五天');return '{n} 撿回一條命。醫生說以後要特別注意，這對身體的傷害是永久的。';}}]},"
+ },
+ {
+  "zh": "{p}尿道阻塞，在醫院住了五天",
+  "context": "{label:'馬上住院導尿', fx:()=>{S.counts.vet++;S.counts.er++;add('health',-10);add('mood',-20);S.lifespanM-=12;mem('{p}尿道阻塞，在醫院住了五天');return '{n} 撿回一條命。醫生說以後要特別注意，這對身體的傷害是永久的。';}}]},"
+ },
+ {
+  "zh": "{n} 撿回一條命。醫生說以後要特別注意，這對身體的傷害是永久的。",
+  "context": "{label:'馬上住院導尿', fx:()=>{S.counts.vet++;S.counts.er++;add('health',-10);add('mood',-20);S.lifespanM-=12;mem('{p}尿道阻塞，在醫院住了五天');return '{n} 撿回一條命。醫生說以後要特別注意，這對身體的傷害是永久的。';}}]},"
+ },
+ {
+  "zh": "貓砂裡的米粒",
+  "context": "worms:{title:'貓砂裡的米粒', text:'你在貓砂裡看到像白色米粒的東西。是絛蟲，可能是吃了抓到的老鼠。', choices:["
+ },
+ {
+  "zh": "你在貓砂裡看到像白色米粒的東西。是絛蟲，可能是吃了抓到的老鼠。",
+  "context": "worms:{title:'貓砂裡的米粒', text:'你在貓砂裡看到像白色米粒的東西。是絛蟲，可能是吃了抓到的老鼠。', choices:["
+ },
+ {
+  "zh": "去拿驅蟲藥",
+  "context": "{label:'去拿驅蟲藥', fx:()=>{S.counts.vet++;add('health',-3);add('mood',-5);return '餵藥大作戰。{n} 把藥吐出來三次，第四次才吞下去。';}},"
+ },
+ {
+  "zh": "餵藥大作戰。{n} 把藥吐出來三次，第四次才吞下去。",
+  "context": "{label:'去拿驅蟲藥', fx:()=>{S.counts.vet++;add('health',-3);add('mood',-5);return '餵藥大作戰。{n} 把藥吐出來三次，第四次才吞下去。';}},"
+ },
+ {
+  "zh": "應該沒差吧",
+  "context": "{label:'應該沒差吧', fx:()=>{add('health',-15);add('full',-15);return '{n} 吃很多，卻越來越瘦。（記得帶{p}看醫生）';}}]},"
+ },
+ {
+  "zh": "{n} 吃很多，卻越來越瘦。（記得帶{p}看醫生）",
+  "context": "{label:'應該沒差吧', fx:()=>{add('health',-15);add('full',-15);return '{n} 吃很多，卻越來越瘦。（記得帶{p}看醫生）';}}]},"
+ },
+ {
+  "zh": "拉肚子",
+  "context": "diarrhea:{title:'拉肚子', text:'{n} 吃了人類的煎魚，今天一直拉肚子。調味過的食物對貓的腸胃負擔很大。', choices:["
+ },
+ {
+  "zh": "{n} 吃了人類的煎魚，今天一直拉肚子。調味過的食物對貓的腸胃負擔很大。",
+  "context": "diarrhea:{title:'拉肚子', text:'{n} 吃了人類的煎魚，今天一直拉肚子。調味過的食物對貓的腸胃負擔很大。', choices:["
+ },
+ {
+  "zh": "清理，改吃清淡的",
+  "context": "{label:'清理，改吃清淡的', fx:()=>{add('clean',-20);add('health',-8);return '你清了一整天的貓砂。下次還是別分了。';}}]},"
+ },
+ {
+  "zh": "你清了一整天的貓砂。下次還是別分了。",
+  "context": "{label:'清理，改吃清淡的', fx:()=>{add('clean',-20);add('health',-8);return '你清了一整天的貓砂。下次還是別分了。';}}]},"
+ },
+ {
+  "zh": "越來越糟",
+  "context": "sickWorse:{title:'越來越糟', text:'{n} 已經兩天沒吃東西了，躲在床底下不出來。', pose:'flop', choices:["
+ },
+ {
+  "zh": "{n} 已經兩天沒吃東西了，躲在床底下不出來。",
+  "context": "sickWorse:{title:'越來越糟', text:'{n} 已經兩天沒吃東西了，躲在床底下不出來。', pose:'flop', choices:["
+ },
+ {
+  "zh": "現在就去看醫生",
+  "context": "{label:'現在就去看醫生', fx:()=>{S.counts.vet++;S.sick=false;add('health',5);add('mood',-10);S.lifespanM-=4;return '醫生說拖太久了，要打幾天點滴。{n} 慢慢好起來了。';}}]},"
+ },
+ {
+  "zh": "醫生說拖太久了，要打幾天點滴。{n} 慢慢好起來了。",
+  "context": "{label:'現在就去看醫生', fx:()=>{S.counts.vet++;S.sick=false;add('health',5);add('mood',-10);S.lifespanM-=4;return '醫生說拖太久了，要打幾天點滴。{n} 慢慢好起來了。';}}]},"
+ },
+ {
+  "zh": "一直喝水",
+  "context": "kidney:{title:'一直喝水', text:'{n} 最近喝水喝很多，尿塊又大又多，人也瘦了。醫生說是慢性腎病。', choices:["
+ },
+ {
+  "zh": "{n} 最近喝水喝很多，尿塊又大又多，人也瘦了。醫生說是慢性腎病。",
+  "context": "kidney:{title:'一直喝水', text:'{n} 最近喝水喝很多，尿塊又大又多，人也瘦了。醫生說是慢性腎病。', choices:["
+ },
+ {
+  "zh": "學著每天在家幫{p}打皮下點滴",
+  "context": "{label:'學著每天在家幫{p}打皮下點滴', fx:()=>{add('health',5);add('mood',-5);add('bond',4);S.lifespanM-=6;mem('你學會了幫{p}打皮下點滴，{p}很乖');return '一開始你手一直抖。後來 {n} 會自己走過來，趴在固定的位置等你。';}},"
+ },
+ {
+  "zh": "你學會了幫{p}打皮下點滴，{p}很乖",
+  "context": "{label:'學著每天在家幫{p}打皮下點滴', fx:()=>{add('health',5);add('mood',-5);add('bond',4);S.lifespanM-=6;mem('你學會了幫{p}打皮下點滴，{p}很乖');return '一開始你手一直抖。後來 {n} 會自己走過來，趴在固定的位置等你。';}},"
+ },
+ {
+  "zh": "一開始你手一直抖。後來 {n} 會自己走過來，趴在固定的位置等你。",
+  "context": "{label:'學著每天在家幫{p}打皮下點滴', fx:()=>{add('health',5);add('mood',-5);add('bond',4);S.lifespanM-=6;mem('你學會了幫{p}打皮下點滴，{p}很乖');return '一開始你手一直抖。後來 {n} 會自己走過來，趴在固定的位置等你。';}},"
+ },
+ {
+  "zh": "只吃藥就好",
+  "context": "{label:'只吃藥就好', fx:()=>{S.lifespanM-=18;add('health',-10);return '{n} 的精神時好時壞。';}}]},"
+ },
+ {
+  "zh": "{n} 的精神時好時壞。",
+  "context": "{label:'只吃藥就好', fx:()=>{S.lifespanM-=18;add('health',-10);return '{n} 的精神時好時壞。';}}]},"
+ },
+ {
+  "zh": "吐出緞帶",
+  "context": "ribbon:{title:'吐出緞帶', text:'{n} 吐了，裡面有一段聖誕樹上的緞帶。線狀異物如果卡在腸子裡，會需要開刀。', choices:["
+ },
+ {
+  "zh": "{n} 吐了，裡面有一段聖誕樹上的緞帶。線狀異物如果卡在腸子裡，會需要開刀。",
+  "context": "ribbon:{title:'吐出緞帶', text:'{n} 吐了，裡面有一段聖誕樹上的緞帶。線狀異物如果卡在腸子裡，會需要開刀。', choices:["
+ },
+ {
+  "zh": "把亮晶晶的吊飾全收起來",
+  "context": "{label:'把亮晶晶的吊飾全收起來', fx:()=>{add('health',-6);return '還好吐出來了。明年的聖誕樹，只掛不會被吞下去的東西。';}}]},"
+ },
+ {
+  "zh": "還好吐出來了。明年的聖誕樹，只掛不會被吞下去的東西。",
+  "context": "{label:'把亮晶晶的吊飾全收起來', fx:()=>{add('health',-6);return '還好吐出來了。明年的聖誕樹，只掛不會被吞下去的東西。';}}]},"
+ },
+ {
+  "zh": "樓下的小貓",
+  "context": "kittens:{title:'樓下的小貓', text:'你餵的那隻浪浪生了三隻小貓，躲在樓下的機車旁邊。{n} 在窗邊看著牠們。', choices:["
+ },
+ {
+  "zh": "你餵的那隻浪浪生了三隻小貓，躲在樓下的機車旁邊。{n} 在窗邊看著牠們。",
+  "context": "kittens:{title:'樓下的小貓', text:'你餵的那隻浪浪生了三隻小貓，躲在樓下的機車旁邊。{n} 在窗邊看著牠們。', choices:["
+ },
+ {
+  "zh": "幫小貓找到領養家庭，帶媽媽去結紮",
+  "context": "{label:'幫小貓找到領養家庭，帶媽媽去結紮', fx:()=>{add('mood',3);mem('你幫樓下的三隻小貓都找到了家');return '三隻小貓都被領養了。其中一個新主人傳照片給你，小貓睡在紙箱裡。';}},"
+ },
+ {
+  "zh": "你幫樓下的三隻小貓都找到了家",
+  "context": "{label:'幫小貓找到領養家庭，帶媽媽去結紮', fx:()=>{add('mood',3);mem('你幫樓下的三隻小貓都找到了家');return '三隻小貓都被領養了。其中一個新主人傳照片給你，小貓睡在紙箱裡。';}},"
+ },
+ {
+  "zh": "三隻小貓都被領養了。其中一個新主人傳照片給你，小貓睡在紙箱裡。",
+  "context": "{label:'幫小貓找到領養家庭，帶媽媽去結紮', fx:()=>{add('mood',3);mem('你幫樓下的三隻小貓都找到了家');return '三隻小貓都被領養了。其中一個新主人傳照片給你，小貓睡在紙箱裡。';}},"
+ },
+ {
+  "zh": "繼續餵就好",
+  "context": "{label:'繼續餵就好', fx:()=>{add('mood',-4);return '半年後，樓下變成了七隻貓。';}}]},"
+ },
+ {
+  "zh": "半年後，樓下變成了七隻貓。",
+  "context": "{label:'繼續餵就好', fx:()=>{add('mood',-4);return '半年後，樓下變成了七隻貓。';}}]},"
+ },
+ {
+  "zh": "倒在地上",
+  "context": "if(s.health <= 5 && s.full > 5) return {id:'collapse2', title:'倒在地上', text:'{n} 走到一半突然倒下，呼吸又急又淺。身體已經撐到極限了。', pose:'flop', choices:["
+ },
+ {
+  "zh": "{n} 走到一半突然倒下，呼吸又急又淺。身體已經撐到極限了。",
+  "context": "if(s.health <= 5 && s.full > 5) return {id:'collapse2', title:'倒在地上', text:'{n} 走到一半突然倒下，呼吸又急又淺。身體已經撐到極限了。', pose:'flop', choices:["
+ },
+ {
+  "zh": "抱起來衝急診",
+  "context": "{label:'抱起來衝急診', fx:()=>{S.counts.vet++;S.counts.er++;S.sick=false;S.stats.health=35;add('mood',-15);S.lifespanM-=12;mem('{p}突然倒下，被你送去急診，在醫院住了好幾天');return '住院幾天後，{n} 可以回家了。醫生說要常常回診，健康變差時別拖。';}}]};"
+ },
+ {
+  "zh": "{p}突然倒下，被你送去急診，在醫院住了好幾天",
+  "context": "{label:'抱起來衝急診', fx:()=>{S.counts.vet++;S.counts.er++;S.sick=false;S.stats.health=35;add('mood',-15);S.lifespanM-=12;mem('{p}突然倒下，被你送去急診，在醫院住了好幾天');return '住院幾天後，{n} 可以回家了。醫生說要常常回診，健康變差時別拖。';}}]};"
+ },
+ {
+  "zh": "住院幾天後，{n} 可以回家了。醫生說要常常回診，健康變差時別拖。",
+  "context": "{label:'抱起來衝急診', fx:()=>{S.counts.vet++;S.counts.er++;S.sick=false;S.stats.health=35;add('mood',-15);S.lifespanM-=12;mem('{p}突然倒下，被你送去急診，在醫院住了好幾天');return '住院幾天後，{n} 可以回家了。醫生說要常常回診，健康變差時別拖。';}}]};"
+ },
+ {
+  "zh": "你一進門，看到 {n} 側躺在地上，叫{p}也沒有站起來。已經太久沒有好好吃飯了。",
+  "context": "if(s.full <= 5 || ng.full >= 3) return {id:'collapse', title:'倒在地上', text:'你一進門，看到 {n} 側躺在地上，叫{p}也沒有站起來。已經太久沒有好好吃飯了。', pose:'flop', choices:["
+ },
+ {
+  "zh": "{p}餓到倒在地上，被你送去急診",
+  "context": "{label:'抱起來衝急診', fx:()=>{S.counts.vet++;S.counts.er++;S.stats.full=45;S.stats.health=Math.max(s.health,30);add('mood',-15);add('bond',-8);S.lifespanM-=18;ng.full=0;mem('{p}餓到倒在地上，被你送去急診');return '醫生說是低血糖加脫水，再晚就來不及了。{n} 打完點滴，第一件事是去吃飯。這次傷到了身體，壽命會變短。';}}]};"
+ },
+ {
+  "zh": "醫生說是低血糖加脫水，再晚就來不及了。{n} 打完點滴，第一件事是去吃飯。這次傷到了身體，壽命會變短。",
+  "context": "{label:'抱起來衝急診', fx:()=>{S.counts.vet++;S.counts.er++;S.stats.full=45;S.stats.health=Math.max(s.health,30);add('mood',-15);add('bond',-8);S.lifespanM-=18;ng.full=0;mem('{p}餓到倒在地上，被你送去急診');return '醫生說是低血糖加脫水，再晚就來不及了。{n} 打完點滴，第一件事是去吃飯。這次傷到了身體，壽命會變短。';}}]};"
+ },
+ {
+  "zh": "尿在床上",
+  "context": "if(ng.clean >= 2 || s.clean <= 8) return {id:'pee', title:'尿在床上', text:'你掀開棉被，濕了一大片……{n} 尿在你的床上。貓砂盆已經髒到{p}不想進去了。', choices:["
+ },
+ {
+  "zh": "你掀開棉被，濕了一大片……{n} 尿在你的床上。貓砂盆已經髒到{p}不想進去了。",
+  "context": "if(ng.clean >= 2 || s.clean <= 8) return {id:'pee', title:'尿在床上', text:'你掀開棉被，濕了一大片……{n} 尿在你的床上。貓砂盆已經髒到{p}不想進去了。', choices:["
+ },
+ {
+  "zh": "洗棉被，把貓砂整盆換新",
+  "context": "{label:'洗棉被，把貓砂整盆換新', fx:()=>{S.stats.clean=70;ng.clean=0;add('mood',3);mem('{p}尿在你床上，抗議貓砂太髒');return '貓砂乾淨以後，{n} 立刻進去用了，還很認真地撥了很久的砂。';}},"
+ },
+ {
+  "zh": "{p}尿在你床上，抗議貓砂太髒",
+  "context": "{label:'洗棉被，把貓砂整盆換新', fx:()=>{S.stats.clean=70;ng.clean=0;add('mood',3);mem('{p}尿在你床上，抗議貓砂太髒');return '貓砂乾淨以後，{n} 立刻進去用了，還很認真地撥了很久的砂。';}},"
+ },
+ {
+  "zh": "貓砂乾淨以後，{n} 立刻進去用了，還很認真地撥了很久的砂。",
+  "context": "{label:'洗棉被，把貓砂整盆換新', fx:()=>{S.stats.clean=70;ng.clean=0;add('mood',3);mem('{p}尿在你床上，抗議貓砂太髒');return '貓砂乾淨以後，{n} 立刻進去用了，還很認真地撥了很久的砂。';}},"
+ },
+ {
+  "zh": "罵{p}一頓",
+  "context": "{label:'罵{p}一頓', fx:()=>{add('bond',-6);add('mood',-12);return '{n} 不懂你為什麼生氣。罵貓沒有用，貓砂盆不乾淨，{p}還是會再尿。';}}]};"
+ },
+ {
+  "zh": "{n} 不懂你為什麼生氣。罵貓沒有用，貓砂盆不乾淨，{p}還是會再尿。",
+  "context": "{label:'罵{p}一頓', fx:()=>{add('bond',-6);add('mood',-12);return '{n} 不懂你為什麼生氣。罵貓沒有用，貓砂盆不乾淨，{p}還是會再尿。';}}]};"
+ },
+ {
+  "zh": "翻垃圾桶",
+  "context": "if(s.full <= 20 || ng.full >= 2) return {id:'trash', title:'翻垃圾桶', text:'早上起來，廚房垃圾桶倒了，雞骨頭散了一地。{n} 嘴邊沾著東西。肚子餓的貓什麼都吃。', choices:["
+ },
+ {
+  "zh": "早上起來，廚房垃圾桶倒了，雞骨頭散了一地。{n} 嘴邊沾著東西。肚子餓的貓什麼都吃。",
+  "context": "if(s.full <= 20 || ng.full >= 2) return {id:'trash', title:'翻垃圾桶', text:'早上起來，廚房垃圾桶倒了，雞骨頭散了一地。{n} 嘴邊沾著東西。肚子餓的貓什麼都吃。', choices:["
+ },
+ {
+  "zh": "收拾乾淨，趕快放飯",
+  "context": "{label:'收拾乾淨，趕快放飯', fx:()=>{add('full',20);add('clean',-10);add('health',-5);return '{n} 狼吞虎嚥，吃完又看著你，好像怕下一餐沒了。';}}]};"
+ },
+ {
+  "zh": "{n} 狼吞虎嚥，吃完又看著你，好像怕下一餐沒了。",
+  "context": "{label:'收拾乾淨，趕快放飯', fx:()=>{add('full',20);add('clean',-10);add('health',-5);return '{n} 狼吞虎嚥，吃完又看著你，好像怕下一餐沒了。';}}]};"
+ },
+ {
+  "zh": "帶路",
+  "context": "? {id:'litterbite', title:'帶路', text:'{n} 咬住你的腳踝，一路把你拖到貓砂盆前，然後坐下來，看著你。', choices:["
+ },
+ {
+  "zh": "{n} 咬住你的腳踝，一路把你拖到貓砂盆前，然後坐下來，看著你。",
+  "context": "? {id:'litterbite', title:'帶路', text:'{n} 咬住你的腳踝，一路把你拖到貓砂盆前，然後坐下來，看著你。', choices:["
+ },
+ {
+  "zh": "好啦好啦，馬上清",
+  "context": "{label:'好啦好啦，馬上清', fx:()=>{add('clean',35);add('bond',1);S.counts.bite++;return '{n} 監工到最後一鏟，確認乾淨了才離開。';}}]}"
+ },
+ {
+  "zh": "{n} 監工到最後一鏟，確認乾淨了才離開。",
+  "context": "{label:'好啦好啦，馬上清', fx:()=>{add('clean',35);add('bond',1);S.counts.bite++;return '{n} 監工到最後一鏟，確認乾淨了才離開。';}}]}"
+ },
+ {
+  "zh": "盆外",
+  "context": ": {id:'poopout', title:'盆外', text:'{n} 在貓砂盆旁邊的地板上大便了。{p}嫌貓砂太髒。', choices:["
+ },
+ {
+  "zh": "{n} 在貓砂盆旁邊的地板上大便了。{p}嫌貓砂太髒。",
+  "context": ": {id:'poopout', title:'盆外', text:'{n} 在貓砂盆旁邊的地板上大便了。{p}嫌貓砂太髒。', choices:["
+ },
+ {
+  "zh": "清乾淨，順便清貓砂",
+  "context": "{label:'清乾淨，順便清貓砂', fx:()=>{add('clean',30);return '你發誓以後每天都要清。';}}]};"
+ },
+ {
+  "zh": "你發誓以後每天都要清。",
+  "context": "{label:'清乾淨，順便清貓砂', fx:()=>{add('clean',30);return '你發誓以後每天都要清。';}}]};"
+ },
+ {
+  "zh": "沙發",
+  "context": "? {id:'sofa', title:'沙發', text:'沙發被抓得一條一條的，{n} 還在抓，叫{p}也不理你。太無聊、壓力大的貓會這樣發洩。', choices:["
+ },
+ {
+  "zh": "沙發被抓得一條一條的，{n} 還在抓，叫{p}也不理你。太無聊、壓力大的貓會這樣發洩。",
+  "context": "? {id:'sofa', title:'沙發', text:'沙發被抓得一條一條的，{n} 還在抓，叫{p}也不理你。太無聊、壓力大的貓會這樣發洩。', choices:["
+ },
+ {
+  "zh": "買貓抓板，每天陪{p}玩",
+  "context": "{label:'買貓抓板，每天陪{p}玩', fx:()=>{add('mood',18);ng.mood=0;return '{n} 抓了新的貓抓板一下，然後回去抓沙發。但至少{p}開心了一點。';}}]}"
+ },
+ {
+  "zh": "{n} 抓了新的貓抓板一下，然後回去抓沙發。但至少{p}開心了一點。",
+  "context": "{label:'買貓抓板，每天陪{p}玩', fx:()=>{add('mood',18);ng.mood=0;return '{n} 抓了新的貓抓板一下，然後回去抓沙發。但至少{p}開心了一點。';}}]}"
+ },
+ {
+  "zh": "禿了一塊",
+  "context": ": {id:'overgroom', title:'禿了一塊', text:'你發現 {n} 的肚子舔禿了一塊。醫生說是壓力太大，過度理毛。', choices:["
+ },
+ {
+  "zh": "你發現 {n} 的肚子舔禿了一塊。醫生說是壓力太大，過度理毛。",
+  "context": ": {id:'overgroom', title:'禿了一塊', text:'你發現 {n} 的肚子舔禿了一塊。醫生說是壓力太大，過度理毛。', choices:["
+ },
+ {
+  "zh": "多陪{p}，在窗邊放一個貓跳台",
+  "context": "{label:'多陪{p}，在窗邊放一個貓跳台', fx:()=>{add('mood',20);add('health',-5);ng.mood=0;return '你們每天固定玩十五分鐘。毛慢慢長回來了。';}}]};"
+ },
+ {
+  "zh": "你們每天固定玩十五分鐘。毛慢慢長回來了。",
+  "context": "{label:'多陪{p}，在窗邊放一個貓跳台', fx:()=>{add('mood',20);add('health',-5);ng.mood=0;return '你們每天固定玩十五分鐘。毛慢慢長回來了。';}}]};"
+ },
+ {
+  "zh": "圓滾滾",
+  "context": "if(S.weight >= 14 && S.day - (S.flags.fatDay||-99) >= 6) return {id:'fat', title:'圓滾滾', text:'醫生看著體重計皺眉：「{n} 太胖了，對關節跟心臟都不好。」零食跟罐罐好像給太多了。', choices:["
+ },
+ {
+  "zh": "醫生看著體重計皺眉：「{n} 太胖了，對關節跟心臟都不好。」零食跟罐罐好像給太多了。",
+  "context": "if(S.weight >= 14 && S.day - (S.flags.fatDay||-99) >= 6) return {id:'fat', title:'圓滾滾', text:'醫生看著體重計皺眉：「{n} 太胖了，對關節跟心臟都不好。」零食跟罐罐好像給太多了。', choices:["
+ },
+ {
+  "zh": "開始減肥：少零食，多玩",
+  "context": "{label:'開始減肥：少零食，多玩', fx:()=>{S.flags.fatDay=S.day;S.weight=4;add('mood',-8);S.lifespanM+=3;return '{n} 每天在空碗前坐著抗議。三個月後瘦回來了，跳上桌子又變輕鬆了。';}},"
+ },
+ {
+  "zh": "{n} 每天在空碗前坐著抗議。三個月後瘦回來了，跳上桌子又變輕鬆了。",
+  "context": "{label:'開始減肥：少零食，多玩', fx:()=>{S.flags.fatDay=S.day;S.weight=4;add('mood',-8);S.lifespanM+=3;return '{n} 每天在空碗前坐著抗議。三個月後瘦回來了，跳上桌子又變輕鬆了。';}},"
+ },
+ {
+  "zh": "胖胖的才可愛",
+  "context": "{label:'胖胖的才可愛', fx:()=>{S.flags.fatDay=S.day;S.lifespanM-=8;mem('{p}胖到走路時肚子會左右晃');return '{n} 走路時肚子左右晃。可愛，但醫生搖頭。';}}]};"
+ },
+ {
+  "zh": "{p}胖到走路時肚子會左右晃",
+  "context": "{label:'胖胖的才可愛', fx:()=>{S.flags.fatDay=S.day;S.lifespanM-=8;mem('{p}胖到走路時肚子會左右晃');return '{n} 走路時肚子左右晃。可愛，但醫生搖頭。';}}]};"
+ },
+ {
+  "zh": "{n} 走路時肚子左右晃。可愛，但醫生搖頭。",
+  "context": "{label:'胖胖的才可愛', fx:()=>{S.flags.fatDay=S.day;S.lifespanM-=8;mem('{p}胖到走路時肚子會左右晃');return '{n} 走路時肚子左右晃。可愛，但醫生搖頭。';}}]};"
+ },
+ {
+  "zh": "\n  <header class=\"top\"><div><h1>養一隻貓貓</h1><div class=\"sub\">一隻貓的一生，大約十五年</div></div>${langLinks()}</header>\n  <section class=\"room street\">\n    <div class=\"floor\"></div><div class=\"rain\"></div>\n    <div class=\"peek ${revealed?'up':''}\">${revealed ? catSVG(S.coatId,S.seed,'kitten','normal',1) : catSVG(S.coatId,S.seed,'kitten','sleep',1)}</div>\n    <div class=\"box\"><div class=\"flap l\"></div><div class=\"flap r\"></div><div class=\"front\"><span>請好心人收養</span></div></div>\n  </section>\n  <section class=\"panel\">\n    ${revealed\n      ? `<p>是一隻 <b style=\"color:var(--eye)\">${c.name}</b>${S.gender==='f'?'妹妹':'弟弟'}，冷得一直發抖，對你小小聲地「咪」了一聲。</p>\n         <div class=\"btnrow\"><button class=\"btn primary\" id=\"take\">帶${P()}回家</button><button class=\"btn\" id=\"reroll\">看看別的箱子</button></div>`\n      : `<p>${S.past.length?`${esc(S.past[S.past.length-1].name)} 走了以後，家裡安靜了好久。<br>`:''}下雨的晚上，你在巷口的紙箱裡，看見一團小小的、濕濕的東西。</p>\n         <div class=\"btnrow\"><button class=\"btn primary\" id=\"look\">蹲下來看看</button><button class=\"btn\" id=\"howto\">📖 怎麼玩</button></div>`}\n  </section>",
+  "context": "app.innerHTML = `\n  <header class=\"top\"><div><h1>養一隻貓貓</h1><div class=\"sub\">一隻貓的一生，大約十五年</div></div>${langLinks()}</header>\n  <section class=\"room street\">\n    <div class=\"floor\"></div><div class=\"rain\"></div>\n    <div class=\"peek ${revealed?'up':''}\">${revealed ? catSVG(S.coatId,S.seed,'kitten','no"
+ },
+ {
+  "zh": "\n  <header class=\"top\"><div><h1>幫${P()}取個名字</h1><div class=\"sub\">${c.name} · 大約 1 個月大</div></div></header>\n  <section class=\"room t0\">${roomDecor()}\n    <div class=\"catwrap kitten\" id=\"cw\">${catHTML('kitten','happy')}</div></section>\n  <section class=\"panel\">\n    <div class=\"field\"><label for=\"nameIn\">名字</label><input type=\"text\" id=\"nameIn\" maxlength=\"10\" value=\"${esc(S.name||c.names[0])}\" autocomplete=\"off\">\n      <div class=\"sugs\">${c.names.map(n=>`<button type=\"button\" data-n=\"${esc(n)}\">${esc(n)}</button>`).join('')}</div></div>\n    <div class=\"field\"><label>性別</label><div class=\"seg\"><button type=\"button\" data-g=\"f\" aria-pressed=\"${S.gender==='f'}\">妹妹</button><button type=\"button\" data-g=\"m\" aria-pressed=\"${S.gender==='m'}\">弟弟</button></div></div>\n    <div class=\"field\"><label>照片（可以不放）</label>\n      <div class=\"upload\"><div class=\"thumb\">${S.photo?photoCat(S.photo,'adult','normal'):'📷'}</div>\n      <div class=\"txt\"><b>${S.photo?'用你的貓的照片':'用我們畫的小貓'}</b>上傳你家貓咪的照片，照片會剪成貓咪的形狀，陪你長大。選貓臉在正中間的照片最好看。</div>\n      <button class=\"btn\" type=\"button\" id=\"up\">${S.photo?'換一張':'上傳'}</button>${S.photo?'<button class=\"btn\" type=\"button\" id=\"rmPhoto\">移除</button>':''}</div>${S.photo?'<button class=\"btn\" type=\"button\" id=\"adjPhoto\">✋ 調整照片位置</button>':''}</div>\n    <div class=\"btnrow\"><button class=\"btn primary\" id=\"go\">回家囉</button></div>\n  </section>",
+  "context": "app.innerHTML = `\n  <header class=\"top\"><div><h1>幫${P()}取個名字</h1><div class=\"sub\">${c.name} · 大約 1 個月大</div></div></header>\n  <section class=\"room t0\">${roomDecor()}\n    <div class=\"catwrap kitten\" id=\"cw\">${catHTML('kitten','happy')}</div></section>\n  <section class=\"panel\">\n    <div class=\"field\">"
+ },
+ {
+  "zh": "你用毛巾把 {n} 擦乾，放在暖暖的小毯子上。{p}吃了一點東西，就在你手邊睡著了。",
+  "context": "S.phase = 'life'; S.narr = fill('你用毛巾把 {n} 擦乾，放在暖暖的小毯子上。{p}吃了一點東西，就在你手邊睡著了。');"
+ },
+ {
+  "zh": "那個下雨天，你在紙箱裡撿到了{p}",
+  "context": "mem('那個下雨天，你在紙箱裡撿到了{p}');"
+ },
+ {
+  "zh": "\n  <header class=\"top\"><div><h1>${esc(N())}</h1>\n    <div class=\"sub\">${ageLabel(S.ageM)}（約人類 ${humanAge(S.ageM)} 歲）· ${COAT[S.coatId].name}</div></div>\n    <div class=\"chips\"><span class=\"chip\">${stageName(S.ageM)}</span>${S.sick?'<span class=\"chip\" style=\"background:var(--danger)\">生病中</span>':''}<span class=\"chip\" id=\"money\">$${S.money}</span><span class=\"chip amber\">${farewell?'最後一天':SLOTS[S.slot]}</span></div></header>\n  <section class=\"room t${t}\" id=\"room\">\n    ${roomDecor()}\n    <div class=\"bubble\" id=\"bubble\"></div>\n    <div class=\"catwrap ${st} ${!farewell&&S.stats.full<12?'flop':''}\" id=\"cw\" style=\"left:${clamp(catX, catHalfWidth()+2, 98-catHalfWidth())}%\" role=\"button\" tabindex=\"0\" aria-label=\"摸摸${esc(N())}\">${catHTML(st, farewell?'sleep':expr)}</div>\n    <div class=\"dim\"></div><div class=\"fx\" id=\"fx\"></div>\n  </section>\n  <div class=\"narr\" id=\"narr\">${esc(S.narr||'')}</div>\n  ${farewell ? `\n  <section class=\"actions\" style=\"grid-template-columns:1fr 1fr\">\n    <button class=\"act\" id=\"fpet\"><span class=\"ic\">🤲</span><span class=\"t\">摸摸${P()}</span><span class=\"d\">輕輕的</span></button>\n    <button class=\"act primary\" id=\"fhug\"><span class=\"ic\">🫂</span><span class=\"t\">抱著${P()}</span><span class=\"d\">陪${P()}到最後</span></button>\n  </section>` : `\n  <section class=\"stats\">${statRow('full','飽足')}${statRow('mood','心情')}${statRow('clean','清潔')}${statRow('health','健康')}${statRow('bond','親密')}</section>\n  <section class=\"actions\">\n    <button class=\"act\" data-a=\"feed\"><span class=\"ic\">🍚</span><span class=\"t\">餵食</span><span class=\"d\">乾乾・罐罐・肉泥</span></button>\n    <button class=\"act\" data-a=\"play\"><span class=\"ic\">🪶</span><span class=\"t\">逗貓棒</span><span class=\"d\">一起玩</span></button>\n    <button class=\"act\" data-a=\"brush\"><span class=\"ic\">🪮</span><span class=\"t\">梳毛</span><span class=\"d\">掉毛季</span></button>\n    <button class=\"act\" data-a=\"litter\"><span class=\"ic\">🧹</span><span class=\"t\">清貓砂</span><span class=\"d\">鏟屎官的日常</span></button>\n    <button class=\"act\" data-a=\"vet\"><span class=\"ic\">🏥</span><span class=\"t\">看醫生</span><span class=\"d\">${S.sick?'快去！':'健康檢查'}</span></button>\n    <button class=\"act primary\" data-a=\"sleep\"><span class=\"ic\">🌙</span><span class=\"t\">晚安</span><span class=\"d\">過完這一天</span></button>\n  </section>\n  <button class=\"ff ${ffOn?'on':''}\" id=\"ff\">${ffOn?'⏸ 停止快轉<small>快轉中，遇到事件會暫停，處理完繼續</small>':'⏩ 快轉<small>自動餵飯、清貓砂、陪玩；遇到事件會暫停，處理完繼續</small>'}</button>\n  <button class=\"shopbtn\" id=\"shop\"><span>🛍</span>貓咪用品店<small>存款 $${S.money} · 買東西佈置房間</small></button>\n  <div class=\"links\"><button class=\"linkbtn\" id=\"guide\">📖 養貓守則</button>${S.past.length?`<button class=\"linkbtn\" id=\"rainbow\">🌈 彩虹橋（${S.past.length}）</button>`:''}<button class=\"linkbtn\" id=\"album\">回憶相簿（${S.memories.length}）</button><button class=\"linkbtn\" id=\"photoBtn\">${S.photo?'換照片 / 改回畫的貓':'上傳我家貓的照片'}</button><button class=\"linkbtn\" id=\"mute\">${muted?'🔇 聲音關':'🔊 聲音開'}</button><button class=\"linkbtn\" id=\"restart\">重新開始</button></div>`}",
+  "context": "app.innerHTML = `\n  <header class=\"top\"><div><h1>${esc(N())}</h1>\n    <div class=\"sub\">${ageLabel(S.ageM)}（約人類 ${humanAge(S.ageM)} 歲）· ${COAT[S.coatId].name}</div></div>\n    <div class=\"chips\"><span class=\"chip\">${stageName(S.ageM)}</span>${S.sick?'<span class=\"chip\" style=\"background:var(--danger)\""
+ },
+ {
+  "zh": "（趴在地上，餓到叫不出聲音）",
+  "context": "if(s.full < 12) return '（趴在地上，餓到叫不出聲音）';"
+ },
+ {
+  "zh": "喵嗷！喵嗷！（站在貓砂盆旁邊對你叫）",
+  "context": "if(s.clean < 15) return '喵嗷！喵嗷！（站在貓砂盆旁邊對你叫）';"
+ },
+ {
+  "zh": "喵……（縮成一團，看起來不太舒服）",
+  "context": "if(S.sick) return '喵……（縮成一團，看起來不太舒服）';"
+ },
+ {
+  "zh": "喵嗚——！（碗空了！）",
+  "context": "if(low[1] < 25) return {full:'喵嗚——！（碗空了！）', mood:'（尾巴甩來甩去，好無聊）', clean:'（看著貓砂盆，一臉嫌棄）', health:'（窩在角落，不太想動）'}[low[0]];"
+ },
+ {
+  "zh": "（尾巴甩來甩去，好無聊）",
+  "context": "if(low[1] < 25) return {full:'喵嗚——！（碗空了！）', mood:'（尾巴甩來甩去，好無聊）', clean:'（看著貓砂盆，一臉嫌棄）', health:'（窩在角落，不太想動）'}[low[0]];"
+ },
+ {
+  "zh": "（看著貓砂盆，一臉嫌棄）",
+  "context": "if(low[1] < 25) return {full:'喵嗚——！（碗空了！）', mood:'（尾巴甩來甩去，好無聊）', clean:'（看著貓砂盆，一臉嫌棄）', health:'（窩在角落，不太想動）'}[low[0]];"
+ },
+ {
+  "zh": "（窩在角落，不太想動）",
+  "context": "if(low[1] < 25) return {full:'喵嗚——！（碗空了！）', mood:'（尾巴甩來甩去，好無聊）', clean:'（看著貓砂盆，一臉嫌棄）', health:'（窩在角落，不太想動）'}[low[0]];"
+ },
+ {
+  "zh": "（對你慢慢眨眼——這是貓在說我愛你）",
+  "context": "if(s.bond > 60 && Math.random() < .25) return '（對你慢慢眨眼——這是貓在說我愛你）';"
+ },
+ {
+  "zh": "咪！",
+  "context": "kitten:['咪！','咪～咪～','（追著自己的尾巴轉圈）','（咬你的拖鞋）','（爬窗簾爬到一半下不來）','（打了一個小小的噴嚏）','（四腳朝天露出肚子……是陷阱嗎？）'],"
+ },
+ {
+  "zh": "咪～咪～",
+  "context": "kitten:['咪！','咪～咪～','（追著自己的尾巴轉圈）','（咬你的拖鞋）','（爬窗簾爬到一半下不來）','（打了一個小小的噴嚏）','（四腳朝天露出肚子……是陷阱嗎？）'],"
+ },
+ {
+  "zh": "（追著自己的尾巴轉圈）",
+  "context": "kitten:['咪！','咪～咪～','（追著自己的尾巴轉圈）','（咬你的拖鞋）','（爬窗簾爬到一半下不來）','（打了一個小小的噴嚏）','（四腳朝天露出肚子……是陷阱嗎？）'],"
+ },
+ {
+  "zh": "（咬你的拖鞋）",
+  "context": "kitten:['咪！','咪～咪～','（追著自己的尾巴轉圈）','（咬你的拖鞋）','（爬窗簾爬到一半下不來）','（打了一個小小的噴嚏）','（四腳朝天露出肚子……是陷阱嗎？）'],"
+ },
+ {
+  "zh": "（爬窗簾爬到一半下不來）",
+  "context": "kitten:['咪！','咪～咪～','（追著自己的尾巴轉圈）','（咬你的拖鞋）','（爬窗簾爬到一半下不來）','（打了一個小小的噴嚏）','（四腳朝天露出肚子……是陷阱嗎？）'],"
+ },
+ {
+  "zh": "（打了一個小小的噴嚏）",
+  "context": "kitten:['咪！','咪～咪～','（追著自己的尾巴轉圈）','（咬你的拖鞋）','（爬窗簾爬到一半下不來）','（打了一個小小的噴嚏）','（四腳朝天露出肚子……是陷阱嗎？）'],"
+ },
+ {
+  "zh": "（四腳朝天露出肚子……是陷阱嗎？）",
+  "context": "kitten:['咪！','咪～咪～','（追著自己的尾巴轉圈）','（咬你的拖鞋）','（爬窗簾爬到一半下不來）','（打了一個小小的噴嚏）','（四腳朝天露出肚子……是陷阱嗎？）'],"
+ },
+ {
+  "zh": "喵～",
+  "context": "adult:['喵～','（瞇著眼睛看你）','喵嗯？','（理毛理到一半，舌頭忘了收）','（盯著空氣裡什麼都沒有的地方）','（把頭塞進你的手掌）','（翻肚肚）','（在你腳邊繞八字）'],"
+ },
+ {
+  "zh": "（瞇著眼睛看你）",
+  "context": "adult:['喵～','（瞇著眼睛看你）','喵嗯？','（理毛理到一半，舌頭忘了收）','（盯著空氣裡什麼都沒有的地方）','（把頭塞進你的手掌）','（翻肚肚）','（在你腳邊繞八字）'],"
+ },
+ {
+  "zh": "喵嗯？",
+  "context": "adult:['喵～','（瞇著眼睛看你）','喵嗯？','（理毛理到一半，舌頭忘了收）','（盯著空氣裡什麼都沒有的地方）','（把頭塞進你的手掌）','（翻肚肚）','（在你腳邊繞八字）'],"
+ },
+ {
+  "zh": "（理毛理到一半，舌頭忘了收）",
+  "context": "adult:['喵～','（瞇著眼睛看你）','喵嗯？','（理毛理到一半，舌頭忘了收）','（盯著空氣裡什麼都沒有的地方）','（把頭塞進你的手掌）','（翻肚肚）','（在你腳邊繞八字）'],"
+ },
+ {
+  "zh": "（盯著空氣裡什麼都沒有的地方）",
+  "context": "adult:['喵～','（瞇著眼睛看你）','喵嗯？','（理毛理到一半，舌頭忘了收）','（盯著空氣裡什麼都沒有的地方）','（把頭塞進你的手掌）','（翻肚肚）','（在你腳邊繞八字）'],"
+ },
+ {
+  "zh": "（把頭塞進你的手掌）",
+  "context": "adult:['喵～','（瞇著眼睛看你）','喵嗯？','（理毛理到一半，舌頭忘了收）','（盯著空氣裡什麼都沒有的地方）','（把頭塞進你的手掌）','（翻肚肚）','（在你腳邊繞八字）'],"
+ },
+ {
+  "zh": "（翻肚肚）",
+  "context": "adult:['喵～','（瞇著眼睛看你）','喵嗯？','（理毛理到一半，舌頭忘了收）','（盯著空氣裡什麼都沒有的地方）','（把頭塞進你的手掌）','（翻肚肚）','（在你腳邊繞八字）'],"
+ },
+ {
+  "zh": "（在你腳邊繞八字）",
+  "context": "adult:['喵～','（瞇著眼睛看你）','喵嗯？','（理毛理到一半，舌頭忘了收）','（盯著空氣裡什麼都沒有的地方）','（把頭塞進你的手掌）','（翻肚肚）','（在你腳邊繞八字）'],"
+ },
+ {
+  "zh": "（打了一個大大的哈欠）",
+  "context": "senior:['（打了一個大大的哈欠）','喵……','（在最暖的地方睡著了）','（慢慢走過來，靠著你坐下）','（呼嚕呼嚕）'],"
+ },
+ {
+  "zh": "喵……",
+  "context": "senior:['（打了一個大大的哈欠）','喵……','（在最暖的地方睡著了）','（慢慢走過來，靠著你坐下）','（呼嚕呼嚕）'],"
+ },
+ {
+  "zh": "（在最暖的地方睡著了）",
+  "context": "senior:['（打了一個大大的哈欠）','喵……','（在最暖的地方睡著了）','（慢慢走過來，靠著你坐下）','（呼嚕呼嚕）'],"
+ },
+ {
+  "zh": "（慢慢走過來，靠著你坐下）",
+  "context": "senior:['（打了一個大大的哈欠）','喵……','（在最暖的地方睡著了）','（慢慢走過來，靠著你坐下）','（呼嚕呼嚕）'],"
+ },
+ {
+  "zh": "（呼嚕呼嚕）",
+  "context": "senior:['（打了一個大大的哈欠）','喵……','（在最暖的地方睡著了）','（慢慢走過來，靠著你坐下）','（呼嚕呼嚕）'],"
+ },
+ {
+  "zh": "（往後縮了一下，還有點怕你）",
+  "context": "if(S.stats.bond < 12 && Math.random() < .35){ setExpr('sad'); anim('shrink'); say('（往後縮了一下，還有點怕你）'); meow('soft'); narr('慢慢來，' + N() + ' 還在認識你。'); add('bond',1); save(); return; }"
+ },
+ {
+  "zh": "慢慢來，",
+  "context": "if(S.stats.bond < 12 && Math.random() < .35){ setExpr('sad'); anim('shrink'); say('（往後縮了一下，還有點怕你）'); meow('soft'); narr('慢慢來，' + N() + ' 還在認識你。'); add('bond',1); save(); return; }"
+ },
+ {
+  "zh": " 還在認識你。",
+  "context": "if(S.stats.bond < 12 && Math.random() < .35){ setExpr('sad'); anim('shrink'); say('（往後縮了一下，還有點怕你）'); meow('soft'); narr('慢慢來，' + N() + ' 還在認識你。'); add('bond',1); save(); return; }"
+ },
+ {
+  "zh": "哈——！（夠了！）",
+  "context": "if(recentPets.length > 6){ S.counts.bite++; setExpr('angry'); anim('wiggle'); say('哈——！（夠了！）'); hiss(); narr(fill('{n} 咬了你一口，跳開去舔毛。貓的耐心是有額度的。')); fxAtCat('💢','#E7756A'); recentPets = []; add('mood',-3); save(); return; }"
+ },
+ {
+  "zh": "{n} 咬了你一口，跳開去舔毛。貓的耐心是有額度的。",
+  "context": "if(recentPets.length > 6){ S.counts.bite++; setExpr('angry'); anim('wiggle'); say('哈——！（夠了！）'); hiss(); narr(fill('{n} 咬了你一口，跳開去舔毛。貓的耐心是有額度的。')); fxAtCat('💢','#E7756A'); recentPets = []; add('mood',-3); save(); return; }"
+ },
+ {
+  "zh": "（抱住你的手，連咬帶踢）",
+  "context": "if(belly && Math.random() < (S.stats.bond > 80 ? .15 : .4)){ S.counts.bite++; setExpr('angry'); anim('wiggle'); say('（抱住你的手，連咬帶踢）'); hiss(); narr('你摸了肚肚。你明知道那是陷阱的。'); fxAtCat('💢','#E7756A'); save(); return; }"
+ },
+ {
+  "zh": "你摸了肚肚。你明知道那是陷阱的。",
+  "context": "if(belly && Math.random() < (S.stats.bond > 80 ? .15 : .4)){ S.counts.bite++; setExpr('angry'); anim('wiggle'); say('（抱住你的手，連咬帶踢）'); hiss(); narr('你摸了肚肚。你明知道那是陷阱的。'); fxAtCat('💢','#E7756A'); save(); return; }"
+ },
+ {
+  "zh": "呼嚕呼嚕呼嚕……",
+  "context": "say(purring ? '呼嚕呼嚕呼嚕……' : pick(belly ? ['喵？（翻過來讓你摸肚肚）','喵嗚～'] : y < .35 ? ['喵～（瞇起眼睛，用頭頂你的手）','喵嗯～','喵！（下巴抬高，這邊這邊）'] : ['喵～（尾巴翹得高高的）','喵嗚～','咪～（背拱起來蹭你）']));"
+ },
+ {
+  "zh": "喵？（翻過來讓你摸肚肚）",
+  "context": "say(purring ? '呼嚕呼嚕呼嚕……' : pick(belly ? ['喵？（翻過來讓你摸肚肚）','喵嗚～'] : y < .35 ? ['喵～（瞇起眼睛，用頭頂你的手）','喵嗯～','喵！（下巴抬高，這邊這邊）'] : ['喵～（尾巴翹得高高的）','喵嗚～','咪～（背拱起來蹭你）']));"
+ },
+ {
+  "zh": "喵嗚～",
+  "context": "say(purring ? '呼嚕呼嚕呼嚕……' : pick(belly ? ['喵？（翻過來讓你摸肚肚）','喵嗚～'] : y < .35 ? ['喵～（瞇起眼睛，用頭頂你的手）','喵嗯～','喵！（下巴抬高，這邊這邊）'] : ['喵～（尾巴翹得高高的）','喵嗚～','咪～（背拱起來蹭你）']));"
+ },
+ {
+  "zh": "喵～（瞇起眼睛，用頭頂你的手）",
+  "context": "say(purring ? '呼嚕呼嚕呼嚕……' : pick(belly ? ['喵？（翻過來讓你摸肚肚）','喵嗚～'] : y < .35 ? ['喵～（瞇起眼睛，用頭頂你的手）','喵嗯～','喵！（下巴抬高，這邊這邊）'] : ['喵～（尾巴翹得高高的）','喵嗚～','咪～（背拱起來蹭你）']));"
+ },
+ {
+  "zh": "喵嗯～",
+  "context": "say(purring ? '呼嚕呼嚕呼嚕……' : pick(belly ? ['喵？（翻過來讓你摸肚肚）','喵嗚～'] : y < .35 ? ['喵～（瞇起眼睛，用頭頂你的手）','喵嗯～','喵！（下巴抬高，這邊這邊）'] : ['喵～（尾巴翹得高高的）','喵嗚～','咪～（背拱起來蹭你）']));"
+ },
+ {
+  "zh": "喵！（下巴抬高，這邊這邊）",
+  "context": "say(purring ? '呼嚕呼嚕呼嚕……' : pick(belly ? ['喵？（翻過來讓你摸肚肚）','喵嗚～'] : y < .35 ? ['喵～（瞇起眼睛，用頭頂你的手）','喵嗯～','喵！（下巴抬高，這邊這邊）'] : ['喵～（尾巴翹得高高的）','喵嗚～','咪～（背拱起來蹭你）']));"
+ },
+ {
+  "zh": "喵～（尾巴翹得高高的）",
+  "context": "say(purring ? '呼嚕呼嚕呼嚕……' : pick(belly ? ['喵？（翻過來讓你摸肚肚）','喵嗚～'] : y < .35 ? ['喵～（瞇起眼睛，用頭頂你的手）','喵嗯～','喵！（下巴抬高，這邊這邊）'] : ['喵～（尾巴翹得高高的）','喵嗚～','咪～（背拱起來蹭你）']));"
+ },
+ {
+  "zh": "咪～（背拱起來蹭你）",
+  "context": "say(purring ? '呼嚕呼嚕呼嚕……' : pick(belly ? ['喵？（翻過來讓你摸肚肚）','喵嗚～'] : y < .35 ? ['喵～（瞇起眼睛，用頭頂你的手）','喵嗯～','喵！（下巴抬高，這邊這邊）'] : ['喵～（尾巴翹得高高的）','喵嗚～','咪～（背拱起來蹭你）']));"
+ },
+ {
+  "zh": "${statRow('full','飽足')}${statRow('mood','心情')}${statRow('clean','清潔')}${statRow('health','健康')}${statRow('bond','親密')}",
+  "context": "box.innerHTML = `${statRow('full','飽足')}${statRow('mood','心情')}${statRow('clean','清潔')}${statRow('health','健康')}${statRow('bond','親密')}`;"
+ },
+ {
+  "zh": "喵嗷！（咬住你的腳踝，往貓砂盆的方向拖）",
+  "context": "say('喵嗷！（咬住你的腳踝，往貓砂盆的方向拖）'); meow('long');"
+ },
+ {
+  "zh": "{n} 咬了你一口，一直把你往貓砂盆拖。貓砂太髒了，{p}不想做別的事。",
+  "context": "narr(fill('{n} 咬了你一口，一直把你往貓砂盆拖。貓砂太髒了，{p}不想做別的事。'));"
+ },
+ {
+  "zh": "{n} 趴在地上看著逗貓棒，動也不動。{p}餓到沒力氣玩了。",
+  "context": "if(a==='play' && S.stats.full < 12){ setExpr('sad'); narr(fill('{n} 趴在地上看著逗貓棒，動也不動。{p}餓到沒力氣玩了。')); return spend(); }"
+ },
+ {
+  "zh": "{n} 看了逗貓棒一眼，又把頭埋回去。{p}今天沒力氣。",
+  "context": "if(S.sick || S.stats.health < 25){ narr(fill('{n} 看了逗貓棒一眼，又把頭埋回去。{p}今天沒力氣。')); return spend(); }"
+ },
+ {
+  "zh": "{n} 躺著用一隻手撥逗貓棒，意思意思一下。",
+  "context": "narr(pick(st==='senior' ? ['{n} 躺著用一隻手撥逗貓棒，意思意思一下。','{n} 盯著羽毛看了很久，最後撲了一次。很帥。']"
+ },
+ {
+  "zh": "{n} 盯著羽毛看了很久，最後撲了一次。很帥。",
+  "context": "narr(pick(st==='senior' ? ['{n} 躺著用一隻手撥逗貓棒，意思意思一下。','{n} 盯著羽毛看了很久，最後撲了一次。很帥。']"
+ },
+ {
+  "zh": "{n} 屁股扭扭扭——撲！整隻飛起來。",
+  "context": ": ['{n} 屁股扭扭扭——撲！整隻飛起來。','{n} 追著逗貓棒在客廳翻了三圈，撞到沙發。','{n} 抓到羽毛後死咬不放，後腳還一直踢。','玩到一半，{n} 突然覺得紙箱比較好玩。']).replace(/\\{n\\}/g,N()));"
+ },
+ {
+  "zh": "{n} 追著逗貓棒在客廳翻了三圈，撞到沙發。",
+  "context": ": ['{n} 屁股扭扭扭——撲！整隻飛起來。','{n} 追著逗貓棒在客廳翻了三圈，撞到沙發。','{n} 抓到羽毛後死咬不放，後腳還一直踢。','玩到一半，{n} 突然覺得紙箱比較好玩。']).replace(/\\{n\\}/g,N()));"
+ },
+ {
+  "zh": "{n} 抓到羽毛後死咬不放，後腳還一直踢。",
+  "context": ": ['{n} 屁股扭扭扭——撲！整隻飛起來。','{n} 追著逗貓棒在客廳翻了三圈，撞到沙發。','{n} 抓到羽毛後死咬不放，後腳還一直踢。','玩到一半，{n} 突然覺得紙箱比較好玩。']).replace(/\\{n\\}/g,N()));"
+ },
+ {
+  "zh": "玩到一半，{n} 突然覺得紙箱比較好玩。",
+  "context": ": ['{n} 屁股扭扭扭——撲！整隻飛起來。','{n} 追著逗貓棒在客廳翻了三圈，撞到沙發。','{n} 抓到羽毛後死咬不放，後腳還一直踢。','玩到一半，{n} 突然覺得紙箱比較好玩。']).replace(/\\{n\\}/g,N()));"
+ },
+ {
+  "zh": "梳到尾巴時，{n} 回頭咬了梳子。{p}今天不想梳。",
+  "context": "if(Math.random()<.2){ add('mood',-4); setExpr('angry'); anim('wiggle'); narr(fill('梳到尾巴時，{n} 回頭咬了梳子。{p}今天不想梳。')); }"
+ },
+ {
+  "zh": "梳下來一大團毛，夠再做一隻小貓了。",
+  "context": "else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); narr(fill(pick(['梳下來一大團毛，夠再做一隻小貓了。','{n} 舒服到開始流口水。','{n} 把臉湊過來，臉頰也要梳。']))); }"
+ },
+ {
+  "zh": "{n} 舒服到開始流口水。",
+  "context": "else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); narr(fill(pick(['梳下來一大團毛，夠再做一隻小貓了。','{n} 舒服到開始流口水。','{n} 把臉湊過來，臉頰也要梳。']))); }"
+ },
+ {
+  "zh": "{n} 把臉湊過來，臉頰也要梳。",
+  "context": "else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); narr(fill(pick(['梳下來一大團毛，夠再做一隻小貓了。','{n} 舒服到開始流口水。','{n} 把臉湊過來，臉頰也要梳。']))); }"
+ },
+ {
+  "zh": "你鏟完貓砂，{n} 立刻跑進去上了一個新的。",
+  "context": "narr(fill(pick(['你鏟完貓砂，{n} 立刻跑進去上了一個新的。','鏟屎官，今天也辛苦了。','{n} 在旁邊監工，確認你有鏟乾淨。'])));"
+ },
+ {
+  "zh": "鏟屎官，今天也辛苦了。",
+  "context": "narr(fill(pick(['你鏟完貓砂，{n} 立刻跑進去上了一個新的。','鏟屎官，今天也辛苦了。','{n} 在旁邊監工，確認你有鏟乾淨。'])));"
+ },
+ {
+  "zh": "{n} 在旁邊監工，確認你有鏟乾淨。",
+  "context": "narr(fill(pick(['你鏟完貓砂，{n} 立刻跑進去上了一個新的。','鏟屎官，今天也辛苦了。','{n} 在旁邊監工，確認你有鏟乾淨。'])));"
+ },
+ {
+  "zh": "醫生幫 {n} 打了針、開了藥。回家路上{p}在提籠裡罵了一路，但精神好多了。",
+  "context": "if(S.sick){ S.sick=false; narr(fill('醫生幫 {n} 打了針、開了藥。回家路上{p}在提籠裡罵了一路，但精神好多了。')); mem('{p}生病了，你帶{p}去看醫生，{p}很勇敢'); }"
+ },
+ {
+  "zh": "{p}生病了，你帶{p}去看醫生，{p}很勇敢",
+  "context": "if(S.sick){ S.sick=false; narr(fill('醫生幫 {n} 打了針、開了藥。回家路上{p}在提籠裡罵了一路，但精神好多了。')); mem('{p}生病了，你帶{p}去看醫生，{p}很勇敢'); }"
+ },
+ {
+  "zh": "醫生說 {n} 很健康。{p}在診間發出低吼，然後被量肛溫。",
+  "context": "else narr(fill(pick(['醫生說 {n} 很健康。{p}在診間發出低吼，然後被量肛溫。','{n} 一看到提籠就躲進床底下，花了二十分鐘才抓到。'])));"
+ },
+ {
+  "zh": "{n} 一看到提籠就躲進床底下，花了二十分鐘才抓到。",
+  "context": "else narr(fill(pick(['醫生說 {n} 很健康。{p}在診間發出低吼，然後被量肛溫。','{n} 一看到提籠就躲進床底下，花了二十分鐘才抓到。'])));"
+ },
+ {
+  "zh": "<div class=\"kicker\">${SLOTS[S.slot]} · 開飯</div><h2>要吃什麼？</h2>\n  <div class=\"opts\">\n    <button class=\"opt\" data-f=\"dry\">乾乾<small>飽足 +35，營養均衡</small></button>\n    <button class=\"opt\" data-f=\"wet\">罐罐<small>飽足 +30，心情 +8，聽到開罐聲就跑來了</small></button>\n    <button class=\"opt\" data-f=\"treat\">肉泥<small>心情 +16，零食不能多吃喔</small></button>\n  </div><button class=\"opt\" data-f=\"x\" style=\"text-align:center;background:none\">先不要</button>",
+  "context": "modal(`<div class=\"kicker\">${SLOTS[S.slot]} · 開飯</div><h2>要吃什麼？</h2>\n  <div class=\"opts\">\n    <button class=\"opt\" data-f=\"dry\">乾乾<small>飽足 +35，營養均衡</small></button>\n    <button class=\"opt\" data-f=\"wet\">罐罐<small>飽足 +30，心情 +8，聽到開罐聲就跑來了</small></button>\n    <button class=\"opt\" data-f=\"treat\">肉泥<small>心"
+ },
+ {
+  "zh": "{n} 喀滋喀滋地吃乾乾，吃完還檢查一下碗底。",
+  "context": "if(f==='dry'){ add('full',35); add('health',2); narr(fill(pick(['{n} 喀滋喀滋地吃乾乾，吃完還檢查一下碗底。','{n} 吃了兩口，抬頭看你：就這樣？']))); fxAtCat('🍚'); }"
+ },
+ {
+  "zh": "{n} 吃了兩口，抬頭看你：就這樣？",
+  "context": "if(f==='dry'){ add('full',35); add('health',2); narr(fill(pick(['{n} 喀滋喀滋地吃乾乾，吃完還檢查一下碗底。','{n} 吃了兩口，抬頭看你：就這樣？']))); fxAtCat('🍚'); }"
+ },
+ {
+  "zh": "開罐聲一響，{n} 從家裡另一頭衝過來。",
+  "context": "if(f==='wet'){ S.weight += 1; add('full',30); add('mood',8); add('health',3); narr(fill(pick(['開罐聲一響，{n} 從家裡另一頭衝過來。','{n} 吃得臉都埋進碗裡，發出嗯嗯嗯的聲音。']))); fxAtCat('🐟'); }"
+ },
+ {
+  "zh": "{n} 吃得臉都埋進碗裡，發出嗯嗯嗯的聲音。",
+  "context": "if(f==='wet'){ S.weight += 1; add('full',30); add('mood',8); add('health',3); narr(fill(pick(['開罐聲一響，{n} 從家裡另一頭衝過來。','{n} 吃得臉都埋進碗裡，發出嗯嗯嗯的聲音。']))); fxAtCat('🐟'); }"
+ },
+ {
+  "zh": "{n} 又吃了一條肉泥。很開心，但零食吃太多對身體不好喔。",
+  "context": "if(f==='treat'){ S.weight += 2; add('full',8); add('mood',16); S.treatsToday++; if(S.treatsToday>1) add('health',-5); narr(fill(S.treatsToday>1?'{n} 又吃了一條肉泥。很開心，但零食吃太多對身體不好喔。':'{n} 抱著你的手猛舔肉泥，舌頭刮得你好癢。')); fxAtCat('♥'); }"
+ },
+ {
+  "zh": "{n} 抱著你的手猛舔肉泥，舌頭刮得你好癢。",
+  "context": "if(f==='treat'){ S.weight += 2; add('full',8); add('mood',16); S.treatsToday++; if(S.treatsToday>1) add('health',-5); narr(fill(S.treatsToday>1?'{n} 又吃了一條肉泥。很開心，但零食吃太多對身體不好喔。':'{n} 抱著你的手猛舔肉泥，舌頭刮得你好癢。')); fxAtCat('♥'); }"
+ },
+ {
+  "zh": "{n} 吃太飽了，把剩下的用空氣撥沙埋起來。",
+  "context": "if(S.stats.full >= 100 && f!=='treat') narr(fill('{n} 吃太飽了，把剩下的用空氣撥沙埋起來。'));"
+ },
+ {
+  "zh": "<div class=\"kicker\">晚安</div><h2>${esc(N())}，晚安</h2><p>${fill(pick(['{n} 窩在你腳邊睡著了。','{n} 擠進你的被窩，只露出一顆頭。','{n} 在你枕頭旁邊捲成一團。']))}</p>",
+  "context": "modal(`<div class=\"kicker\">晚安</div><h2>${esc(N())}，晚安</h2><p>${fill(pick(['{n} 窩在你腳邊睡著了。','{n} 擠進你的被窩，只露出一顆頭。','{n} 在你枕頭旁邊捲成一團。']))}</p>`, null, true);"
+ },
+ {
+  "zh": "{n} ${ageLabel(S.ageM)}了。今天從早上就一直睡，叫{p}的名字，尾巴尖輕輕動了一下。呼吸變得好輕、好輕。",
+  "context": "S.narr = fill(`{n} ${ageLabel(S.ageM)}了。今天從早上就一直睡，叫{p}的名字，尾巴尖輕輕動了一下。呼吸變得好輕、好輕。`);"
+ },
+ {
+  "zh": "${yrs} 歲生日",
+  "context": "if(S.ageM >= 24 && yrs > Math.floor(prevAge/12)) queue.push({title:`${yrs} 歲生日`, text:`今天是 {n} 的 ${yrs} 歲生日。`, choices:[{label:'開罐罐慶祝', fx:()=>{add('mood',10);add('full',15);if(yrs%5===0) mem('你幫{p}過生日，你吃蛋糕，{p}吃罐罐');return '{n} 吃完，在你腳邊打了一個滿足的嗝。';}}]});"
+ },
+ {
+  "zh": "今天是 {n} 的 ${yrs} 歲生日。",
+  "context": "if(S.ageM >= 24 && yrs > Math.floor(prevAge/12)) queue.push({title:`${yrs} 歲生日`, text:`今天是 {n} 的 ${yrs} 歲生日。`, choices:[{label:'開罐罐慶祝', fx:()=>{add('mood',10);add('full',15);if(yrs%5===0) mem('你幫{p}過生日，你吃蛋糕，{p}吃罐罐');return '{n} 吃完，在你腳邊打了一個滿足的嗝。';}}]});"
+ },
+ {
+  "zh": "開罐罐慶祝",
+  "context": "if(S.ageM >= 24 && yrs > Math.floor(prevAge/12)) queue.push({title:`${yrs} 歲生日`, text:`今天是 {n} 的 ${yrs} 歲生日。`, choices:[{label:'開罐罐慶祝', fx:()=>{add('mood',10);add('full',15);if(yrs%5===0) mem('你幫{p}過生日，你吃蛋糕，{p}吃罐罐');return '{n} 吃完，在你腳邊打了一個滿足的嗝。';}}]});"
+ },
+ {
+  "zh": "你幫{p}過生日，你吃蛋糕，{p}吃罐罐",
+  "context": "if(S.ageM >= 24 && yrs > Math.floor(prevAge/12)) queue.push({title:`${yrs} 歲生日`, text:`今天是 {n} 的 ${yrs} 歲生日。`, choices:[{label:'開罐罐慶祝', fx:()=>{add('mood',10);add('full',15);if(yrs%5===0) mem('你幫{p}過生日，你吃蛋糕，{p}吃罐罐');return '{n} 吃完，在你腳邊打了一個滿足的嗝。';}}]});"
+ },
+ {
+  "zh": "{n} 吃完，在你腳邊打了一個滿足的嗝。",
+  "context": "if(S.ageM >= 24 && yrs > Math.floor(prevAge/12)) queue.push({title:`${yrs} 歲生日`, text:`今天是 {n} 的 ${yrs} 歲生日。`, choices:[{label:'開罐罐慶祝', fx:()=>{add('mood',10);add('full',15);if(yrs%5===0) mem('你幫{p}過生日，你吃蛋糕，{p}吃罐罐');return '{n} 吃完，在你腳邊打了一個滿足的嗝。';}}]});"
+ },
+ {
+  "zh": "早安。{n} 比你晚起，慢慢伸了一個懶腰。",
+  "context": "S.narr = fill(pick(stage()==='senior' ? ['早安。{n} 比你晚起，慢慢伸了一個懶腰。','陽光照到床上，{n} 還在睡。'] : ['早安！{n} 已經坐在碗旁邊等你了。','你被 {n} 踩醒了，新的一天。','早上，{n} 在窗邊看鳥。']));"
+ },
+ {
+  "zh": "陽光照到床上，{n} 還在睡。",
+  "context": "S.narr = fill(pick(stage()==='senior' ? ['早安。{n} 比你晚起，慢慢伸了一個懶腰。','陽光照到床上，{n} 還在睡。'] : ['早安！{n} 已經坐在碗旁邊等你了。','你被 {n} 踩醒了，新的一天。','早上，{n} 在窗邊看鳥。']));"
+ },
+ {
+  "zh": "早安！{n} 已經坐在碗旁邊等你了。",
+  "context": "S.narr = fill(pick(stage()==='senior' ? ['早安。{n} 比你晚起，慢慢伸了一個懶腰。','陽光照到床上，{n} 還在睡。'] : ['早安！{n} 已經坐在碗旁邊等你了。','你被 {n} 踩醒了，新的一天。','早上，{n} 在窗邊看鳥。']));"
+ },
+ {
+  "zh": "你被 {n} 踩醒了，新的一天。",
+  "context": "S.narr = fill(pick(stage()==='senior' ? ['早安。{n} 比你晚起，慢慢伸了一個懶腰。','陽光照到床上，{n} 還在睡。'] : ['早安！{n} 已經坐在碗旁邊等你了。','你被 {n} 踩醒了，新的一天。','早上，{n} 在窗邊看鳥。']));"
+ },
+ {
+  "zh": "早上，{n} 在窗邊看鳥。",
+  "context": "S.narr = fill(pick(stage()==='senior' ? ['早安。{n} 比你晚起，慢慢伸了一個懶腰。','陽光照到床上，{n} 還在睡。'] : ['早安！{n} 已經坐在碗旁邊等你了。','你被 {n} 踩醒了，新的一天。','早上，{n} 在窗邊看鳥。']));"
+ },
+ {
+  "zh": "飽足",
+  "context": "const LABEL = {full:'飽足',mood:'心情',clean:'清潔',health:'健康',bond:'親密'};"
+ },
+ {
+  "zh": "心情",
+  "context": "const LABEL = {full:'飽足',mood:'心情',clean:'清潔',health:'健康',bond:'親密'};"
+ },
+ {
+  "zh": "清潔",
+  "context": "const LABEL = {full:'飽足',mood:'心情',clean:'清潔',health:'健康',bond:'親密'};"
+ },
+ {
+  "zh": "健康",
+  "context": "const LABEL = {full:'飽足',mood:'心情',clean:'清潔',health:'健康',bond:'親密'};"
+ },
+ {
+  "zh": "親密",
+  "context": "const LABEL = {full:'飽足',mood:'心情',clean:'清潔',health:'健康',bond:'親密'};"
+ },
+ {
+  "zh": "<span class=\"d dn\">身體留下了長期影響</span>",
+  "context": "+ (S.lifespanM < life ? `<span class=\"d dn\">身體留下了長期影響</span>` : S.lifespanM > life ? `<span class=\"d up\">${P()}會更長壽</span>` : '')"
+ },
+ {
+  "zh": "<span class=\"d up\">${P()}會更長壽</span>",
+  "context": "+ (S.lifespanM < life ? `<span class=\"d dn\">身體留下了長期影響</span>` : S.lifespanM > life ? `<span class=\"d up\">${P()}會更長壽</span>` : '')"
+ },
+ {
+  "zh": "<span class=\"d warn\">這件事還沒結束……</span>",
+  "context": "+ (S.later.length > nLater ? `<span class=\"d warn\">這件事還沒結束……</span>` : '');"
+ },
+ {
+  "zh": "<p class=\"res\">${esc(fill(r||''))}</p>${chips?`<div class=\"deltas\">${chips}</div>`:''}<div class=\"opts\"><button class=\"opt\" id=\"okb\" style=\"text-align:center\">好</button></div>",
+  "context": "root.querySelector('.opts').outerHTML = `<p class=\"res\">${esc(fill(r||''))}</p>${chips?`<div class=\"deltas\">${chips}</div>`:''}<div class=\"opts\"><button class=\"opt\" id=\"okb\" style=\"text-align:center\">好</button></div>`;"
+ },
+ {
+  "zh": "快轉停下來了。{n} 在你旁邊打了一個哈欠。",
+  "context": "if(ffOn) return ffStop(fill('快轉停下來了。{n} 在你旁邊打了一個哈欠。'));"
+ },
+ {
+  "zh": "{n} 生病了，先帶{p}去看醫生再快轉吧。",
+  "context": "if(ffNeedsYou()) { narr(fill(S.sick ? '{n} 生病了，先帶{p}去看醫生再快轉吧。' : '{n} 的健康太差了，先帶{p}去看醫生再快轉吧。')); return; }"
+ },
+ {
+  "zh": "{n} 的健康太差了，先帶{p}去看醫生再快轉吧。",
+  "context": "if(ffNeedsYou()) { narr(fill(S.sick ? '{n} 生病了，先帶{p}去看醫生再快轉吧。' : '{n} 的健康太差了，先帶{p}去看醫生再快轉吧。')); return; }"
+ },
+ {
+  "zh": "{n} 好像生病了，快轉先停下來。",
+  "context": "if(ffNeedsYou()) return ffStop(fill(S.sick ? '{n} 好像生病了，快轉先停下來。' : '{n} 的健康變差了，快轉先停下來。帶{p}去看醫生吧。'));"
+ },
+ {
+  "zh": "{n} 的健康變差了，快轉先停下來。帶{p}去看醫生吧。",
+  "context": "if(ffNeedsYou()) return ffStop(fill(S.sick ? '{n} 好像生病了，快轉先停下來。' : '{n} 的健康變差了，快轉先停下來。帶{p}去看醫生吧。'));"
+ },
+ {
+  "zh": "${ageLabel(S.ageM)}（約人類 ${humanAge(S.ageM)} 歲）· ${COAT[S.coatId].name}",
+  "context": "const sub = app.querySelector('.top .sub'); if(sub) sub.textContent = `${ageLabel(S.ageM)}（約人類 ${humanAge(S.ageM)} 歲）· ${COAT[S.coatId].name}`;"
+ },
+ {
+  "zh": "⏩ ${ageLabel(S.ageM)}……日子平平淡淡地過去。",
+  "context": "narr(`⏩ ${ageLabel(S.ageM)}……日子平平淡淡地過去。`);"
+ },
+ {
+  "zh": "存款 $${S.money} · 買東西佈置房間",
+  "context": "const sb = app.querySelector('.shopbtn small'); if(sb) sb.textContent = `存款 $${S.money} · 買東西佈置房間`;"
+ },
+ {
+  "zh": "🔇 聲音關",
+  "context": "const b = $('#mute'); if(b) b.textContent = muted ? '🔇 聲音關' : '🔊 聲音開';"
+ },
+ {
+  "zh": "🔊 聲音開",
+  "context": "const b = $('#mute'); if(b) b.textContent = muted ? '🔇 聲音關' : '🔊 聲音開';"
+ },
+ {
+  "zh": "牆上",
+  "context": "{id:'wall',   name:'牆上',     kind:'wall'},"
+ },
+ {
+  "zh": "左邊角落",
+  "context": "{id:'floorL', name:'左邊角落', kind:'floor'},"
+ },
+ {
+  "zh": "右邊角落",
+  "context": "{id:'floorR', name:'右邊角落', kind:'floor'},"
+ },
+ {
+  "zh": "後面中間",
+  "context": "{id:'floorC', name:'後面中間', kind:'floor'},"
+ },
+ {
+  "zh": "前面角落",
+  "context": "{id:'front',  name:'前面角落', kind:'floor'},"
+ },
+ {
+  "zh": "紙箱屋",
+  "context": "{id:'box',     name:'紙箱屋',     kind:'floor', price:80,  desc:'心情 +3／天。貓永遠最愛紙箱', eff:()=>add('mood',3),"
+ },
+ {
+  "zh": "心情 +3／天。貓永遠最愛紙箱",
+  "context": "{id:'box',     name:'紙箱屋',     kind:'floor', price:80,  desc:'心情 +3／天。貓永遠最愛紙箱', eff:()=>add('mood',3),"
+ },
+ {
+  "zh": "（鑽進紙箱屋，只露出兩隻耳朵）",
+  "context": "line:'（鑽進紙箱屋，只露出兩隻耳朵）', vb:'0 0 100 100',"
+ },
+ {
+  "zh": "貓草盆栽",
+  "context": "{id:'grass',   name:'貓草盆栽',   kind:'floor', price:100, desc:'心情 +2／天，比較不會吐毛球', eff:()=>add('mood',2),"
+ },
+ {
+  "zh": "心情 +2／天，比較不會吐毛球",
+  "context": "{id:'grass',   name:'貓草盆栽',   kind:'floor', price:100, desc:'心情 +2／天，比較不會吐毛球', eff:()=>add('mood',2),"
+ },
+ {
+  "zh": "（啃了兩口貓草，一臉滿足）",
+  "context": "line:'（啃了兩口貓草，一臉滿足）', vb:'0 0 100 100',"
+ },
+ {
+  "zh": "貓抓板",
+  "context": "{id:'scratch', name:'貓抓板',     kind:'floor', price:150, desc:'心情 +3／天，從此不抓沙發', eff:()=>add('mood',3),"
+ },
+ {
+  "zh": "心情 +3／天，從此不抓沙發",
+  "context": "{id:'scratch', name:'貓抓板',     kind:'floor', price:150, desc:'心情 +3／天，從此不抓沙發', eff:()=>add('mood',3),"
+ },
+ {
+  "zh": "（在貓抓板上用力抓抓抓）",
+  "context": "line:'（在貓抓板上用力抓抓抓）', vb:'0 0 100 100',"
+ },
+ {
+  "zh": "寵物樓梯",
+  "context": "{id:'stairs',  name:'寵物樓梯',   kind:'floor', price:180, desc:'老貓心情 +4／天，上沙發不費力', eff:()=>{ if(stage()==='senior') add('mood',4); else add('mood',1); },"
+ },
+ {
+  "zh": "老貓心情 +4／天，上沙發不費力",
+  "context": "{id:'stairs',  name:'寵物樓梯',   kind:'floor', price:180, desc:'老貓心情 +4／天，上沙發不費力', eff:()=>{ if(stage()==='senior') add('mood',4); else add('mood',1); },"
+ },
+ {
+  "zh": "（一階一階慢慢走上樓梯）",
+  "context": "line:'（一階一階慢慢走上樓梯）', vb:'0 0 100 100',"
+ },
+ {
+  "zh": "貓隧道",
+  "context": "{id:'tunnel',  name:'貓隧道',     kind:'floor', price:200, desc:'心情 +4／天，小貓 +6', eff:()=>add('mood', stage()==='kitten'?6:4),"
+ },
+ {
+  "zh": "心情 +4／天，小貓 +6",
+  "context": "{id:'tunnel',  name:'貓隧道',     kind:'floor', price:200, desc:'心情 +4／天，小貓 +6', eff:()=>add('mood', stage()==='kitten'?6:4),"
+ },
+ {
+  "zh": "（衝進隧道，從另一頭探出頭來）",
+  "context": "line:'（衝進隧道，從另一頭探出頭來）', vb:'0 0 100 100',"
+ },
+ {
+  "zh": "暖暖墊",
+  "context": "{id:'heat',    name:'暖暖墊',     kind:'floor', price:220, desc:'健康 +1／天，老貓 +3', eff:()=>add('health', stage()==='senior'?3:1),"
+ },
+ {
+  "zh": "健康 +1／天，老貓 +3",
+  "context": "{id:'heat',    name:'暖暖墊',     kind:'floor', price:220, desc:'健康 +1／天，老貓 +3', eff:()=>add('health', stage()==='senior'?3:1),"
+ },
+ {
+  "zh": "（躺在暖暖墊上，攤成一張貓餅）",
+  "context": "line:'（躺在暖暖墊上，攤成一張貓餅）', vb:'0 0 100 100',"
+ },
+ {
+  "zh": "甜甜圈貓窩",
+  "context": "{id:'bed',     name:'甜甜圈貓窩', kind:'floor', price:250, desc:'健康 +1、心情 +2／天', eff:()=>{ add('health',1); add('mood',2); },"
+ },
+ {
+  "zh": "健康 +1、心情 +2／天",
+  "context": "{id:'bed',     name:'甜甜圈貓窩', kind:'floor', price:250, desc:'健康 +1、心情 +2／天', eff:()=>{ add('health',1); add('mood',2); },"
+ },
+ {
+  "zh": "（在貓窩裡轉三圈，捲成一團）",
+  "context": "line:'（在貓窩裡轉三圈，捲成一團）', vb:'0 0 100 100',"
+ },
+ {
+  "zh": "飲水機",
+  "context": "{id:'fountain',name:'飲水機',     kind:'floor', price:300, desc:'健康 +2／天，比較不會泌尿道發炎', eff:()=>add('health',2),"
+ },
+ {
+  "zh": "健康 +2／天，比較不會泌尿道發炎",
+  "context": "{id:'fountain',name:'飲水機',     kind:'floor', price:300, desc:'健康 +2／天，比較不會泌尿道發炎', eff:()=>add('health',2),"
+ },
+ {
+  "zh": "（用前腳撥水，玩得到處都是）",
+  "context": "line:'（用前腳撥水，玩得到處都是）', vb:'0 0 100 100',"
+ },
+ {
+  "zh": "窗邊吊床",
+  "context": "{id:'hammock', name:'窗邊吊床',   kind:'wall',  price:350, desc:'心情 +3、親密 +1／天', eff:()=>{ add('mood',3); add('bond',1); },"
+ },
+ {
+  "zh": "心情 +3、親密 +1／天",
+  "context": "{id:'hammock', name:'窗邊吊床',   kind:'wall',  price:350, desc:'心情 +3、親密 +1／天', eff:()=>{ add('mood',3); add('bond',1); },"
+ },
+ {
+  "zh": "（窩在吊床上看外面的鳥）",
+  "context": "line:'（窩在吊床上看外面的鳥）', vb:'0 0 120 80',"
+ },
+ {
+  "zh": "牆上貓步道",
+  "context": "{id:'shelf',   name:'牆上貓步道', kind:'wall',  price:450, desc:'心情 +4／天，貓喜歡從高處看你', eff:()=>add('mood',4),"
+ },
+ {
+  "zh": "心情 +4／天，貓喜歡從高處看你",
+  "context": "{id:'shelf',   name:'牆上貓步道', kind:'wall',  price:450, desc:'心情 +4／天，貓喜歡從高處看你', eff:()=>add('mood',4),"
+ },
+ {
+  "zh": "（跳上牆上的貓步道，從高處俯視你）",
+  "context": "line:'（跳上牆上的貓步道，從高處俯視你）', vb:'0 0 120 80',"
+ },
+ {
+  "zh": "貓咪畫像",
+  "context": "{id:'portrait',name:'貓咪畫像',   kind:'wall',  price:120, desc:'親密 +1／天。畫的是現在這隻貓', eff:()=>add('bond',1),"
+ },
+ {
+  "zh": "親密 +1／天。畫的是現在這隻貓",
+  "context": "{id:'portrait',name:'貓咪畫像',   kind:'wall',  price:120, desc:'親密 +1／天。畫的是現在這隻貓', eff:()=>add('bond',1),"
+ },
+ {
+  "zh": "（盯著牆上的畫像，好像認出自己了）",
+  "context": "line:'（盯著牆上的畫像，好像認出自己了）', vb:'0 0 100 100', svg:''},"
+ },
+ {
+  "zh": "小魚缸",
+  "context": "{id:'tank',    name:'小魚缸',     kind:'floor', price:500, desc:'心情 +4／天，可以看魚看一整天', eff:()=>add('mood',4),"
+ },
+ {
+  "zh": "心情 +4／天，可以看魚看一整天",
+  "context": "{id:'tank',    name:'小魚缸',     kind:'floor', price:500, desc:'心情 +4／天，可以看魚看一整天', eff:()=>add('mood',4),"
+ },
+ {
+  "zh": "（臉貼在魚缸上，尾巴一直甩）",
+  "context": "line:'（臉貼在魚缸上，尾巴一直甩）', vb:'0 0 100 100',"
+ },
+ {
+  "zh": "貓跳台",
+  "context": "{id:'tree',    name:'貓跳台',     kind:'floor', price:600, desc:'心情 +5／天，親密 +1', eff:()=>{ add('mood',5); add('bond',1); },"
+ },
+ {
+  "zh": "心情 +5／天，親密 +1",
+  "context": "{id:'tree',    name:'貓跳台',     kind:'floor', price:600, desc:'心情 +5／天，親密 +1', eff:()=>{ add('mood',5); add('bond',1); },"
+ },
+ {
+  "zh": "（爬上貓跳台最高層，得意地看著你）",
+  "context": "line:'（爬上貓跳台最高層，得意地看著你）', vb:'0 0 100 160',"
+ },
+ {
+  "zh": "自動貓砂機",
+  "context": "{id:'autolitter',name:'自動貓砂機',kind:'floor', price:900, desc:'清潔 +10／天。鏟屎官的救星', eff:()=>add('clean',10),"
+ },
+ {
+  "zh": "清潔 +10／天。鏟屎官的救星",
+  "context": "{id:'autolitter',name:'自動貓砂機',kind:'floor', price:900, desc:'清潔 +10／天。鏟屎官的救星', eff:()=>add('clean',10),"
+ },
+ {
+  "zh": "（盯著自動貓砂機轉動，很警戒）",
+  "context": "line:'（盯著自動貓砂機轉動，很警戒）', vb:'0 0 100 100',"
+ },
+ {
+  "zh": "<div class=\"shop\">${ITEMS.map(it => `<div class=\"item\"><div class=\"ic\">${itemSVG(it.id)}</div>\n        <div class=\"tx\"><b>${it.name}</b><small>${it.kind==='wall'?'掛牆上':'放地上'} · ${esc(it.desc)}</small></div>\n        ${owned.has(it.id) ? '<span class=\"own\">已擁有</span>' : `<button class=\"buy\" data-buy=\"${it.id}\" ${S.money<it.price?'disabled':''}>$${it.price}</button>`}</div>`).join('')}</div>",
+  "context": "? `<div class=\"shop\">${ITEMS.map(it => `<div class=\"item\"><div class=\"ic\">${itemSVG(it.id)}</div>\n        <div class=\"tx\"><b>${it.name}</b><small>${it.kind==='wall'?'掛牆上':'放地上'} · ${esc(it.desc)}</small></div>\n        ${owned.has(it.id) ? '<span class=\"own\">已擁有</span>' : `<button class=\"buy\" data-bu"
+ },
+ {
+  "zh": "<div class=\"shop\">${SPOTS.map(sp => { const cur = S.placed[sp.id];\n        const choices = S.owned.filter(id => ITEM[id].kind === sp.kind && !placedIds().includes(id));\n        return `<div class=\"item\"><div class=\"ic\">${cur ? itemSVG(cur) : '<span class=\"empty\">空</span>'}</div>\n          <div class=\"tx\"><b>${sp.name}</b><small>${cur ? ITEM[cur].name : '還沒放東西'}</small>\n          <div class=\"swap\">${choices.map(id => `<button data-put=\"${sp.id}:${id}\">${cur?'換成':'放'}${ITEM[id].name}</button>`).join('')}${cur?`<button data-put=\"${sp.id}:\">收進倉庫</button>`:''}</div></div></div>`; }).join('')}</div>",
+  "context": ": `<div class=\"shop\">${SPOTS.map(sp => { const cur = S.placed[sp.id];\n        const choices = S.owned.filter(id => ITEM[id].kind === sp.kind && !placedIds().includes(id));\n        return `<div class=\"item\"><div class=\"ic\">${cur ? itemSVG(cur) : '<span class=\"empty\">空</span>'}</div>\n          <div cl"
+ },
+ {
+  "zh": "<div class=\"kicker\">存款 $${S.money} · 每天薪水 +$${SALARY}</div><h2>${tab==='shop'?'貓咪用品店':'佈置房間'}</h2>\n    <div class=\"tabs\"><button data-tab=\"shop\" aria-pressed=\"${tab==='shop'}\">商店</button><button data-tab=\"room\" aria-pressed=\"${tab==='room'}\">佈置（${placedIds().length}/${SPOTS.length}）</button></div>\n    ${body}<button class=\"opt\" id=\"cl\" style=\"text-align:center\">關閉</button>",
+  "context": "modal(`<div class=\"kicker\">存款 $${S.money} · 每天薪水 +$${SALARY}</div><h2>${tab==='shop'?'貓咪用品店':'佈置房間'}</h2>\n    <div class=\"tabs\"><button data-tab=\"shop\" aria-pressed=\"${tab==='shop'}\">商店</button><button data-tab=\"room\" aria-pressed=\"${tab==='room'}\">佈置（${placedIds().length}/${SPOTS.length}）</button><"
+ },
+ {
+  "zh": "你買了${it.name}。{n} 走過去聞了聞。",
+  "context": "if(free){ S.placed[free.id] = id; save(); closeModal(); render(); narr(fill(`你買了${it.name}。{n} 走過去聞了聞。`)); return; }"
+ },
+ {
+  "zh": "<div class=\"kicker\">房間放滿了</div><h2>${it.name}要放哪裡？</h2><p>換下來的東西會收進倉庫，之後可以再換回來。</p>\n    <div class=\"opts\">${same.map(sp => `<button class=\"opt\" data-sw=\"${sp.id}\">換掉${ITEM[S.placed[sp.id]].name}<small>${sp.name}</small></button>`).join('')}\n    <button class=\"opt\" data-sw=\"\" style=\"text-align:center;background:none\">先收進倉庫</button></div>",
+  "context": "modal(`<div class=\"kicker\">房間放滿了</div><h2>${it.name}要放哪裡？</h2><p>換下來的東西會收進倉庫，之後可以再換回來。</p>\n    <div class=\"opts\">${same.map(sp => `<button class=\"opt\" data-sw=\"${sp.id}\">換掉${ITEM[S.placed[sp.id]].name}<small>${sp.name}</small></button>`).join('')}\n    <button class=\"opt\" data-sw=\"\" style=\"text-align"
+ },
+ {
+  "zh": "${it.name}放好了。{n} 馬上過去研究。",
+  "context": "r.querySelectorAll('[data-sw]').forEach(b => b.onclick = () => { if(b.dataset.sw) S.placed[b.dataset.sw] = id; save(); closeModal(); render(); if(b.dataset.sw) narr(fill(`${it.name}放好了。{n} 馬上過去研究。`)); });"
+ },
+ {
+  "zh": "<div class=\"kicker\">彩虹橋</div><h2>曾經陪你的貓</h2>\n    ${S.past.length ? `<div class=\"past\">${S.past.map((c,i) => `<button class=\"pc\" data-past=\"${i}\"><span class=\"mini\">${c.photo?`<span class=\"ph\" style=\"background-image:url('${c.photo}')\"></span>`:catSVG(c.coatId,c.seed,'adult','happy',60,true)}</span><b>${esc(c.name)}</b><small>${COAT[c.coatId].name} · 享年 ${ageLabel(c.ageM)}</small></button>`).join('')}</div>` : '<p>還沒有。</p>'}\n    <button class=\"opt\" id=\"cl\" style=\"text-align:center\">關閉</button>",
+  "context": "modal(`<div class=\"kicker\">彩虹橋</div><h2>曾經陪你的貓</h2>\n    ${S.past.length ? `<div class=\"past\">${S.past.map((c,i) => `<button class=\"pc\" data-past=\"${i}\"><span class=\"mini\">${c.photo?`<span class=\"ph\" style=\"background-image:url('${c.photo}')\"></span>`:catSVG(c.coatId,c.seed,'adult','happy',60,true)}<"
+ },
+ {
+  "zh": "<div class=\"kicker\">${esc(c.name)} 寫給你的信</div><div class=\"letter small\">${esc(c.letter||'')}</div>\n        ${c.memories && c.memories.length ? `<div class=\"mem\">${c.memories.map(m=>`<span class=\"a\">${ageLabel(m.ageM)}</span><span class=\"x\">${esc(m.text)}</span>`).join('')}</div>` : ''}\n        <button class=\"opt\" id=\"bk\" style=\"text-align:center\">返回</button>",
+  "context": "modal(`<div class=\"kicker\">${esc(c.name)} 寫給你的信</div><div class=\"letter small\">${esc(c.letter||'')}</div>\n        ${c.memories && c.memories.length ? `<div class=\"mem\">${c.memories.map(m=>`<span class=\"a\">${ageLabel(m.ageM)}</span><span class=\"x\">${esc(m.text)}</span>`).join('')}</div>` : ''}\n      "
+ },
+ {
+  "zh": "<div class=\"kicker\">養貓守則</div><h2>好好照顧 ${esc(N())}</h2>\n    <p>畫面下方的五條是 ${esc(N())} 的狀態。每過一天，前三條都會往下掉，要靠你補回來。</p>\n    <div class=\"guide\">\n      ${row('🍚','飽足','餵食。乾乾、罐罐都可以，肉泥是零食')}\n      ${row('😺','心情','逗貓棒、摸摸、買玩具')}\n      ${row('🧹','清潔','清貓砂、梳毛')}\n      ${row('❤️','健康','上面三條都顧好就會慢慢變好；生病要帶去看醫生')}\n      ${row('💗','親密','摸摸、陪伴。越親你，越會撒嬌')}\n      <div class=\"ex\"><span>這樣是安全的</span><div class=\"bar\"><i style=\"width:70%;background:#F2B53B\"></i></div>\n        <span>變成<b style=\"color:#c4473b;font-weight:400\">紅色</b>（低於 30）就危險了</span><div class=\"bar\"><i style=\"width:18%;background:#E7756A\"></i></div></div>\n      <div class=\"warn\">⚠️ 不要讓狀態變紅色！<br>貓砂太髒，${P()}會尿在你床上；太久沒吃飯，${P()}會餓到倒在地上，要送急診。每一次都會讓 ${esc(N())} 少活好幾年。</div>\n      <p style=\"font-size:14px\">一天有早上、下午、晚上，每個時段可以做一件事。點 ${esc(N())} 可以摸摸，不用花時間。忙的話可以按「快轉」，基本照顧會自動做。</p>\n    </div>\n    <button class=\"opt\" id=\"okg\" style=\"text-align:center;background:#F2B53B;font-weight:700\">我會好好照顧${P()} ♥</button>",
+  "context": "modal(`<div class=\"kicker\">養貓守則</div><h2>好好照顧 ${esc(N())}</h2>\n    <p>畫面下方的五條是 ${esc(N())} 的狀態。每過一天，前三條都會往下掉，要靠你補回來。</p>\n    <div class=\"guide\">\n      ${row('🍚','飽足','餵食。乾乾、罐罐都可以，肉泥是零食')}\n      ${row('😺','心情','逗貓棒、摸摸、買玩具')}\n      ${row('🧹','清潔','清貓砂、梳毛')}\n      ${row('❤️','健康','上面三條都顧好就會慢慢變好；生病要帶去看醫"
+ },
+ {
+  "zh": "你想起 ${ageLabel(m.ageM)} 的時候，${m.text}。",
+  "context": "narr(m ? `你想起 ${ageLabel(m.ageM)} 的時候，${m.text}。` : fill('{n} 的毛還是一樣軟。'));"
+ },
+ {
+  "zh": "{n} 的毛還是一樣軟。",
+  "context": "narr(m ? `你想起 ${ageLabel(m.ageM)} 的時候，${m.text}。` : fill('{n} 的毛還是一樣軟。'));"
+ },
+ {
+  "zh": "（尾巴輕輕地，勾住了你的手）",
+  "context": "if(fPets === 3) say('（尾巴輕輕地，勾住了你的手）');"
+ },
+ {
+  "zh": "{n} 睜開眼睛看著你，好像想起了那個下雨天。",
+  "context": "narr(fill('{n} 睜開眼睛看著你，好像想起了那個下雨天。'));"
+ },
+ {
+  "zh": "謝謝你，陪我一生。",
+  "context": "setTimeout(() => { say('謝謝你，陪我一生。'); }, 2600);"
+ },
+ {
+  "zh": "{n} 在你懷裡，慢慢閉上了眼睛。",
+  "context": "setTimeout(() => { expr = 'sleep'; refreshCat(); say(''); narr(fill('{n} 在你懷裡，慢慢閉上了眼睛。')); }, 6200);"
+ },
+ {
+  "zh": "每次你回家，我都會在門口等你，只是假裝剛好路過。",
+  "context": "const love = b >= 80 ? '每次你回家，我都會在門口等你，只是假裝剛好路過。'"
+ },
+ {
+  "zh": "雖然我不常說，但你的腿是全世界最好睡的地方。",
+  "context": ": b >= 50 ? '雖然我不常說，但你的腿是全世界最好睡的地方。' : '我是一隻不太會撒嬌的貓，但我一直都很喜歡你。';"
+ },
+ {
+  "zh": "我是一隻不太會撒嬌的貓，但我一直都很喜歡你。",
+  "context": ": b >= 50 ? '雖然我不常說，但你的腿是全世界最好睡的地方。' : '我是一隻不太會撒嬌的貓，但我一直都很喜歡你。';"
+ },
+ {
+  "zh": "親愛的你：\n\n還記得那個下雨天嗎？我在紙箱裡好冷，是你把我抱回家的。\n\n",
+  "context": "return `親愛的你：\n\n還記得那個下雨天嗎？我在紙箱裡好冷，是你把我抱回家的。\n\n` + (chosen.length ? chosen.map(m=>`我記得 ${ageLabel(m.ageM)} 的時候，${m.text.replace(new RegExp(pron,'g'),'我').replace(/你們/g,'我們')}。`).join('\\n') + '\\n\\n' : '')"
+ },
+ {
+  "zh": "我記得 ${ageLabel(m.ageM)} 的時候，${m.text.replace(new RegExp(pron,'g'),'我').replace(/你們/g,'我們')}。",
+  "context": "` + (chosen.length ? chosen.map(m=>`我記得 ${ageLabel(m.ageM)} 的時候，${m.text.replace(new RegExp(pron,'g'),'我').replace(/你們/g,'我們')}。`).join('\\n') + '\\n\\n' : '')"
+ },
+ {
+  "zh": "你摸了我 ${S.counts.pet} 次，餵了我 ${S.counts.meal} 頓飯${S.counts.bite?`，我咬了你 ${S.counts.bite} 次（對不起，但你知道那是愛）`:''}。\n${love}\n\n我活了 ${ageLabel(S.ageM)}，每一天都很幸福。${S.ageM<120?'\\n如果可以，我好想再多陪你幾年。':''}\n我先去彩虹橋那邊曬太陽了。不要太難過，偶爾想起我就好。\n如果哪天你在路邊看到一個紙箱，記得蹲下來看看。\n\n謝謝你，陪我一生。\n\n—— 永遠是你的 ${N()}",
+  "context": "+ `你摸了我 ${S.counts.pet} 次，餵了我 ${S.counts.meal} 頓飯${S.counts.bite?`，我咬了你 ${S.counts.bite} 次（對不起，但你知道那是愛）`:''}。\n${love}\n\n我活了 ${ageLabel(S.ageM)}，每一天都很幸福。${S.ageM<120?'\\n如果可以，我好想再多陪你幾年。':''}\n我先去彩虹橋那邊曬太陽了。不要太難過，偶爾想起我就好。\n如果哪天你在路邊看到一個紙箱，記得蹲下來看看。\n\n謝謝你，陪我一生。\n\n—— 永遠是你的 ${N()}`;"
+ },
+ {
+  "zh": "\n  <header class=\"top\"><div><h1>${esc(N())}</h1><div class=\"sub\">${COAT[S.coatId].name} · 享年 ${ageLabel(S.ageM)}</div></div></header>\n  <section class=\"sky\"><div class=\"stars\"></div><div class=\"bow\"></div><div class=\"soul\">${S.photo?photoCat(S.photo,'adult','happy'):catSVG(S.coatId,S.seed,'adult','happy',60,true)}</div></section>\n  <div class=\"letter\" id=\"letter\"><span class=\"cur\"></span></div>\n  <section class=\"summary\">\n    <div><b>${yrs}</b><span>一起的年</span></div><div><b>${S.counts.pet}</b><span>摸摸</span></div>\n    <div><b>${S.counts.meal}</b><span>頓飯</span></div><div><b>${S.memories.length}</b><span>個回憶</span></div></section>\n  <p class=\"carry\">${esc(N())} 會留在彩虹橋相簿裡。家裡的東西和存款都還在，等下一隻貓。</p>\n  <div class=\"btnrow\"><button class=\"btn\" id=\"album\">看回憶相簿</button><button class=\"btn primary\" id=\"again\">某天，又是一個下雨天……</button></div>",
+  "context": "app.innerHTML = `\n  <header class=\"top\"><div><h1>${esc(N())}</h1><div class=\"sub\">${COAT[S.coatId].name} · 享年 ${ageLabel(S.ageM)}</div></div></header>\n  <section class=\"sky\"><div class=\"stars\"></div><div class=\"bow\"></div><div class=\"soul\">${S.photo?photoCat(S.photo,'adult','happy'):catSVG(S.coatId,"
+ },
+ {
+  "zh": "<div class=\"kicker\">回憶相簿</div><h2>${esc(N())} 的一生</h2>\n    ${S.memories.length ? `<div class=\"mem\">${S.memories.map(m=>`<span class=\"a\">${ageLabel(m.ageM)}</span><span class=\"x\">${esc(m.text)}</span>`).join('')}</div>` : '<p>還沒有回憶。</p>'}\n    <button class=\"opt\" id=\"cl\" style=\"text-align:center\">關閉</button>",
+  "context": "modal(`<div class=\"kicker\">回憶相簿</div><h2>${esc(N())} 的一生</h2>\n    ${S.memories.length ? `<div class=\"mem\">${S.memories.map(m=>`<span class=\"a\">${ageLabel(m.ageM)}</span><span class=\"x\">${esc(m.text)}</span>`).join('')}</div>` : '<p>還沒有回憶。</p>'}\n    <button class=\"opt\" id=\"cl\" style=\"text-align:cente"
+ },
+ {
+  "zh": "<div class=\"kicker\">照片</div><h2>${esc(N())} 的樣子</h2><p>可以上傳你家貓咪的照片，或是用我們畫的${COAT[S.coatId].name}。</p>\n    <div class=\"opts\"><button class=\"opt\" id=\"pu\">上傳照片</button>${S.photo?'<button class=\"opt\" id=\"pa\">調整照片位置</button><button class=\"opt\" id=\"pd\">改回畫的貓</button>':''}<button class=\"opt\" id=\"pc\" style=\"text-align:center;background:none\">取消</button></div>",
+  "context": "modal(`<div class=\"kicker\">照片</div><h2>${esc(N())} 的樣子</h2><p>可以上傳你家貓咪的照片，或是用我們畫的${COAT[S.coatId].name}。</p>\n    <div class=\"opts\"><button class=\"opt\" id=\"pu\">上傳照片</button>${S.photo?'<button class=\"opt\" id=\"pa\">調整照片位置</button><button class=\"opt\" id=\"pd\">改回畫的貓</button>':''}<button class=\"opt\" id=\"pc\""
+ },
+ {
+  "zh": "<div class=\"kicker\">重新開始</div><h2>確定要重新開始嗎？</h2><p>${esc(N())} 的一生會被清掉，沒辦法復原。家裡的東西和存款會留著。</p>\n    <div class=\"opts\"><button class=\"opt\" id=\"no\" style=\"text-align:center\">不要，繼續陪${P()}</button><button class=\"opt\" id=\"yes\" style=\"text-align:center;color:#b5473d\">重新開始</button></div>",
+  "context": "modal(`<div class=\"kicker\">重新開始</div><h2>確定要重新開始嗎？</h2><p>${esc(N())} 的一生會被清掉，沒辦法復原。家裡的東西和存款會留著。</p>\n    <div class=\"opts\"><button class=\"opt\" id=\"no\" style=\"text-align:center\">不要，繼續陪${P()}</button><button class=\"opt\" id=\"yes\" style=\"text-align:center;color:#b5473d\">重新開始</button></div>`, r => {"
+ }
+]
