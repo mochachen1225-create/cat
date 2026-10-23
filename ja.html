@@ -182,6 +182,7 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .top:has(.pausebtn){padding-top:34px}
 .pausebtn{position:absolute;top:0;right:0;border:0;background:var(--ink-2);color:var(--paper);border-radius:99px;padding:5px 12px;font-size:13px;box-shadow:inset 0 -2px 0 #0003}
 .pausecat{width:46%;align-self:center}.pausecat svg{width:100%;height:auto;display:block}
+.chip.wish{background:#FFB3C1;color:#2B2B2B}.chip.wish.done{background:#A8DDA0}
 .links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:4px}
 
@@ -693,6 +694,115 @@ function neglectEvent(){
   return null;
 }
 
+// more everyday life — so no two lives feel the same
+EVENTS.push(
+  {id:'typhoon', min:12, title:'台風の日', text:'外はひどい嵐で、窓がずっとガタガタ鳴っている。{n}はクローゼットのいちばん奥にかくれて、目をまんまるにしている。', choices:[
+    {label:'クローゼットを開けて、そばに座る', fx:()=>{add('bond',4);add('mood',3);mem('台風の日、クローゼットの前で{n}といっしょに座っていた');return 'ふたりでいっしょに風の音を聞いた。しばらくして、{n}があなたの足に頭をのせてきた。';}},
+    {label:'おやつでつって出てきてもらう', fx:()=>{add('full',5);add('mood',2);return '{n}は片手だけ伸ばしておやつをクローゼットにひっかけて引きこみ、またかくれた。';}}]},
+  {id:'newyear', min:6, title:'お正月', text:'爆竹が鳴ったとたん、{n}は全身の毛が逆立ち、しっぽが二倍にふくらんで、ベッドの下にかけこんだ。', choices:[
+    {label:'窓を閉めて、テレビの音でごまかす', fx:()=>{add('mood',-3);return '{n}は夜中までベッドの下にいて、やっとそろそろ出てきてごはんを食べた。';}},
+    {label:'だっこして、いっしょにふとんにもぐる', fx:()=>{add('bond',5);mem('お正月の爆竹の夜、いっしょにふとんにもぐっていた');return 'ふとんの中は暗くてあたたかい。{n}の心臓の音がゆっくりになって、ゴロゴロ言いはじめた。';}}]},
+  {id:'summer', min:6, title:'暑い！', text:'夏が来た。{n}はタイルの床にべたーっとのびて、ねこの水たまりになっている。', choices:[
+    {label:'エアコンをつける（電気代 -$50）', fx:()=>{S.money=Math.max(0,S.money-50);add('mood',8);return 'エアコンをつけたとたん、{n}はすぐに吹き出し口の真下へ移動した。';}},
+    {label:'よぶんな毛をブラッシングする', fx:()=>{add('clean',10);add('mood',3);return 'ぬけた毛が小さな山になった。{n}はひとまわり小さくなった。';}}]},
+  {id:'winter', min:6, title:'寒波', text:'寒波がやってきた。夜中、{n}があなたのふとんにもぐりこんで、つめたい鼻を首にくっつけてくる。', choices:[
+    {label:'腕まくらで寝かせてあげる', fx:()=>{add('bond',5);add('mood',4);mem('寒波の夜、{n}はあなたの腕まくらで眠った');return '朝になると、あなたの腕はしびれていて、{n}はぐっすり眠っていた。';}}]},
+  {id:'guests', min:6, title:'お客さん', text:'友だちが遊びに来た。{n}はあっというまに消えて、ソファの後ろからしっぽだけがのぞいている。', choices:[
+    {label:'かまわないでもらって、自分から出てくるのを待つ', fx:()=>{add('mood',3);return '一時間後、{n}はそっとあらわれて、友だちのひざに飛び乗った。友だちは感動して動けなくなった。';}},
+    {label:'だっこしてみんなに見せる', fx:()=>{add('mood',-10);S.counts.bite++;return '{n}は必死にあばれて、あなたをガブッとかんで、またかくれてしまった。';}}]},
+  {id:'photo', min:3, title:'写真', text:'{n}のかわいい写真をとりたい。', choices:[
+    {label:'ねこじゃらしでカメラのほうを向かせる', fx:()=>{add('mood',3);mem('五十枚とった写真のうち、ぶれていないのは一枚だけだった');return '五十枚とって、四十九枚はぶれていた。最後の一枚はかんぺき：{n}が大あくびしているところ。';}},
+    {label:'寝ているところをこっそりとる', fx:()=>{add('bond',2);return '眠っている{n}は、前足に顔をうずめていた。世界でいちばんかわいい写真だ。';}}]},
+  {id:'nails', min:4, title:'つめ切り', text:'{n}のつめがのびすぎて、じゅうたんにひっかかって抜けなくなっている。', choices:[
+    {label:'寝ているすきにこっそり切る', fx:()=>{add('mood',-2);return '三本目で{n}が起きて、「なにしてるの」という目でこっちを見ている。';}},
+    {label:'タオルでくるんで、ねこ寿司にしてから切る', fx:()=>{add('mood',-8);S.counts.bite++;return '成功した。かわりに手にひっかき傷が二本。';}}]},
+  {id:'bag', min:3, title:'ビニール袋', text:'{n}がレジ袋をかじって、カサカサ音を立てている。とても楽しそう。', choices:[
+    {label:'すぐに取りあげて、袋は引き出しにしまう', fx:()=>{add('mood',-2);return '{n}はあなたをにらんでいる。まるで大好きなおもちゃを取られたみたいに。';}},
+    {label:'たぶん大丈夫だよね', fx:()=>{add('health',-15);return '夜、{n}が吐いた。中に小さなビニールのかけらがあった。ねこがビニールを飲みこむのはとても危ないので、ちゃんとしまっておこう。';}}]},
+  {id:'lily', min:6, title:'花束', text:'友だちからきれいなユリの花束をもらった。{n}が興味しんしんでにおいをかぎに来た。', choices:[
+    {label:'すぐにユリをかたづける', fx:()=>{add('health',2);return '調べてみてわかった：ユリはねこにとって猛毒で、花粉や花びんの水もだめ。すぐかたづけてよかった。';}},
+    {label:'高いところに置いておけば大丈夫', fx:()=>{add('health',-30);S.counts.vet++;S.counts.er++;S.lifespanM-=12;mem('ユリにふれて中毒になり、夜中に救急へかけこんだ');return '夜中に{n}が何度も吐いて、あなたは救急へかけこんだ。お医者さんによるとユリ中毒。早くつれてきてよかった。ユリはねこにとって猛毒で、花粉もだめ。';}}]},
+  {id:'seat', min:4, title:'あなたの席', text:'お水をくみに立って戻ってくると、{n}があなたのいすに座っていた。当然みたいな顔で。', choices:[
+    {label:'いすのはしっこに座る', fx:()=>{add('bond',3);return 'あなたはひと晩じゅう、いすのはしっこに座っていた。{n}は気持ちよさそうに眠っていた。';}},
+    {label:'だっこしてどかす', fx:()=>{add('mood',-3);return 'あなたが座ったとたん、{n}がひざに飛び乗ってきた。けっきょく同じことだった。';}}]},
+  {id:'water', min:6, title:'あなたのコップ', text:'{n}は自分のお皿の水は飲まずに、わざわざあなたのコップの水を飲む。', choices:[
+    {label:'この子の分も一杯いれてあげる', fx:()=>{add('mood',4);add('health',2);return 'それからというもの、あなたのテーブルにはいつもコップが二つある。';}},
+    {label:'コップをしまう', fx:()=>{add('mood',-2);return '{n}はあなたのコップに前足をつっこんで、手についた水をなめている。';}}]},
+  {id:'sneeze', min:6, title:'ハクション', text:'{n}がくしゃみばかりしていて、目が少し赤い。', choices:[
+    {label:'病院につれていく', fx:()=>{S.counts.vet++;add('health',8);add('mood',-6);return 'お医者さんによると軽いかぜで、何日か薬を飲めば治るそう。薬を飲むときの{n}の顔は、とても不満そう。';}},
+    {label:'ゆっくり休ませる', fx:()=>{add('health',-8);if(Math.random()<.4){S.sick=true;return '次の日、{n}は元気がなくなってきた。（病院につれていってあげてね）';}return '{n}は一日じゅう眠って、少しよくなったみたい。';}}]},
+  {id:'vacuum', min:3, title:'そうじき', text:'そうじきのスイッチを入れたとたん、{n}は全速力で逃げだした。しっぽがはたきみたいにふくらんでいる。', choices:[
+    {label:'ほうきにする', fx:()=>{add('mood',2);return '{n}はドアのすきまからのぞいて、あの怪物がいなくなったか確かめている。';}},
+    {label:'そのままかける', fx:()=>{add('clean',10);add('mood',-6);return '部屋はぴかぴかになった。{n}は午後のあいだずっと口をきいてくれなかった。';}}]},
+  {id:'tv', min:4, title:'テレビ', text:'テレビに鳥が映っている。{n}は画面をじっと見つめて、前足でたたいた。', choices:[
+    {label:'いっしょに動物番組を見る', fx:()=>{add('mood',6);add('bond',2);return '{n}はテレビの裏にまわって、あの鳥がどこにかくれているのか探している。';}}]},
+);
+NIGHT.push(
+  {id:'legs', min:6, title:'真夜中', text:'寝がえりをうとうとしたら、{n}が両足のあいだで寝ていて、まったく動けない。', choices:[
+    {label:'朝までこのままの体勢でいる', fx:()=>{add('bond',3);return '朝起きると腰がバキバキ。{n}は大きくのびをした。';}}]},
+  {id:'door', min:4, title:'朝の四時', text:'{n}が部屋のドアをカリカリしている。開けてあげると、中に入ってちらっと見て、また出ていった。', choices:[
+    {label:'もう一回開ける', fx:()=>{add('mood',3);return '今度は{n}が中に入ってきて、入り口に座って、また出たそうにしている。ねこの世界はなぞだらけ。';}},
+    {label:'ドアを開けたまま寝る', fx:()=>{add('bond',2);return '{n}はひと晩じゅうドアをカリカリしなかった。朝になると、あなたの枕の上で寝ていた。';}}]},
+);
+// escaping: a window without a safety net, or a door left open. The cat always comes home, but it leaves a mark.
+const ESCAPE_HOME = ['次の朝、ドアを開けると、{n}が玄関の前に座ってニャーニャー鳴いていた。足はほこりだらけ。',
+  '三日目、近所の人が下のバイクの下で{n}を見つけてくれた。ひとまわりやせて、ずっとふるえていた。',
+  'まる一週間たって、となりの路地で聞きなれた鳴き声がした。{n}はどろどろだったけれど、あなたの声を聞くとかけよってきた。'];
+function escapeEvent(byWindow){
+  const back = luck => {
+    const r = Math.random() + luck;
+    S.flags.escaped = 1; mem('一度外に出てしまって、長いあいだ探してやっと見つけた');
+    if(r > .55){ add('mood',-10); add('health',-5); return ESCAPE_HOME[0]; }
+    if(r > .2){ S.stats.full = Math.min(S.stats.full, 20); add('health',-15); add('mood',-20); S.lifespanM -= 6; return ESCAPE_HOME[1]; }
+    add('health',-25); add('mood',-25); S.lifespanM -= 12; return ESCAPE_HOME[2];
+  };
+  return {id:'escape', title:'{n}がいない！', text: byWindow
+      ? '家じゅう探したけど、{n}が見つからない。窓の網戸が少しだけ開いている……'
+      : 'ゴミ出しから戻ると、玄関のドアがちゃんと閉まっていなかった。{n}がいない！',
+    choices:[
+      {label:'SNSと地域のグループに迷い猫の投稿をする', hint:'たくさんの人が気にかけてくれる', fx:()=>back(.1)},
+      {label:'いつものトイレを玄関の前に置く', hint:'ねこは自分のにおいがわかる', fx:()=>back(.15)},
+      {label:'夜中に懐中電灯で階段や駐車場を探す', hint:'ねこはたいてい近くにかくれている', fx:()=>back(.2)},
+    ]};
+}
+CONSEQ.afterEscape = {title:'家に帰ってから', text:'家に帰ってきてから、{n}はずっとあなたにくっついている。どこへ行ってもついてきて、夜もそばをはなれない。', choices:[
+  {label:'ぎゅっとだきしめる', fx:()=>{add('bond',5);return 'これからは窓もドアもちゃんと気をつけるって、{n}に約束した。';}},
+  {label:'すぐに脱走防止ネットを買いに行く（$250）', fx:()=>{ if(S.owned.includes('screen')) return '脱走防止ネットをとりつけた。';
+      if(S.money >= 250){ S.money -= 250; S.owned.push('screen'); return '窓に脱走防止ネットをとりつけた。{n}は窓辺に座って鳥をながめている。もう外に出てしまうことはない。'; }
+      add('bond',2); return 'お金が足りないので、まずはガムテープで網戸をしっかりとめておいた。お金をためて、お店で脱走防止ネットを買おう。'; }}]};
+function maybeEscape(){
+  if(S.ageM < 4 || S.day - (S.flags.escDay || -99) < 8 || (S.flags.escN || 0) >= 2) return null;
+  const byWindow = !S.owned.includes('screen') && Math.random() < .045;
+  const byDoor = Math.random() < .02;
+  if(!byWindow && !byDoor) return null;
+  S.flags.escDay = S.day; S.flags.escN = (S.flags.escN || 0) + 1;
+  later('afterEscape', 1, 1);
+  return escapeEvent(byWindow);
+}
+// a small wish each morning, so days don’t all feel the same
+const WISHES = {
+  wet:    {label:'缶詰がほしい',   line:'（缶詰の入っている棚をじっと見て、あなたを見て、また棚を見る）'},
+  treat:  {label:'とろとろおやつがほしい',   line:'（袋をやぶる音がしたのでかけつけたら、あなたがクッキーを開けていただけだった）'},
+  play:   {label:'ねこじゃらしで遊びたい', line:'（ねこじゃらしをくわえてきて、あなたの足もとに置いて、見上げる）'},
+  brush:  {label:'ブラッシングしてほしい',   line:'（ブラシのそばでごろんと横になって、半分おなかを見せる）'},
+  pet:    {label:'なでてほしい',   line:'（あなたの手に頭をぐいぐい押しつける）'},
+  litter: {label:'トイレをきれいにしてほしい', line:'（トイレのまわりをうろうろふみふみして、入ろうとしない）'},
+};
+const WISH_DONE = ['{n}はほしいものがもらえて、うれしそうにあなたの足のまわりをくるくるまわった。', '{n}は満足そうに目を細めて、あなたにゆっくりまばたきをした。', '願いがかなった！{n}があなたの手のひらに頭をうずめてきた。'];
+function newWish(){ S.wish = Math.random() < .8 ? {t: pick(Object.keys(WISHES)), done:false} : null; }
+function grantWish(t){
+  if(!S.wish || S.wish.done || S.wish.t !== t) return;
+  S.wish.done = true; add('bond',3); add('mood',5);
+  setTimeout(() => { fxAtCat('💗'); narr(fill(pick(WISH_DONE)) + ' ' + '（なかよし +3）'); wishChip(); updateStats(); save(); }, 700);
+}
+function wishChip(){
+  const chips = app.querySelector('.top .chips'); if(!chips || !S.wish) return;
+  let el = chips.querySelector('.wish');
+  if(!el){ el = document.createElement('span'); el.className = 'chip wish'; chips.prepend(el); }
+  el.textContent = (S.wish.done ? '✓ ' : '💭 ') + WISHES[S.wish.t].label;
+  el.classList.toggle('done', S.wish.done);
+}
+
 /* ---------- rendering ---------- */
 const app = $('#app');
 let idleTimer = null, recentPets = [], expr = 'normal', exprTimer = null;
@@ -766,6 +876,7 @@ function renderName(){
     S.name = (inp.value.trim() || c.names[0]).slice(0,10);
     S.phase = 'life'; S.narr = fill('タオルで{n}をふいて、あたたかい毛布の上にのせてあげた。少しごはんを食べると、あなたの手のそばで眠ってしまった。');
     mem('あの雨の日、段ボール箱の中で{p}を見つけた');
+    newWish(); if(!S.wish) S.wish = {t:'pet', done:false};   // first day home: always a small wish
     save(); render();
   };
 }
@@ -838,6 +949,7 @@ function renderLife(){
   // top-right pause button, added on its own so the translated screen text stays as it is
   app.querySelector('.top').insertAdjacentHTML('beforeend', `<button class="pausebtn" id="pauseBtn" aria-label="${'ゲームをやめる'}">⏸ ${'やめる'}</button>`);
   $('#pauseBtn').onclick = pauseModal;
+  wishChip();
   $('#mute').onclick = toggleMute;
   $('#shop').onclick = () => shopModal();
   $('#guide').onclick = () => showGuide();
@@ -894,6 +1006,7 @@ function idleLine(){
   if(low[1] < 25) return {full:'ニャーーッ！（お皿がからっぽ！）', mood:'（しっぽをぱたぱた、たいくつ……）', clean:'（トイレを見て、いやそうな顔）', health:'（すみっこで丸くなって、動きたくない）'}[low[0]];
   if(s.bond > 60 && Math.random() < .25) return '（ゆっくりまばたき——ねこの「だいすき」のサイン）';
   if(S.placed && S.placed.wall && Math.random() < .2) return ITEM[S.placed.wall].line;
+  if(S.wish && !S.wish.done && Math.random() < .35) return WISHES[S.wish.t].line;
   const lines = {
     kitten:['ミィ！','ミィ～ミィ～','（自分のしっぽを追いかけてくるくる）','（スリッパをかじっている）','（カーテンをのぼって、途中でおりられなくなった）','（小さなくしゃみをひとつ）','（おなかを見せてごろん……これはワナ？）'],
     adult:['ニャ～','（目を細めてこっちを見ている）','ニャン？','（毛づくろいの途中で、舌をしまい忘れている）','（何もないところをじっと見つめている）','（あなたの手のひらに頭をつっこんでくる）','（へそ天）','（足もとを8の字にすりすり）'],
@@ -922,6 +1035,7 @@ function petCat(e){
   add('mood', 3);
   if(S.bondFromPets < 6){ add('bond',1); S.bondFromPets++; }
   S.petsToday++;
+  if(S.petsToday >= 3) grantWish('pet');
   say(purring ? 'ゴロゴロゴロ……' : pick(belly ? ['ニャ？（ごろんとおなかを見せてくれた）','ニャ～ン'] : y < .35 ? ['ニャ～（目を細めて、手に頭をこすりつけてくる）','ニャン～','ニャッ！（あごを上げて、ここ、ここ）'] : ['ニャ～（しっぽをぴんと立てている）','ニャ～ン','ミィ～（背中をまるめてすりすり）']));
   save(); updateStats();
 }
@@ -946,15 +1060,15 @@ function act(a){
   if(a==='play'){
     if(S.sick || S.stats.health < 25){ narr(fill('{n}はねこじゃらしをちらっと見て、また顔をうずめた。今日は元気がないみたい。')); return spend(); }
     S.weight = Math.max(0, S.weight - 2); add('mood', st==='kitten'?22:st==='senior'?10:18); add('full', st==='senior'?-4:-8); add('clean',-4); add('bond',2); S.counts.play++;
-    anim('hop'); setExpr('happy', 1400); fxAtCat('🪶'); meow('chirp');
+    anim('hop'); setExpr('happy', 1400); fxAtCat('🪶'); meow('chirp'); grantWish('play');
     narr(pick(st==='senior' ? ['{n}は寝ころんだまま、片手でねこじゃらしをちょいちょい。おつきあい程度に。','{n}は羽をじーっと見つめて、最後に一回だけ飛びかかった。かっこいい。']
       : ['{n}がおしりをふりふり——ジャンプ！ 全身で飛びあがった。','{n}はねこじゃらしを追いかけて、リビングで三回転して、ソファにぶつかった。','{n}は羽をつかまえるとがっちりかんで、後ろ足でけりけりしている。','遊んでいる途中で、{n}は急に段ボール箱のほうがおもしろくなったらしい。']).replace(/\{n\}/g,N()));
   } else if(a==='brush'){
     add('clean',22); add('bond',3); S.counts.brush++;
     if(Math.random()<.2){ add('mood',-4); setExpr('angry'); anim('wiggle'); narr(fill('しっぽまでブラシをかけたら、{n}がふりむいてブラシをかんだ。今日はブラッシングの気分じゃないらしい。')); }
-    else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); narr(fill(pick(['ごっそり毛が取れた。もう一匹子ねこが作れそう。','{n}は気持ちよすぎて、よだれをたらしはじめた。','{n}が顔を近づけてきた。ほっぺもブラッシングしてほしいみたい。']))); }
+    else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); grantWish('brush'); narr(fill(pick(['ごっそり毛が取れた。もう一匹子ねこが作れそう。','{n}は気持ちよすぎて、よだれをたらしはじめた。','{n}が顔を近づけてきた。ほっぺもブラッシングしてほしいみたい。']))); }
   } else if(a==='litter'){
-    add('clean',30); add('health',2);
+    add('clean',30); add('health',2); grantWish('litter');
     narr(fill(pick(['トイレを掃除したとたん、{n}がすぐに入って新しいのをした。','下僕さん、今日もおつかれさま。','{n}がとなりで監督している。ちゃんときれいになったか確認中。'])));
   } else if(a==='vet'){
     S.counts.vet++; add('health',25); add('mood',-14);
@@ -978,7 +1092,7 @@ function feedMenu(){
       if(f==='wet'){ S.weight += 1; add('full',30); add('mood',8); add('health',3); narr(fill(pick(['缶を開ける音がしたとたん、{n}が家の反対側から走ってきた。','{n}はお皿に顔をうずめて、ウニャウニャ言いながら食べている。']))); fxAtCat('🐟'); }
       if(f==='treat'){ S.weight += 2; add('full',8); add('mood',16); S.treatsToday++; if(S.treatsToday>1) add('health',-5); narr(fill(S.treatsToday>1?'{n}はまたとろとろおやつを一本。大喜びだけど、おやつの食べすぎは体によくないよ。':'{n}はあなたの手をかかえて、夢中でおやつをなめている。ざらざらの舌がくすぐったい。')); fxAtCat('♥'); }
       if(S.stats.full >= 100 && f!=='treat') narr(fill('{n}はおなかいっぱい。残りを、空中で砂をかくしぐさで埋めようとしている。'));
-      anim('hop'); setExpr('happy'); meow('short'); showCan();
+      anim('hop'); setExpr('happy'); meow('short'); showCan(); grantWish(f);
       spend();
     });
   });
@@ -1042,6 +1156,8 @@ function buildMorning(prevAge){
   S.later = S.later.filter(l => l.day > S.day);
   for(const l of due){ if(l.id==='spray' && S.flags.neutered) continue; if(l.id==='sickWorse' && !S.sick) continue; if(CONSEQ[l.id]) queue.push(CONSEQ[l.id]); }
   const ng = neglectEvent(); if(ng) queue.push(ng);
+  const esc = maybeEscape(); if(esc) queue.push(esc);
+  newWish();
   if(S.neglect.clean >= 1 && S.ageM >= 12 && !S.later.some(l=>l.id==='uti') && Math.random() < (hasItem('fountain') ? .08 : .2)) queue.push(CONSEQ.uti);
   const yrs = Math.floor(S.ageM/12);
   if(S.ageM >= 24 && yrs > Math.floor(prevAge/12)) queue.push({title:`${yrs}歳の誕生日`, text:`今日は{n}の${yrs}歳の誕生日。`, choices:[{label:'缶詰でお祝い', fx:()=>{add('mood',10);add('full',15);if(yrs%5===0) mem('{p}の誕生日。あなたはケーキ、{p}は缶詰でお祝いした');return '{n}は食べおわると、足もとで満足そうにげっぷをひとつ。';}}]});
@@ -1292,6 +1408,8 @@ const ITEMS = [
   {id:'tree',    name:'キャットタワー',     kind:'floor', price:600, desc:'きげん +5／日、なかよし +1', eff:()=>{ add('mood',5); add('bond',1); },
    line:'（キャットタワーのてっぺんにのぼって、得意げにこっちを見ている）', vb:'0 0 100 160',
    svg:`<g fill="#F6D7A7"><rect x="29" y="40" width="13" height="112" rx="4"/><rect x="63" y="82" width="13" height="70" rx="4"/></g><g stroke="#D9B48A" stroke-width="2"><path d="M31 60h9M31 76h9M31 92h9M31 108h9M31 124h9M31 140h9M65 98h9M65 114h9M65 130h9"/></g><g fill="#FFE0E6"><rect x="8" y="146" width="84" height="11" rx="5.5"/><rect x="50" y="76" width="44" height="10" rx="5"/><rect x="14" y="36" width="46" height="10" rx="5"/></g><ellipse cx="37" cy="30" rx="22" ry="10" fill="#D9ECFA"/><ellipse cx="37" cy="27" rx="13" ry="4" fill="#BFE3F5" stroke="none"/><path d="M90 86 V104" fill="none" stroke-width="2"/><circle cx="90" cy="109" r="6" fill="#FFB3C1"/>`},
+  {id:'screen',  name:'脱走防止ネット',     kind:'fixture', price:250, desc:'窓にとりつければ、ねこが窓から出ていかなくなる', eff:()=>{}, line:'（窓辺に座って鳥をながめている。安心だね）', vb:'0 0 100 100',
+   svg:`<rect x="14" y="14" width="72" height="72" rx="10" fill="#D9ECFA"/><g stroke="#9CCDEB" stroke-width="2.4"><path d="M14 32 H86 M14 50 H86 M14 68 H86 M32 14 V86 M50 14 V86 M68 14 V86"/></g><rect x="14" y="14" width="72" height="72" rx="10" fill="none"/><g fill="#FFB3C1" stroke="none"><circle cx="22" cy="22" r="4"/><circle cx="78" cy="78" r="4"/></g>`},
   {id:'autolitter',name:'全自動トイレ',kind:'floor', price:900, desc:'きれい +10／日。下僕の救世主', eff:()=>add('clean',10),
    line:'（全自動トイレが動くのを、じっと警戒している）', vb:'0 0 100 100',
    svg:`<path d="M14 92 Q14 28 50 28 Q86 28 86 92Z" fill="#FFFFFF"/><circle cx="50" cy="64" r="17" fill="#6B7FA8"/><rect x="12" y="86" width="76" height="10" rx="5" fill="#D9ECFA"/><circle cx="50" cy="40" r="4" fill="#A8DDA0"/><path d="M27 52 Q30 44 36 40" fill="none" stroke="#fff" stroke-width="3"/>`},
@@ -1334,6 +1452,7 @@ function roomDecor(){
 <g class="moon"><circle cx="74" cy="76" r="14" fill="#FFF6C9" stroke="${INK}" stroke-width="2.5"/><circle cx="82" cy="70" r="12" fill="#3C4A86"/></g>
 <g class="star" fill="#FFF6C9"><circle cx="118" cy="62" r="2.2"/><circle cx="104" cy="96" r="1.6"/><circle cx="128" cy="110" r="1.8"/></g>
 <path d="M98,124 q4,-10 14,-6 q6,-8 14,0 q8,0 6,8 h-34Z" fill="#fff" opacity=".9"/></g>
+${S.owned.includes('screen') ? `<g clip-path="url(#winclip)" stroke="#ffffff" stroke-width="1.4" opacity=".75">${Array.from({length:12},(_,i)=>`<path d="M${44+i*9},40 V164 M40,${48+i*10} H144"/>`).join('')}</g>` : ''}
 <path d="M44,160 V84 Q44,46 92,46 Q140,46 140,84 V160Z" fill="none" stroke-width="3"/>
 <path d="M92,46 V160 M44,104 H140" fill="none" stroke-width="3"/>
 <rect x="30" y="160" width="124" height="12" rx="6" fill="#F6D7A7" stroke-width="3"/>
@@ -1364,7 +1483,7 @@ function shopModal(tab = 'shop'){
   const owned = new Set(S.owned);
   const body = tab === 'shop'
     ? `<div class="shop">${ITEMS.map(it => `<div class="item"><div class="ic">${itemSVG(it.id)}</div>
-        <div class="tx"><b>${it.name}</b><small>${it.kind==='wall'?'かべ用':'床置き'} · ${esc(it.desc)}</small></div>
+        <div class="tx"><b>${it.name}</b><small>${it.kind==='wall'?'かべ用':it.kind==='fixture'?'窓に取りつけ':'床置き'} · ${esc(it.desc)}</small></div>
         ${owned.has(it.id) ? '<span class="own">持ってる</span>' : `<button class="buy" data-buy="${it.id}" ${S.money<it.price?'disabled':''}>$${it.price}</button>`}</div>`).join('')}</div>`
     : `<div class="shop">${SPOTS.map(sp => { const cur = S.placed[sp.id];
         const choices = S.owned.filter(id => ITEM[id].kind === sp.kind && !placedIds().includes(id));
@@ -1384,6 +1503,7 @@ function shopModal(tab = 'shop'){
 function buy(id){
   const it = ITEM[id]; if(S.money < it.price || S.owned.includes(id)) return;
   S.money -= it.price; S.owned.push(id);
+  if(it.kind === 'fixture'){ save(); closeModal(); render(); narr(fill('脱走防止ネットをとりつけた。{n}は窓辺に座って鳥をながめている。もう外に出てしまうことはない。')); return; }
   const free = SPOTS.find(sp => sp.kind === it.kind && !S.placed[sp.id]);
   if(free){ S.placed[free.id] = id; save(); closeModal(); render(); narr(fill(`${it.name}を買った。{n}がさっそくにおいをかぎに行った。`)); return; }
   save();
@@ -1503,6 +1623,7 @@ function letterText(){
     : ['わたしは甘えるのが下手なねこだったけど、ずっとずっと、あなたが大好きだったよ。', 'あまり抱っこはさせなかったけど、いつもあなたが見える場所で寝てたんだよ。']);
   const happened = [];
   if(S.counts.trip) happened.push('あなたが旅行に行ってるあいだ、毎日あなたの枕で寝てたよ。あなたのにおいがしたから。');
+  if(S.flags.escaped) happened.push('あのとき外に出ちゃって、もうおうちに帰れないかと思って、すごくこわかった。ずっと探してくれて、ありがとう。');
   if(S.counts.er) happened.push('救急病院に行ったとき、ほんとうはすごくこわかった。でもあなたがずっとそばにいてくれたから、がんばれたよ。');
   if(S.owned.includes('tree')) happened.push('キャットタワー、ありがとう。いちばん上はわたしの王座だったよ。');
   if(S.owned.includes('hammock')) happened.push('窓辺のハンモックは、スズメを見るためのひみつ基地だったよ。');

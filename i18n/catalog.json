@@ -1484,6 +1484,534 @@
   "context": "{label:'胖胖的才可愛', fx:()=>{S.flags.fatDay=S.day;S.lifespanM-=8;mem('{p}胖到走路時肚子會左右晃');return '{n} 走路時肚子左右晃。可愛，但醫生搖頭。';}}]};"
  },
  {
+  "zh": "颱風天",
+  "context": "{id:'typhoon', min:12, title:'颱風天', text:'外面狂風暴雨，窗戶一直嘎嘎作響。{n} 躲到衣櫃最裡面，眼睛睜得好大。', choices:["
+ },
+ {
+  "zh": "外面狂風暴雨，窗戶一直嘎嘎作響。{n} 躲到衣櫃最裡面，眼睛睜得好大。",
+  "context": "{id:'typhoon', min:12, title:'颱風天', text:'外面狂風暴雨，窗戶一直嘎嘎作響。{n} 躲到衣櫃最裡面，眼睛睜得好大。', choices:["
+ },
+ {
+  "zh": "把衣櫃門打開，陪{p}坐在旁邊",
+  "context": "{label:'把衣櫃門打開，陪{p}坐在旁邊', fx:()=>{add('bond',4);add('mood',3);mem('颱風天，你陪{p}一起坐在衣櫃前面');return '你們一起聽著風聲。過了很久，{n} 把頭靠在你的腳上。';}},"
+ },
+ {
+  "zh": "颱風天，你陪{p}一起坐在衣櫃前面",
+  "context": "{label:'把衣櫃門打開，陪{p}坐在旁邊', fx:()=>{add('bond',4);add('mood',3);mem('颱風天，你陪{p}一起坐在衣櫃前面');return '你們一起聽著風聲。過了很久，{n} 把頭靠在你的腳上。';}},"
+ },
+ {
+  "zh": "你們一起聽著風聲。過了很久，{n} 把頭靠在你的腳上。",
+  "context": "{label:'把衣櫃門打開，陪{p}坐在旁邊', fx:()=>{add('bond',4);add('mood',3);mem('颱風天，你陪{p}一起坐在衣櫃前面');return '你們一起聽著風聲。過了很久，{n} 把頭靠在你的腳上。';}},"
+ },
+ {
+  "zh": "拿零食引誘{p}出來",
+  "context": "{label:'拿零食引誘{p}出來', fx:()=>{add('full',5);add('mood',2);return '{n} 伸出一隻手，把零食勾進衣櫃裡，然後繼續躲。';}}]},"
+ },
+ {
+  "zh": "{n} 伸出一隻手，把零食勾進衣櫃裡，然後繼續躲。",
+  "context": "{label:'拿零食引誘{p}出來', fx:()=>{add('full',5);add('mood',2);return '{n} 伸出一隻手，把零食勾進衣櫃裡，然後繼續躲。';}}]},"
+ },
+ {
+  "zh": "過年",
+  "context": "{id:'newyear', min:6, title:'過年', text:'鞭炮聲一響，{n} 整隻炸毛，尾巴膨成兩倍大，衝進床底下。', choices:["
+ },
+ {
+  "zh": "鞭炮聲一響，{n} 整隻炸毛，尾巴膨成兩倍大，衝進床底下。",
+  "context": "{id:'newyear', min:6, title:'過年', text:'鞭炮聲一響，{n} 整隻炸毛，尾巴膨成兩倍大，衝進床底下。', choices:["
+ },
+ {
+  "zh": "關窗、開電視蓋過聲音",
+  "context": "{label:'關窗、開電視蓋過聲音', fx:()=>{add('mood',-3);return '{n} 在床底下待到半夜，才慢慢出來吃飯。';}},"
+ },
+ {
+  "zh": "{n} 在床底下待到半夜，才慢慢出來吃飯。",
+  "context": "{label:'關窗、開電視蓋過聲音', fx:()=>{add('mood',-3);return '{n} 在床底下待到半夜，才慢慢出來吃飯。';}},"
+ },
+ {
+  "zh": "抱著{p}一起躲進被子裡",
+  "context": "{label:'抱著{p}一起躲進被子裡', fx:()=>{add('bond',5);mem('過年放鞭炮，你們一起躲在被子裡');return '被子裡黑黑暖暖的。{n} 的心跳慢慢變慢，開始呼嚕。';}}]},"
+ },
+ {
+  "zh": "過年放鞭炮，你們一起躲在被子裡",
+  "context": "{label:'抱著{p}一起躲進被子裡', fx:()=>{add('bond',5);mem('過年放鞭炮，你們一起躲在被子裡');return '被子裡黑黑暖暖的。{n} 的心跳慢慢變慢，開始呼嚕。';}}]},"
+ },
+ {
+  "zh": "被子裡黑黑暖暖的。{n} 的心跳慢慢變慢，開始呼嚕。",
+  "context": "{label:'抱著{p}一起躲進被子裡', fx:()=>{add('bond',5);mem('過年放鞭炮，你們一起躲在被子裡');return '被子裡黑黑暖暖的。{n} 的心跳慢慢變慢，開始呼嚕。';}}]},"
+ },
+ {
+  "zh": "好熱",
+  "context": "{id:'summer', min:6, title:'好熱', text:'夏天到了，{n} 攤在磁磚地上，變成一灘貓。', choices:["
+ },
+ {
+  "zh": "夏天到了，{n} 攤在磁磚地上，變成一灘貓。",
+  "context": "{id:'summer', min:6, title:'好熱', text:'夏天到了，{n} 攤在磁磚地上，變成一灘貓。', choices:["
+ },
+ {
+  "zh": "開冷氣（電費 -$50）",
+  "context": "{label:'開冷氣（電費 -$50）', fx:()=>{S.money=Math.max(0,S.money-50);add('mood',8);return '冷氣一開，{n} 立刻移動到出風口正下方。';}},"
+ },
+ {
+  "zh": "冷氣一開，{n} 立刻移動到出風口正下方。",
+  "context": "{label:'開冷氣（電費 -$50）', fx:()=>{S.money=Math.max(0,S.money-50);add('mood',8);return '冷氣一開，{n} 立刻移動到出風口正下方。';}},"
+ },
+ {
+  "zh": "幫{p}梳掉多餘的毛",
+  "context": "{label:'幫{p}梳掉多餘的毛', fx:()=>{add('clean',10);add('mood',3);return '梳下來的毛堆成一座小山。{n} 輕了一圈。';}}]},"
+ },
+ {
+  "zh": "梳下來的毛堆成一座小山。{n} 輕了一圈。",
+  "context": "{label:'幫{p}梳掉多餘的毛', fx:()=>{add('clean',10);add('mood',3);return '梳下來的毛堆成一座小山。{n} 輕了一圈。';}}]},"
+ },
+ {
+  "zh": "寒流",
+  "context": "{id:'winter', min:6, title:'寒流', text:'寒流來了。半夜 {n} 鑽進你的被窩，冰冰的鼻子貼著你的脖子。', choices:["
+ },
+ {
+  "zh": "寒流來了。半夜 {n} 鑽進你的被窩，冰冰的鼻子貼著你的脖子。",
+  "context": "{id:'winter', min:6, title:'寒流', text:'寒流來了。半夜 {n} 鑽進你的被窩，冰冰的鼻子貼著你的脖子。', choices:["
+ },
+ {
+  "zh": "讓{p}睡在你的手臂上",
+  "context": "{label:'讓{p}睡在你的手臂上', fx:()=>{add('bond',5);add('mood',4);mem('寒流來的晚上，{p}睡在你的手臂上');return '天亮的時候，你的手臂麻了，{n} 睡得很香。';}}]},"
+ },
+ {
+  "zh": "寒流來的晚上，{p}睡在你的手臂上",
+  "context": "{label:'讓{p}睡在你的手臂上', fx:()=>{add('bond',5);add('mood',4);mem('寒流來的晚上，{p}睡在你的手臂上');return '天亮的時候，你的手臂麻了，{n} 睡得很香。';}}]},"
+ },
+ {
+  "zh": "天亮的時候，你的手臂麻了，{n} 睡得很香。",
+  "context": "{label:'讓{p}睡在你的手臂上', fx:()=>{add('bond',5);add('mood',4);mem('寒流來的晚上，{p}睡在你的手臂上');return '天亮的時候，你的手臂麻了，{n} 睡得很香。';}}]},"
+ },
+ {
+  "zh": "有客人",
+  "context": "{id:'guests', min:6, title:'有客人', text:'朋友來家裡玩。{n} 一溜煙不見了，只有一條尾巴露在沙發後面。', choices:["
+ },
+ {
+  "zh": "朋友來家裡玩。{n} 一溜煙不見了，只有一條尾巴露在沙發後面。",
+  "context": "{id:'guests', min:6, title:'有客人', text:'朋友來家裡玩。{n} 一溜煙不見了，只有一條尾巴露在沙發後面。', choices:["
+ },
+ {
+  "zh": "請朋友不要理{p}，讓{p}自己出來",
+  "context": "{label:'請朋友不要理{p}，讓{p}自己出來', fx:()=>{add('mood',3);return '一個小時後，{n} 默默出現，跳上了朋友的腿。朋友感動到不敢動。';}},"
+ },
+ {
+  "zh": "一個小時後，{n} 默默出現，跳上了朋友的腿。朋友感動到不敢動。",
+  "context": "{label:'請朋友不要理{p}，讓{p}自己出來', fx:()=>{add('mood',3);return '一個小時後，{n} 默默出現，跳上了朋友的腿。朋友感動到不敢動。';}},"
+ },
+ {
+  "zh": "把{p}抱出來給大家看",
+  "context": "{label:'把{p}抱出來給大家看', fx:()=>{add('mood',-10);S.counts.bite++;return '{n} 拚命掙扎，咬了你一口，又躲回去了。';}}]},"
+ },
+ {
+  "zh": "{n} 拚命掙扎，咬了你一口，又躲回去了。",
+  "context": "{label:'把{p}抱出來給大家看', fx:()=>{add('mood',-10);S.counts.bite++;return '{n} 拚命掙扎，咬了你一口，又躲回去了。';}}]},"
+ },
+ {
+  "zh": "拍照",
+  "context": "{id:'photo', min:3, title:'拍照', text:'你想幫 {n} 拍一張美美的照片。', choices:["
+ },
+ {
+  "zh": "你想幫 {n} 拍一張美美的照片。",
+  "context": "{id:'photo', min:3, title:'拍照', text:'你想幫 {n} 拍一張美美的照片。', choices:["
+ },
+ {
+  "zh": "拿逗貓棒吸引{p}看鏡頭",
+  "context": "{label:'拿逗貓棒吸引{p}看鏡頭', fx:()=>{add('mood',3);mem('你幫{p}拍了五十張照片，只有一張不是糊的');return '拍了五十張，四十九張都是糊的。最後一張很完美：{n} 正在打哈欠。';}},"
+ },
+ {
+  "zh": "你幫{p}拍了五十張照片，只有一張不是糊的",
+  "context": "{label:'拿逗貓棒吸引{p}看鏡頭', fx:()=>{add('mood',3);mem('你幫{p}拍了五十張照片，只有一張不是糊的');return '拍了五十張，四十九張都是糊的。最後一張很完美：{n} 正在打哈欠。';}},"
+ },
+ {
+  "zh": "拍了五十張，四十九張都是糊的。最後一張很完美：{n} 正在打哈欠。",
+  "context": "{label:'拿逗貓棒吸引{p}看鏡頭', fx:()=>{add('mood',3);mem('你幫{p}拍了五十張照片，只有一張不是糊的');return '拍了五十張，四十九張都是糊的。最後一張很完美：{n} 正在打哈欠。';}},"
+ },
+ {
+  "zh": "等{p}睡著再偷拍",
+  "context": "{label:'等{p}睡著再偷拍', fx:()=>{add('bond',2);return '睡著的 {n} 把臉埋在手裡。這是全世界最可愛的照片。';}}]},"
+ },
+ {
+  "zh": "睡著的 {n} 把臉埋在手裡。這是全世界最可愛的照片。",
+  "context": "{label:'等{p}睡著再偷拍', fx:()=>{add('bond',2);return '睡著的 {n} 把臉埋在手裡。這是全世界最可愛的照片。';}}]},"
+ },
+ {
+  "zh": "剪指甲",
+  "context": "{id:'nails', min:4, title:'剪指甲', text:'{n} 的爪子太長了，勾在地毯上拔不出來。', choices:["
+ },
+ {
+  "zh": "{n} 的爪子太長了，勾在地毯上拔不出來。",
+  "context": "{id:'nails', min:4, title:'剪指甲', text:'{n} 的爪子太長了，勾在地毯上拔不出來。', choices:["
+ },
+ {
+  "zh": "趁{p}睡覺偷偷剪",
+  "context": "{label:'趁{p}睡覺偷偷剪', fx:()=>{add('mood',-2);return '剪到第三隻，{n} 醒了，用「你在幹嘛」的眼神看著你。';}},"
+ },
+ {
+  "zh": "剪到第三隻，{n} 醒了，用「你在幹嘛」的眼神看著你。",
+  "context": "{label:'趁{p}睡覺偷偷剪', fx:()=>{add('mood',-2);return '剪到第三隻，{n} 醒了，用「你在幹嘛」的眼神看著你。';}},"
+ },
+ {
+  "zh": "用毛巾把{p}包成貓咪壽司再剪",
+  "context": "{label:'用毛巾把{p}包成貓咪壽司再剪', fx:()=>{add('mood',-8);S.counts.bite++;return '你成功了。代價是手上兩道抓痕。';}}]},"
+ },
+ {
+  "zh": "你成功了。代價是手上兩道抓痕。",
+  "context": "{label:'用毛巾把{p}包成貓咪壽司再剪', fx:()=>{add('mood',-8);S.counts.bite++;return '你成功了。代價是手上兩道抓痕。';}}]},"
+ },
+ {
+  "zh": "塑膠袋",
+  "context": "{id:'bag', min:3, title:'塑膠袋', text:'{n} 在啃購物袋，咬得沙沙響，看起來很開心。', choices:["
+ },
+ {
+  "zh": "{n} 在啃購物袋，咬得沙沙響，看起來很開心。",
+  "context": "{id:'bag', min:3, title:'塑膠袋', text:'{n} 在啃購物袋，咬得沙沙響，看起來很開心。', choices:["
+ },
+ {
+  "zh": "馬上拿走，袋子都收進抽屜",
+  "context": "{label:'馬上拿走，袋子都收進抽屜', fx:()=>{add('mood',-2);return '{n} 瞪著你，好像你搶走了{p}最愛的玩具。';}},"
+ },
+ {
+  "zh": "{n} 瞪著你，好像你搶走了{p}最愛的玩具。",
+  "context": "{label:'馬上拿走，袋子都收進抽屜', fx:()=>{add('mood',-2);return '{n} 瞪著你，好像你搶走了{p}最愛的玩具。';}},"
+ },
+ {
+  "zh": "應該沒關係吧",
+  "context": "{label:'應該沒關係吧', fx:()=>{add('health',-15);return '晚上 {n} 吐了，裡面有一小塊塑膠。貓吞下塑膠很危險，以後要收好。';}}]},"
+ },
+ {
+  "zh": "晚上 {n} 吐了，裡面有一小塊塑膠。貓吞下塑膠很危險，以後要收好。",
+  "context": "{label:'應該沒關係吧', fx:()=>{add('health',-15);return '晚上 {n} 吐了，裡面有一小塊塑膠。貓吞下塑膠很危險，以後要收好。';}}]},"
+ },
+ {
+  "zh": "一束花",
+  "context": "{id:'lily', min:6, title:'一束花', text:'朋友送你一束漂亮的百合。{n} 好奇地湊過去聞。', choices:["
+ },
+ {
+  "zh": "朋友送你一束漂亮的百合。{n} 好奇地湊過去聞。",
+  "context": "{id:'lily', min:6, title:'一束花', text:'朋友送你一束漂亮的百合。{n} 好奇地湊過去聞。', choices:["
+ },
+ {
+  "zh": "馬上把百合拿走",
+  "context": "{label:'馬上把百合拿走', fx:()=>{add('health',2);return '你查了才知道：百合對貓有劇毒，連花粉和花瓶的水都不行。還好你很快就拿走了。';}},"
+ },
+ {
+  "zh": "你查了才知道：百合對貓有劇毒，連花粉和花瓶的水都不行。還好你很快就拿走了。",
+  "context": "{label:'馬上把百合拿走', fx:()=>{add('health',2);return '你查了才知道：百合對貓有劇毒，連花粉和花瓶的水都不行。還好你很快就拿走了。';}},"
+ },
+ {
+  "zh": "放在高一點的地方就好",
+  "context": "{label:'放在高一點的地方就好', fx:()=>{add('health',-30);S.counts.vet++;S.counts.er++;S.lifespanM-=12;mem('{p}誤碰百合中毒，你半夜衝去急診');return '半夜 {n} 一直吐，你衝去急診。醫生說是百合中毒，還好送得早。百合對貓有劇毒，連花粉都不行。';}}]},"
+ },
+ {
+  "zh": "{p}誤碰百合中毒，你半夜衝去急診",
+  "context": "{label:'放在高一點的地方就好', fx:()=>{add('health',-30);S.counts.vet++;S.counts.er++;S.lifespanM-=12;mem('{p}誤碰百合中毒，你半夜衝去急診');return '半夜 {n} 一直吐，你衝去急診。醫生說是百合中毒，還好送得早。百合對貓有劇毒，連花粉都不行。';}}]},"
+ },
+ {
+  "zh": "半夜 {n} 一直吐，你衝去急診。醫生說是百合中毒，還好送得早。百合對貓有劇毒，連花粉都不行。",
+  "context": "{label:'放在高一點的地方就好', fx:()=>{add('health',-30);S.counts.vet++;S.counts.er++;S.lifespanM-=12;mem('{p}誤碰百合中毒，你半夜衝去急診');return '半夜 {n} 一直吐，你衝去急診。醫生說是百合中毒，還好送得早。百合對貓有劇毒，連花粉都不行。';}}]},"
+ },
+ {
+  "zh": "你的位子",
+  "context": "{id:'seat', min:4, title:'你的位子', text:'你起來倒杯水，回來時 {n} 已經坐在你的椅子上，一臉理所當然。', choices:["
+ },
+ {
+  "zh": "你起來倒杯水，回來時 {n} 已經坐在你的椅子上，一臉理所當然。",
+  "context": "{id:'seat', min:4, title:'你的位子', text:'你起來倒杯水，回來時 {n} 已經坐在你的椅子上，一臉理所當然。', choices:["
+ },
+ {
+  "zh": "坐在椅子邊邊就好",
+  "context": "{label:'坐在椅子邊邊就好', fx:()=>{add('bond',3);return '你坐了一個晚上的椅子邊邊。{n} 睡得很舒服。';}},"
+ },
+ {
+  "zh": "你坐了一個晚上的椅子邊邊。{n} 睡得很舒服。",
+  "context": "{label:'坐在椅子邊邊就好', fx:()=>{add('bond',3);return '你坐了一個晚上的椅子邊邊。{n} 睡得很舒服。';}},"
+ },
+ {
+  "zh": "把{p}抱開",
+  "context": "{label:'把{p}抱開', fx:()=>{add('mood',-3);return '你一坐下，{n} 就跳到你的腿上。結果還是一樣。';}}]},"
+ },
+ {
+  "zh": "你一坐下，{n} 就跳到你的腿上。結果還是一樣。",
+  "context": "{label:'把{p}抱開', fx:()=>{add('mood',-3);return '你一坐下，{n} 就跳到你的腿上。結果還是一樣。';}}]},"
+ },
+ {
+  "zh": "你的水杯",
+  "context": "{id:'water', min:6, title:'你的水杯', text:'{n} 不喝自己碗裡的水，偏偏要喝你杯子裡的。', choices:["
+ },
+ {
+  "zh": "{n} 不喝自己碗裡的水，偏偏要喝你杯子裡的。",
+  "context": "{id:'water', min:6, title:'你的水杯', text:'{n} 不喝自己碗裡的水，偏偏要喝你杯子裡的。', choices:["
+ },
+ {
+  "zh": "再幫{p}倒一杯",
+  "context": "{label:'再幫{p}倒一杯', fx:()=>{add('mood',4);add('health',2);return '從此以後，你的桌上永遠有兩個杯子。';}},"
+ },
+ {
+  "zh": "從此以後，你的桌上永遠有兩個杯子。",
+  "context": "{label:'再幫{p}倒一杯', fx:()=>{add('mood',4);add('health',2);return '從此以後，你的桌上永遠有兩個杯子。';}},"
+ },
+ {
+  "zh": "把杯子收好",
+  "context": "{label:'把杯子收好', fx:()=>{add('mood',-2);return '{n} 把手伸進你的杯子裡，舔手上的水。';}}]},"
+ },
+ {
+  "zh": "{n} 把手伸進你的杯子裡，舔手上的水。",
+  "context": "{label:'把杯子收好', fx:()=>{add('mood',-2);return '{n} 把手伸進你的杯子裡，舔手上的水。';}}]},"
+ },
+ {
+  "zh": "哈啾",
+  "context": "{id:'sneeze', min:6, title:'哈啾', text:'{n} 一直打噴嚏，眼睛有點紅紅的。', choices:["
+ },
+ {
+  "zh": "{n} 一直打噴嚏，眼睛有點紅紅的。",
+  "context": "{id:'sneeze', min:6, title:'哈啾', text:'{n} 一直打噴嚏，眼睛有點紅紅的。', choices:["
+ },
+ {
+  "zh": "帶去看醫生",
+  "context": "{label:'帶去看醫生', fx:()=>{S.counts.vet++;add('health',8);add('mood',-6);return '醫生說是小感冒，吃幾天藥就好。{n} 吃藥的表情很委屈。';}},"
+ },
+ {
+  "zh": "醫生說是小感冒，吃幾天藥就好。{n} 吃藥的表情很委屈。",
+  "context": "{label:'帶去看醫生', fx:()=>{S.counts.vet++;add('health',8);add('mood',-6);return '醫生說是小感冒，吃幾天藥就好。{n} 吃藥的表情很委屈。';}},"
+ },
+ {
+  "zh": "讓{p}多休息就好",
+  "context": "{label:'讓{p}多休息就好', fx:()=>{add('health',-8);if(Math.random()<.4){S.sick=true;return '隔天 {n} 開始沒精神了。（記得帶{p}去看醫生）';}return '{n} 睡了一整天，好像好一點了。';}}]},"
+ },
+ {
+  "zh": "隔天 {n} 開始沒精神了。（記得帶{p}去看醫生）",
+  "context": "{label:'讓{p}多休息就好', fx:()=>{add('health',-8);if(Math.random()<.4){S.sick=true;return '隔天 {n} 開始沒精神了。（記得帶{p}去看醫生）';}return '{n} 睡了一整天，好像好一點了。';}}]},"
+ },
+ {
+  "zh": "{n} 睡了一整天，好像好一點了。",
+  "context": "{label:'讓{p}多休息就好', fx:()=>{add('health',-8);if(Math.random()<.4){S.sick=true;return '隔天 {n} 開始沒精神了。（記得帶{p}去看醫生）';}return '{n} 睡了一整天，好像好一點了。';}}]},"
+ },
+ {
+  "zh": "吸塵器",
+  "context": "{id:'vacuum', min:3, title:'吸塵器', text:'你一打開吸塵器，{n} 立刻飛奔逃離現場，尾巴膨得跟雞毛撢子一樣。', choices:["
+ },
+ {
+  "zh": "你一打開吸塵器，{n} 立刻飛奔逃離現場，尾巴膨得跟雞毛撢子一樣。",
+  "context": "{id:'vacuum', min:3, title:'吸塵器', text:'你一打開吸塵器，{n} 立刻飛奔逃離現場，尾巴膨得跟雞毛撢子一樣。', choices:["
+ },
+ {
+  "zh": "改用掃把",
+  "context": "{label:'改用掃把', fx:()=>{add('mood',2);return '{n} 從門縫偷看，確認那個怪物已經走了。';}},"
+ },
+ {
+  "zh": "{n} 從門縫偷看，確認那個怪物已經走了。",
+  "context": "{label:'改用掃把', fx:()=>{add('mood',2);return '{n} 從門縫偷看，確認那個怪物已經走了。';}},"
+ },
+ {
+  "zh": "繼續吸",
+  "context": "{label:'繼續吸', fx:()=>{add('clean',10);add('mood',-6);return '家裡很乾淨。{n} 一整個下午都不理你。';}}]},"
+ },
+ {
+  "zh": "家裡很乾淨。{n} 一整個下午都不理你。",
+  "context": "{label:'繼續吸', fx:()=>{add('clean',10);add('mood',-6);return '家裡很乾淨。{n} 一整個下午都不理你。';}}]},"
+ },
+ {
+  "zh": "看電視",
+  "context": "{id:'tv', min:4, title:'看電視', text:'電視上在播鳥。{n} 盯著螢幕，伸手去拍。', choices:["
+ },
+ {
+  "zh": "電視上在播鳥。{n} 盯著螢幕，伸手去拍。",
+  "context": "{id:'tv', min:4, title:'看電視', text:'電視上在播鳥。{n} 盯著螢幕，伸手去拍。', choices:["
+ },
+ {
+  "zh": "陪{p}一起看動物頻道",
+  "context": "{label:'陪{p}一起看動物頻道', fx:()=>{add('mood',6);add('bond',2);return '{n} 繞到電視後面，想找那隻鳥到底躲在哪裡。';}}]},"
+ },
+ {
+  "zh": "{n} 繞到電視後面，想找那隻鳥到底躲在哪裡。",
+  "context": "{label:'陪{p}一起看動物頻道', fx:()=>{add('mood',6);add('bond',2);return '{n} 繞到電視後面，想找那隻鳥到底躲在哪裡。';}}]},"
+ },
+ {
+  "zh": "半夜",
+  "context": "{id:'legs', min:6, title:'半夜', text:'你想翻身，發現 {n} 睡在你兩腿中間，你完全動不了。', choices:["
+ },
+ {
+  "zh": "你想翻身，發現 {n} 睡在你兩腿中間，你完全動不了。",
+  "context": "{id:'legs', min:6, title:'半夜', text:'你想翻身，發現 {n} 睡在你兩腿中間，你完全動不了。', choices:["
+ },
+ {
+  "zh": "保持這個姿勢到天亮",
+  "context": "{label:'保持這個姿勢到天亮', fx:()=>{add('bond',3);return '早上起來你腰好痠。{n} 伸了一個大懶腰。';}}]},"
+ },
+ {
+  "zh": "早上起來你腰好痠。{n} 伸了一個大懶腰。",
+  "context": "{label:'保持這個姿勢到天亮', fx:()=>{add('bond',3);return '早上起來你腰好痠。{n} 伸了一個大懶腰。';}}]},"
+ },
+ {
+  "zh": "凌晨四點",
+  "context": "{id:'door', min:4, title:'凌晨四點', text:'{n} 在房門外抓門。你開了門，{p}走進來看了一眼，又走出去了。', choices:["
+ },
+ {
+  "zh": "{n} 在房門外抓門。你開了門，{p}走進來看了一眼，又走出去了。",
+  "context": "{id:'door', min:4, title:'凌晨四點', text:'{n} 在房門外抓門。你開了門，{p}走進來看了一眼，又走出去了。', choices:["
+ },
+ {
+  "zh": "再開一次",
+  "context": "{label:'再開一次', fx:()=>{add('mood',3);return '這次 {n} 走進來，坐在門口，又想出去了。貓的世界你不懂。';}},"
+ },
+ {
+  "zh": "這次 {n} 走進來，坐在門口，又想出去了。貓的世界你不懂。",
+  "context": "{label:'再開一次', fx:()=>{add('mood',3);return '這次 {n} 走進來，坐在門口，又想出去了。貓的世界你不懂。';}},"
+ },
+ {
+  "zh": "讓門開著睡",
+  "context": "{label:'讓門開著睡', fx:()=>{add('bond',2);return '{n} 整晚都沒有再抓門。早上你發現{p}睡在你的枕頭上。';}}]},"
+ },
+ {
+  "zh": "{n} 整晚都沒有再抓門。早上你發現{p}睡在你的枕頭上。",
+  "context": "{label:'讓門開著睡', fx:()=>{add('bond',2);return '{n} 整晚都沒有再抓門。早上你發現{p}睡在你的枕頭上。';}}]},"
+ },
+ {
+  "zh": "隔天早上，你一開門，{n} 就坐在門口喵喵叫，腳上都是灰。",
+  "context": "const ESCAPE_HOME = ['隔天早上，你一開門，{n} 就坐在門口喵喵叫，腳上都是灰。',"
+ },
+ {
+  "zh": "第三天，鄰居在樓下的機車底下找到 {n}。{p}瘦了一圈，一直發抖。",
+  "context": "'第三天，鄰居在樓下的機車底下找到 {n}。{p}瘦了一圈，一直發抖。',"
+ },
+ {
+  "zh": "整整一個禮拜後，你在隔壁巷子聽到熟悉的叫聲。{n} 髒兮兮的，可是一聽到你的聲音就跑過來了。",
+  "context": "'整整一個禮拜後，你在隔壁巷子聽到熟悉的叫聲。{n} 髒兮兮的，可是一聽到你的聲音就跑過來了。'];"
+ },
+ {
+  "zh": "{p}有一次跑出去，你找了好久才找到",
+  "context": "S.flags.escaped = 1; mem('{p}有一次跑出去，你找了好久才找到');"
+ },
+ {
+  "zh": "{n} 不見了！",
+  "context": "return {id:'escape', title:'{n} 不見了！', text: byWindow"
+ },
+ {
+  "zh": "你找遍了家裡，都沒看到 {n}。窗戶的紗窗被推開了一條縫……",
+  "context": "? '你找遍了家裡，都沒看到 {n}。窗戶的紗窗被推開了一條縫……'"
+ },
+ {
+  "zh": "你倒完垃圾回來，發現大門沒關好。{n} 不見了！",
+  "context": ": '你倒完垃圾回來，發現大門沒關好。{n} 不見了！',"
+ },
+ {
+  "zh": "在社群和社區群組貼協尋",
+  "context": "{label:'在社群和社區群組貼協尋', hint:'很多人會幫忙留意', fx:()=>back(.1)},"
+ },
+ {
+  "zh": "很多人會幫忙留意",
+  "context": "{label:'在社群和社區群組貼協尋', hint:'很多人會幫忙留意', fx:()=>back(.1)},"
+ },
+ {
+  "zh": "把{p}的貓砂盆放在門口",
+  "context": "{label:'把{p}的貓砂盆放在門口', hint:'貓認得自己的味道', fx:()=>back(.15)},"
+ },
+ {
+  "zh": "貓認得自己的味道",
+  "context": "{label:'把{p}的貓砂盆放在門口', hint:'貓認得自己的味道', fx:()=>back(.15)},"
+ },
+ {
+  "zh": "半夜拿手電筒去樓梯間和停車場找",
+  "context": "{label:'半夜拿手電筒去樓梯間和停車場找', hint:'貓常常就躲在附近', fx:()=>back(.2)},"
+ },
+ {
+  "zh": "貓常常就躲在附近",
+  "context": "{label:'半夜拿手電筒去樓梯間和停車場找', hint:'貓常常就躲在附近', fx:()=>back(.2)},"
+ },
+ {
+  "zh": "{n} 回家以後一直黏著你，你走到哪{p}就跟到哪，晚上也不肯離開你的身邊。",
+  "context": "CONSEQ.afterEscape = {title:'回家以後', text:'{n} 回家以後一直黏著你，你走到哪{p}就跟到哪，晚上也不肯離開你的身邊。', choices:["
+ },
+ {
+  "zh": "抱緊{p}",
+  "context": "{label:'抱緊{p}', fx:()=>{add('bond',5);return '你答應{p}，以後會把門窗顧好。';}},"
+ },
+ {
+  "zh": "你答應{p}，以後會把門窗顧好。",
+  "context": "{label:'抱緊{p}', fx:()=>{add('bond',5);return '你答應{p}，以後會把門窗顧好。';}},"
+ },
+ {
+  "zh": "馬上去買防護網（$250）",
+  "context": "{label:'馬上去買防護網（$250）', fx:()=>{ if(S.owned.includes('screen')) return '防護網已經裝好了。';"
+ },
+ {
+  "zh": "防護網已經裝好了。",
+  "context": "{label:'馬上去買防護網（$250）', fx:()=>{ if(S.owned.includes('screen')) return '防護網已經裝好了。';"
+ },
+ {
+  "zh": "窗戶裝好防護網了。{n} 坐在窗邊看鳥，這次不會再跑出去了。",
+  "context": "if(S.money >= 250){ S.money -= 250; S.owned.push('screen'); return '窗戶裝好防護網了。{n} 坐在窗邊看鳥，這次不會再跑出去了。'; }"
+ },
+ {
+  "zh": "錢不夠，你先用膠帶把紗窗黏得牢牢的。記得存錢去用品店買防護網。",
+  "context": "add('bond',2); return '錢不夠，你先用膠帶把紗窗黏得牢牢的。記得存錢去用品店買防護網。'; }}]};"
+ },
+ {
+  "zh": "想吃罐罐",
+  "context": "wet:    {label:'想吃罐罐',   line:'（一直盯著放罐頭的櫃子，看看你，又看看櫃子）'},"
+ },
+ {
+  "zh": "（一直盯著放罐頭的櫃子，看看你，又看看櫃子）",
+  "context": "wet:    {label:'想吃罐罐',   line:'（一直盯著放罐頭的櫃子，看看你，又看看櫃子）'},"
+ },
+ {
+  "zh": "想吃肉泥",
+  "context": "treat:  {label:'想吃肉泥',   line:'（聽到撕包裝的聲音就衝過來，結果是你在拆餅乾）'},"
+ },
+ {
+  "zh": "（聽到撕包裝的聲音就衝過來，結果是你在拆餅乾）",
+  "context": "treat:  {label:'想吃肉泥',   line:'（聽到撕包裝的聲音就衝過來，結果是你在拆餅乾）'},"
+ },
+ {
+  "zh": "想玩逗貓棒",
+  "context": "play:   {label:'想玩逗貓棒', line:'（把逗貓棒叼到你腳邊，放下，抬頭看你）'},"
+ },
+ {
+  "zh": "（把逗貓棒叼到你腳邊，放下，抬頭看你）",
+  "context": "play:   {label:'想玩逗貓棒', line:'（把逗貓棒叼到你腳邊，放下，抬頭看你）'},"
+ },
+ {
+  "zh": "想被梳毛",
+  "context": "brush:  {label:'想被梳毛',   line:'（在梳子旁邊躺下，翻了半個身）'},"
+ },
+ {
+  "zh": "（在梳子旁邊躺下，翻了半個身）",
+  "context": "brush:  {label:'想被梳毛',   line:'（在梳子旁邊躺下，翻了半個身）'},"
+ },
+ {
+  "zh": "想被摸摸",
+  "context": "pet:    {label:'想被摸摸',   line:'（用頭一直頂你的手）'},"
+ },
+ {
+  "zh": "（用頭一直頂你的手）",
+  "context": "pet:    {label:'想被摸摸',   line:'（用頭一直頂你的手）'},"
+ },
+ {
+  "zh": "想要乾淨的貓砂",
+  "context": "litter: {label:'想要乾淨的貓砂', line:'（在貓砂盆旁邊踩來踩去，不肯進去）'},"
+ },
+ {
+  "zh": "（在貓砂盆旁邊踩來踩去，不肯進去）",
+  "context": "litter: {label:'想要乾淨的貓砂', line:'（在貓砂盆旁邊踩來踩去，不肯進去）'},"
+ },
+ {
+  "zh": "{n} 得到想要的了，開心地繞著你的腳轉圈圈。",
+  "context": "const WISH_DONE = ['{n} 得到想要的了，開心地繞著你的腳轉圈圈。', '{n} 滿足地瞇起眼睛，對你慢慢眨了眨眼。', '願望達成！{n} 把頭塞進你的手心裡。'];"
+ },
+ {
+  "zh": "{n} 滿足地瞇起眼睛，對你慢慢眨了眨眼。",
+  "context": "const WISH_DONE = ['{n} 得到想要的了，開心地繞著你的腳轉圈圈。', '{n} 滿足地瞇起眼睛，對你慢慢眨了眨眼。', '願望達成！{n} 把頭塞進你的手心裡。'];"
+ },
+ {
+  "zh": "願望達成！{n} 把頭塞進你的手心裡。",
+  "context": "const WISH_DONE = ['{n} 得到想要的了，開心地繞著你的腳轉圈圈。', '{n} 滿足地瞇起眼睛，對你慢慢眨了眨眼。', '願望達成！{n} 把頭塞進你的手心裡。'];"
+ },
+ {
+  "zh": "（親密 +3）",
+  "context": "setTimeout(() => { fxAtCat('💗'); narr(fill(pick(WISH_DONE)) + ' ' + '（親密 +3）'); wishChip(); updateStats(); save(); }, 700);"
+ },
+ {
   "zh": "\n  <header class=\"top\"><div><h1>養一隻貓貓</h1><div class=\"sub\">一隻貓的一生，大約十五年</div></div>${langLinks()}</header>\n  <section class=\"room street\">\n    <div class=\"floor\"></div><div class=\"rain\"></div>\n    <div class=\"peek ${revealed?'up':''}\">${revealed ? catSVG(S.coatId,S.seed,'kitten','normal',1) : catSVG(S.coatId,S.seed,'kitten','sleep',1)}</div>\n    <div class=\"box\"><div class=\"flap l\"></div><div class=\"flap r\"></div><div class=\"front\"><span>請好心人收養</span></div></div>\n  </section>\n  <section class=\"panel\">\n    ${revealed\n      ? `<p>是一隻 <b style=\"color:var(--eye)\">${c.name}</b>${S.gender==='f'?'妹妹':'弟弟'}，冷得一直發抖，對你小小聲地「咪」了一聲。</p>\n         <div class=\"btnrow\"><button class=\"btn primary\" id=\"take\">帶${P()}回家</button><button class=\"btn\" id=\"reroll\">看看別的箱子</button></div>`\n      : `<p>${S.past.length?`${esc(S.past[S.past.length-1].name)} 走了以後，家裡安靜了好久。<br>`:''}下雨的晚上，你在巷口的紙箱裡，看見一團小小的、濕濕的東西。</p>\n         <div class=\"btnrow\"><button class=\"btn primary\" id=\"look\">蹲下來看看</button><button class=\"btn\" id=\"howto\">📖 怎麼玩</button></div>`}\n  </section>",
   "context": "app.innerHTML = `\n  <header class=\"top\"><div><h1>養一隻貓貓</h1><div class=\"sub\">一隻貓的一生，大約十五年</div></div>${langLinks()}</header>\n  <section class=\"room street\">\n    <div class=\"floor\"></div><div class=\"rain\"></div>\n    <div class=\"peek ${revealed?'up':''}\">${revealed ? catSVG(S.coatId,S.seed,'kitten','no"
  },
@@ -1733,15 +2261,15 @@
  },
  {
   "zh": "梳下來一大團毛，夠再做一隻小貓了。",
-  "context": "else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); narr(fill(pick(['梳下來一大團毛，夠再做一隻小貓了。','{n} 舒服到開始流口水。','{n} 把臉湊過來，臉頰也要梳。']))); }"
+  "context": "else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); grantWish('brush'); narr(fill(pick(['梳下來一大團毛，夠再做一隻小貓了。','{n} 舒服到開始流口水。','{n} 把臉湊過來，臉頰也要梳。']))); }"
  },
  {
   "zh": "{n} 舒服到開始流口水。",
-  "context": "else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); narr(fill(pick(['梳下來一大團毛，夠再做一隻小貓了。','{n} 舒服到開始流口水。','{n} 把臉湊過來，臉頰也要梳。']))); }"
+  "context": "else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); grantWish('brush'); narr(fill(pick(['梳下來一大團毛，夠再做一隻小貓了。','{n} 舒服到開始流口水。','{n} 把臉湊過來，臉頰也要梳。']))); }"
  },
  {
   "zh": "{n} 把臉湊過來，臉頰也要梳。",
-  "context": "else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); narr(fill(pick(['梳下來一大團毛，夠再做一隻小貓了。','{n} 舒服到開始流口水。','{n} 把臉湊過來，臉頰也要梳。']))); }"
+  "context": "else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); grantWish('brush'); narr(fill(pick(['梳下來一大團毛，夠再做一隻小貓了。','{n} 舒服到開始流口水。','{n} 把臉湊過來，臉頰也要梳。']))); }"
  },
  {
   "zh": "你鏟完貓砂，{n} 立刻跑進去上了一個新的。",
@@ -2104,6 +2632,18 @@
   "context": "line:'（爬上貓跳台最高層，得意地看著你）', vb:'0 0 100 160',"
  },
  {
+  "zh": "防護網",
+  "context": "{id:'screen',  name:'防護網',     kind:'fixture', price:250, desc:'裝在窗戶上，貓就不會從窗戶跑出去', eff:()=>{}, line:'（坐在窗邊看鳥，很安全）', vb:'0 0 100 100',"
+ },
+ {
+  "zh": "裝在窗戶上，貓就不會從窗戶跑出去",
+  "context": "{id:'screen',  name:'防護網',     kind:'fixture', price:250, desc:'裝在窗戶上，貓就不會從窗戶跑出去', eff:()=>{}, line:'（坐在窗邊看鳥，很安全）', vb:'0 0 100 100',"
+ },
+ {
+  "zh": "（坐在窗邊看鳥，很安全）",
+  "context": "{id:'screen',  name:'防護網',     kind:'fixture', price:250, desc:'裝在窗戶上，貓就不會從窗戶跑出去', eff:()=>{}, line:'（坐在窗邊看鳥，很安全）', vb:'0 0 100 100',"
+ },
+ {
   "zh": "自動貓砂機",
   "context": "{id:'autolitter',name:'自動貓砂機',kind:'floor', price:900, desc:'清潔 +10／天。鏟屎官的救星', eff:()=>add('clean',10),"
  },
@@ -2116,8 +2656,8 @@
   "context": "line:'（盯著自動貓砂機轉動，很警戒）', vb:'0 0 100 100',"
  },
  {
-  "zh": "<div class=\"shop\">${ITEMS.map(it => `<div class=\"item\"><div class=\"ic\">${itemSVG(it.id)}</div>\n        <div class=\"tx\"><b>${it.name}</b><small>${it.kind==='wall'?'掛牆上':'放地上'} · ${esc(it.desc)}</small></div>\n        ${owned.has(it.id) ? '<span class=\"own\">已擁有</span>' : `<button class=\"buy\" data-buy=\"${it.id}\" ${S.money<it.price?'disabled':''}>$${it.price}</button>`}</div>`).join('')}</div>",
-  "context": "? `<div class=\"shop\">${ITEMS.map(it => `<div class=\"item\"><div class=\"ic\">${itemSVG(it.id)}</div>\n        <div class=\"tx\"><b>${it.name}</b><small>${it.kind==='wall'?'掛牆上':'放地上'} · ${esc(it.desc)}</small></div>\n        ${owned.has(it.id) ? '<span class=\"own\">已擁有</span>' : `<button class=\"buy\" data-bu"
+  "zh": "<div class=\"shop\">${ITEMS.map(it => `<div class=\"item\"><div class=\"ic\">${itemSVG(it.id)}</div>\n        <div class=\"tx\"><b>${it.name}</b><small>${it.kind==='wall'?'掛牆上':it.kind==='fixture'?'裝在窗戶上':'放地上'} · ${esc(it.desc)}</small></div>\n        ${owned.has(it.id) ? '<span class=\"own\">已擁有</span>' : `<button class=\"buy\" data-buy=\"${it.id}\" ${S.money<it.price?'disabled':''}>$${it.price}</button>`}</div>`).join('')}</div>",
+  "context": "? `<div class=\"shop\">${ITEMS.map(it => `<div class=\"item\"><div class=\"ic\">${itemSVG(it.id)}</div>\n        <div class=\"tx\"><b>${it.name}</b><small>${it.kind==='wall'?'掛牆上':it.kind==='fixture'?'裝在窗戶上':'放地上'} · ${esc(it.desc)}</small></div>\n        ${owned.has(it.id) ? '<span class=\"own\">已擁有</span>' : "
  },
  {
   "zh": "<div class=\"shop\">${SPOTS.map(sp => { const cur = S.placed[sp.id];\n        const choices = S.owned.filter(id => ITEM[id].kind === sp.kind && !placedIds().includes(id));\n        return `<div class=\"item\"><div class=\"ic\">${cur ? itemSVG(cur) : '<span class=\"empty\">空</span>'}</div>\n          <div class=\"tx\"><b>${sp.name}</b><small>${cur ? ITEM[cur].name : '還沒放東西'}</small>\n          <div class=\"swap\">${choices.map(id => `<button data-put=\"${sp.id}:${id}\">${cur?'換成':'放'}${ITEM[id].name}</button>`).join('')}${cur?`<button data-put=\"${sp.id}:\">收進倉庫</button>`:''}</div></div></div>`; }).join('')}</div>",
@@ -2126,6 +2666,10 @@
  {
   "zh": "<div class=\"kicker\">存款 $${S.money} · 每天薪水 +$${SALARY}</div><h2>${tab==='shop'?'貓咪用品店':'佈置房間'}</h2>\n    <div class=\"tabs\"><button data-tab=\"shop\" aria-pressed=\"${tab==='shop'}\">商店</button><button data-tab=\"room\" aria-pressed=\"${tab==='room'}\">佈置（${placedIds().length}/${SPOTS.length}）</button></div>\n    ${body}<button class=\"opt\" id=\"cl\" style=\"text-align:center\">關閉</button>",
   "context": "modal(`<div class=\"kicker\">存款 $${S.money} · 每天薪水 +$${SALARY}</div><h2>${tab==='shop'?'貓咪用品店':'佈置房間'}</h2>\n    <div class=\"tabs\"><button data-tab=\"shop\" aria-pressed=\"${tab==='shop'}\">商店</button><button data-tab=\"room\" aria-pressed=\"${tab==='room'}\">佈置（${placedIds().length}/${SPOTS.length}）</button><"
+ },
+ {
+  "zh": "防護網裝好了。{n} 坐在窗邊看鳥，這次不會跑出去了。",
+  "context": "if(it.kind === 'fixture'){ save(); closeModal(); render(); narr(fill('防護網裝好了。{n} 坐在窗邊看鳥，這次不會跑出去了。')); return; }"
  },
  {
   "zh": "你買了${it.name}。{n} 走過去聞了聞。",
@@ -2270,6 +2814,10 @@
  {
   "zh": "你出國的時候，我每天都睡在你的枕頭上，因為那裡有你的味道。",
   "context": "if(S.counts.trip) happened.push('你出國的時候，我每天都睡在你的枕頭上，因為那裡有你的味道。');"
+ },
+ {
+  "zh": "那次跑出去，我好怕再也找不到家。謝謝你一直在找我。",
+  "context": "if(S.flags.escaped) happened.push('那次跑出去，我好怕再也找不到家。謝謝你一直在找我。');"
  },
  {
   "zh": "去急診那次，我其實好害怕。可是你一直在我旁邊，所以我撐過來了。",

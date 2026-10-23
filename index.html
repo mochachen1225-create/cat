@@ -182,6 +182,7 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .top:has(.pausebtn){padding-top:34px}
 .pausebtn{position:absolute;top:0;right:0;border:0;background:var(--ink-2);color:var(--paper);border-radius:99px;padding:5px 12px;font-size:13px;box-shadow:inset 0 -2px 0 #0003}
 .pausecat{width:46%;align-self:center}.pausecat svg{width:100%;height:auto;display:block}
+.chip.wish{background:#FFB3C1;color:#2B2B2B}.chip.wish.done{background:#A8DDA0}
 .links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:4px}
 
@@ -693,6 +694,115 @@ function neglectEvent(){
   return null;
 }
 
+// more everyday life — so no two lives feel the same
+EVENTS.push(
+  {id:'typhoon', min:12, title:'颱風天', text:'外面狂風暴雨，窗戶一直嘎嘎作響。{n} 躲到衣櫃最裡面，眼睛睜得好大。', choices:[
+    {label:'把衣櫃門打開，陪{p}坐在旁邊', fx:()=>{add('bond',4);add('mood',3);mem('颱風天，你陪{p}一起坐在衣櫃前面');return '你們一起聽著風聲。過了很久，{n} 把頭靠在你的腳上。';}},
+    {label:'拿零食引誘{p}出來', fx:()=>{add('full',5);add('mood',2);return '{n} 伸出一隻手，把零食勾進衣櫃裡，然後繼續躲。';}}]},
+  {id:'newyear', min:6, title:'過年', text:'鞭炮聲一響，{n} 整隻炸毛，尾巴膨成兩倍大，衝進床底下。', choices:[
+    {label:'關窗、開電視蓋過聲音', fx:()=>{add('mood',-3);return '{n} 在床底下待到半夜，才慢慢出來吃飯。';}},
+    {label:'抱著{p}一起躲進被子裡', fx:()=>{add('bond',5);mem('過年放鞭炮，你們一起躲在被子裡');return '被子裡黑黑暖暖的。{n} 的心跳慢慢變慢，開始呼嚕。';}}]},
+  {id:'summer', min:6, title:'好熱', text:'夏天到了，{n} 攤在磁磚地上，變成一灘貓。', choices:[
+    {label:'開冷氣（電費 -$50）', fx:()=>{S.money=Math.max(0,S.money-50);add('mood',8);return '冷氣一開，{n} 立刻移動到出風口正下方。';}},
+    {label:'幫{p}梳掉多餘的毛', fx:()=>{add('clean',10);add('mood',3);return '梳下來的毛堆成一座小山。{n} 輕了一圈。';}}]},
+  {id:'winter', min:6, title:'寒流', text:'寒流來了。半夜 {n} 鑽進你的被窩，冰冰的鼻子貼著你的脖子。', choices:[
+    {label:'讓{p}睡在你的手臂上', fx:()=>{add('bond',5);add('mood',4);mem('寒流來的晚上，{p}睡在你的手臂上');return '天亮的時候，你的手臂麻了，{n} 睡得很香。';}}]},
+  {id:'guests', min:6, title:'有客人', text:'朋友來家裡玩。{n} 一溜煙不見了，只有一條尾巴露在沙發後面。', choices:[
+    {label:'請朋友不要理{p}，讓{p}自己出來', fx:()=>{add('mood',3);return '一個小時後，{n} 默默出現，跳上了朋友的腿。朋友感動到不敢動。';}},
+    {label:'把{p}抱出來給大家看', fx:()=>{add('mood',-10);S.counts.bite++;return '{n} 拚命掙扎，咬了你一口，又躲回去了。';}}]},
+  {id:'photo', min:3, title:'拍照', text:'你想幫 {n} 拍一張美美的照片。', choices:[
+    {label:'拿逗貓棒吸引{p}看鏡頭', fx:()=>{add('mood',3);mem('你幫{p}拍了五十張照片，只有一張不是糊的');return '拍了五十張，四十九張都是糊的。最後一張很完美：{n} 正在打哈欠。';}},
+    {label:'等{p}睡著再偷拍', fx:()=>{add('bond',2);return '睡著的 {n} 把臉埋在手裡。這是全世界最可愛的照片。';}}]},
+  {id:'nails', min:4, title:'剪指甲', text:'{n} 的爪子太長了，勾在地毯上拔不出來。', choices:[
+    {label:'趁{p}睡覺偷偷剪', fx:()=>{add('mood',-2);return '剪到第三隻，{n} 醒了，用「你在幹嘛」的眼神看著你。';}},
+    {label:'用毛巾把{p}包成貓咪壽司再剪', fx:()=>{add('mood',-8);S.counts.bite++;return '你成功了。代價是手上兩道抓痕。';}}]},
+  {id:'bag', min:3, title:'塑膠袋', text:'{n} 在啃購物袋，咬得沙沙響，看起來很開心。', choices:[
+    {label:'馬上拿走，袋子都收進抽屜', fx:()=>{add('mood',-2);return '{n} 瞪著你，好像你搶走了{p}最愛的玩具。';}},
+    {label:'應該沒關係吧', fx:()=>{add('health',-15);return '晚上 {n} 吐了，裡面有一小塊塑膠。貓吞下塑膠很危險，以後要收好。';}}]},
+  {id:'lily', min:6, title:'一束花', text:'朋友送你一束漂亮的百合。{n} 好奇地湊過去聞。', choices:[
+    {label:'馬上把百合拿走', fx:()=>{add('health',2);return '你查了才知道：百合對貓有劇毒，連花粉和花瓶的水都不行。還好你很快就拿走了。';}},
+    {label:'放在高一點的地方就好', fx:()=>{add('health',-30);S.counts.vet++;S.counts.er++;S.lifespanM-=12;mem('{p}誤碰百合中毒，你半夜衝去急診');return '半夜 {n} 一直吐，你衝去急診。醫生說是百合中毒，還好送得早。百合對貓有劇毒，連花粉都不行。';}}]},
+  {id:'seat', min:4, title:'你的位子', text:'你起來倒杯水，回來時 {n} 已經坐在你的椅子上，一臉理所當然。', choices:[
+    {label:'坐在椅子邊邊就好', fx:()=>{add('bond',3);return '你坐了一個晚上的椅子邊邊。{n} 睡得很舒服。';}},
+    {label:'把{p}抱開', fx:()=>{add('mood',-3);return '你一坐下，{n} 就跳到你的腿上。結果還是一樣。';}}]},
+  {id:'water', min:6, title:'你的水杯', text:'{n} 不喝自己碗裡的水，偏偏要喝你杯子裡的。', choices:[
+    {label:'再幫{p}倒一杯', fx:()=>{add('mood',4);add('health',2);return '從此以後，你的桌上永遠有兩個杯子。';}},
+    {label:'把杯子收好', fx:()=>{add('mood',-2);return '{n} 把手伸進你的杯子裡，舔手上的水。';}}]},
+  {id:'sneeze', min:6, title:'哈啾', text:'{n} 一直打噴嚏，眼睛有點紅紅的。', choices:[
+    {label:'帶去看醫生', fx:()=>{S.counts.vet++;add('health',8);add('mood',-6);return '醫生說是小感冒，吃幾天藥就好。{n} 吃藥的表情很委屈。';}},
+    {label:'讓{p}多休息就好', fx:()=>{add('health',-8);if(Math.random()<.4){S.sick=true;return '隔天 {n} 開始沒精神了。（記得帶{p}去看醫生）';}return '{n} 睡了一整天，好像好一點了。';}}]},
+  {id:'vacuum', min:3, title:'吸塵器', text:'你一打開吸塵器，{n} 立刻飛奔逃離現場，尾巴膨得跟雞毛撢子一樣。', choices:[
+    {label:'改用掃把', fx:()=>{add('mood',2);return '{n} 從門縫偷看，確認那個怪物已經走了。';}},
+    {label:'繼續吸', fx:()=>{add('clean',10);add('mood',-6);return '家裡很乾淨。{n} 一整個下午都不理你。';}}]},
+  {id:'tv', min:4, title:'看電視', text:'電視上在播鳥。{n} 盯著螢幕，伸手去拍。', choices:[
+    {label:'陪{p}一起看動物頻道', fx:()=>{add('mood',6);add('bond',2);return '{n} 繞到電視後面，想找那隻鳥到底躲在哪裡。';}}]},
+);
+NIGHT.push(
+  {id:'legs', min:6, title:'半夜', text:'你想翻身，發現 {n} 睡在你兩腿中間，你完全動不了。', choices:[
+    {label:'保持這個姿勢到天亮', fx:()=>{add('bond',3);return '早上起來你腰好痠。{n} 伸了一個大懶腰。';}}]},
+  {id:'door', min:4, title:'凌晨四點', text:'{n} 在房門外抓門。你開了門，{p}走進來看了一眼，又走出去了。', choices:[
+    {label:'再開一次', fx:()=>{add('mood',3);return '這次 {n} 走進來，坐在門口，又想出去了。貓的世界你不懂。';}},
+    {label:'讓門開著睡', fx:()=>{add('bond',2);return '{n} 整晚都沒有再抓門。早上你發現{p}睡在你的枕頭上。';}}]},
+);
+// escaping: a window without a safety net, or a door left open. The cat always comes home, but it leaves a mark.
+const ESCAPE_HOME = ['隔天早上，你一開門，{n} 就坐在門口喵喵叫，腳上都是灰。',
+  '第三天，鄰居在樓下的機車底下找到 {n}。{p}瘦了一圈，一直發抖。',
+  '整整一個禮拜後，你在隔壁巷子聽到熟悉的叫聲。{n} 髒兮兮的，可是一聽到你的聲音就跑過來了。'];
+function escapeEvent(byWindow){
+  const back = luck => {
+    const r = Math.random() + luck;
+    S.flags.escaped = 1; mem('{p}有一次跑出去，你找了好久才找到');
+    if(r > .55){ add('mood',-10); add('health',-5); return ESCAPE_HOME[0]; }
+    if(r > .2){ S.stats.full = Math.min(S.stats.full, 20); add('health',-15); add('mood',-20); S.lifespanM -= 6; return ESCAPE_HOME[1]; }
+    add('health',-25); add('mood',-25); S.lifespanM -= 12; return ESCAPE_HOME[2];
+  };
+  return {id:'escape', title:'{n} 不見了！', text: byWindow
+      ? '你找遍了家裡，都沒看到 {n}。窗戶的紗窗被推開了一條縫……'
+      : '你倒完垃圾回來，發現大門沒關好。{n} 不見了！',
+    choices:[
+      {label:'在社群和社區群組貼協尋', hint:'很多人會幫忙留意', fx:()=>back(.1)},
+      {label:'把{p}的貓砂盆放在門口', hint:'貓認得自己的味道', fx:()=>back(.15)},
+      {label:'半夜拿手電筒去樓梯間和停車場找', hint:'貓常常就躲在附近', fx:()=>back(.2)},
+    ]};
+}
+CONSEQ.afterEscape = {title:'回家以後', text:'{n} 回家以後一直黏著你，你走到哪{p}就跟到哪，晚上也不肯離開你的身邊。', choices:[
+  {label:'抱緊{p}', fx:()=>{add('bond',5);return '你答應{p}，以後會把門窗顧好。';}},
+  {label:'馬上去買防護網（$250）', fx:()=>{ if(S.owned.includes('screen')) return '防護網已經裝好了。';
+      if(S.money >= 250){ S.money -= 250; S.owned.push('screen'); return '窗戶裝好防護網了。{n} 坐在窗邊看鳥，這次不會再跑出去了。'; }
+      add('bond',2); return '錢不夠，你先用膠帶把紗窗黏得牢牢的。記得存錢去用品店買防護網。'; }}]};
+function maybeEscape(){
+  if(S.ageM < 4 || S.day - (S.flags.escDay || -99) < 8 || (S.flags.escN || 0) >= 2) return null;
+  const byWindow = !S.owned.includes('screen') && Math.random() < .045;
+  const byDoor = Math.random() < .02;
+  if(!byWindow && !byDoor) return null;
+  S.flags.escDay = S.day; S.flags.escN = (S.flags.escN || 0) + 1;
+  later('afterEscape', 1, 1);
+  return escapeEvent(byWindow);
+}
+// a small wish each morning, so days don’t all feel the same
+const WISHES = {
+  wet:    {label:'想吃罐罐',   line:'（一直盯著放罐頭的櫃子，看看你，又看看櫃子）'},
+  treat:  {label:'想吃肉泥',   line:'（聽到撕包裝的聲音就衝過來，結果是你在拆餅乾）'},
+  play:   {label:'想玩逗貓棒', line:'（把逗貓棒叼到你腳邊，放下，抬頭看你）'},
+  brush:  {label:'想被梳毛',   line:'（在梳子旁邊躺下，翻了半個身）'},
+  pet:    {label:'想被摸摸',   line:'（用頭一直頂你的手）'},
+  litter: {label:'想要乾淨的貓砂', line:'（在貓砂盆旁邊踩來踩去，不肯進去）'},
+};
+const WISH_DONE = ['{n} 得到想要的了，開心地繞著你的腳轉圈圈。', '{n} 滿足地瞇起眼睛，對你慢慢眨了眨眼。', '願望達成！{n} 把頭塞進你的手心裡。'];
+function newWish(){ S.wish = Math.random() < .8 ? {t: pick(Object.keys(WISHES)), done:false} : null; }
+function grantWish(t){
+  if(!S.wish || S.wish.done || S.wish.t !== t) return;
+  S.wish.done = true; add('bond',3); add('mood',5);
+  setTimeout(() => { fxAtCat('💗'); narr(fill(pick(WISH_DONE)) + ' ' + '（親密 +3）'); wishChip(); updateStats(); save(); }, 700);
+}
+function wishChip(){
+  const chips = app.querySelector('.top .chips'); if(!chips || !S.wish) return;
+  let el = chips.querySelector('.wish');
+  if(!el){ el = document.createElement('span'); el.className = 'chip wish'; chips.prepend(el); }
+  el.textContent = (S.wish.done ? '✓ ' : '💭 ') + WISHES[S.wish.t].label;
+  el.classList.toggle('done', S.wish.done);
+}
+
 /* ---------- rendering ---------- */
 const app = $('#app');
 let idleTimer = null, recentPets = [], expr = 'normal', exprTimer = null;
@@ -766,6 +876,7 @@ function renderName(){
     S.name = (inp.value.trim() || c.names[0]).slice(0,10);
     S.phase = 'life'; S.narr = fill('你用毛巾把 {n} 擦乾，放在暖暖的小毯子上。{p}吃了一點東西，就在你手邊睡著了。');
     mem('那個下雨天，你在紙箱裡撿到了{p}');
+    newWish(); if(!S.wish) S.wish = {t:'pet', done:false};   // first day home: always a small wish
     save(); render();
   };
 }
@@ -838,6 +949,7 @@ function renderLife(){
   // top-right pause button, added on its own so the translated screen text stays as it is
   app.querySelector('.top').insertAdjacentHTML('beforeend', `<button class="pausebtn" id="pauseBtn" aria-label="${'離開遊戲'}">⏸ ${'離開'}</button>`);
   $('#pauseBtn').onclick = pauseModal;
+  wishChip();
   $('#mute').onclick = toggleMute;
   $('#shop').onclick = () => shopModal();
   $('#guide').onclick = () => showGuide();
@@ -894,6 +1006,7 @@ function idleLine(){
   if(low[1] < 25) return {full:'喵嗚——！（碗空了！）', mood:'（尾巴甩來甩去，好無聊）', clean:'（看著貓砂盆，一臉嫌棄）', health:'（窩在角落，不太想動）'}[low[0]];
   if(s.bond > 60 && Math.random() < .25) return '（對你慢慢眨眼——這是貓在說我愛你）';
   if(S.placed && S.placed.wall && Math.random() < .2) return ITEM[S.placed.wall].line;
+  if(S.wish && !S.wish.done && Math.random() < .35) return WISHES[S.wish.t].line;
   const lines = {
     kitten:['咪！','咪～咪～','（追著自己的尾巴轉圈）','（咬你的拖鞋）','（爬窗簾爬到一半下不來）','（打了一個小小的噴嚏）','（四腳朝天露出肚子……是陷阱嗎？）'],
     adult:['喵～','（瞇著眼睛看你）','喵嗯？','（理毛理到一半，舌頭忘了收）','（盯著空氣裡什麼都沒有的地方）','（把頭塞進你的手掌）','（翻肚肚）','（在你腳邊繞八字）'],
@@ -922,6 +1035,7 @@ function petCat(e){
   add('mood', 3);
   if(S.bondFromPets < 6){ add('bond',1); S.bondFromPets++; }
   S.petsToday++;
+  if(S.petsToday >= 3) grantWish('pet');
   say(purring ? '呼嚕呼嚕呼嚕……' : pick(belly ? ['喵？（翻過來讓你摸肚肚）','喵嗚～'] : y < .35 ? ['喵～（瞇起眼睛，用頭頂你的手）','喵嗯～','喵！（下巴抬高，這邊這邊）'] : ['喵～（尾巴翹得高高的）','喵嗚～','咪～（背拱起來蹭你）']));
   save(); updateStats();
 }
@@ -946,15 +1060,15 @@ function act(a){
   if(a==='play'){
     if(S.sick || S.stats.health < 25){ narr(fill('{n} 看了逗貓棒一眼，又把頭埋回去。{p}今天沒力氣。')); return spend(); }
     S.weight = Math.max(0, S.weight - 2); add('mood', st==='kitten'?22:st==='senior'?10:18); add('full', st==='senior'?-4:-8); add('clean',-4); add('bond',2); S.counts.play++;
-    anim('hop'); setExpr('happy', 1400); fxAtCat('🪶'); meow('chirp');
+    anim('hop'); setExpr('happy', 1400); fxAtCat('🪶'); meow('chirp'); grantWish('play');
     narr(pick(st==='senior' ? ['{n} 躺著用一隻手撥逗貓棒，意思意思一下。','{n} 盯著羽毛看了很久，最後撲了一次。很帥。']
       : ['{n} 屁股扭扭扭——撲！整隻飛起來。','{n} 追著逗貓棒在客廳翻了三圈，撞到沙發。','{n} 抓到羽毛後死咬不放，後腳還一直踢。','玩到一半，{n} 突然覺得紙箱比較好玩。']).replace(/\{n\}/g,N()));
   } else if(a==='brush'){
     add('clean',22); add('bond',3); S.counts.brush++;
     if(Math.random()<.2){ add('mood',-4); setExpr('angry'); anim('wiggle'); narr(fill('梳到尾巴時，{n} 回頭咬了梳子。{p}今天不想梳。')); }
-    else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); narr(fill(pick(['梳下來一大團毛，夠再做一隻小貓了。','{n} 舒服到開始流口水。','{n} 把臉湊過來，臉頰也要梳。']))); }
+    else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); grantWish('brush'); narr(fill(pick(['梳下來一大團毛，夠再做一隻小貓了。','{n} 舒服到開始流口水。','{n} 把臉湊過來，臉頰也要梳。']))); }
   } else if(a==='litter'){
-    add('clean',30); add('health',2);
+    add('clean',30); add('health',2); grantWish('litter');
     narr(fill(pick(['你鏟完貓砂，{n} 立刻跑進去上了一個新的。','鏟屎官，今天也辛苦了。','{n} 在旁邊監工，確認你有鏟乾淨。'])));
   } else if(a==='vet'){
     S.counts.vet++; add('health',25); add('mood',-14);
@@ -978,7 +1092,7 @@ function feedMenu(){
       if(f==='wet'){ S.weight += 1; add('full',30); add('mood',8); add('health',3); narr(fill(pick(['開罐聲一響，{n} 從家裡另一頭衝過來。','{n} 吃得臉都埋進碗裡，發出嗯嗯嗯的聲音。']))); fxAtCat('🐟'); }
       if(f==='treat'){ S.weight += 2; add('full',8); add('mood',16); S.treatsToday++; if(S.treatsToday>1) add('health',-5); narr(fill(S.treatsToday>1?'{n} 又吃了一條肉泥。很開心，但零食吃太多對身體不好喔。':'{n} 抱著你的手猛舔肉泥，舌頭刮得你好癢。')); fxAtCat('♥'); }
       if(S.stats.full >= 100 && f!=='treat') narr(fill('{n} 吃太飽了，把剩下的用空氣撥沙埋起來。'));
-      anim('hop'); setExpr('happy'); meow('short'); showCan();
+      anim('hop'); setExpr('happy'); meow('short'); showCan(); grantWish(f);
       spend();
     });
   });
@@ -1042,6 +1156,8 @@ function buildMorning(prevAge){
   S.later = S.later.filter(l => l.day > S.day);
   for(const l of due){ if(l.id==='spray' && S.flags.neutered) continue; if(l.id==='sickWorse' && !S.sick) continue; if(CONSEQ[l.id]) queue.push(CONSEQ[l.id]); }
   const ng = neglectEvent(); if(ng) queue.push(ng);
+  const esc = maybeEscape(); if(esc) queue.push(esc);
+  newWish();
   if(S.neglect.clean >= 1 && S.ageM >= 12 && !S.later.some(l=>l.id==='uti') && Math.random() < (hasItem('fountain') ? .08 : .2)) queue.push(CONSEQ.uti);
   const yrs = Math.floor(S.ageM/12);
   if(S.ageM >= 24 && yrs > Math.floor(prevAge/12)) queue.push({title:`${yrs} 歲生日`, text:`今天是 {n} 的 ${yrs} 歲生日。`, choices:[{label:'開罐罐慶祝', fx:()=>{add('mood',10);add('full',15);if(yrs%5===0) mem('你幫{p}過生日，你吃蛋糕，{p}吃罐罐');return '{n} 吃完，在你腳邊打了一個滿足的嗝。';}}]});
@@ -1292,6 +1408,8 @@ const ITEMS = [
   {id:'tree',    name:'貓跳台',     kind:'floor', price:600, desc:'心情 +5／天，親密 +1', eff:()=>{ add('mood',5); add('bond',1); },
    line:'（爬上貓跳台最高層，得意地看著你）', vb:'0 0 100 160',
    svg:`<g fill="#F6D7A7"><rect x="29" y="40" width="13" height="112" rx="4"/><rect x="63" y="82" width="13" height="70" rx="4"/></g><g stroke="#D9B48A" stroke-width="2"><path d="M31 60h9M31 76h9M31 92h9M31 108h9M31 124h9M31 140h9M65 98h9M65 114h9M65 130h9"/></g><g fill="#FFE0E6"><rect x="8" y="146" width="84" height="11" rx="5.5"/><rect x="50" y="76" width="44" height="10" rx="5"/><rect x="14" y="36" width="46" height="10" rx="5"/></g><ellipse cx="37" cy="30" rx="22" ry="10" fill="#D9ECFA"/><ellipse cx="37" cy="27" rx="13" ry="4" fill="#BFE3F5" stroke="none"/><path d="M90 86 V104" fill="none" stroke-width="2"/><circle cx="90" cy="109" r="6" fill="#FFB3C1"/>`},
+  {id:'screen',  name:'防護網',     kind:'fixture', price:250, desc:'裝在窗戶上，貓就不會從窗戶跑出去', eff:()=>{}, line:'（坐在窗邊看鳥，很安全）', vb:'0 0 100 100',
+   svg:`<rect x="14" y="14" width="72" height="72" rx="10" fill="#D9ECFA"/><g stroke="#9CCDEB" stroke-width="2.4"><path d="M14 32 H86 M14 50 H86 M14 68 H86 M32 14 V86 M50 14 V86 M68 14 V86"/></g><rect x="14" y="14" width="72" height="72" rx="10" fill="none"/><g fill="#FFB3C1" stroke="none"><circle cx="22" cy="22" r="4"/><circle cx="78" cy="78" r="4"/></g>`},
   {id:'autolitter',name:'自動貓砂機',kind:'floor', price:900, desc:'清潔 +10／天。鏟屎官的救星', eff:()=>add('clean',10),
    line:'（盯著自動貓砂機轉動，很警戒）', vb:'0 0 100 100',
    svg:`<path d="M14 92 Q14 28 50 28 Q86 28 86 92Z" fill="#FFFFFF"/><circle cx="50" cy="64" r="17" fill="#6B7FA8"/><rect x="12" y="86" width="76" height="10" rx="5" fill="#D9ECFA"/><circle cx="50" cy="40" r="4" fill="#A8DDA0"/><path d="M27 52 Q30 44 36 40" fill="none" stroke="#fff" stroke-width="3"/>`},
@@ -1334,6 +1452,7 @@ function roomDecor(){
 <g class="moon"><circle cx="74" cy="76" r="14" fill="#FFF6C9" stroke="${INK}" stroke-width="2.5"/><circle cx="82" cy="70" r="12" fill="#3C4A86"/></g>
 <g class="star" fill="#FFF6C9"><circle cx="118" cy="62" r="2.2"/><circle cx="104" cy="96" r="1.6"/><circle cx="128" cy="110" r="1.8"/></g>
 <path d="M98,124 q4,-10 14,-6 q6,-8 14,0 q8,0 6,8 h-34Z" fill="#fff" opacity=".9"/></g>
+${S.owned.includes('screen') ? `<g clip-path="url(#winclip)" stroke="#ffffff" stroke-width="1.4" opacity=".75">${Array.from({length:12},(_,i)=>`<path d="M${44+i*9},40 V164 M40,${48+i*10} H144"/>`).join('')}</g>` : ''}
 <path d="M44,160 V84 Q44,46 92,46 Q140,46 140,84 V160Z" fill="none" stroke-width="3"/>
 <path d="M92,46 V160 M44,104 H140" fill="none" stroke-width="3"/>
 <rect x="30" y="160" width="124" height="12" rx="6" fill="#F6D7A7" stroke-width="3"/>
@@ -1364,7 +1483,7 @@ function shopModal(tab = 'shop'){
   const owned = new Set(S.owned);
   const body = tab === 'shop'
     ? `<div class="shop">${ITEMS.map(it => `<div class="item"><div class="ic">${itemSVG(it.id)}</div>
-        <div class="tx"><b>${it.name}</b><small>${it.kind==='wall'?'掛牆上':'放地上'} · ${esc(it.desc)}</small></div>
+        <div class="tx"><b>${it.name}</b><small>${it.kind==='wall'?'掛牆上':it.kind==='fixture'?'裝在窗戶上':'放地上'} · ${esc(it.desc)}</small></div>
         ${owned.has(it.id) ? '<span class="own">已擁有</span>' : `<button class="buy" data-buy="${it.id}" ${S.money<it.price?'disabled':''}>$${it.price}</button>`}</div>`).join('')}</div>`
     : `<div class="shop">${SPOTS.map(sp => { const cur = S.placed[sp.id];
         const choices = S.owned.filter(id => ITEM[id].kind === sp.kind && !placedIds().includes(id));
@@ -1384,6 +1503,7 @@ function shopModal(tab = 'shop'){
 function buy(id){
   const it = ITEM[id]; if(S.money < it.price || S.owned.includes(id)) return;
   S.money -= it.price; S.owned.push(id);
+  if(it.kind === 'fixture'){ save(); closeModal(); render(); narr(fill('防護網裝好了。{n} 坐在窗邊看鳥，這次不會跑出去了。')); return; }
   const free = SPOTS.find(sp => sp.kind === it.kind && !S.placed[sp.id]);
   if(free){ S.placed[free.id] = id; save(); closeModal(); render(); narr(fill(`你買了${it.name}。{n} 走過去聞了聞。`)); return; }
   save();
@@ -1503,6 +1623,7 @@ function letterText(){
     : ['我是一隻不太會撒嬌的貓，但我一直都很喜歡你。', '我不太讓你抱，可是我都睡在看得到你的地方。']);
   const happened = [];
   if(S.counts.trip) happened.push('你出國的時候，我每天都睡在你的枕頭上，因為那裡有你的味道。');
+  if(S.flags.escaped) happened.push('那次跑出去，我好怕再也找不到家。謝謝你一直在找我。');
   if(S.counts.er) happened.push('去急診那次，我其實好害怕。可是你一直在我旁邊，所以我撐過來了。');
   if(S.owned.includes('tree')) happened.push('謝謝你買的貓跳台，最高那層是我的王位。');
   if(S.owned.includes('hammock')) happened.push('窗邊的吊床，是我看麻雀的秘密基地。');

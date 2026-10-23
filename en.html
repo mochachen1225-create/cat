@@ -182,6 +182,7 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .top:has(.pausebtn){padding-top:34px}
 .pausebtn{position:absolute;top:0;right:0;border:0;background:var(--ink-2);color:var(--paper);border-radius:99px;padding:5px 12px;font-size:13px;box-shadow:inset 0 -2px 0 #0003}
 .pausecat{width:46%;align-self:center}.pausecat svg{width:100%;height:auto;display:block}
+.chip.wish{background:#FFB3C1;color:#2B2B2B}.chip.wish.done{background:#A8DDA0}
 .links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:4px}
 
@@ -693,6 +694,115 @@ function neglectEvent(){
   return null;
 }
 
+// more everyday life — so no two lives feel the same
+EVENTS.push(
+  {id:'typhoon', min:12, title:'Typhoon day', text:'The wind is howling and the windows keep rattling. {n} hides at the very back of the closet, eyes wide.', choices:[
+    {label:'Open the closet, sit beside {her}', fx:()=>{add('bond',4);add('mood',3);mem('You sat by the closet with {her} through a typhoon');return 'You listen to the wind together. After a long while, {n} rests {his} head on your foot.';}},
+    {label:'Tempt {her} out with a treat', fx:()=>{add('full',5);add('mood',2);return '{n} reaches out one paw, hooks the treat into the closet, and keeps on hiding.';}}]},
+  {id:'newyear', min:6, title:'Lunar New Year', text:'The firecrackers start and {n} puffs up all over, tail twice its size, and bolts under the bed.', choices:[
+    {label:'Close the windows, turn up the TV', fx:()=>{add('mood',-3);return '{n} stays under the bed until midnight, then slowly creeps out to eat.';}},
+    {label:'Hide under the covers together', fx:()=>{add('bond',5);mem('You hid under the covers with {her} during New Year firecrackers');return 'It’s dark and cozy under the covers. {n}’s heartbeat slows down, and the purring begins.';}}]},
+  {id:'summer', min:6, title:'So hot', text:'Summer is here. {n} is sprawled on the cool tiles, melted into a puddle of cat.', choices:[
+    {label:'Turn on the AC (power bill -$50)', fx:()=>{S.money=Math.max(0,S.money-50);add('mood',8);return 'The moment the AC comes on, {n} moves right under the vent.';}},
+    {label:'Brush out {his} extra fur', fx:()=>{add('clean',10);add('mood',3);return 'The brushed-out fur piles up into a little mountain. {n} is a whole size smaller.';}}]},
+  {id:'winter', min:6, title:'Cold snap', text:'A cold front rolls in. In the middle of the night, {n} burrows under your covers and presses a chilly nose to your neck.', choices:[
+    {label:'Let {her} sleep on your arm', fx:()=>{add('bond',5);add('mood',4);mem('On a cold night, you let {her} sleep on your arm');return 'By morning your arm is numb, and {n} is sound asleep.';}}]},
+  {id:'guests', min:6, title:'Guests', text:'Friends come over. {n} vanishes in a flash. Only a tail pokes out from behind the sofa.', choices:[
+    {label:'Ask friends to ignore {her}, let {her} come out', fx:()=>{add('mood',3);return 'An hour later, {n} quietly appears and hops onto your friend’s lap. Your friend is too touched to move.';}},
+    {label:'Carry {her} out to show everyone', fx:()=>{add('mood',-10);S.counts.bite++;return '{n} wriggles like crazy, bites you, and hides again.';}}]},
+  {id:'photo', min:3, title:'Photo time', text:'You want to take a lovely photo of {n}.', choices:[
+    {label:'Use the feather wand to get {his} attention', fx:()=>{add('mood',3);mem('You took fifty photos of {her}, and only one was not blurry');return 'Fifty shots, forty-nine blurry. The last one is perfect: {n} mid-yawn.';}},
+    {label:'Wait till {she}’s asleep, then snap', fx:()=>{add('bond',2);return 'Sleeping {n} has {his} face buried in {his} paws. The cutest photo in the whole world.';}}]},
+  {id:'nails', min:4, title:'Nail trim', text:'{n}’s claws are so long they keep getting stuck in the rug.', choices:[
+    {label:'Trim them while {she} sleeps', fx:()=>{add('mood',-2);return 'On the third paw, {n} wakes up and gives you a “What are you doing?” look.';}},
+    {label:'Wrap {her} in a towel like cat sushi', fx:()=>{add('mood',-8);S.counts.bite++;return 'Success! The price: two scratches on your hand.';}}]},
+  {id:'bag', min:3, title:'Plastic bag', text:'{n} is chewing on a shopping bag, crinkle crinkle, looking very happy.', choices:[
+    {label:'Take it away, put bags in a drawer', fx:()=>{add('mood',-2);return '{n} glares at you like you just stole {his} favorite toy.';}},
+    {label:'It’s probably fine', fx:()=>{add('health',-15);return 'That night, {n} throws up a little piece of plastic. Swallowing plastic is dangerous for cats. Keep bags put away from now on.';}}]},
+  {id:'lily', min:6, title:'A bouquet', text:'A friend gives you a bouquet of pretty lilies. {n} comes over for a curious sniff.', choices:[
+    {label:'Take the lilies away now', fx:()=>{add('health',2);return 'You looked it up: lilies are highly toxic to cats, even the pollen and the vase water. Good thing you moved them fast.';}},
+    {label:'Just put them up high', fx:()=>{add('health',-30);S.counts.vet++;S.counts.er++;S.lifespanM-=12;mem('You rushed {her} to the ER at midnight after lily poisoning');return 'In the middle of the night {n} keeps throwing up, and you rush to the ER. The vet says it’s lily poisoning. Luckily you came in early. Lilies are highly toxic to cats, even the pollen.';}}]},
+  {id:'seat', min:4, title:'Your seat', text:'You get up for a glass of water. When you come back, {n} is in your chair, looking like it’s always been {his}.', choices:[
+    {label:'Just perch on the edge', fx:()=>{add('bond',3);return 'You spend the whole evening perched on the edge of your chair. {n} sleeps very comfortably.';}},
+    {label:'Move {her}', fx:()=>{add('mood',-3);return 'The moment you sit down, {n} jumps into your lap. Same result.';}}]},
+  {id:'water', min:6, title:'Your glass', text:'{n} won’t drink from {his} own bowl. {She} only wants the water in your glass.', choices:[
+    {label:'Pour {her} a glass too', fx:()=>{add('mood',4);add('health',2);return 'From then on, there are always two glasses on your table.';}},
+    {label:'Put your glass away', fx:()=>{add('mood',-2);return '{n} dips a paw into your glass and licks the water off.';}}]},
+  {id:'sneeze', min:6, title:'Achoo', text:'{n} keeps sneezing, and {his} eyes are a little red.', choices:[
+    {label:'Go to the vet', fx:()=>{S.counts.vet++;add('health',8);add('mood',-6);return 'The vet says it’s just a little cold. A few days of medicine will fix it. {n} takes {his} medicine with a very wronged face.';}},
+    {label:'Just let {her} rest', fx:()=>{add('health',-8);if(Math.random()<.4){S.sick=true;return 'The next day, {n} seems listless. (Remember to take {her} to the vet.)';}return '{n} sleeps all day and seems a bit better.';}}]},
+  {id:'vacuum', min:3, title:'Vacuum', text:'The second you turn on the vacuum, {n} flees the scene, tail puffed up like a feather duster.', choices:[
+    {label:'Use a broom instead', fx:()=>{add('mood',2);return '{n} peeks through the crack of the door to make sure the monster is gone.';}},
+    {label:'Keep vacuuming', fx:()=>{add('clean',10);add('mood',-6);return 'The house is spotless. {n} ignores you all afternoon.';}}]},
+  {id:'tv', min:4, title:'TV time', text:'There are birds on TV. {n} stares at the screen and swats at it.', choices:[
+    {label:'Watch the animal channel together', fx:()=>{add('mood',6);add('bond',2);return '{n} goes around behind the TV, looking for where the birds are hiding.';}}]},
+);
+NIGHT.push(
+  {id:'legs', min:6, title:'Middle of the night', text:'You try to roll over and find {n} asleep between your legs. You can’t move at all.', choices:[
+    {label:'Stay like this till morning', fx:()=>{add('bond',3);return 'In the morning your back is so sore. {n} does a big, long stretch.';}}]},
+  {id:'door', min:4, title:'4 a.m.', text:'{n} scratches at your bedroom door. You open it, {she} walks in, looks around, and walks right back out.', choices:[
+    {label:'Open it again', fx:()=>{add('mood',3);return 'This time {n} walks in, sits in the doorway, and wants out again. Cats are a mystery.';}},
+    {label:'Sleep with the door open', fx:()=>{add('bond',2);return '{n} doesn’t scratch the door again all night. In the morning you find {her} asleep on your pillow.';}}]},
+);
+// escaping: a window without a safety net, or a door left open. The cat always comes home, but it leaves a mark.
+const ESCAPE_HOME = ['The next morning, you open the door and there’s {n}, meowing on the doorstep, paws all dusty.',
+  'On the third day, a neighbor finds {n} under a scooter downstairs. {She}’s much thinner and can’t stop shaking.',
+  'A whole week later, you hear a familiar meow in the next alley. {n} is all grubby, but comes running the moment {she} hears your voice.'];
+function escapeEvent(byWindow){
+  const back = luck => {
+    const r = Math.random() + luck;
+    S.flags.escaped = 1; mem('You searched for a long time when {she} ran away once');
+    if(r > .55){ add('mood',-10); add('health',-5); return ESCAPE_HOME[0]; }
+    if(r > .2){ S.stats.full = Math.min(S.stats.full, 20); add('health',-15); add('mood',-20); S.lifespanM -= 6; return ESCAPE_HOME[1]; }
+    add('health',-25); add('mood',-25); S.lifespanM -= 12; return ESCAPE_HOME[2];
+  };
+  return {id:'escape', title:'{n} is missing!', text: byWindow
+      ? 'You search the whole house, but {n} is nowhere to be found. The window screen has been pushed open a crack…'
+      : 'You come back from taking out the trash and find the front door ajar. {n} is gone!',
+    choices:[
+      {label:'Post a lost-cat notice online and in the neighborhood group', hint:'Lots of people will keep an eye out', fx:()=>back(.1)},
+      {label:'Put {his} litter box by the door', hint:'Cats know their own scent', fx:()=>back(.15)},
+      {label:'Search the stairwell and parking lot at night with a flashlight', hint:'Cats often hide close by', fx:()=>back(.2)},
+    ]};
+}
+CONSEQ.afterEscape = {title:'Back home', text:'Since coming home, {n} sticks to you everywhere. Wherever you go, {she} follows, and at night {she} won’t leave your side.', choices:[
+  {label:'Hold {her} tight', fx:()=>{add('bond',5);return 'You promise {her} you’ll keep the doors and windows safe from now on.';}},
+  {label:'Buy a window safety net now ($250)', fx:()=>{ if(S.owned.includes('screen')) return 'The window safety net is already installed.';
+      if(S.money >= 250){ S.money -= 250; S.owned.push('screen'); return 'The window safety net is in. {n} sits by the window watching birds, and this time {she} won’t get out.'; }
+      add('bond',2); return 'Not enough money, so you tape the screen shut tight for now. Remember to save up and buy a window safety net at the cat shop.'; }}]};
+function maybeEscape(){
+  if(S.ageM < 4 || S.day - (S.flags.escDay || -99) < 8 || (S.flags.escN || 0) >= 2) return null;
+  const byWindow = !S.owned.includes('screen') && Math.random() < .045;
+  const byDoor = Math.random() < .02;
+  if(!byWindow && !byDoor) return null;
+  S.flags.escDay = S.day; S.flags.escN = (S.flags.escN || 0) + 1;
+  later('afterEscape', 1, 1);
+  return escapeEvent(byWindow);
+}
+// a small wish each morning, so days don’t all feel the same
+const WISHES = {
+  wet:    {label:'Wants wet food',   line:'(keeps staring at the cupboard with the cans, then at you, then the cupboard)'},
+  treat:  {label:'Wants a lickable treat',   line:'(rushes over at the sound of a wrapper, but you were just opening cookies)'},
+  play:   {label:'Wants the feather wand', line:'(drops the feather wand at your feet and looks up at you)'},
+  brush:  {label:'Wants brushing',   line:'(lies down next to the brush, half rolled over)'},
+  pet:    {label:'Wants pets',   line:'(keeps bonking {his} head into your hand)'},
+  litter: {label:'Wants clean litter', line:'(paces around the litter box but won’t go in)'},
+};
+const WISH_DONE = ['{n} got {his} wish and happily circles around your feet.', '{n} squints contentedly and gives you a slow blink.', 'Wish granted! {n} tucks {his} head into your palm.'];
+function newWish(){ S.wish = Math.random() < .8 ? {t: pick(Object.keys(WISHES)), done:false} : null; }
+function grantWish(t){
+  if(!S.wish || S.wish.done || S.wish.t !== t) return;
+  S.wish.done = true; add('bond',3); add('mood',5);
+  setTimeout(() => { fxAtCat('💗'); narr(fill(pick(WISH_DONE)) + ' ' + '(Bond +3)'); wishChip(); updateStats(); save(); }, 700);
+}
+function wishChip(){
+  const chips = app.querySelector('.top .chips'); if(!chips || !S.wish) return;
+  let el = chips.querySelector('.wish');
+  if(!el){ el = document.createElement('span'); el.className = 'chip wish'; chips.prepend(el); }
+  el.textContent = (S.wish.done ? '✓ ' : '💭 ') + WISHES[S.wish.t].label;
+  el.classList.toggle('done', S.wish.done);
+}
+
 /* ---------- rendering ---------- */
 const app = $('#app');
 let idleTimer = null, recentPets = [], expr = 'normal', exprTimer = null;
@@ -766,6 +876,7 @@ function renderName(){
     S.name = (inp.value.trim() || c.names[0]).slice(0,10);
     S.phase = 'life'; S.narr = fill('You dry {n} off with a towel and set {her} on a warm little blanket. {She} eats a little, then falls asleep right by your hand.');
     mem('On that rainy day, you found {her} in a cardboard box');
+    newWish(); if(!S.wish) S.wish = {t:'pet', done:false};   // first day home: always a small wish
     save(); render();
   };
 }
@@ -838,6 +949,7 @@ function renderLife(){
   // top-right pause button, added on its own so the translated screen text stays as it is
   app.querySelector('.top').insertAdjacentHTML('beforeend', `<button class="pausebtn" id="pauseBtn" aria-label="${'Leave the game'}">⏸ ${'Leave'}</button>`);
   $('#pauseBtn').onclick = pauseModal;
+  wishChip();
   $('#mute').onclick = toggleMute;
   $('#shop').onclick = () => shopModal();
   $('#guide').onclick = () => showGuide();
@@ -894,6 +1006,7 @@ function idleLine(){
   if(low[1] < 25) return {full:'Mrrrow—! (The bowl is empty!)', mood:'(tail swishing back and forth, so bored)', clean:'(looks at the litter box, totally grossed out)', health:'(curled up in a corner, doesn’t want to move)'}[low[0]];
   if(s.bond > 60 && Math.random() < .25) return '(slow-blinks at you. That’s cat for “I love you”)';
   if(S.placed && S.placed.wall && Math.random() < .2) return ITEM[S.placed.wall].line;
+  if(S.wish && !S.wish.done && Math.random() < .35) return WISHES[S.wish.t].line;
   const lines = {
     kitten:['Mew!','Mew~ mew~','(chasing tail in circles)','(chewing your slipper)','(stuck halfway up the curtains)','(a tiny little sneeze)','(belly up, paws in the air… is it a trap?)'],
     adult:['Meow~','(squinting at you)','Mrrp?','(stopped mid-groom, forgot to put tongue away)','(staring at absolutely nothing in the air)','(pushes head into your palm)','(rolls over, belly up)','(weaving figure eights around your legs)'],
@@ -922,6 +1035,7 @@ function petCat(e){
   add('mood', 3);
   if(S.bondFromPets < 6){ add('bond',1); S.bondFromPets++; }
   S.petsToday++;
+  if(S.petsToday >= 3) grantWish('pet');
   say(purring ? 'Purr purr purr…' : pick(belly ? ['Mew? (rolls over for a belly rub)','Mrrow~'] : y < .35 ? ['Meow~ (eyes half-closed, head-bonking your hand)','Mrrm~','Mew! (chin up, right there, right there)'] : ['Meow~ (tail held high)','Mrrow~','Mew~ (arches back, rubs against you)']));
   save(); updateStats();
 }
@@ -946,15 +1060,15 @@ function act(a){
   if(a==='play'){
     if(S.sick || S.stats.health < 25){ narr(fill('{n} glances at the wand, then tucks {his} head back down. No energy today.')); return spend(); }
     S.weight = Math.max(0, S.weight - 2); add('mood', st==='kitten'?22:st==='senior'?10:18); add('full', st==='senior'?-4:-8); add('clean',-4); add('bond',2); S.counts.play++;
-    anim('hop'); setExpr('happy', 1400); fxAtCat('🪶'); meow('chirp');
+    anim('hop'); setExpr('happy', 1400); fxAtCat('🪶'); meow('chirp'); grantWish('play');
     narr(pick(st==='senior' ? ['{n} lies there and bats at the wand with one paw. Just going through the motions.','{n} stares at the feather for a long, long time, then pounces once. So cool.']
       : ['{n}’s bottom wiggles, wiggles, wiggles… pounce! {She} goes flying.','{n} chases the wand across the living room, tumbles three times, and bonks into the sofa.','{n} catches the feather and won’t let go, bunny-kicking with {his} back legs.','Halfway through playing, {n} decides the cardboard box is way more fun.']).replace(/\{n\}/g,N()));
   } else if(a==='brush'){
     add('clean',22); add('bond',3); S.counts.brush++;
     if(Math.random()<.2){ add('mood',-4); setExpr('angry'); anim('wiggle'); narr(fill('When you get to the tail, {n} turns around and bites the brush. Not in the mood today.')); }
-    else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); narr(fill(pick(['You brush out a huge clump of fur. Enough to make another kitten.','{n} is so comfy {she} starts drooling.','{n} leans in. The cheeks need brushing too.']))); }
+    else { add('mood',4); setExpr('happy'); fxAtCat('✨','#F2B53B'); grantWish('brush'); narr(fill(pick(['You brush out a huge clump of fur. Enough to make another kitten.','{n} is so comfy {she} starts drooling.','{n} leans in. The cheeks need brushing too.']))); }
   } else if(a==='litter'){
-    add('clean',30); add('health',2);
+    add('clean',30); add('health',2); grantWish('litter');
     narr(fill(pick(['The second you finish scooping, {n} runs in and makes a fresh one.','Good work today, poop scooper.','{n} supervises, making sure you got every bit.'])));
   } else if(a==='vet'){
     S.counts.vet++; add('health',25); add('mood',-14);
@@ -978,7 +1092,7 @@ function feedMenu(){
       if(f==='wet'){ S.weight += 1; add('full',30); add('mood',8); add('health',3); narr(fill(pick(['At the sound of the can, {n} comes racing from the other side of the house.','{n} buries {his} whole face in the bowl, going “nom nom nom.”']))); fxAtCat('🐟'); }
       if(f==='treat'){ S.weight += 2; add('full',8); add('mood',16); S.treatsToday++; if(S.treatsToday>1) add('health',-5); narr(fill(S.treatsToday>1?'{n} has another lickable treat. So happy! But too many treats aren’t good for {her}.':'{n} hugs your hand and licks the treat like crazy. That rough little tongue tickles.')); fxAtCat('♥'); }
       if(S.stats.full >= 100 && f!=='treat') narr(fill('{n} is too full and paws at the floor to “bury” the leftovers.'));
-      anim('hop'); setExpr('happy'); meow('short'); showCan();
+      anim('hop'); setExpr('happy'); meow('short'); showCan(); grantWish(f);
       spend();
     });
   });
@@ -1042,6 +1156,8 @@ function buildMorning(prevAge){
   S.later = S.later.filter(l => l.day > S.day);
   for(const l of due){ if(l.id==='spray' && S.flags.neutered) continue; if(l.id==='sickWorse' && !S.sick) continue; if(CONSEQ[l.id]) queue.push(CONSEQ[l.id]); }
   const ng = neglectEvent(); if(ng) queue.push(ng);
+  const esc = maybeEscape(); if(esc) queue.push(esc);
+  newWish();
   if(S.neglect.clean >= 1 && S.ageM >= 12 && !S.later.some(l=>l.id==='uti') && Math.random() < (hasItem('fountain') ? .08 : .2)) queue.push(CONSEQ.uti);
   const yrs = Math.floor(S.ageM/12);
   if(S.ageM >= 24 && yrs > Math.floor(prevAge/12)) queue.push({title:`Turning ${yrs}!`, text:`Today is {n}’s birthday. {She}’s ${yrs}!`, choices:[{label:'Celebrate with a can', fx:()=>{add('mood',10);add('full',15);if(yrs%5===0) mem('You threw {her} a birthday party: cake for you, a can for {her}');return '{n} finishes and lets out a happy little burp at your feet.';}}]});
@@ -1292,6 +1408,8 @@ const ITEMS = [
   {id:'tree',    name:'Cat tree',     kind:'floor', price:600, desc:'Mood +5/day, Bond +1', eff:()=>{ add('mood',5); add('bond',1); },
    line:'(climbs to the top of the cat tree, looking smug)', vb:'0 0 100 160',
    svg:`<g fill="#F6D7A7"><rect x="29" y="40" width="13" height="112" rx="4"/><rect x="63" y="82" width="13" height="70" rx="4"/></g><g stroke="#D9B48A" stroke-width="2"><path d="M31 60h9M31 76h9M31 92h9M31 108h9M31 124h9M31 140h9M65 98h9M65 114h9M65 130h9"/></g><g fill="#FFE0E6"><rect x="8" y="146" width="84" height="11" rx="5.5"/><rect x="50" y="76" width="44" height="10" rx="5"/><rect x="14" y="36" width="46" height="10" rx="5"/></g><ellipse cx="37" cy="30" rx="22" ry="10" fill="#D9ECFA"/><ellipse cx="37" cy="27" rx="13" ry="4" fill="#BFE3F5" stroke="none"/><path d="M90 86 V104" fill="none" stroke-width="2"/><circle cx="90" cy="109" r="6" fill="#FFB3C1"/>`},
+  {id:'screen',  name:'Window safety net',     kind:'fixture', price:250, desc:'Goes on the window so cats can’t slip out', eff:()=>{}, line:'(watching birds by the window, safe and sound)', vb:'0 0 100 100',
+   svg:`<rect x="14" y="14" width="72" height="72" rx="10" fill="#D9ECFA"/><g stroke="#9CCDEB" stroke-width="2.4"><path d="M14 32 H86 M14 50 H86 M14 68 H86 M32 14 V86 M50 14 V86 M68 14 V86"/></g><rect x="14" y="14" width="72" height="72" rx="10" fill="none"/><g fill="#FFB3C1" stroke="none"><circle cx="22" cy="22" r="4"/><circle cx="78" cy="78" r="4"/></g>`},
   {id:'autolitter',name:'Auto litter box',kind:'floor', price:900, desc:'Clean +10/day. A poop scooper’s hero', eff:()=>add('clean',10),
    line:'(watches the auto litter box spin, very suspicious)', vb:'0 0 100 100',
    svg:`<path d="M14 92 Q14 28 50 28 Q86 28 86 92Z" fill="#FFFFFF"/><circle cx="50" cy="64" r="17" fill="#6B7FA8"/><rect x="12" y="86" width="76" height="10" rx="5" fill="#D9ECFA"/><circle cx="50" cy="40" r="4" fill="#A8DDA0"/><path d="M27 52 Q30 44 36 40" fill="none" stroke="#fff" stroke-width="3"/>`},
@@ -1334,6 +1452,7 @@ function roomDecor(){
 <g class="moon"><circle cx="74" cy="76" r="14" fill="#FFF6C9" stroke="${INK}" stroke-width="2.5"/><circle cx="82" cy="70" r="12" fill="#3C4A86"/></g>
 <g class="star" fill="#FFF6C9"><circle cx="118" cy="62" r="2.2"/><circle cx="104" cy="96" r="1.6"/><circle cx="128" cy="110" r="1.8"/></g>
 <path d="M98,124 q4,-10 14,-6 q6,-8 14,0 q8,0 6,8 h-34Z" fill="#fff" opacity=".9"/></g>
+${S.owned.includes('screen') ? `<g clip-path="url(#winclip)" stroke="#ffffff" stroke-width="1.4" opacity=".75">${Array.from({length:12},(_,i)=>`<path d="M${44+i*9},40 V164 M40,${48+i*10} H144"/>`).join('')}</g>` : ''}
 <path d="M44,160 V84 Q44,46 92,46 Q140,46 140,84 V160Z" fill="none" stroke-width="3"/>
 <path d="M92,46 V160 M44,104 H140" fill="none" stroke-width="3"/>
 <rect x="30" y="160" width="124" height="12" rx="6" fill="#F6D7A7" stroke-width="3"/>
@@ -1364,7 +1483,7 @@ function shopModal(tab = 'shop'){
   const owned = new Set(S.owned);
   const body = tab === 'shop'
     ? `<div class="shop">${ITEMS.map(it => `<div class="item"><div class="ic">${itemSVG(it.id)}</div>
-        <div class="tx"><b>${it.name}</b><small>${it.kind==='wall'?'Wall':'Floor'} · ${esc(it.desc)}</small></div>
+        <div class="tx"><b>${it.name}</b><small>${it.kind==='wall'?'Wall':it.kind==='fixture'?'Window':'Floor'} · ${esc(it.desc)}</small></div>
         ${owned.has(it.id) ? '<span class="own">Owned</span>' : `<button class="buy" data-buy="${it.id}" ${S.money<it.price?'disabled':''}>$${it.price}</button>`}</div>`).join('')}</div>`
     : `<div class="shop">${SPOTS.map(sp => { const cur = S.placed[sp.id];
         const choices = S.owned.filter(id => ITEM[id].kind === sp.kind && !placedIds().includes(id));
@@ -1384,6 +1503,7 @@ function shopModal(tab = 'shop'){
 function buy(id){
   const it = ITEM[id]; if(S.money < it.price || S.owned.includes(id)) return;
   S.money -= it.price; S.owned.push(id);
+  if(it.kind === 'fixture'){ save(); closeModal(); render(); narr(fill('The window safety net is in. {n} sits by the window watching birds, and won’t get out this time.')); return; }
   const free = SPOTS.find(sp => sp.kind === it.kind && !S.placed[sp.id]);
   if(free){ S.placed[free.id] = id; save(); closeModal(); render(); narr(fill(`New ${it.name}! {n} walks over to sniff it.`)); return; }
   save();
@@ -1503,6 +1623,7 @@ function letterText(){
     : ['I wasn’t the cuddliest cat, but I always, always loved you.', 'I didn’t let you hold me much, but I always slept somewhere I could see you.']);
   const happened = [];
   if(S.counts.trip) happened.push('When you went away on trips, I slept on your pillow every night, because it smelled like you.');
+  if(S.flags.escaped) happened.push('When I ran away that time, I was so scared I’d never find home again. Thank you for never stopping looking for me.');
   if(S.counts.er) happened.push('That time at the emergency vet, I was so scared. But you stayed right beside me, so I pulled through.');
   if(S.owned.includes('tree')) happened.push('Thank you for the cat tree. The very top was my throne.');
   if(S.owned.includes('hammock')) happened.push('The hammock by the window was my secret base for watching sparrows.');
