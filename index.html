@@ -47,29 +47,10 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .chip.amber{background:var(--eye);color:var(--ink);font-weight:700}
 
 /* room stage */
-.room{position:relative;width:100%;aspect-ratio:1/0.86;border-radius:22px;overflow:hidden;background:var(--wall);
+.room{position:relative;width:100%;aspect-ratio:1/0.86;border-radius:22px;overflow:hidden;background:#FFF4EA;
   box-shadow:0 0 0 6px var(--ink-2),0 18px 40px #0008;user-select:none}
 .room .floor{position:absolute;left:0;right:0;bottom:0;height:30%;
   background:repeating-linear-gradient(90deg,var(--wood) 0 58px,var(--wood-dk) 58px 60px);box-shadow:inset 0 6px 0 #0000001a}
-.room .paper{position:absolute;inset:0 0 30% 0;background:
-  radial-gradient(circle at 12px 12px,#ffffff66 2.5px,transparent 3px) 0 0/24px 24px,
-  repeating-linear-gradient(90deg,transparent 0 22px,#00000008 22px 24px)}
-.room .win{position:absolute;left:9%;top:8%;width:28%;aspect-ratio:1/1.12;border-radius:46% 46% 6px 6px;border:7px solid #fff;
-  box-shadow:0 0 0 2px #0001;overflow:hidden;transition:background 1s;z-index:1}
-.room .win::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:6px;margin-left:-3px;background:#fff}
-.room .orb{position:absolute;width:34%;aspect-ratio:1;border-radius:50%;left:12%;top:16%;transition:all 1s}
-.room .sill{position:absolute;left:0;right:0;bottom:0;height:9%;background:#fff}
-.room .sill span{position:absolute;right:10%;bottom:100%;width:22%;aspect-ratio:1;background:
-  radial-gradient(circle at 30% 35%,#7cc06a 30%,transparent 32%),radial-gradient(circle at 70% 30%,#6db65b 30%,transparent 32%),
-  radial-gradient(circle at 50% 15%,#86c974 28%,transparent 30%),linear-gradient(transparent 55%,#E39B6B 55%)}
-.room .curtain{position:absolute;top:5%;width:9%;height:46%;background:repeating-linear-gradient(90deg,#F2C6B6 0 7px,#E9B4A2 7px 12px);border-radius:0 0 40% 40%;z-index:1}
-.room .curtain.l{left:3.5%}.room .curtain.r{left:35%}
-.room .curtain::before{content:"";position:absolute;top:-6%;left:-30%;width:420%;height:5%;background:#9a7653;border-radius:4px}
-.room .curtain.r::before{display:none}
-.room .clock{position:absolute;left:48%;top:9%;width:10%;aspect-ratio:1;border-radius:50%;background:#fff;border:4px solid #E3A74A;box-shadow:0 3px 6px #0002}
-.room .clock i{position:absolute;left:50%;bottom:50%;width:3px;margin-left:-1.5px;background:#3b302b;border-radius:2px;transform-origin:50% 100%}
-.room .clock .h{height:26%;transform:rotate(-60deg)}.room .clock .m{height:38%;transform:rotate(40deg)}
-.room .base{position:absolute;left:0;right:0;bottom:30%;height:3%;background:#fff;box-shadow:0 2px 0 #0000000d}
 .spot{position:absolute;pointer-events:none;z-index:1}
 .spot svg{display:block;width:100%;height:100%;overflow:visible}
 .s-wall{right:5%;top:10%;width:32%;height:28%}
@@ -77,15 +58,14 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .s-floorR{right:1%;bottom:21%;width:24%;height:32%}
 .s-floorC{right:27%;bottom:25%;width:17%;height:19%}
 .s-front{left:1%;bottom:1%;width:22%;height:22%;z-index:3}
-.room .rug{position:absolute;left:50%;bottom:6%;width:62%;height:15%;transform:translateX(-50%);border-radius:50%;
-  background:repeating-radial-gradient(ellipse at center,#E9A8A0 0 10px,#F3C7B8 10px 20px);opacity:.9}
 .room .dim{position:absolute;inset:0;background:#0B1030;opacity:0;pointer-events:none;transition:opacity 1s;z-index:4}
 .room.t2 .dim{opacity:.3}
 .room.t3 .dim{opacity:.62}
-.room.t0 .win{background:linear-gradient(#9fd5f2,#d9f0fa)} .room.t0 .orb{background:#FFE89A;box-shadow:0 0 18px #FFE89A}
-.room.t1 .win{background:linear-gradient(#f6c879,#fbe4b2)} .room.t1 .orb{background:#FFD36B;top:46%;left:52%}
-.room.t2 .win,.room.t3 .win{background:linear-gradient(#141a3d,#2d3870)} .room.t2 .orb,.room.t3 .orb{background:#F4F1D0;box-shadow:inset -6px -2px 0 #c9c59a;width:26%}
-
+.room .bg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.room .sun,.room .dusk,.room .moon{opacity:0;transition:opacity 1s}
+.room.t0 .sun,.room.t1 .dusk,.room.t2 .moon,.room.t3 .moon{opacity:1}
+.room .sky{fill:#BFE6FA;transition:fill 1s}.room.t1 .sky{fill:#FFD9A8}.room.t2 .sky,.room.t3 .sky{fill:#3C4A86}
+.room .star{opacity:0;transition:opacity 1s}.room.t2 .star,.room.t3 .star{opacity:1}
 .catwrap{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);cursor:pointer;transition:width .8s;touch-action:manipulation;z-index:2}
 .catwrap.kitten{width:36%}.catwrap.adult{width:48%}.catwrap.senior{width:48%}
 .catwrap svg{display:block;width:100%;height:auto;overflow:visible}
@@ -350,7 +330,8 @@ function stickerSVG(coatId, seed, stage, expr, ageM, deco){
   const shapes = `<polygon points="${poly(earL)}"/><polygon points="${poly(earR)}"/><ellipse cx="${cx}" cy="${B.cy}" rx="${B.rx}" ry="${B.ry}"/><ellipse cx="${cx}" cy="${H.cy}" rx="${H.rx}" ry="${H.ry}"/>`;
   const tw = 17;   // chunky tail
   // union outline: stroke everything wide underneath, then fill on top (white die-cut edge, then ink)
-  const edge = (col, w) => `<g fill="${col}" stroke="${col}" stroke-width="${w}" stroke-linejoin="round"><path d="${tailD}" fill="none" stroke-width="${tw+w}" stroke-linecap="round"/>${shapes}</g>`;
+  const edge = (col, w) => `<g fill="${col}" stroke="${col}" stroke-width="${w}" stroke-linejoin="round">${shapes}</g>`;
+  const tailEdge = (col, w) => `<path d="${tailD}" stroke="${col}" stroke-width="${tw+w}" fill="none" stroke-linecap="round"/>`;
   let tail = `<path d="${tailD}" stroke="${c.base}" stroke-width="${tw}" fill="none" stroke-linecap="round"/>`;
   if(c.tabby) tail += `<path d="${tailD}" stroke="${c.stripe}" stroke-width="${tw}" fill="none" stroke-dasharray="6 7"/>`;
   if(c.points) tail += `<path d="${tailD}" stroke="${c.points}" stroke-width="${tw}" fill="none" stroke-linecap="round" stroke-dasharray="0 18 200"/>`;
@@ -407,8 +388,9 @@ function stickerSVG(coatId, seed, stage, expr, ageM, deco){
 ${bg}
 <ellipse cx="100" cy="${bot+4}" rx="${B.rx+10}" ry="6" fill="#0000001a"/>
 <g class="bob ${expr==='sleep'?'sleepy':''}"><g filter="url(#${id}w)">
-${edge('#fff', 14)}${edge(INK, 6)}
-<g class="tail" style="transform-origin:${tx}px ${ty}px">${tail}</g>
+${edge('#fff', 14)}
+<g class="tail" style="transform-origin:${tx}px ${ty}px">${tailEdge('#fff', 14)}${tailEdge(INK, 6)}${tail}</g>
+${edge(INK, 6)}
 <g fill="${c.base}">${shapes}</g>
 <g clip-path="url(#${id}c)">${ov}</g>
 <path d="M${cx-H.rx*.62},${H.cy+H.ry*.86} Q${cx},${H.cy+H.ry*1.12} ${cx+H.rx*.62},${H.cy+H.ry*.86}" stroke="${INK}" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".55"/>
@@ -1299,11 +1281,45 @@ function itemSVG(id){
   return `<svg viewBox="${it.vb}" preserveAspectRatio="xMidYMax meet">${stickerDefs(fid)}<g filter="url(#${fid})" stroke="${INK}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">${it.svg}</g></svg>`;
 }
 function roomDecor(){
-  return `<div class="paper"></div>
-    <div class="win"><div class="orb"></div><div class="sill"><span></span></div></div>
-    <div class="curtain l"></div><div class="curtain r"></div>
-    <div class="clock"><i class="h"></i><i class="m"></i></div>
-    <div class="floor"></div><div class="base"></div><div class="rug"></div>
+  const flags = ['#FFB3C1','#FFE27A','#BFE3F5','#A8DDA0','#D9C6F2'];
+  const bunting = Array.from({length:11}, (_,i) => { const x = 14 + i*34, y = 14 + Math.sin(i/10*Math.PI)*10;
+    return `<path d="M${x},${y} L${x+26},${y+1} L${x+13},${y+24}Z" fill="${flags[i%5]}"/>`; }).join('');
+  return `<svg class="bg" viewBox="0 0 400 344" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<defs><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="3.2" fill="#FFE0E8"/><circle cx="21" cy="21" r="3.2" fill="#FFE9D2"/></pattern>
+<clipPath id="winclip"><path d="M44,160 V84 Q44,46 92,46 Q140,46 140,84 V160Z"/></clipPath></defs>
+<rect width="400" height="240" fill="#FFF4EA"/><rect width="400" height="240" fill="url(#dots)"/>
+<g stroke="${INK}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+<path d="M4,12 Q200,34 396,12" fill="none"/>${bunting}
+<!-- window -->
+<path d="M36,166 V84 Q36,38 92,38 Q148,38 148,84 V166Z" fill="#FFFFFF" stroke-width="3"/>
+<g clip-path="url(#winclip)" stroke="none"><rect class="sky" x="40" y="40" width="104" height="124"/>
+<circle class="sun" cx="72" cy="78" r="15" fill="#FFE27A" stroke="${INK}" stroke-width="2.5"/>
+<circle class="dusk" cx="116" cy="128" r="17" fill="#FFAE5C" stroke="${INK}" stroke-width="2.5"/>
+<g class="moon"><circle cx="74" cy="76" r="14" fill="#FFF6C9" stroke="${INK}" stroke-width="2.5"/><circle cx="82" cy="70" r="12" fill="#3C4A86"/></g>
+<g class="star" fill="#FFF6C9"><circle cx="118" cy="62" r="2.2"/><circle cx="104" cy="96" r="1.6"/><circle cx="128" cy="110" r="1.8"/></g>
+<path d="M98,124 q4,-10 14,-6 q6,-8 14,0 q8,0 6,8 h-34Z" fill="#fff" opacity=".9"/></g>
+<path d="M44,160 V84 Q44,46 92,46 Q140,46 140,84 V160Z" fill="none" stroke-width="3"/>
+<path d="M92,46 V160 M44,104 H140" fill="none" stroke-width="3"/>
+<rect x="30" y="160" width="124" height="12" rx="6" fill="#F6D7A7" stroke-width="3"/>
+<!-- plant on the sill -->
+<path d="M114,160 L132,160 L129,146 L117,146Z" fill="#FFC4A8"/>
+<g fill="#A8DDA0"><ellipse cx="118" cy="138" rx="5" ry="8" transform="rotate(-25 118 138)"/><ellipse cx="128" cy="137" rx="5" ry="8" transform="rotate(25 128 137)"/><ellipse cx="123" cy="132" rx="4.5" ry="8"/></g>
+<!-- curtains -->
+<path d="M18,30 H166" fill="none" stroke-width="4"/><circle cx="18" cy="30" r="5" fill="#F6D7A7"/><circle cx="166" cy="30" r="5" fill="#F6D7A7"/>
+<path d="M24,32 H46 Q44,90 54,150 Q48,158 40,150 Q32,158 24,150Z" fill="#CDE7F7"/>
+<path d="M160,32 H138 Q140,90 130,150 Q136,158 144,150 Q152,158 160,150Z" fill="#CDE7F7"/>
+<path d="M28,96 Q40,100 50,94 M156,96 Q144,100 134,94" fill="none" stroke="#FFB3C1" stroke-width="4"/>
+<!-- clock -->
+<circle cx="206" cy="66" r="19" fill="#FFFFFF" stroke-width="3"/><path d="M206,66 V54 M206,66 L215,71" fill="none" stroke-width="2.6"/><circle cx="206" cy="66" r="2" fill="${INK}"/>
+<g fill="#FFB3C1" stroke="none"><circle cx="206" cy="51" r="1.8"/><circle cx="221" cy="66" r="1.8"/><circle cx="206" cy="81" r="1.8"/><circle cx="191" cy="66" r="1.8"/></g>
+<!-- floor -->
+<rect x="0" y="232" width="400" height="12" fill="#FFFFFF" stroke-width="3"/>
+<rect x="-4" y="244" width="408" height="104" fill="#F9DDB5" stroke-width="3"/>
+<g stroke="#EFC994" stroke-width="2.4"><path d="M0,278 H400 M0,314 H400"/><path d="M70,244 V278 M190,244 V278 M320,244 V278 M20,278 V314 M140,278 V314 M260,278 V314 M370,278 V314 M90,314 V344 M220,314 V344 M340,314 V344"/></g>
+<!-- rug -->
+<ellipse cx="200" cy="314" rx="128" ry="25" fill="#FFE9A8" stroke-width="3"/>
+<ellipse cx="200" cy="314" rx="108" ry="17" fill="none" stroke="#FFB3C1" stroke-width="3" stroke-dasharray="8 7"/>
+</g></svg>
     ${SPOTS.map(sp => S.placed[sp.id] ? `<div class="spot s-${sp.id}">${itemSVG(S.placed[sp.id])}</div>` : '').join('')}`;
 }
 function applyItems(){ for(const id of placedIds()) ITEM[id].eff(); }
