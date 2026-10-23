@@ -715,8 +715,9 @@ function renderIntro(){
       ? `<p>是一隻 <b style="color:var(--eye)">${c.name}</b>${S.gender==='f'?'妹妹':'弟弟'}，冷得一直發抖，對你小小聲地「咪」了一聲。</p>
          <div class="btnrow"><button class="btn primary" id="take">帶${P()}回家</button><button class="btn" id="reroll">看看別的箱子</button></div>`
       : `<p>${S.past.length?`${esc(S.past[S.past.length-1].name)} 走了以後，家裡安靜了好久。<br>`:''}下雨的晚上，你在巷口的紙箱裡，看見一團小小的、濕濕的東西。</p>
-         <div class="btnrow"><button class="btn primary" id="look">蹲下來看看</button></div>`}
+         <div class="btnrow"><button class="btn primary" id="look">蹲下來看看</button><button class="btn" id="howto">📖 怎麼玩</button></div>`}
   </section>`;
+  const ht = $('#howto'); if(ht) ht.onclick = showGuide;
   const look = $('#look'); if(look) look.onclick = () => { S.flags.revealed = true; save(); render(); };
   const rr = $('#reroll'); if(rr) rr.onclick = () => { const id=S.coatId; do{S.coatId=pick(COATS).id}while(S.coatId===id); S.seed=Math.floor(Math.random()*1e9); S.gender=Math.random()<.5?'f':'m'; save(); render(); };
   const tk = $('#take'); if(tk) tk.onclick = () => { S.phase='name'; save(); render(); };
@@ -822,7 +823,7 @@ function renderLife(){
   $('#mute').onclick = toggleMute;
   $('#shop').onclick = () => shopModal();
   $('#guide').onclick = () => showGuide();
-  if(!S.guided) showGuide();
+  if(S.guided !== 2) showGuide();   // every new cat, and once more for older saves
   const rb = $('#rainbow'); if(rb) rb.onclick = rainbowModal;
   if(ffOn) app.querySelectorAll('[data-a]').forEach(b => b.disabled = true);
   startWander();
@@ -1359,7 +1360,7 @@ function rainbowModal(){
 }
 // a new cat moves into the same home: money, furniture and the cats before carry over
 function newLife(remember){
-  const home = {money:S.money, owned:S.owned, placed:S.placed, past:S.past, guided:S.guided};
+  const home = {money:S.money, owned:S.owned, placed:S.placed, past:S.past};
   if(remember) home.past = home.past.concat([{name:N(), coatId:S.coatId, seed:S.seed, gender:S.gender, ageM:S.ageM, photo:S.photo, letter:S.letter||'', memories:S.memories}]);
   S = Object.assign(fresh(), home);
   save(); render();
@@ -1382,7 +1383,7 @@ function showGuide(){
       <p style="font-size:14px">一天有早上、下午、晚上，每個時段可以做一件事。點 ${esc(N())} 可以摸摸，不用花時間。忙的話可以按「快轉」，基本照顧會自動做。</p>
     </div>
     <button class="opt" id="okg" style="text-align:center;background:#F2B53B;font-weight:700">我會好好照顧${P()} ♥</button>`, r => {
-    $('#okg').onclick = () => { S.guided = true; save(); closeModal(); meow('chirp'); };
+    $('#okg').onclick = () => { S.guided = 2; save(); closeModal(); meow('chirp'); };
   });
 }
 
