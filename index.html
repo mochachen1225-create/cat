@@ -7,7 +7,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&family=LXGW+WenKai+TC:wght@400&display=swap">
 <style>
 /* Layout: one narrow storybook column — a lit room (the stage) above a wooden toy-shelf of controls, set on a night-ink page. */
 :root{
@@ -22,8 +22,9 @@
   --muted:#9AA5BE;
   --danger:#E7756A;
   --ok:#8CC98A;
-  --display:"LXGW WenKai TC","Kaiti TC","STKaiti","BiauKai",serif;
-  --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --display:"Huninn","jf-openhuninn","Yuanti TC","PingFang TC","Microsoft JhengHei",sans-serif;   /* rounded 粉圓 */
+  --body:"Huninn","jf-openhuninn","Yuanti TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --letter:"LXGW WenKai TC","Kaiti TC","STKaiti","BiauKai",serif;  /* the cat's handwritten letter */
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -33,7 +34,7 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--body);f
   background-size:220px 220px;-webkit-tap-highlight-color:transparent}
 #app{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;gap:12px;
   padding-block:14px 24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3,.disp{font-family:var(--display);font-weight:700;text-wrap:balance;margin:0}
+h1,h2,h3,.disp{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
 button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid var(--eye);outline-offset:2px}
 
@@ -175,6 +176,17 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .pc small{font-size:11px;color:#7b7468}
 .letter.small{font-size:15px;line-height:1.85;box-shadow:none;padding:14px;background-size:auto;min-height:0}
 .carry{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+.shopbtn{align-self:center;width:min(100%,320px);border:0;border-radius:20px;padding:14px 18px;background:#F08DA2;color:#2b1d24;
+  display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--display);font-size:20px;box-shadow:inset 0 -4px 0 #0002,0 6px 16px #F08DA233;transition:transform .1s}
+.shopbtn span{font-size:28px;line-height:1.1}
+.shopbtn small{font-family:var(--body);font-size:12px;color:#2b1d24b3}
+.shopbtn:active{transform:translateY(2px)}
+.guide{display:flex;flex-direction:column;gap:8px}
+.guide .row{display:grid;grid-template-columns:56px 1fr;gap:10px;align-items:center;font-size:14px;line-height:1.5}
+.guide .row b{font-weight:400;font-family:var(--display);font-size:16px}
+.guide .ex{display:flex;flex-direction:column;gap:4px;font-size:12px;color:#7b7468}
+.guide .bar{height:9px;border-radius:99px;background:#2a2a3314;overflow:hidden}.guide .bar i{display:block;height:100%;border-radius:99px}
+.guide .warn{background:#E7756A1f;border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.7;color:#7a2d24}
 .links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:4px}
 
@@ -237,7 +249,7 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
   background:radial-gradient(circle,transparent 52%,#e7756a55 52% 55%,#f2b53b55 55% 58%,#8cc98a55 58% 61%,#7fb7e655 61% 64%,#b49ae055 64% 67%,transparent 67%)}
 .sky .soul{position:absolute;left:50%;bottom:24%;width:34%;transform:translateX(-50%);animation:drift 5s ease-in-out infinite;opacity:.95}
 @keyframes drift{50%{transform:translate(-50%,-6%)}}
-.letter{background:var(--paper);color:#2f2a26;border-radius:6px 6px 18px 18px;padding:22px 20px;font-family:var(--display);font-size:17px;line-height:1.95;white-space:pre-wrap;
+.letter{background:var(--paper);color:#2f2a26;border-radius:6px 6px 18px 18px;padding:22px 20px;font-family:var(--letter);font-size:17px;line-height:1.95;white-space:pre-wrap;
   background-image:repeating-linear-gradient(transparent 0 32px,#c9bfae55 32px 33px);background-position:0 18px;box-shadow:0 12px 30px #0006;min-height:200px}
 .letter .cur{display:inline-block;width:2px;height:1em;background:#2f2a26;vertical-align:-2px;animation:blinkc 1s step-end infinite}
 @keyframes blinkc{50%{opacity:0}}
@@ -719,7 +731,8 @@ function renderLife(){
     <button class="act primary" data-a="sleep"><span class="ic">🌙</span><span class="t">晚安</span><span class="d">過完這一天</span></button>
   </section>
   <button class="ff ${ffOn?'on':''}" id="ff">${ffOn?'⏸ 停止快轉<small>快轉中，遇到事件會暫停，處理完繼續</small>':'⏩ 快轉<small>自動餵飯、清貓砂、陪玩；遇到事件會暫停，處理完繼續</small>'}</button>
-  <div class="links"><button class="linkbtn" id="shop">🛍 用品店・佈置</button>${S.past.length?`<button class="linkbtn" id="rainbow">🌈 彩虹橋（${S.past.length}）</button>`:''}<button class="linkbtn" id="album">回憶相簿（${S.memories.length}）</button><button class="linkbtn" id="photoBtn">${S.photo?'換照片 / 改回畫的貓':'上傳我家貓的照片'}</button><button class="linkbtn" id="mute">${muted?'🔇 聲音關':'🔊 聲音開'}</button><button class="linkbtn" id="restart">重新開始</button></div>`}`;
+  <button class="shopbtn" id="shop"><span>🛍</span>貓咪用品店<small>存款 $${S.money} · 買東西佈置房間</small></button>
+  <div class="links"><button class="linkbtn" id="guide">📖 養貓守則</button>${S.past.length?`<button class="linkbtn" id="rainbow">🌈 彩虹橋（${S.past.length}）</button>`:''}<button class="linkbtn" id="album">回憶相簿（${S.memories.length}）</button><button class="linkbtn" id="photoBtn">${S.photo?'換照片 / 改回畫的貓':'上傳我家貓的照片'}</button><button class="linkbtn" id="mute">${muted?'🔇 聲音關':'🔊 聲音開'}</button><button class="linkbtn" id="restart">重新開始</button></div>`}`;
   const cw = $('#cw');
   if(farewell){
     $('#fpet').onclick = farewellPet; $('#fhug').onclick = farewellHug;
@@ -734,6 +747,8 @@ function renderLife(){
   $('#ff').onclick = fastForward;
   $('#mute').onclick = toggleMute;
   $('#shop').onclick = () => shopModal();
+  $('#guide').onclick = () => showGuide();
+  if(!S.guided) showGuide();
   const rb = $('#rainbow'); if(rb) rb.onclick = rainbowModal;
   if(ffOn) app.querySelectorAll('[data-a]').forEach(b => b.disabled = true);
   startWander();
@@ -1018,6 +1033,7 @@ function ffStep(){
   const cw = $('#cw'); if(cw && !cw.classList.contains(stage())) refreshCat();
   narr(`⏩ ${ageLabel(S.ageM)}……日子平平淡淡地過去。`);
   const mc = $('#money'); if(mc) mc.textContent = '$' + S.money;
+  const sb = app.querySelector('.shopbtn small'); if(sb) sb.textContent = `存款 $${S.money} · 買東西佈置房間`;
   updateStats(); save();
   ffTimer = setTimeout(ffStep, 650);
 }
@@ -1253,10 +1269,31 @@ function rainbowModal(){
 }
 // a new cat moves into the same home: money, furniture and the cats before carry over
 function newLife(remember){
-  const home = {money:S.money, owned:S.owned, placed:S.placed, past:S.past};
+  const home = {money:S.money, owned:S.owned, placed:S.placed, past:S.past, guided:S.guided};
   if(remember) home.past = home.past.concat([{name:N(), coatId:S.coatId, seed:S.seed, gender:S.gender, ageM:S.ageM, photo:S.photo, letter:S.letter||'', memories:S.memories}]);
   S = Object.assign(fresh(), home);
   save(); render();
+}
+
+/* ---------- first-day guide: what to look after ---------- */
+function showGuide(){
+  const row = (ic, name, how) => `<div class="row"><span style="font-size:26px;text-align:center">${ic}</span><span><b>${name}</b><br>${how}</span></div>`;
+  modal(`<div class="kicker">養貓守則</div><h2>好好照顧 ${esc(N())}</h2>
+    <p>畫面下方的五條是 ${esc(N())} 的狀態。每過一天，前三條都會往下掉，要靠你補回來。</p>
+    <div class="guide">
+      ${row('🍚','飽足','餵食。乾乾、罐罐都可以，肉泥是零食')}
+      ${row('😺','心情','逗貓棒、摸摸、買玩具')}
+      ${row('🧹','清潔','清貓砂、梳毛')}
+      ${row('❤️','健康','上面三條都顧好就會慢慢變好；生病要帶去看醫生')}
+      ${row('💗','親密','摸摸、陪伴。越親你，越會撒嬌')}
+      <div class="ex"><span>這樣是安全的</span><div class="bar"><i style="width:70%;background:#F2B53B"></i></div>
+        <span>變成<b style="color:#c4473b;font-weight:400">紅色</b>（低於 30）就危險了</span><div class="bar"><i style="width:18%;background:#E7756A"></i></div></div>
+      <div class="warn">⚠️ 不要讓狀態變紅色！<br>貓砂太髒，${P()}會尿在你床上；太久沒吃飯，${P()}會餓到倒在地上，要送急診。每一次都會讓 ${esc(N())} 少活好幾年。</div>
+      <p style="font-size:14px">一天有早上、下午、晚上，每個時段可以做一件事。點 ${esc(N())} 可以摸摸，不用花時間。忙的話可以按「快轉」，基本照顧會自動做。</p>
+    </div>
+    <button class="opt" id="okg" style="text-align:center;background:#F2B53B;font-weight:700">我會好好照顧${P()} ♥</button>`, r => {
+    $('#okg').onclick = () => { S.guided = true; save(); closeModal(); meow('chirp'); };
+  });
 }
 
 /* ---------- farewell & ending ---------- */
