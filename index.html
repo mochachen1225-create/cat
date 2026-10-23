@@ -180,11 +180,6 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .guide .ex{display:flex;flex-direction:column;gap:4px;font-size:12px;color:#7b7468}
 .guide .bar{height:9px;border-radius:99px;background:#2a2a3314;overflow:hidden}.guide .bar i{display:block;height:100%;border-radius:99px}
 .guide .warn{background:#E7756A1f;border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.7;color:#7a2d24}
-.arts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.artopt{border:2px solid transparent;background:#2a2a330a;border-radius:16px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;color:#2a2a33;font-family:var(--display)}
-.artopt[aria-pressed=true]{border-color:#F2B53B;background:#F2B53B22}
-.artopt .pv{width:100%;display:block}.artopt .pv svg{width:100%;height:auto;display:block}
-.artopt b{font-weight:400;font-size:16px}.artopt small{font-size:11px;color:#7b7468;line-height:1.4;text-align:center}
 .adj{width:100%;max-width:300px;align-self:center;background:#DDE6DE;border-radius:16px;cursor:grab;touch-action:none;padding:6px}
 .adj:active{cursor:grabbing}
 .adj svg{width:100%;height:auto;display:block;pointer-events:none}
@@ -306,27 +301,8 @@ const lum = hex => {const n=parseInt(hex.slice(1),16);return (0.299*(n>>16)+0.58
 const darken = (hex, f) => {const n=parseInt(hex.slice(1),16);const r=Math.round((n>>16)*f),g=Math.round((n>>8&255)*f),b=Math.round((n&255)*f);return '#'+((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1)};
 
 /* ---------- drawing ---------- */
-// three art styles; Lulu gets to pick
-const ARTS = {
-  journal:{name:'手帳貼紙', desc:'粗黑框、馬卡龍色、頭上有小鴨'},
-  dango:  {name:'團子', desc:'手繪感、圓滾滾一整團'},
-  mochi:  {name:'麻糬', desc:'圓滾滾、豆豆眼、沒有粗線條',
-    geom:st => st==='kitten' ? {H:{cx:100,cy:128,rx:55,ry:43},B:{cx:100,cy:176,rx:36,ry:24},eyeR:12,tailK:.6}
-      : st==='senior' ? {H:{cx:100,cy:116,rx:56,ry:43},B:{cx:100,cy:168,rx:50,ry:33},eyeR:11,tailK:.85}
-      : {H:{cx:100,cy:114,rx:56,ry:44},B:{cx:100,cy:167,rx:46,ry:34},eyeR:11,tailK:.85},
-    ol:(c,dark)=>dark?'#00000033':darken(c.base,.84), olW:2, ear:[.84,.42,.64,1.12,.26,.9], fluff:false, eyes:'dot', eyeY:.2, ex:.4, noseY:.42, whisk:'short'},
-  sticker:{name:'貼圖', desc:'粗粗的黑線條，像 LINE 貼圖',
-    geom:st => st==='kitten' ? {H:{cx:100,cy:126,rx:54,ry:44},B:{cx:100,cy:176,rx:34,ry:25},eyeR:13,tailK:.6}
-      : {H:{cx:100,cy:114,rx:54,ry:44},B:{cx:100,cy:167,rx:44,ry:35},eyeR:12,tailK:.85},
-    ol:(c,dark)=>dark?'#0d0a0f':'#3a2e2e', olW:3.6, ear:[.86,.4,.68,1.2,.26,.9], fluff:false, eyes:'dot', eyeY:.18, ex:.42, noseY:.42, whisk:'short'},
-  sparkle:{name:'大眼睛', desc:'閃亮亮的大眼睛',
-    geom:st => st==='kitten' ? {H:{cx:100,cy:120,rx:52,ry:44},B:{cx:100,cy:172,rx:29,ry:27},eyeR:14.5,tailK:.65}
-      : st==='senior' ? {H:{cx:100,cy:104,rx:50,ry:41},B:{cx:100,cy:162,rx:42,ry:40},eyeR:12.5,tailK:.9}
-      : {H:{cx:100,cy:100,rx:50,ry:42},B:{cx:100,cy:161,rx:39,ry:40},eyeR:13.5,tailK:.9},
-    ol:(c,dark)=>dark?'#0000004d':darken(c.base,.76), olW:2.5, ear:[.9,.32,.74,1.28,.3,.86], fluff:true, eyes:'big', eyeY:.1, ex:.44, noseY:.46, whisk:'long'},
-};
-// "dango" style: one round dumpling body, thin wobbly hand-drawn line, soft colours
 const soften = (hex, k) => {const n=parseInt(hex.slice(1),16);const f=v=>Math.round(v+(255-v)*k);return '#'+((1<<24)|(f(n>>16)<<16)|(f(n>>8&255)<<8)|f(n&255)).toString(16).slice(1)};
+// the round silhouette an uploaded photo is cut into
 function dangoShape(stage){
   const cx = 100;
   const P = stage==='kitten' ? {T:112,Bm:200,a:46,b:52} : stage==='senior' ? {T:96,Bm:200,a:54,b:68} : {T:94,Bm:200,a:53,b:64};
@@ -336,94 +312,6 @@ function dangoShape(stage){
     C${cx-b*1.06},${Bm-mid*.35} ${cx-a*1.04},${hy+mid*.3} ${cx-a},${hy}Z`;
   const earL = [[cx-a*.97,hy-a*.42],[cx-a*.8,T-a*.26],[cx-a*.3,T+a*.06]], earR = earL.map(([x,y])=>[2*cx-x,y]);
   return {T,Bm,a,b,hy,mid,blob,earL,earR};
-}
-function dangoSVG(coatId, seed, stage, expr, ageM){
-  const c0 = COAT[coatId], rnd = mulberry32(seed||1), id = 'k'+(++uidN);
-  const dark = lum(c0.base) < .3;
-  const sk = dark ? .1 : .14;
-  const c = {...c0, base:soften(c0.base,sk), stripe:c0.stripe&&soften(c0.stripe,.12), points:c0.points&&soften(c0.points,.12), patches:c0.patches&&c0.patches.map(p=>soften(p,.12))};
-  const line = dark ? '#251f24' : '#6B5A53';
-  const cx = 100;
-  const {T,Bm,a,b,hy,mid,blob,earL,earR} = dangoShape(stage);
-  const poly = p => p.map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ');
-  const inner = p => {const mx=(p[0][0]+p[1][0]+p[2][0])/3,my=(p[0][1]+p[1][1]+p[2][1])/3;return p.map(([x,y])=>[mx+(x-mx)*.45,my+(y-my)*.45+3])};
-  const pawY = Bm-3, paws = [[cx-15,pawY],[cx+15,pawY]];
-  // tail
-  const tx = cx+b*.86, ty = Bm-10, tk = stage==='kitten' ? .75 : 1;
-  const tailD = `M${tx},${ty} C${tx+26*tk},${ty+2} ${tx+34*tk},${ty-30*tk} ${tx+18*tk},${ty-52*tk}`;
-  let tail = `<path d="${tailD}" stroke="${line}" stroke-width="12.5" fill="none" stroke-linecap="round"/><path d="${tailD}" stroke="${c.base}" stroke-width="8.5" fill="none" stroke-linecap="round"/>`;
-  if(c.tabby) tail += `<path d="${tailD}" stroke="${c.stripe}" stroke-width="8.5" fill="none" stroke-dasharray="5 6"/>`;
-  if(c.points) tail += `<path d="${tailD}" stroke="${c.points}" stroke-width="8.5" fill="none" stroke-linecap="round" stroke-dasharray="0 22 200"/>`;
-  if(c.patches) tail += `<path d="${tailD}" stroke="${c.patches[0]}" stroke-width="8.5" fill="none" stroke-linecap="round" stroke-dasharray="16 10"/>`;
-  // markings, clipped to the body
-  const W = c.white || [];
-  const ey = hy + a*.12, ex = a*.46, my = hy + a*.32;
-  let ov = '';
-  if(W.includes('belly')) ov += `<ellipse cx="${cx}" cy="${Bm-mid*.25}" rx="${b*.62}" ry="${mid*.55}" fill="${WHITE}"/>`;
-  if(W.includes('chest')) ov += `<ellipse cx="${cx}" cy="${my+mid*.35}" rx="${a*.42}" ry="${mid*.42}" fill="${WHITE}"/>`;
-  if(c.tabby){
-    for(let i=-1;i<=1;i++) ov += `<path d="M${cx+i*8},${T+1} L${cx+i*6.5},${T+a*.32}" stroke="${c.stripe}" stroke-width="3.6" stroke-linecap="round"/>`;
-    for(const s of [-1,1]) for(let j=0;j<4;j++){ const y = hy + a*.15 + j*13; ov += `<path d="M${cx+s*(b+4)},${y} Q${cx+s*b*.72},${y+5} ${cx+s*b*.55},${y-3}" stroke="${c.stripe}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`; }
-  }
-  if(c.patches){
-    // a cap over one ear like a calico, then a couple on the back
-    const sL = rnd() < .5 ? -1 : 1;
-    ov += `<ellipse cx="${cx+sL*a*.55}" cy="${T+a*.15}" rx="${a*.62}" ry="${a*.5}" fill="${c.patches[0]}"/>`;
-    if(rnd() < .6) ov += `<ellipse cx="${cx-sL*a*.7}" cy="${T+a*.05}" rx="${a*.35}" ry="${a*.3}" fill="${c.patches[1]}"/>`;
-    const n = 2 + Math.floor(rnd()*2);
-    for(let i=0;i<n;i++){ const s = i%2 ? 1 : -1, x = cx + s*(b*.55 + rnd()*b*.4), y = hy + mid*(.25 + rnd()*.55), r = 14 + rnd()*12;
-      ov += `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${r.toFixed(1)}" ry="${(r*.8).toFixed(1)}" fill="${c.patches[(i+1)%c.patches.length]}"/>`; }
-  }
-  if(W.includes('muzzle')) ov += `<ellipse cx="${cx}" cy="${my+2}" rx="${a*.5}" ry="${a*.34}" fill="${WHITE}"/>` + (c.id==='tuxedo' ? `<path d="M${cx-8},${my-4} L${cx},${T+a*.25} L${cx+8},${my-4}Z" fill="${WHITE}"/>` : '');
-  if(W.includes('paws')) ov += paws.map(([x,y])=>`<ellipse cx="${x}" cy="${y-2}" rx="10" ry="7" fill="${WHITE}"/>`).join('');
-  let pts = '';
-  if(c.points) pts = `<g filter="url(#${id}b)"><ellipse cx="${cx}" cy="${my-2}" rx="${a*.5}" ry="${a*.42}" fill="${c.points}"/><polygon points="${poly(earL)}" fill="${c.points}"/><polygon points="${poly(earR)}" fill="${c.points}"/>${paws.map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="11" ry="8" fill="${c.points}"/>`).join('')}</g>`;
-  const grey = ageM >= 132 ? `<ellipse cx="${cx}" cy="${my}" rx="${a*.5}" ry="${a*.3}" fill="#fff" opacity=".4" filter="url(#${id}b)"/>` : '';
-  const shade = `<path d="${blob}" fill="url(#${id}g)"/>`;
-  // face
-  const faceBase = W.includes('muzzle') ? WHITE : c.base;
-  const eyeDark = !!c.points || dark;
-  const fl = (c.points || lum(faceBase) < .3) ? '#F3ECE2' : '#4A3B37';
-  const eyeCol = [c0.eye, c0.eye2 || c0.eye];
-  const eyes = [-1,1].map((s,i) => {
-    const x = cx + s*ex;
-    if(expr==='happy') return `<path d="M${x-5},${ey+2} Q${x},${ey-5} ${x+5},${ey+2}" stroke="${fl}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
-    if(expr==='sleep') return `<path d="M${x-5},${ey} Q${x},${ey+4.5} ${x+5},${ey}" stroke="${fl}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
-    if(expr==='angry') return `<path d="M${x-s*4.5},${ey-4} L${x+s*3.5},${ey} L${x-s*4.5},${ey+4}" stroke="${fl}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
-    if(expr==='dizzy') return `<path d="M${x-4},${ey-4} L${x+4},${ey+4} M${x+4},${ey-4} L${x-4},${ey+4}" stroke="${fl}" stroke-width="2.2" stroke-linecap="round"/>`;
-    const k = stage==='kitten' ? 1.18 : 1;
-    const sad = expr==='sad' ? `<path d="M${x-5},${ey-8+(s<0?-1.5:1.5)} L${x+5},${ey-8+(s<0?1.5:-1.5)}" stroke="${fl}" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="${x+s*3}" cy="${ey+9}" rx="2" ry="2.8" fill="#8FD0F5"/>` : '';
-    const dot = eyeDark
-      ? `<ellipse cx="${x}" cy="${ey}" rx="${5.6*k}" ry="${6*k}" fill="${eyeCol[i]}" stroke="#F3ECE2" stroke-width="1.4"/><ellipse cx="${x}" cy="${ey}" rx="${2.4*k}" ry="${4.4*k}" fill="#1d171b"/>`
-      : `<ellipse cx="${x}" cy="${ey}" rx="${3.7*k}" ry="${4.5*k}" fill="#3B2F33"/>`;
-    return `<g class="eye">${dot}<circle cx="${x-1.3*k}" cy="${ey-1.8*k}" r="${1.5*k}" fill="#fff"/></g>${sad}`;
-  }).join('');
-  const nose = `<ellipse cx="${cx}" cy="${my-4}" rx="2.6" ry="1.8" fill="${c0.nose}"/>`;
-  const mouth = expr==='happy'
-    ? `<path d="M${cx-5},${my-1} Q${cx-2.5},${my+3} ${cx},${my-1} Q${cx+2.5},${my+3} ${cx+5},${my-1}" stroke="${fl}" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M${cx-2.6},${my+1.2} Q${cx},${my+7} ${cx+2.6},${my+1.2}Z" fill="#E87A8C"/>`
-    : expr==='angry'||expr==='dizzy'||expr==='sad'
-      ? `<path d="M${cx-4},${my+3} Q${cx},${my-1} ${cx+4},${my+3}" stroke="${fl}" stroke-width="1.7" fill="none" stroke-linecap="round"/>`
-      : `<path d="M${cx-5},${my-1} Q${cx-2.5},${my+3} ${cx},${my-1} Q${cx+2.5},${my+3} ${cx+5},${my-1}" stroke="${fl}" stroke-width="1.7" fill="none" stroke-linecap="round"/>`;
-  const blush = [-1,1].map(s => `<ellipse cx="${cx+s*a*.62}" cy="${my-1}" rx="8" ry="4.6" fill="#FF9AAE" opacity="${expr==='happy'?.75:.55}"/>`).join('');
-  const whisk = [-1,1].map(s => `<path d="M${cx+s*a*.92},${my-4} L${cx+s*a*1.22},${my-8} M${cx+s*a*.94},${my+1} L${cx+s*a*1.22},${my+3}" stroke="${line}" stroke-width="1.3" stroke-linecap="round"/>`).join('');
-  const innerEar = dark ? '#B98490' : '#F4B3BB';
-  return `<svg viewBox="4 66 204 146" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<defs><clipPath id="${id}c"><path d="${blob}"/><polygon points="${poly(earL)}"/><polygon points="${poly(earR)}"/></clipPath>
-<filter id="${id}b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
-<filter id="${id}w" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="${(seed%50)+1}"/><feDisplacementMap in="SourceGraphic" scale="2.4" xChannelSelector="R" yChannelSelector="G"/></filter>
-<linearGradient id="${id}g" x1="0" y1="0" x2="0" y2="1"><stop offset=".55" stop-color="#5a4a6a" stop-opacity="0"/><stop offset="1" stop-color="#5a4a6a" stop-opacity=".16"/></linearGradient></defs>
-<ellipse cx="100" cy="${Bm+3}" rx="${b+14}" ry="6" fill="#0000001c"/>
-<g class="bob ${expr==='sleep'?'sleepy':''}"><g filter="url(#${id}w)">
-<g class="tail" style="transform-origin:${tx}px ${ty}px">${tail}</g>
-<g stroke="${line}" stroke-width="2.3" stroke-linejoin="round"><polygon points="${poly(earL)}" fill="${c.base}"/><polygon points="${poly(earR)}" fill="${c.base}"/></g>
-<path d="${blob}" fill="${c.base}"/>
-<g clip-path="url(#${id}c)">${ov}${pts}${grey}${shade}</g>
-<polygon points="${poly(inner(earL))}" fill="${innerEar}" stroke="${innerEar}" stroke-width="2" stroke-linejoin="round"/><polygon points="${poly(inner(earR))}" fill="${innerEar}" stroke="${innerEar}" stroke-width="2" stroke-linejoin="round"/>
-<path d="${blob}" fill="none" stroke="${line}" stroke-width="2.3" stroke-linejoin="round"/>
-<g fill="none" stroke="${line}" stroke-width="2" stroke-linecap="round">${paws.map(([x,y])=>`<path d="M${x-9},${y+1} Q${x},${y-9} ${x+9},${y+1}"/>`).join('')}</g>
-${whisk}</g>
-${blush}${eyes}${nose}${mouth}
-</g></svg>`;
 }
 // "sticker" style: Japanese planner-sticker look — 1:1 head and body, thick #2B2B2B line, white die-cut edge, macaron colours
 const INK = '#2B2B2B';
@@ -530,110 +418,9 @@ ${hat}</g>
 ${blush}${eyes}${nose}${mouth}
 </g></svg>`;
 }
-let artOverride = null;
-const artStyle = () => artOverride || (S && S.art) || 'journal';
 let uidN = 0;
 function catSVG(coatId, seed, stage, expr, ageM, deco){
-  if(artStyle() === 'journal') return stickerSVG(coatId, seed, stage, expr, ageM, deco);
-  if(artStyle() === 'dango') return dangoSVG(coatId, seed, stage, expr, ageM);
-  const A = ARTS[artStyle()] || ARTS.mochi;
-  const c = COAT[coatId], rnd = mulberry32(seed||1), G = A.geom(stage), {H,B} = G, id = 'k'+(++uidN);
-  const cx = H.cx, dark = lum(c.base) < .3;
-  const ol = A.ol(c, dark), olW = A.olW, E = A.ear;
-  const earL = [[cx-H.rx*E[0],H.cy-H.ry*E[1]],[cx-H.rx*E[2],H.cy-H.ry*E[3]],[cx-H.rx*E[4],H.cy-H.ry*E[5]]];
-  const earR = earL.map(([x,y])=>[2*cx-x,y]);
-  const shrink = (pts,k) => {const mx=(pts[0][0]+pts[1][0]+pts[2][0])/3,my=(pts[0][1]+pts[1][1]+pts[2][1])/3;return pts.map(([x,y])=>[mx+(x-mx)*k,my+(y-my)*k+3])};
-  const poly = p => p.map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ');
-  const pawY = B.cy+B.ry-4, paws = [[cx-13,pawY],[cx+13,pawY]];
-  const pawEl = (fill,s='') => paws.map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="11.5" ry="8.5" fill="${fill}" ${s}/>`).join('');
-  const fluff = s => `<path d="M${cx+s*H.rx*.96},${H.cy+H.ry*.08} L${cx+s*H.rx*1.13},${H.cy+H.ry*.3} L${cx+s*H.rx*.98},${H.cy+H.ry*.36} L${cx+s*H.rx*1.06},${H.cy+H.ry*.55} L${cx+s*H.rx*.82},${H.cy+H.ry*.62}Z"/>`;
-  const sil = `<polygon points="${poly(earL)}"/><polygon points="${poly(earR)}"/><ellipse cx="${B.cx}" cy="${B.cy}" rx="${B.rx}" ry="${B.ry}"/><ellipse cx="${cx}" cy="${H.cy}" rx="${H.rx}" ry="${H.ry}"/>${pawEl('#000')}`;
-  // tail, curled up beside the body
-  const sx = B.cx+B.rx*.6, sy = B.cy+B.ry*.7, k = G.tailK;
-  const tailD = `M${sx},${sy} C${sx+34*k},${sy+8} ${sx+50*k},${sy-22*k} ${sx+36*k},${sy-54*k}`;
-  let tail = `<path d="${tailD}" stroke="${ol}" stroke-width="${15+olW*1.6}" fill="none" stroke-linecap="round"/><path d="${tailD}" stroke="${c.base}" stroke-width="15" fill="none" stroke-linecap="round"/>`;
-  if(c.tabby) tail += `<path d="${tailD}" stroke="${c.stripe}" stroke-width="15" fill="none" stroke-dasharray="7 8"/>`;
-  if(c.points) tail += `<path d="${tailD}" stroke="${c.points}" stroke-width="15" fill="none" stroke-linecap="round" stroke-dasharray="0 28 200" opacity=".9"/>`;
-  if(c.patches) tail += `<path d="${tailD}" stroke="${c.patches[0]}" stroke-width="15" fill="none" stroke-linecap="round" stroke-dasharray="20 12"/>`;
-  // overlays (clipped to silhouette)
-  let ov = '';
-  const W = c.white || [];
-  if(W.includes('belly')) ov += `<ellipse cx="${cx}" cy="${B.cy+B.ry*.2}" rx="${B.rx*.64}" ry="${B.ry*.72}" fill="${WHITE}"/>`;
-  if(W.includes('chest')) ov += `<ellipse cx="${cx}" cy="${B.cy-B.ry*.15}" rx="${B.rx*.46}" ry="${B.ry*.66}" fill="${WHITE}"/>`;
-  if(c.tabby){
-    for(let i=-1;i<=1;i++) ov += `<path d="M${cx+i*9},${H.cy-H.ry*.98} L${cx+i*7},${H.cy-H.ry*.62}" stroke="${c.stripe}" stroke-width="4.5" stroke-linecap="round"/>`;
-    for(const s of [-1,1]) for(let j=0;j<2;j++) ov += `<path d="M${cx+s*H.rx*1.02},${H.cy-H.ry*.1+j*9} L${cx+s*H.rx*.74},${H.cy+j*9}" stroke="${c.stripe}" stroke-width="4" stroke-linecap="round"/>`;
-    for(const s of [-1,1]) for(let j=0;j<3;j++){const y=B.cy-B.ry*.35+j*15;ov += `<path d="M${cx+s*(B.rx+3)},${y} Q${cx+s*B.rx*.62},${y+8} ${cx+s*B.rx*.42},${y-4}" stroke="${c.stripe}" stroke-width="6" fill="none" stroke-linecap="round"/>`;}
-  }
-  if(c.patches){
-    const n = 4 + Math.floor(rnd()*2);
-    for(let i=0;i<n;i++){
-      const onHead = i < 2;
-      const x = onHead ? cx + (rnd()*2-1)*H.rx*.75 : B.cx + (rnd()*2-1)*B.rx*.85;
-      const y = onHead ? H.cy - H.ry*.4 + (rnd()*2-1)*H.ry*.35 : B.cy + (rnd()*2-1)*B.ry*.6;
-      const r = onHead ? 15 + rnd()*10 : 15 + rnd()*12;
-      ov += `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${r.toFixed(1)}" ry="${(r*(.7+rnd()*.5)).toFixed(1)}" transform="rotate(${Math.round(rnd()*80-40)} ${x.toFixed(1)} ${y.toFixed(1)})" fill="${c.patches[i%c.patches.length]}"/>`;
-    }
-  }
-  if(W.includes('muzzle')) ov += `<ellipse cx="${cx}" cy="${H.cy+H.ry*.52}" rx="${H.rx*.5}" ry="${H.ry*.42}" fill="${WHITE}"/>` + (c.id==='tuxedo'?`<path d="M${cx-7},${H.cy+H.ry*.2} L${cx},${H.cy-H.ry*.45} L${cx+7},${H.cy+H.ry*.2}Z" fill="${WHITE}"/>`:'');
-  if(W.includes('paws')) ov += pawEl(WHITE);
-  let pts = '';
-  if(c.points) pts = `<g filter="url(#${id}b)"><ellipse cx="${cx}" cy="${H.cy+H.ry*.42}" rx="${H.rx*.46}" ry="${H.ry*.5}" fill="${c.points}"/><polygon points="${poly(earL)}" fill="${c.points}"/><polygon points="${poly(earR)}" fill="${c.points}"/>${pawEl(c.points)}<ellipse cx="${cx}" cy="${B.cy+B.ry}" rx="${B.rx}" ry="12" fill="${c.points}" opacity=".5"/></g>`;
-  const grey = ageM >= 132 ? `<ellipse cx="${cx}" cy="${H.cy+H.ry*.5}" rx="${H.rx*.55}" ry="${H.ry*.42}" fill="#fff" opacity=".35" filter="url(#${id}b)"/>` : '';
-  // face colours
-  const faceBase = W.includes('muzzle') ? WHITE : c.base;
-  const darkFace = c.points ? true : lum(faceBase) < .3;
-  const fl = darkFace ? '#EDE6DA' : '#3B302B';
-  const innerEar = dark ? '#C08893' : '#F6B6BE';
-  // big shiny eyes
-  const ey = H.cy + H.ry*A.eyeY, ex = H.rx*A.ex, r = G.eyeR;
-  const eyeCol = [c.eye, c.eye2 || c.eye];
-  const eyes = [-1,1].map((s,i) => {
-    const x = cx + s*ex;
-    if(expr==='happy') return `<path d="M${x-r*.85},${ey+3} Q${x},${ey-r*1.05} ${x+r*.85},${ey+3}" stroke="${fl}" stroke-width="3.8" fill="none" stroke-linecap="round"/>`;
-    if(expr==='sleep') return `<path d="M${x-r*.85},${ey} Q${x},${ey+r*.8} ${x+r*.85},${ey}" stroke="${fl}" stroke-width="3.8" fill="none" stroke-linecap="round"/>`;
-    if(expr==='angry') return `<path d="M${x-s*r*.75},${ey-r*.6} L${x+s*r*.55},${ey} L${x-s*r*.75},${ey+r*.6}" stroke="${fl}" stroke-width="3.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
-    if(expr==='dizzy') return `<path d="M${x-r*.6},${ey-r*.6} L${x+r*.6},${ey+r*.6} M${x+r*.6},${ey-r*.6} L${x-r*.6},${ey+r*.6}" stroke="${fl}" stroke-width="3.5" stroke-linecap="round"/>`;
-    if(A.eyes === 'dot'){
-      // small shiny bean eyes; coloured on dark faces so they still show
-      const rx = r*.52, ry = r*(stage==='senior'?.52:.64);
-      const sad = expr==='sad' ? `<path d="M${x-r*.7},${ey-r*1.05+(s<0?-2:2)} L${x+r*.7},${ey-r*1.05+(s<0?2:-2)}" stroke="${fl}" stroke-width="2.2" stroke-linecap="round"/><ellipse cx="${x+s*r*.4}" cy="${ey+ry*1.6}" rx="2.4" ry="3.3" fill="#8FD0F5"/>` : '';
-      const eyeDark = c.points || dark;
-      const iris = eyeDark ? `<ellipse cx="${x}" cy="${ey}" rx="${rx*1.25}" ry="${ry*1.18}" fill="${eyeCol[i]}"/>` : '';
-      return `<g class="eye">${iris}<ellipse cx="${x}" cy="${ey}" rx="${eyeDark?rx*.6:rx}" ry="${eyeDark?ry*.9:ry}" fill="#221a20"/><circle cx="${x-rx*.32}" cy="${ey-ry*.38}" r="${rx*.42}" fill="#fff"/><circle cx="${x+rx*.35}" cy="${ey+ry*.35}" r="${rx*.18}" fill="#fff"/></g>${sad}`;
-    }
-    const ry = stage==='senior' ? r*.9 : r*1.08;
-    const lid = '';
-    const sad = expr==='sad' ? `<path d="M${x-r},${ey-r*1.4+(s<0?-3:3)} L${x+r},${ey-r*1.4+(s<0?3:-3)}" stroke="${fl}" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="${x+s*r*.6}" cy="${ey+ry*1.15}" rx="2.6" ry="3.6" fill="#8FD0F5"/>` : '';
-    return `<g class="eye"><ellipse cx="${x}" cy="${ey}" rx="${r}" ry="${ry}" fill="${eyeCol[i]}" stroke="${darkFace?'#00000080':'#2a2228'}" stroke-width="1.8"/><ellipse cx="${x}" cy="${ey+ry*.05}" rx="${r*.66}" ry="${ry*.86}" fill="#17141b"/><circle cx="${x-r*.3}" cy="${ey-ry*.36}" r="${r*.38}" fill="#fff"/><circle cx="${x+r*.34}" cy="${ey+ry*.34}" r="${r*.17}" fill="#fff"/></g>${lid}${sad}`;
-  }).join('');
-  const ny = H.cy + H.ry*A.noseY;
-  const nose = `<path d="M${cx-3.5},${ny-2.5} L${cx+3.5},${ny-2.5} L${cx},${ny+1.8}Z" fill="${c.nose}" stroke="${c.nose}" stroke-width="2.5" stroke-linejoin="round"/>`;
-  const mouth = expr==='angry'||expr==='dizzy'
-    ? `<path d="M${cx-5},${ny+9} Q${cx},${ny+4} ${cx+5},${ny+9}" stroke="${fl}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`
-    : `<path d="M${cx},${ny+2} L${cx},${ny+4} M${cx-6},${ny+5} Q${cx-3},${ny+9} ${cx},${ny+4} Q${cx+3},${ny+9} ${cx+6},${ny+5}" stroke="${fl}" stroke-width="2" fill="none" stroke-linecap="round"/>`
-      + (expr==='happy' ? `<path d="M${cx-3.5},${ny+7} Q${cx},${ny+13} ${cx+3.5},${ny+7}Z" fill="#E86F82"/>` : '');
-  const wc = darkFace ? '#ffffffaa' : '#00000045';
-  const whisk = A.whisk === 'long'
-    ? [-1,1].map(s => [-4,4].map(d => `<path d="M${cx+s*H.rx*.62},${ny+2+d*.4} L${cx+s*H.rx*1.12},${ny-2+d*1.6}" stroke="${wc}" stroke-width="1.3" stroke-linecap="round"/>`).join('')).join('')
-    : [-1,1].map(s => [-3,3].map(d => `<path d="M${cx+s*H.rx*.8},${ny+d} L${cx+s*H.rx*.98},${ny-2+d*1.5}" stroke="${wc}" stroke-width="1.6" stroke-linecap="round"/>`).join('')).join('');
-  const blush = [-1,1].map(s => `<ellipse cx="${cx+s*H.rx*.64}" cy="${ny+1}" rx="${A.eyes==='dot'?10:9}" ry="${A.eyes==='dot'?6:5.5}" fill="#FF8FA6" opacity="${expr==='happy'?.75:A.eyes==='dot'?.6:.5}"/>`).join('');
-  return `<svg viewBox="0 34 212 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<defs><clipPath id="${id}c">${sil}</clipPath><filter id="${id}b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter></defs>
-<ellipse cx="100" cy="${pawY+7}" rx="${B.rx+16}" ry="7" fill="#0000001f"/>
-<g class="bob ${expr==='sleep'?'sleepy':''}">
-<g class="tail" style="transform-origin:${sx}px ${sy}px">${tail}</g>
-<g stroke-linejoin="round"><polygon points="${poly(earL)}" fill="${ol}" stroke="${ol}" stroke-width="${6+olW*2}"/><polygon points="${poly(earR)}" fill="${ol}" stroke="${ol}" stroke-width="${6+olW*2}"/>
-<polygon points="${poly(earL)}" fill="${c.base}" stroke="${c.base}" stroke-width="6"/><polygon points="${poly(earR)}" fill="${c.base}" stroke="${c.base}" stroke-width="6"/></g>
-<g fill="${c.base}" stroke="${ol}" stroke-width="${olW}" stroke-linejoin="round">
-<ellipse cx="${B.cx}" cy="${B.cy}" rx="${B.rx}" ry="${B.ry}"/>${pawEl(c.base)}
-${A.fluff?fluff(-1)+fluff(1):''}
-<ellipse cx="${cx}" cy="${H.cy}" rx="${H.rx}" ry="${H.ry}"/></g>
-<g clip-path="url(#${id}c)">${ov}${pts}${grey}</g>
-<g fill="none" stroke="${ol}" stroke-width="${Math.max(2,olW-.4)}"><ellipse cx="${cx}" cy="${H.cy}" rx="${H.rx}" ry="${H.ry}"/>${paws.map(([x,y])=>`<path d="M${x-3.5},${y+3} v3.5 M${x+3.5},${y+3} v3.5"/>`).join('')}</g>
-<polygon points="${poly(shrink(earL,.48))}" fill="${innerEar}" stroke="${innerEar}" stroke-width="3" stroke-linejoin="round"/><polygon points="${poly(shrink(earR,.48))}" fill="${innerEar}" stroke="${innerEar}" stroke-width="3" stroke-linejoin="round"/>
-${blush}${eyes}${nose}${mouth}${whisk}
-</g></svg>`;
+  return stickerSVG(coatId, seed, stage, expr, ageM, deco);
 }
 // photo version: the user's own photo cut into the cat silhouette (body, ears and tail)
 function photoCat(photo, stage, expr, pos = S && S.photoPos){
@@ -1019,7 +806,7 @@ function renderLife(){
   </section>
   <button class="ff ${ffOn?'on':''}" id="ff">${ffOn?'⏸ 停止快轉<small>快轉中，遇到事件會暫停，處理完繼續</small>':'⏩ 快轉<small>自動餵飯、清貓砂、陪玩；遇到事件會暫停，處理完繼續</small>'}</button>
   <button class="shopbtn" id="shop"><span>🛍</span>貓咪用品店<small>存款 $${S.money} · 買東西佈置房間</small></button>
-  <div class="links"><button class="linkbtn" id="guide">📖 養貓守則</button><button class="linkbtn" id="artBtn">🎨 換畫風</button>${S.past.length?`<button class="linkbtn" id="rainbow">🌈 彩虹橋（${S.past.length}）</button>`:''}<button class="linkbtn" id="album">回憶相簿（${S.memories.length}）</button><button class="linkbtn" id="photoBtn">${S.photo?'換照片 / 改回畫的貓':'上傳我家貓的照片'}</button><button class="linkbtn" id="mute">${muted?'🔇 聲音關':'🔊 聲音開'}</button><button class="linkbtn" id="restart">重新開始</button></div>`}`;
+  <div class="links"><button class="linkbtn" id="guide">📖 養貓守則</button>${S.past.length?`<button class="linkbtn" id="rainbow">🌈 彩虹橋（${S.past.length}）</button>`:''}<button class="linkbtn" id="album">回憶相簿（${S.memories.length}）</button><button class="linkbtn" id="photoBtn">${S.photo?'換照片 / 改回畫的貓':'上傳我家貓的照片'}</button><button class="linkbtn" id="mute">${muted?'🔇 聲音關':'🔊 聲音開'}</button><button class="linkbtn" id="restart">重新開始</button></div>`}`;
   const cw = $('#cw');
   if(farewell){
     $('#fpet').onclick = farewellPet; $('#fhug').onclick = farewellHug;
@@ -1035,9 +822,7 @@ function renderLife(){
   $('#mute').onclick = toggleMute;
   $('#shop').onclick = () => shopModal();
   $('#guide').onclick = () => showGuide();
-  $('#artBtn').onclick = artPicker;
   if(!S.guided) showGuide();
-  else if(S.artPicked !== 3 && !S.photo && !$('#modalRoot').innerHTML) artPicker();
   const rb = $('#rainbow'); if(rb) rb.onclick = rainbowModal;
   if(ffOn) app.querySelectorAll('[data-a]').forEach(b => b.disabled = true);
   startWander();
@@ -1452,57 +1237,65 @@ const SPOT_X = {floorL:14, floorR:84, floorC:66, front:14};   // where the cat w
 const ITEMS = [
   {id:'box',     name:'紙箱屋',     kind:'floor', price:80,  desc:'心情 +3／天。貓永遠最愛紙箱', eff:()=>add('mood',3),
    line:'（鑽進紙箱屋，只露出兩隻耳朵）', vb:'0 0 100 100',
-   svg:`<rect x="14" y="44" width="72" height="52" rx="3" fill="#CFA066" stroke="#8B6234" stroke-width="2.5"/><polygon points="14,46 26,24 40,46" fill="#CFA066" stroke="#8B6234" stroke-width="2.5" stroke-linejoin="round"/><polygon points="60,46 74,24 86,46" fill="#CFA066" stroke="#8B6234" stroke-width="2.5" stroke-linejoin="round"/><path d="M37 96 V74 Q50 58 63 74 V96Z" fill="#5E4026"/><path d="M20 58 h12 M68 58 h12" stroke="#8B6234" stroke-width="2"/>`},
+   svg:`<rect x="14" y="44" width="72" height="52" rx="6" fill="#F6D7A7"/><polygon points="16,46 27,24 40,46" fill="#F6D7A7"/><polygon points="60,46 73,24 84,46" fill="#F6D7A7"/><polygon points="24,42 27,32 33,42" fill="#FFC4CF" stroke="none"/><polygon points="67,42 73,32 76,42" fill="#FFC4CF" stroke="none"/><path d="M37 96 V76 Q50 60 63 76 V96Z" fill="#C9A27E"/><ellipse cx="26" cy="64" rx="5" ry="3" fill="#FFB3C1" stroke="none"/><ellipse cx="74" cy="64" rx="5" ry="3" fill="#FFB3C1" stroke="none"/>`},
   {id:'grass',   name:'貓草盆栽',   kind:'floor', price:100, desc:'心情 +2／天，比較不會吐毛球', eff:()=>add('mood',2),
    line:'（啃了兩口貓草，一臉滿足）', vb:'0 0 100 100',
-   svg:`<path d="M32 64 L68 64 L62 96 L38 96Z" fill="#E39B6B" stroke="#B26A3C" stroke-width="2.5" stroke-linejoin="round"/><rect x="29" y="60" width="42" height="8" rx="3" fill="#EFAE80" stroke="#B26A3C" stroke-width="2"/><g stroke="#6DB65B" stroke-width="4" stroke-linecap="round" fill="none"><path d="M40 60 Q36 40 30 30"/><path d="M46 60 Q46 36 44 20"/><path d="M52 60 Q54 34 58 22"/><path d="M58 60 Q64 42 72 34"/><path d="M50 60 Q48 44 38 36"/></g>`},
+   svg:`<g fill="none" stroke-width="3.2"><path d="M40 62 Q36 42 30 32" stroke="#2B2B2B"/><path d="M46 62 Q46 38 44 22"/><path d="M53 62 Q55 36 59 24"/><path d="M59 62 Q65 44 72 36"/></g><g fill="#A8DDA0"><ellipse cx="30" cy="31" rx="5" ry="8" transform="rotate(-30 30 31)"/><ellipse cx="44" cy="21" rx="5" ry="9"/><ellipse cx="59" cy="23" rx="5" ry="9" transform="rotate(15 59 23)"/><ellipse cx="72" cy="35" rx="5" ry="8" transform="rotate(40 72 35)"/></g><path d="M32 66 L68 66 L63 96 L37 96Z" fill="#FFC4A8"/><rect x="28" y="60" width="44" height="10" rx="5" fill="#FFD9C4"/>`},
   {id:'scratch', name:'貓抓板',     kind:'floor', price:150, desc:'心情 +3／天，從此不抓沙發', eff:()=>add('mood',3),
    line:'（在貓抓板上用力抓抓抓）', vb:'0 0 100 100',
-   svg:`<polygon points="8,92 72,50 92,92" fill="#D9AC74" stroke="#8B6234" stroke-width="2.5" stroke-linejoin="round"/><path d="M24 84 L74 58 M36 88 L79 64 M50 90 L84 72 M64 91 L88 80" stroke="#A97B45" stroke-width="2"/><rect x="5" y="90" width="90" height="7" rx="3" fill="#8B6234"/>`},
+   svg:`<path d="M10 90 L70 52 Q76 50 80 56 L92 90Z" fill="#F6D7A7"/><g stroke="#D9B48A" stroke-width="2.4"><path d="M26 84 L72 58"/><path d="M38 87 L77 64"/><path d="M52 89 L82 72"/></g><rect x="5" y="88" width="90" height="9" rx="4.5" fill="#E7B98F"/><path d="M80 56 V34" fill="none" stroke-width="2"/><circle cx="80" cy="30" r="6" fill="#FFB3C1"/>`},
   {id:'stairs',  name:'寵物樓梯',   kind:'floor', price:180, desc:'老貓心情 +4／天，上沙發不費力', eff:()=>{ if(stage()==='senior') add('mood',4); else add('mood',1); },
    line:'（一階一階慢慢走上樓梯）', vb:'0 0 100 100',
-   svg:`<path d="M10 96 V74 H36 V52 H62 V30 H90 V96Z" fill="#DCC093" stroke="#9D7A4A" stroke-width="2.5" stroke-linejoin="round"/><path d="M10 74 H36 M36 52 H62 M62 30 H90" stroke="#C96F6F" stroke-width="5"/>`},
+   svg:`<path d="M10 96 V74 Q10 72 12 72 H34 V52 Q34 50 36 50 H60 V30 Q60 28 62 28 H88 Q90 28 90 30 V96Z" fill="#F6D7A7"/><g stroke="#FFB3C1" stroke-width="6" stroke-linecap="round"><path d="M14 76 H32"/><path d="M38 54 H58"/><path d="M64 32 H86"/></g>`},
   {id:'tunnel',  name:'貓隧道',     kind:'floor', price:200, desc:'心情 +4／天，小貓 +6', eff:()=>add('mood', stage()==='kitten'?6:4),
    line:'（衝進隧道，從另一頭探出頭來）', vb:'0 0 100 100',
-   svg:`<rect x="20" y="56" width="62" height="38" fill="#7FA8D8"/><path d="M34 56 v38 M48 56 v38 M62 56 v38" stroke="#5F86B8" stroke-width="3"/><ellipse cx="82" cy="75" rx="10" ry="19" fill="#7FA8D8" stroke="#5F86B8" stroke-width="2.5"/><ellipse cx="20" cy="75" rx="12" ry="20" fill="#5F86B8"/><ellipse cx="20" cy="75" rx="8" ry="15" fill="#2E3E5C"/>`},
+   svg:`<rect x="20" y="54" width="64" height="42" rx="6" fill="#BFE3F5"/><g stroke="#9CCDEB" stroke-width="3"><path d="M36 56 v38"/><path d="M52 56 v38"/><path d="M68 56 v38"/></g><ellipse cx="84" cy="75" rx="10" ry="21" fill="#BFE3F5"/><ellipse cx="20" cy="75" rx="13" ry="21" fill="#D9ECFA"/><ellipse cx="20" cy="76" rx="8" ry="15" fill="#6B7FA8"/>`},
   {id:'heat',    name:'暖暖墊',     kind:'floor', price:220, desc:'健康 +1／天，老貓 +3', eff:()=>add('health', stage()==='senior'?3:1),
    line:'（躺在暖暖墊上，攤成一張貓餅）', vb:'0 0 100 100',
-   svg:`<path d="M6 92 L22 70 L94 70 L78 92Z" fill="#E57C6E" stroke="#B5524A" stroke-width="2.5" stroke-linejoin="round"/><path d="M18 76 H88 M12 84 H82 M36 70 L26 92 M58 70 L48 92 M78 70 L68 92" stroke="#F3B1A6" stroke-width="3"/>`},
+   svg:`<path d="M8 90 L22 70 Q24 68 27 68 H92 L78 90 Q76 92 73 92 H10Z" fill="#FFB3A7"/><g stroke="#FFE0D6" stroke-width="3"><path d="M18 76 H86"/><path d="M13 84 H81"/><path d="M38 70 L28 90"/><path d="M60 70 L50 90"/></g><path d="M64 60 q4 -6 0 -12 M74 60 q4 -6 0 -12" fill="none" stroke="#FF9AAE" stroke-width="2.4"/>`},
   {id:'bed',     name:'甜甜圈貓窩', kind:'floor', price:250, desc:'健康 +1、心情 +2／天', eff:()=>{ add('health',1); add('mood',2); },
    line:'（在貓窩裡轉三圈，捲成一團）', vb:'0 0 100 100',
-   svg:`<ellipse cx="50" cy="80" rx="44" ry="17" fill="#EBB8C9" stroke="#C98AA1" stroke-width="2.5"/><ellipse cx="50" cy="76" rx="28" ry="8" fill="#F9DFE7"/><path d="M12 76 q4 -6 8 0 q4 -6 8 0 M72 76 q4 -6 8 0 q4 -6 8 0" stroke="#fff" stroke-width="2" fill="none" opacity=".7"/>`},
+   svg:`<ellipse cx="50" cy="80" rx="44" ry="17" fill="#FFC4CF"/><ellipse cx="50" cy="76" rx="28" ry="8" fill="#FFE6EC"/><g fill="#fff" stroke="none" opacity=".8"><circle cx="18" cy="78" r="2.5"/><circle cx="82" cy="78" r="2.5"/><circle cx="50" cy="93" r="2.5"/></g>`},
   {id:'fountain',name:'飲水機',     kind:'floor', price:300, desc:'健康 +2／天，比較不會泌尿道發炎', eff:()=>add('health',2),
    line:'（用前腳撥水，玩得到處都是）', vb:'0 0 100 100',
-   svg:`<ellipse cx="50" cy="90" rx="34" ry="7" fill="#C9D5DC"/><path d="M18 90 Q18 56 50 56 Q82 56 82 90Z" fill="#fff" stroke="#AEBEC8" stroke-width="2.5"/><ellipse cx="50" cy="58" rx="25" ry="6" fill="#8FD0F5"/><path d="M43 58 Q50 36 57 58" fill="#BFE6FB" stroke="#8FD0F5" stroke-width="1.5"/><circle cx="50" cy="40" r="3" fill="#8FD0F5"/>`},
+   svg:`<ellipse cx="50" cy="90" rx="34" ry="7" fill="#D9ECFA"/><path d="M18 90 Q18 56 50 56 Q82 56 82 90Z" fill="#FFFFFF"/><ellipse cx="50" cy="58" rx="25" ry="6" fill="#A9DDF7"/><path d="M44 58 Q50 36 56 58" fill="#D9F1FC"/><circle cx="50" cy="38" r="3.5" fill="#A9DDF7"/><path d="M34 76 q4 -4 8 0 q-4 4 -8 0Z M42 76 l4 -3 v6Z" fill="#FF9AAE" stroke-width="1.6"/>`},
   {id:'hammock', name:'窗邊吊床',   kind:'wall',  price:350, desc:'心情 +3、親密 +1／天', eff:()=>{ add('mood',3); add('bond',1); },
    line:'（窩在吊床上看外面的鳥）', vb:'0 0 120 80',
-   svg:`<path d="M12 10 L24 40 M108 10 L96 40" stroke="#8C8C8C" stroke-width="2.5"/><circle cx="12" cy="10" r="6" fill="#CFE8F2" stroke="#9BBFCC" stroke-width="2"/><circle cx="108" cy="10" r="6" fill="#CFE8F2" stroke="#9BBFCC" stroke-width="2"/><path d="M20 40 Q60 78 100 40Z" fill="#F2C14E" stroke="#C99A2E" stroke-width="2.5" stroke-linejoin="round"/><path d="M36 48 Q60 66 84 48" stroke="#fff" stroke-width="2.5" fill="none" stroke-dasharray="4 4"/>`},
+   svg:`<path d="M14 12 L24 40 M106 12 L96 40" fill="none" stroke-width="2.4"/><circle cx="14" cy="11" r="7" fill="#D9ECFA"/><circle cx="106" cy="11" r="7" fill="#D9ECFA"/><path d="M20 40 Q60 80 100 40 Q60 52 20 40Z" fill="#FFE27A"/><g fill="#FFF6C9" stroke="none"><circle cx="44" cy="54" r="3"/><circle cx="60" cy="60" r="3"/><circle cx="76" cy="54" r="3"/></g>`},
   {id:'shelf',   name:'牆上貓步道', kind:'wall',  price:450, desc:'心情 +4／天，貓喜歡從高處看你', eff:()=>add('mood',4),
    line:'（跳上牆上的貓步道，從高處俯視你）', vb:'0 0 120 80',
-   svg:`<g fill="#C79A62" stroke="#8B6234" stroke-width="2"><rect x="6" y="62" width="40" height="8" rx="2"/><rect x="40" y="38" width="40" height="8" rx="2"/><rect x="74" y="14" width="40" height="8" rx="2"/></g><g fill="#8B6234"><rect x="18" y="70" width="4" height="8"/><rect x="54" y="46" width="4" height="8"/><rect x="90" y="22" width="4" height="8"/></g><g fill="#8B623466"><circle cx="30" cy="56" r="2.5"/><circle cx="64" cy="32" r="2.5"/><circle cx="98" cy="8" r="2.5"/></g>`},
+   svg:`<g fill="#F6D7A7"><rect x="6" y="60" width="40" height="10" rx="5"/><rect x="40" y="36" width="40" height="10" rx="5"/><rect x="74" y="12" width="40" height="10" rx="5"/></g><g fill="#E7B98F"><rect x="20" y="70" width="6" height="8" rx="2"/><rect x="54" y="46" width="6" height="8" rx="2"/><rect x="88" y="22" width="6" height="8" rx="2"/></g><g fill="#FFB3C1" stroke="none"><circle cx="26" cy="52" r="3"/><circle cx="60" cy="28" r="3"/><circle cx="94" cy="4" r="3"/></g>`},
   {id:'portrait',name:'貓咪畫像',   kind:'wall',  price:120, desc:'親密 +1／天。畫的是現在這隻貓', eff:()=>add('bond',1),
    line:'（盯著牆上的畫像，好像認出自己了）', vb:'0 0 100 100', svg:''},
   {id:'tank',    name:'小魚缸',     kind:'floor', price:500, desc:'心情 +4／天，可以看魚看一整天', eff:()=>add('mood',4),
    line:'（臉貼在魚缸上，尾巴一直甩）', vb:'0 0 100 100',
-   svg:`<rect x="12" y="84" width="76" height="12" rx="2" fill="#8B6234"/><rect x="14" y="36" width="72" height="48" rx="4" fill="#BFE7F7" stroke="#8CB9CC" stroke-width="2.5"/><rect x="14" y="36" width="72" height="8" fill="#9FD6EE" opacity=".6"/><path d="M40 62 q10 -10 20 0 q-10 10 -20 0Z M60 62 l8 -6 v12Z" fill="#F29A4A"/><path d="M26 84 q-4 -16 2 -26 M30 84 q4 -12 0 -20" stroke="#5FAE5A" stroke-width="3" fill="none"/><circle cx="72" cy="52" r="2" fill="#fff"/><circle cx="68" cy="46" r="1.5" fill="#fff"/>`},
+   svg:`<rect x="12" y="82" width="76" height="14" rx="5" fill="#F6D7A7"/><rect x="14" y="34" width="72" height="50" rx="8" fill="#CFEFFA"/><path d="M14 46 H86" fill="none" stroke="#A9DDF7" stroke-width="3"/><path d="M38 62 q10 -10 20 0 q-10 10 -20 0Z M58 62 l9 -7 v14Z" fill="#FFAE5C" stroke-width="2.4"/><circle cx="43" cy="61" r="1.4" fill="#2B2B2B" stroke="none"/><path d="M26 82 q-4 -14 2 -24 M32 82 q4 -10 0 -18" fill="none" stroke="#7CC48A" stroke-width="3.4"/><g fill="#fff" stroke="none"><circle cx="72" cy="54" r="2.4"/><circle cx="68" cy="47" r="1.8"/></g>`},
   {id:'tree',    name:'貓跳台',     kind:'floor', price:600, desc:'心情 +5／天，親密 +1', eff:()=>{ add('mood',5); add('bond',1); },
    line:'（爬上貓跳台最高層，得意地看著你）', vb:'0 0 100 160',
-   svg:`<g fill="#E6CB98" stroke="#B28A4E" stroke-width="2"><rect x="30" y="40" width="11" height="112"/><rect x="64" y="82" width="11" height="70"/></g><path d="M30 60h11M30 76h11M30 92h11M30 108h11M30 124h11M30 140h11M64 98h11M64 114h11M64 130h11" stroke="#B28A4E" stroke-width="1.5"/><g fill="#F1E4D0" stroke="#B9A88E" stroke-width="2"><rect x="8" y="146" width="84" height="10" rx="4"/><rect x="50" y="76" width="44" height="9" rx="4"/><rect x="14" y="36" width="46" height="9" rx="4"/></g><ellipse cx="37" cy="30" rx="22" ry="9" fill="#F1E4D0" stroke="#B9A88E" stroke-width="2"/><ellipse cx="37" cy="27" rx="14" ry="4" fill="#E2D2B8"/><path d="M90 85 V106" stroke="#999" stroke-width="1.5"/><circle cx="90" cy="110" r="5" fill="#F08DA2"/>`},
+   svg:`<g fill="#F6D7A7"><rect x="29" y="40" width="13" height="112" rx="4"/><rect x="63" y="82" width="13" height="70" rx="4"/></g><g stroke="#D9B48A" stroke-width="2"><path d="M31 60h9M31 76h9M31 92h9M31 108h9M31 124h9M31 140h9M65 98h9M65 114h9M65 130h9"/></g><g fill="#FFE0E6"><rect x="8" y="146" width="84" height="11" rx="5.5"/><rect x="50" y="76" width="44" height="10" rx="5"/><rect x="14" y="36" width="46" height="10" rx="5"/></g><ellipse cx="37" cy="30" rx="22" ry="10" fill="#D9ECFA"/><ellipse cx="37" cy="27" rx="13" ry="4" fill="#BFE3F5" stroke="none"/><path d="M90 86 V104" fill="none" stroke-width="2"/><circle cx="90" cy="109" r="6" fill="#FFB3C1"/>`},
   {id:'autolitter',name:'自動貓砂機',kind:'floor', price:900, desc:'清潔 +10／天。鏟屎官的救星', eff:()=>add('clean',10),
    line:'（盯著自動貓砂機轉動，很警戒）', vb:'0 0 100 100',
-   svg:`<path d="M14 94 Q14 28 50 28 Q86 28 86 94Z" fill="#F6F6F3" stroke="#C3CBD0" stroke-width="2.5"/><circle cx="50" cy="66" r="18" fill="#3A3F4A"/><rect x="14" y="88" width="72" height="8" rx="3" fill="#D8DEE2"/><circle cx="50" cy="38" r="3" fill="#7BD389"/>`},
+   svg:`<path d="M14 92 Q14 28 50 28 Q86 28 86 92Z" fill="#FFFFFF"/><circle cx="50" cy="64" r="17" fill="#6B7FA8"/><rect x="12" y="86" width="76" height="10" rx="5" fill="#D9ECFA"/><circle cx="50" cy="40" r="4" fill="#A8DDA0"/><path d="M27 52 Q30 44 36 40" fill="none" stroke="#fff" stroke-width="3"/>`},
 ];
 const ITEM = Object.fromEntries(ITEMS.map(i => [i.id, i]));
 const placedIds = () => Object.values(S.placed).filter(Boolean);
 const hasItem = id => placedIds().includes(id);
+// every item gets the planner-sticker treatment: thick ink line, then a white die-cut edge around the whole shape
+function stickerDefs(id){
+  return `<defs><filter id="${id}" x="-15%" y="-15%" width="130%" height="130%">
+<feMorphology in="SourceAlpha" operator="dilate" radius="3.5" result="d"/><feFlood flood-color="#fff"/><feComposite in2="d" operator="in" result="edge"/>
+<feMerge><feMergeNode in="edge"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
+}
 function itemSVG(id){
-  const it = ITEM[id];
+  const it = ITEM[id], fid = 'st' + (++uidN);
   if(id === 'portrait'){
-    const inner = S.photo ? `<image href="${S.photo}" x="16" y="16" width="68" height="68" preserveAspectRatio="xMidYMid slice"/>`
-      : `<svg x="14" y="14" width="72" height="72" viewBox="0 34 212 180">${catSVG(S.coatId,S.seed,stage(),'happy',S.ageM).replace(/^<svg[^>]*>/,'').replace(/<\/svg>$/,'')}</svg>`;
-    return `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"><rect x="8" y="8" width="84" height="84" rx="4" fill="#C79A62" stroke="#8B6234" stroke-width="3"/><rect x="14" y="14" width="72" height="72" fill="#F6EFD9"/>${inner}</svg>`;
+    const inner = S.photo ? photoCat(S.photo, stage(), 'happy').replace('<svg ', '<svg x="18" y="20" width="64" height="60" ')
+      : catSVG(S.coatId,S.seed,stage(),'happy',S.ageM).replace('<svg ', '<svg x="16" y="16" width="68" height="68" ');
+    return `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">${stickerDefs(fid)}<g filter="url(#${fid})" stroke="${INK}" stroke-width="3" stroke-linejoin="round">
+<rect x="8" y="8" width="84" height="84" rx="10" fill="#F6D7A7"/><rect x="16" y="16" width="68" height="68" rx="6" fill="#FFF6EC" stroke-width="2.4"/></g>${inner}
+<g fill="#FFB3C1"><circle cx="12" cy="12" r="4"/><circle cx="88" cy="88" r="4"/></g></svg>`;
   }
-  return `<svg viewBox="${it.vb}" preserveAspectRatio="xMidYMax meet">${it.svg}</svg>`;
+  return `<svg viewBox="${it.vb}" preserveAspectRatio="xMidYMax meet">${stickerDefs(fid)}<g filter="url(#${fid})" stroke="${INK}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">${it.svg}</g></svg>`;
 }
 function roomDecor(){
   return `<div class="paper"></div>
@@ -1566,21 +1359,10 @@ function rainbowModal(){
 }
 // a new cat moves into the same home: money, furniture and the cats before carry over
 function newLife(remember){
-  const home = {money:S.money, owned:S.owned, placed:S.placed, past:S.past, guided:S.guided, art:S.art, artPicked:S.artPicked};
+  const home = {money:S.money, owned:S.owned, placed:S.placed, past:S.past, guided:S.guided};
   if(remember) home.past = home.past.concat([{name:N(), coatId:S.coatId, seed:S.seed, gender:S.gender, ageM:S.ageM, photo:S.photo, letter:S.letter||'', memories:S.memories}]);
   S = Object.assign(fresh(), home);
   save(); render();
-}
-
-/* ---------- art style picker ---------- */
-function artPicker(){
-  const st = S.phase==='life'||S.phase==='farewell' ? stage() : 'kitten';
-  const opts = Object.entries(ARTS).map(([k,a]) => { artOverride = k; const svg = catSVG(S.coatId, S.seed, st, 'happy', S.ageM, true); artOverride = null;
-    return `<button class="artopt" data-art="${k}" aria-pressed="${artStyle()===k}"><span class="pv">${svg}</span><b>${a.name}</b><small>${a.desc}</small></button>`; }).join('');
-  modal(`<div class="kicker">換畫風</div><h2>哪一種最可愛？</h2><p>選一個你喜歡的畫法，之後隨時可以換。</p><div class="arts">${opts}</div>
-    ${S.photo?'<p style="font-size:13px;color:#7b7468">（現在用的是照片，要改回畫的貓才看得到畫風）</p>':''}`, r => {
-    r.querySelectorAll('[data-art]').forEach(b => b.onclick = () => { S.art = b.dataset.art; S.artPicked = 3; save(); closeModal(); render(); meow('chirp'); });
-  });
 }
 
 /* ---------- first-day guide: what to look after ---------- */
@@ -1600,7 +1382,7 @@ function showGuide(){
       <p style="font-size:14px">一天有早上、下午、晚上，每個時段可以做一件事。點 ${esc(N())} 可以摸摸，不用花時間。忙的話可以按「快轉」，基本照顧會自動做。</p>
     </div>
     <button class="opt" id="okg" style="text-align:center;background:#F2B53B;font-weight:700">我會好好照顧${P()} ♥</button>`, r => {
-    $('#okg').onclick = () => { S.guided = true; save(); closeModal(); meow('chirp'); if(S.artPicked !== 3 && !S.photo) setTimeout(artPicker, 300); };
+    $('#okg').onclick = () => { S.guided = true; save(); closeModal(); meow('chirp'); };
   });
 }
 
