@@ -109,13 +109,6 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .eye{animation:blink 5.5s infinite;transform-box:fill-box;transform-origin:center}
 @keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
 
-/* photo cat */
-.photocat{position:relative;width:100%;aspect-ratio:1/1.08}
-.photocat .ears{position:absolute;inset:0}
-.photocat .pic{position:absolute;left:6%;right:6%;bottom:0;aspect-ratio:1;border-radius:50%;background-size:cover;background-position:center;
-  border:5px solid #fff;box-shadow:0 6px 14px #0003}
-.photocat.senior .pic{filter:saturate(.75) sepia(.15)}
-.photocat .face{position:absolute;inset:0;pointer-events:none}
 
 .bubble{position:absolute;left:50%;white-space:normal;width:max-content;top:5%;transform:translateX(-50%);max-width:78%;background:#fff;color:#2b2b33;font-family:var(--display);
   font-size:16px;line-height:1.45;padding:8px 14px;border-radius:16px;text-align:center;box-shadow:0 4px 12px #0002;z-index:5;transition:opacity .3s;z-index:5}
@@ -222,7 +215,8 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .seg button{flex:1;border:2px solid var(--ink-2);background:none;border-radius:12px;padding:8px}
 .seg button[aria-pressed=true]{border-color:var(--eye);color:var(--eye)}
 .upload{display:flex;align-items:center;gap:12px;padding:12px;border:2px dashed #ffffff26;border-radius:14px}
-.upload .thumb{width:56px;height:56px;border-radius:50%;background:#ffffff10 center/cover;flex:none;display:grid;place-items:center;font-size:22px}
+.upload .thumb{width:64px;height:56px;border-radius:12px;background:#ffffff10;flex:none;display:grid;place-items:center;font-size:22px}
+.upload .thumb svg{width:100%;height:auto;display:block}
 .upload .txt{flex:1;min-width:0;font-size:13px;color:var(--muted);line-height:1.5}
 .upload .txt b{color:var(--paper);font-weight:500;display:block;font-size:14px}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -325,12 +319,7 @@ const ARTS = {
 };
 // "dango" style: one round dumpling body, thin wobbly hand-drawn line, soft colours
 const soften = (hex, k) => {const n=parseInt(hex.slice(1),16);const f=v=>Math.round(v+(255-v)*k);return '#'+((1<<24)|(f(n>>16)<<16)|(f(n>>8&255)<<8)|f(n&255)).toString(16).slice(1)};
-function dangoSVG(coatId, seed, stage, expr, ageM){
-  const c0 = COAT[coatId], rnd = mulberry32(seed||1), id = 'k'+(++uidN);
-  const dark = lum(c0.base) < .3;
-  const sk = dark ? .1 : .14;
-  const c = {...c0, base:soften(c0.base,sk), stripe:c0.stripe&&soften(c0.stripe,.12), points:c0.points&&soften(c0.points,.12), patches:c0.patches&&c0.patches.map(p=>soften(p,.12))};
-  const line = dark ? '#251f24' : '#6B5A53';
+function dangoShape(stage){
   const cx = 100;
   const P = stage==='kitten' ? {T:112,Bm:200,a:46,b:52} : stage==='senior' ? {T:96,Bm:200,a:54,b:68} : {T:94,Bm:200,a:53,b:64};
   const {T,Bm,a,b} = P, hy = T + a*.82, mid = Bm - hy;
@@ -338,6 +327,16 @@ function dangoSVG(coatId, seed, stage, expr, ageM){
     C${cx+a*1.04},${hy+mid*.3} ${cx+b*1.06},${Bm-mid*.35} ${cx+b*.95},${Bm-7} C${cx+b*.82},${Bm+2} ${cx-b*.82},${Bm+2} ${cx-b*.95},${Bm-7}
     C${cx-b*1.06},${Bm-mid*.35} ${cx-a*1.04},${hy+mid*.3} ${cx-a},${hy}Z`;
   const earL = [[cx-a*.97,hy-a*.42],[cx-a*.8,T-a*.26],[cx-a*.3,T+a*.06]], earR = earL.map(([x,y])=>[2*cx-x,y]);
+  return {T,Bm,a,b,hy,mid,blob,earL,earR};
+}
+function dangoSVG(coatId, seed, stage, expr, ageM){
+  const c0 = COAT[coatId], rnd = mulberry32(seed||1), id = 'k'+(++uidN);
+  const dark = lum(c0.base) < .3;
+  const sk = dark ? .1 : .14;
+  const c = {...c0, base:soften(c0.base,sk), stripe:c0.stripe&&soften(c0.stripe,.12), points:c0.points&&soften(c0.points,.12), patches:c0.patches&&c0.patches.map(p=>soften(p,.12))};
+  const line = dark ? '#251f24' : '#6B5A53';
+  const cx = 100;
+  const {T,Bm,a,b,hy,mid,blob,earL,earR} = dangoShape(stage);
   const poly = p => p.map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ');
   const inner = p => {const mx=(p[0][0]+p[1][0]+p[2][0])/3,my=(p[0][1]+p[1][1]+p[2][1])/3;return p.map(([x,y])=>[mx+(x-mx)*.45,my+(y-my)*.45+3])};
   const pawY = Bm-3, paws = [[cx-15,pawY],[cx+15,pawY]];
@@ -522,16 +521,30 @@ ${A.fluff?fluff(-1)+fluff(1):''}
 ${blush}${eyes}${nose}${mouth}${whisk}
 </g></svg>`;
 }
-// photo version: user's own photo in an ear-topped frame, with drawn expression marks
+// photo version: the user's own photo cut into the cat silhouette (body, ears and tail)
 function photoCat(photo, stage, expr){
-  const marks = expr==='happy' ? '<text x="168" y="40" font-size="26">💕</text>'
-    : expr==='sleep' ? '<text x="165" y="42" font-size="22" fill="#fff" font-family="serif">z z</text>'
-    : expr==='angry' ? '<text x="160" y="42" font-size="26">💢</text>'
-    : expr==='sad' ? '<text x="160" y="42" font-size="24">💧</text>' : '';
-  return `<div class="photocat ${stage}"><svg class="ears" viewBox="0 0 200 216" aria-hidden="true">
-<polygon points="34,86 30,8 92,48" fill="#fff" stroke="#0002" stroke-width="2" stroke-linejoin="round"/><polygon points="166,86 170,8 108,48" fill="#fff" stroke="#0002" stroke-width="2" stroke-linejoin="round"/>
-<polygon points="42,70 40,26 76,50" fill="#F4B1B8"/><polygon points="158,70 160,26 124,50" fill="#F4B1B8"/></svg>
-<div class="pic" style="background-image:url('${photo}')"></div><svg class="face" viewBox="0 0 200 216" aria-hidden="true">${marks}</svg></div>`;
+  const {T,Bm,a,b,blob,earL,earR} = dangoShape(stage), cx = 100, id = 'k'+(++uidN), line = '#6B5A53';
+  const poly = p => p.map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ');
+  const tx = cx+b*.86, ty = Bm-10, tk = stage==='kitten' ? .75 : 1;
+  const tailD = `M${tx},${ty} C${tx+26*tk},${ty+2} ${tx+34*tk},${ty-30*tk} ${tx+18*tk},${ty-52*tk}`;
+  // the photo covers the body's bounding box; ears and tail sample it too
+  const by = T-a*.3, bh = Bm-by+4, bw = Math.max(bh, (b+4)*2), bx = cx - bw/2;
+  const flt = stage==='senior' ? ' style="filter:saturate(.75) sepia(.15)"' : '';
+  const markX = cx + a*.75, markY = T - 2;
+  const marks = expr==='happy' ? `<text x="${markX}" y="${markY}" font-size="20">💕</text>`
+    : expr==='sleep' ? `<text x="${markX}" y="${markY}" font-size="18" fill="#fff" stroke="#6B5A53" stroke-width=".6" font-family="serif">z z</text>`
+    : expr==='angry' ? `<text x="${markX}" y="${markY}" font-size="20">💢</text>`
+    : expr==='sad'||expr==='dizzy' ? `<text x="${markX}" y="${markY}" font-size="18">💧</text>` : '';
+  return `<svg viewBox="4 66 204 146" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs><pattern id="${id}p" patternUnits="userSpaceOnUse" x="${bx}" y="${by}" width="${bw}" height="${bh}">
+<image href="${photo}" x="0" y="0" width="${bw}" height="${bh}" preserveAspectRatio="xMidYMid slice"${flt}/></pattern></defs>
+<ellipse cx="100" cy="${Bm+3}" rx="${b+14}" ry="6" fill="#0000001c"/>
+<g class="bob ${expr==='sleep'?'sleepy':''}">
+<g class="tail" style="transform-origin:${tx}px ${ty}px"><path d="${tailD}" stroke="${line}" stroke-width="12.5" fill="none" stroke-linecap="round"/><path d="${tailD}" stroke="url(#${id}p)" stroke-width="8.5" fill="none" stroke-linecap="round"/></g>
+<g stroke="${line}" stroke-width="2.3" stroke-linejoin="round" fill="url(#${id}p)"><polygon points="${poly(earL)}"/><polygon points="${poly(earR)}"/><path d="${blob}"/></g>
+<g fill="none" stroke="#ffffffcc" stroke-width="2" stroke-linecap="round">${[[cx-15,Bm-3],[cx+15,Bm-3]].map(([x,y])=>`<path d="M${x-9},${y+1} Q${x},${y-9} ${x+9},${y+1}"/>`).join('')}</g>
+${marks}
+</g></svg>`;
 }
 
 /* ---------- state ---------- */
@@ -780,15 +793,15 @@ function renderName(){
   const c = COAT[S.coatId];
   app.innerHTML = `
   <header class="top"><div><h1>幫${P()}取個名字</h1><div class="sub">${c.name} · 大約 1 個月大</div></div></header>
-  <section class="room">${roomDecor()}
+  <section class="room t0">${roomDecor()}
     <div class="catwrap kitten" id="cw">${catHTML('kitten','happy')}</div></section>
   <section class="panel">
     <div class="field"><label for="nameIn">名字</label><input type="text" id="nameIn" maxlength="10" value="${esc(S.name||c.names[0])}" autocomplete="off">
       <div class="sugs">${c.names.map(n=>`<button type="button" data-n="${esc(n)}">${esc(n)}</button>`).join('')}</div></div>
     <div class="field"><label>性別</label><div class="seg"><button type="button" data-g="f" aria-pressed="${S.gender==='f'}">妹妹</button><button type="button" data-g="m" aria-pressed="${S.gender==='m'}">弟弟</button></div></div>
     <div class="field"><label>照片（可以不放）</label>
-      <div class="upload"><div class="thumb" style="${S.photo?`background-image:url('${S.photo}')`:''}">${S.photo?'':'📷'}</div>
-      <div class="txt"><b>${S.photo?'用你的貓的照片':'用我們畫的小貓'}</b>上傳你家貓咪的照片，${P()}就會用照片陪你長大。</div>
+      <div class="upload"><div class="thumb">${S.photo?photoCat(S.photo,'adult','normal'):'📷'}</div>
+      <div class="txt"><b>${S.photo?'用你的貓的照片':'用我們畫的小貓'}</b>上傳你家貓咪的照片，照片會剪成貓咪的形狀，陪你長大。選貓臉在正中間的照片最好看。</div>
       <button class="btn" type="button" id="up">${S.photo?'換一張':'上傳'}</button>${S.photo?'<button class="btn" type="button" id="rmPhoto">移除</button>':''}</div></div>
     <div class="btnrow"><button class="btn primary" id="go">回家囉</button></div>
   </section>`;
