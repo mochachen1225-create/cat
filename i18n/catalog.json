@@ -1508,6 +1508,10 @@
   "context": "app.innerHTML = `\n  <header class=\"top\"><div><h1>${esc(N())}</h1>\n    <div class=\"sub\">${ageLabel(S.ageM)}（約人類 ${humanAge(S.ageM)} 歲）· ${COAT[S.coatId].name}</div></div>\n    <div class=\"chips\"><span class=\"chip\">${stageName(S.ageM)}</span>${S.sick?'<span class=\"chip\" style=\"background:var(--danger)\""
  },
  {
+  "zh": "<button class=\"pausebtn\" id=\"pauseBtn\" aria-label=\"${'離開遊戲'}\">⏸ ${'離開'}</button>",
+  "context": "app.querySelector('.top').insertAdjacentHTML('beforeend', `<button class=\"pausebtn\" id=\"pauseBtn\" aria-label=\"${'離開遊戲'}\">⏸ ${'離開'}</button>`);"
+ },
+ {
   "zh": "（趴在地上，餓到叫不出聲音）",
   "context": "if(s.full < 12) return '（趴在地上，餓到叫不出聲音）';"
  },
@@ -2142,6 +2146,10 @@
  {
   "zh": "<div class=\"kicker\">${esc(c.name)} 寫給你的信</div><div class=\"letter small\">${esc(c.letter||'')}</div>\n        ${c.memories && c.memories.length ? `<div class=\"mem\">${c.memories.map(m=>`<span class=\"a\">${ageLabel(m.ageM)}</span><span class=\"x\">${esc(m.text)}</span>`).join('')}</div>` : ''}\n        <button class=\"opt\" id=\"bk\" style=\"text-align:center\">返回</button>",
   "context": "modal(`<div class=\"kicker\">${esc(c.name)} 寫給你的信</div><div class=\"letter small\">${esc(c.letter||'')}</div>\n        ${c.memories && c.memories.length ? `<div class=\"mem\">${c.memories.map(m=>`<span class=\"a\">${ageLabel(m.ageM)}</span><span class=\"x\">${esc(m.text)}</span>`).join('')}</div>` : ''}\n      "
+ },
+ {
+  "zh": "<div class=\"kicker\">${'已暫停'}</div><h2>${'已經幫你存好了'}</h2>\n    <div class=\"pausecat\">${catHTML(st, 'sleep')}</div>\n    <p>${fill('{n} 在等你回來，現在 {age}。', {age: ageLabel(S.ageM)})}</p>\n    <p style=\"font-size:14px\">${'可以直接關掉這個分頁。下次用同一個瀏覽器打開，就會從這裡接著玩。'}</p>\n    <p style=\"font-size:12px;color:#7b7468\">${'無痕模式、清除瀏覽器資料，或換手機、換瀏覽器時，進度不會跟著過去。'}</p>\n    <button class=\"opt\" id=\"resume\" style=\"text-align:center;background:#F2B53B;font-weight:700\">${'繼續玩'}</button>",
+  "context": "modal(`<div class=\"kicker\">${'已暫停'}</div><h2>${'已經幫你存好了'}</h2>\n    <div class=\"pausecat\">${catHTML(st, 'sleep')}</div>\n    <p>${fill('{n} 在等你回來，現在 {age}。', {age: ageLabel(S.ageM)})}</p>\n    <p style=\"font-size:14px\">${'可以直接關掉這個分頁。下次用同一個瀏覽器打開，就會從這裡接著玩。'}</p>\n    <p style=\"font-size:12px;color:#7b7468"
  },
  {
   "zh": "<div class=\"kicker\">養貓守則</div><h2>好好照顧 ${esc(N())}</h2>\n    <p>畫面下方的五條是 ${esc(N())} 的狀態。每過一天，前三條都會往下掉，要靠你補回來。</p>\n    <div class=\"guide\">\n      ${row('🍚','飽足','餵食。乾乾、罐罐都可以，肉泥是零食')}\n      ${row('😺','心情','逗貓棒、摸摸、買玩具')}\n      ${row('🧹','清潔','清貓砂、梳毛')}\n      ${row('❤️','健康','上面三條都顧好就會慢慢變好；生病要帶去看醫生')}\n      ${row('💗','親密','摸摸、陪伴。越親你，越會撒嬌')}\n      <div class=\"ex\"><span>這樣是安全的</span><div class=\"bar\"><i style=\"width:70%;background:#F2B53B\"></i></div>\n        <span>變成<b style=\"color:#c4473b;font-weight:400\">紅色</b>（低於 30）就危險了</span><div class=\"bar\"><i style=\"width:18%;background:#E7756A\"></i></div></div>\n      <div class=\"warn\">⚠️ 不要讓狀態變紅色！<br>貓砂太髒，${P()}會尿在你床上；太久沒吃飯，${P()}會餓到倒在地上，要送急診。每一次都會讓 ${esc(N())} 少活好幾年。</div>\n      <p style=\"font-size:14px\">一天有早上、下午、晚上，每個時段可以做一件事。點 ${esc(N())} 可以摸摸，不用花時間。忙的話可以按「快轉」，基本照顧會自動做。</p>\n    </div>\n    <button class=\"opt\" id=\"okg\" style=\"text-align:center;background:#F2B53B;font-weight:700\">我會好好照顧${P()} ♥</button>",

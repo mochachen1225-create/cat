@@ -178,6 +178,10 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .langs a{font-size:12px;color:var(--muted);text-decoration:none;padding:3px 10px;border-radius:99px}
 .langs a[aria-current]{background:var(--eye);color:var(--ink);font-weight:700}
 .field .hint{font-size:12px;color:var(--muted)}
+.top{position:relative}
+.top:has(.pausebtn){padding-top:34px}
+.pausebtn{position:absolute;top:0;right:0;border:0;background:var(--ink-2);color:var(--paper);border-radius:99px;padding:5px 12px;font-size:13px;box-shadow:inset 0 -2px 0 #0003}
+.pausecat{width:46%;align-self:center}.pausecat svg{width:100%;height:auto;display:block}
 .links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:4px}
 
@@ -831,6 +835,9 @@ function renderLife(){
   app.querySelectorAll('[data-a]').forEach(b => b.onclick = () => act(b.dataset.a));
   $('#album').onclick = showAlbum;
   $('#ff').onclick = fastForward;
+  // top-right pause button, added on its own so the translated screen text stays as it is
+  app.querySelector('.top').insertAdjacentHTML('beforeend', `<button class="pausebtn" id="pauseBtn" aria-label="${'離開遊戲'}">⏸ ${'離開'}</button>`);
+  $('#pauseBtn').onclick = pauseModal;
   $('#mute').onclick = toggleMute;
   $('#shop').onclick = () => shopModal();
   $('#guide').onclick = () => showGuide();
@@ -1410,6 +1417,21 @@ function newLife(remember){
   if(remember) home.past = home.past.concat([{name:N(), coatId:S.coatId, seed:S.seed, gender:S.gender, ageM:S.ageM, photo:S.photo, letter:S.letter||'', memories:S.memories}]);
   S = Object.assign(fresh(), home);
   save(); render();
+}
+
+/* ---------- leaving: a page can’t close its own tab, so confirm the save and say it’s safe to close ---------- */
+function pauseModal(){
+  if(ffOn){ ffOn = false; clearTimeout(ffTimer); }
+  save();
+  const st = stage();
+  modal(`<div class="kicker">${'已暫停'}</div><h2>${'已經幫你存好了'}</h2>
+    <div class="pausecat">${catHTML(st, 'sleep')}</div>
+    <p>${fill('{n} 在等你回來，現在 {age}。', {age: ageLabel(S.ageM)})}</p>
+    <p style="font-size:14px">${'可以直接關掉這個分頁。下次用同一個瀏覽器打開，就會從這裡接著玩。'}</p>
+    <p style="font-size:12px;color:#7b7468">${'無痕模式、清除瀏覽器資料，或換手機、換瀏覽器時，進度不會跟著過去。'}</p>
+    <button class="opt" id="resume" style="text-align:center;background:#F2B53B;font-weight:700">${'繼續玩'}</button>`, r => {
+    $('#resume').onclick = () => { closeModal(); render(); };
+  });
 }
 
 /* ---------- first-day guide: what to look after ---------- */
