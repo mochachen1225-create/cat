@@ -187,6 +187,11 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .guide .ex{display:flex;flex-direction:column;gap:4px;font-size:12px;color:#7b7468}
 .guide .bar{height:9px;border-radius:99px;background:#2a2a3314;overflow:hidden}.guide .bar i{display:block;height:100%;border-radius:99px}
 .guide .warn{background:#E7756A1f;border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.7;color:#7a2d24}
+.arts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.artopt{border:2px solid transparent;background:#2a2a330a;border-radius:16px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;color:#2a2a33;font-family:var(--display)}
+.artopt[aria-pressed=true]{border-color:#F2B53B;background:#F2B53B22}
+.artopt .pv{width:100%;display:block}.artopt .pv svg{width:100%;height:auto;display:block}
+.artopt b{font-weight:400;font-size:16px}.artopt small{font-size:11px;color:#7b7468;line-height:1.4;text-align:center}
 .links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:4px}
 
@@ -300,18 +305,32 @@ const lum = hex => {const n=parseInt(hex.slice(1),16);return (0.299*(n>>16)+0.58
 const darken = (hex, f) => {const n=parseInt(hex.slice(1),16);const r=Math.round((n>>16)*f),g=Math.round((n>>8&255)*f),b=Math.round((n&255)*f);return '#'+((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1)};
 
 /* ---------- drawing ---------- */
-function geom(stage){
-  // chibi proportions: big round head, small round body
-  if(stage==='kitten') return {H:{cx:100,cy:120,rx:52,ry:44},B:{cx:100,cy:172,rx:29,ry:27},eyeR:14.5,tailK:.65};
-  if(stage==='senior') return {H:{cx:100,cy:104,rx:50,ry:41},B:{cx:100,cy:162,rx:42,ry:40},eyeR:12.5,tailK:.9};
-  return {H:{cx:100,cy:100,rx:50,ry:42},B:{cx:100,cy:161,rx:39,ry:40},eyeR:13.5,tailK:.9};
-}
+// three art styles; Lulu gets to pick
+const ARTS = {
+  mochi:  {name:'麻糬', desc:'圓滾滾、豆豆眼、沒有粗線條',
+    geom:st => st==='kitten' ? {H:{cx:100,cy:128,rx:55,ry:43},B:{cx:100,cy:176,rx:36,ry:24},eyeR:12,tailK:.6}
+      : st==='senior' ? {H:{cx:100,cy:116,rx:56,ry:43},B:{cx:100,cy:168,rx:50,ry:33},eyeR:11,tailK:.85}
+      : {H:{cx:100,cy:114,rx:56,ry:44},B:{cx:100,cy:167,rx:46,ry:34},eyeR:11,tailK:.85},
+    ol:(c,dark)=>dark?'#00000033':darken(c.base,.84), olW:2, ear:[.84,.42,.64,1.12,.26,.9], fluff:false, eyes:'dot', eyeY:.2, ex:.4, noseY:.42, whisk:'short'},
+  sticker:{name:'貼圖', desc:'粗粗的黑線條，像 LINE 貼圖',
+    geom:st => st==='kitten' ? {H:{cx:100,cy:126,rx:54,ry:44},B:{cx:100,cy:176,rx:34,ry:25},eyeR:13,tailK:.6}
+      : {H:{cx:100,cy:114,rx:54,ry:44},B:{cx:100,cy:167,rx:44,ry:35},eyeR:12,tailK:.85},
+    ol:(c,dark)=>dark?'#0d0a0f':'#3a2e2e', olW:3.6, ear:[.86,.4,.68,1.2,.26,.9], fluff:false, eyes:'dot', eyeY:.18, ex:.42, noseY:.42, whisk:'short'},
+  sparkle:{name:'大眼睛', desc:'閃亮亮的大眼睛',
+    geom:st => st==='kitten' ? {H:{cx:100,cy:120,rx:52,ry:44},B:{cx:100,cy:172,rx:29,ry:27},eyeR:14.5,tailK:.65}
+      : st==='senior' ? {H:{cx:100,cy:104,rx:50,ry:41},B:{cx:100,cy:162,rx:42,ry:40},eyeR:12.5,tailK:.9}
+      : {H:{cx:100,cy:100,rx:50,ry:42},B:{cx:100,cy:161,rx:39,ry:40},eyeR:13.5,tailK:.9},
+    ol:(c,dark)=>dark?'#0000004d':darken(c.base,.76), olW:2.5, ear:[.9,.32,.74,1.28,.3,.86], fluff:true, eyes:'big', eyeY:.1, ex:.44, noseY:.46, whisk:'long'},
+};
+let artOverride = null;
+const artStyle = () => artOverride || (S && S.art) || 'mochi';
 let uidN = 0;
 function catSVG(coatId, seed, stage, expr, ageM){
-  const c = COAT[coatId], rnd = mulberry32(seed||1), G = geom(stage), {H,B} = G, id = 'k'+(++uidN);
+  const A = ARTS[artStyle()] || ARTS.mochi;
+  const c = COAT[coatId], rnd = mulberry32(seed||1), G = A.geom(stage), {H,B} = G, id = 'k'+(++uidN);
   const cx = H.cx, dark = lum(c.base) < .3;
-  const ol = dark ? '#0000004d' : darken(c.base,.76);
-  const earL = [[cx-H.rx*.9,H.cy-H.ry*.32],[cx-H.rx*.74,H.cy-H.ry*1.28],[cx-H.rx*.3,H.cy-H.ry*.86]];
+  const ol = A.ol(c, dark), olW = A.olW, E = A.ear;
+  const earL = [[cx-H.rx*E[0],H.cy-H.ry*E[1]],[cx-H.rx*E[2],H.cy-H.ry*E[3]],[cx-H.rx*E[4],H.cy-H.ry*E[5]]];
   const earR = earL.map(([x,y])=>[2*cx-x,y]);
   const shrink = (pts,k) => {const mx=(pts[0][0]+pts[1][0]+pts[2][0])/3,my=(pts[0][1]+pts[1][1]+pts[2][1])/3;return pts.map(([x,y])=>[mx+(x-mx)*k,my+(y-my)*k+3])};
   const poly = p => p.map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ');
@@ -322,7 +341,7 @@ function catSVG(coatId, seed, stage, expr, ageM){
   // tail, curled up beside the body
   const sx = B.cx+B.rx*.6, sy = B.cy+B.ry*.7, k = G.tailK;
   const tailD = `M${sx},${sy} C${sx+34*k},${sy+8} ${sx+50*k},${sy-22*k} ${sx+36*k},${sy-54*k}`;
-  let tail = `<path d="${tailD}" stroke="${ol}" stroke-width="19" fill="none" stroke-linecap="round"/><path d="${tailD}" stroke="${c.base}" stroke-width="15" fill="none" stroke-linecap="round"/>`;
+  let tail = `<path d="${tailD}" stroke="${ol}" stroke-width="${15+olW*1.6}" fill="none" stroke-linecap="round"/><path d="${tailD}" stroke="${c.base}" stroke-width="15" fill="none" stroke-linecap="round"/>`;
   if(c.tabby) tail += `<path d="${tailD}" stroke="${c.stripe}" stroke-width="15" fill="none" stroke-dasharray="7 8"/>`;
   if(c.points) tail += `<path d="${tailD}" stroke="${c.points}" stroke-width="15" fill="none" stroke-linecap="round" stroke-dasharray="0 28 200" opacity=".9"/>`;
   if(c.patches) tail += `<path d="${tailD}" stroke="${c.patches[0]}" stroke-width="15" fill="none" stroke-linecap="round" stroke-dasharray="20 12"/>`;
@@ -357,7 +376,7 @@ function catSVG(coatId, seed, stage, expr, ageM){
   const fl = darkFace ? '#EDE6DA' : '#3B302B';
   const innerEar = dark ? '#C08893' : '#F6B6BE';
   // big shiny eyes
-  const ey = H.cy + H.ry*.1, ex = H.rx*.44, r = G.eyeR;
+  const ey = H.cy + H.ry*A.eyeY, ex = H.rx*A.ex, r = G.eyeR;
   const eyeCol = [c.eye, c.eye2 || c.eye];
   const eyes = [-1,1].map((s,i) => {
     const x = cx + s*ex;
@@ -365,33 +384,43 @@ function catSVG(coatId, seed, stage, expr, ageM){
     if(expr==='sleep') return `<path d="M${x-r*.85},${ey} Q${x},${ey+r*.8} ${x+r*.85},${ey}" stroke="${fl}" stroke-width="3.8" fill="none" stroke-linecap="round"/>`;
     if(expr==='angry') return `<path d="M${x-s*r*.75},${ey-r*.6} L${x+s*r*.55},${ey} L${x-s*r*.75},${ey+r*.6}" stroke="${fl}" stroke-width="3.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
     if(expr==='dizzy') return `<path d="M${x-r*.6},${ey-r*.6} L${x+r*.6},${ey+r*.6} M${x+r*.6},${ey-r*.6} L${x-r*.6},${ey+r*.6}" stroke="${fl}" stroke-width="3.5" stroke-linecap="round"/>`;
+    if(A.eyes === 'dot'){
+      // small shiny bean eyes; coloured on dark faces so they still show
+      const rx = r*.52, ry = r*(stage==='senior'?.52:.64);
+      const sad = expr==='sad' ? `<path d="M${x-r*.7},${ey-r*1.05+(s<0?-2:2)} L${x+r*.7},${ey-r*1.05+(s<0?2:-2)}" stroke="${fl}" stroke-width="2.2" stroke-linecap="round"/><ellipse cx="${x+s*r*.4}" cy="${ey+ry*1.6}" rx="2.4" ry="3.3" fill="#8FD0F5"/>` : '';
+      const eyeDark = c.points || dark;
+      const iris = eyeDark ? `<ellipse cx="${x}" cy="${ey}" rx="${rx*1.25}" ry="${ry*1.18}" fill="${eyeCol[i]}"/>` : '';
+      return `<g class="eye">${iris}<ellipse cx="${x}" cy="${ey}" rx="${eyeDark?rx*.6:rx}" ry="${eyeDark?ry*.9:ry}" fill="#221a20"/><circle cx="${x-rx*.32}" cy="${ey-ry*.38}" r="${rx*.42}" fill="#fff"/><circle cx="${x+rx*.35}" cy="${ey+ry*.35}" r="${rx*.18}" fill="#fff"/></g>${sad}`;
+    }
     const ry = stage==='senior' ? r*.9 : r*1.08;
     const lid = '';
     const sad = expr==='sad' ? `<path d="M${x-r},${ey-r*1.4+(s<0?-3:3)} L${x+r},${ey-r*1.4+(s<0?3:-3)}" stroke="${fl}" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="${x+s*r*.6}" cy="${ey+ry*1.15}" rx="2.6" ry="3.6" fill="#8FD0F5"/>` : '';
     return `<g class="eye"><ellipse cx="${x}" cy="${ey}" rx="${r}" ry="${ry}" fill="${eyeCol[i]}" stroke="${darkFace?'#00000080':'#2a2228'}" stroke-width="1.8"/><ellipse cx="${x}" cy="${ey+ry*.05}" rx="${r*.66}" ry="${ry*.86}" fill="#17141b"/><circle cx="${x-r*.3}" cy="${ey-ry*.36}" r="${r*.38}" fill="#fff"/><circle cx="${x+r*.34}" cy="${ey+ry*.34}" r="${r*.17}" fill="#fff"/></g>${lid}${sad}`;
   }).join('');
-  const ny = H.cy + H.ry*.46;
+  const ny = H.cy + H.ry*A.noseY;
   const nose = `<path d="M${cx-3.5},${ny-2.5} L${cx+3.5},${ny-2.5} L${cx},${ny+1.8}Z" fill="${c.nose}" stroke="${c.nose}" stroke-width="2.5" stroke-linejoin="round"/>`;
   const mouth = expr==='angry'||expr==='dizzy'
     ? `<path d="M${cx-5},${ny+9} Q${cx},${ny+4} ${cx+5},${ny+9}" stroke="${fl}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`
     : `<path d="M${cx},${ny+2} L${cx},${ny+4} M${cx-6},${ny+5} Q${cx-3},${ny+9} ${cx},${ny+4} Q${cx+3},${ny+9} ${cx+6},${ny+5}" stroke="${fl}" stroke-width="2" fill="none" stroke-linecap="round"/>`
       + (expr==='happy' ? `<path d="M${cx-3.5},${ny+7} Q${cx},${ny+13} ${cx+3.5},${ny+7}Z" fill="#E86F82"/>` : '');
   const wc = darkFace ? '#ffffffaa' : '#00000045';
-  const whisk = [-1,1].map(s => [-4,4].map(d => `<path d="M${cx+s*H.rx*.62},${ny+2+d*.4} L${cx+s*H.rx*1.12},${ny-2+d*1.6}" stroke="${wc}" stroke-width="1.3" stroke-linecap="round"/>`).join('')).join('');
-  const blush = [-1,1].map(s => `<ellipse cx="${cx+s*H.rx*.64}" cy="${ny+1}" rx="9" ry="5.5" fill="#FF8FA6" opacity="${expr==='happy'?.75:.5}"/>`).join('');
+  const whisk = A.whisk === 'long'
+    ? [-1,1].map(s => [-4,4].map(d => `<path d="M${cx+s*H.rx*.62},${ny+2+d*.4} L${cx+s*H.rx*1.12},${ny-2+d*1.6}" stroke="${wc}" stroke-width="1.3" stroke-linecap="round"/>`).join('')).join('')
+    : [-1,1].map(s => [-3,3].map(d => `<path d="M${cx+s*H.rx*.8},${ny+d} L${cx+s*H.rx*.98},${ny-2+d*1.5}" stroke="${wc}" stroke-width="1.6" stroke-linecap="round"/>`).join('')).join('');
+  const blush = [-1,1].map(s => `<ellipse cx="${cx+s*H.rx*.64}" cy="${ny+1}" rx="${A.eyes==='dot'?10:9}" ry="${A.eyes==='dot'?6:5.5}" fill="#FF8FA6" opacity="${expr==='happy'?.75:A.eyes==='dot'?.6:.5}"/>`).join('');
   return `<svg viewBox="0 34 212 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 <defs><clipPath id="${id}c">${sil}</clipPath><filter id="${id}b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter></defs>
 <ellipse cx="100" cy="${pawY+7}" rx="${B.rx+16}" ry="7" fill="#0000001f"/>
 <g class="bob ${expr==='sleep'?'sleepy':''}">
 <g class="tail" style="transform-origin:${sx}px ${sy}px">${tail}</g>
-<g stroke-linejoin="round"><polygon points="${poly(earL)}" fill="${ol}" stroke="${ol}" stroke-width="11"/><polygon points="${poly(earR)}" fill="${ol}" stroke="${ol}" stroke-width="11"/>
+<g stroke-linejoin="round"><polygon points="${poly(earL)}" fill="${ol}" stroke="${ol}" stroke-width="${6+olW*2}"/><polygon points="${poly(earR)}" fill="${ol}" stroke="${ol}" stroke-width="${6+olW*2}"/>
 <polygon points="${poly(earL)}" fill="${c.base}" stroke="${c.base}" stroke-width="6"/><polygon points="${poly(earR)}" fill="${c.base}" stroke="${c.base}" stroke-width="6"/></g>
-<g fill="${c.base}" stroke="${ol}" stroke-width="2.5" stroke-linejoin="round">
+<g fill="${c.base}" stroke="${ol}" stroke-width="${olW}" stroke-linejoin="round">
 <ellipse cx="${B.cx}" cy="${B.cy}" rx="${B.rx}" ry="${B.ry}"/>${pawEl(c.base)}
-${fluff(-1)}${fluff(1)}
+${A.fluff?fluff(-1)+fluff(1):''}
 <ellipse cx="${cx}" cy="${H.cy}" rx="${H.rx}" ry="${H.ry}"/></g>
 <g clip-path="url(#${id}c)">${ov}${pts}${grey}</g>
-<g fill="none" stroke="${ol}" stroke-width="2"><ellipse cx="${cx}" cy="${H.cy}" rx="${H.rx}" ry="${H.ry}"/>${paws.map(([x,y])=>`<path d="M${x-3.5},${y+3} v3.5 M${x+3.5},${y+3} v3.5"/>`).join('')}</g>
+<g fill="none" stroke="${ol}" stroke-width="${Math.max(2,olW-.4)}"><ellipse cx="${cx}" cy="${H.cy}" rx="${H.rx}" ry="${H.ry}"/>${paws.map(([x,y])=>`<path d="M${x-3.5},${y+3} v3.5 M${x+3.5},${y+3} v3.5"/>`).join('')}</g>
 <polygon points="${poly(shrink(earL,.48))}" fill="${innerEar}" stroke="${innerEar}" stroke-width="3" stroke-linejoin="round"/><polygon points="${poly(shrink(earR,.48))}" fill="${innerEar}" stroke="${innerEar}" stroke-width="3" stroke-linejoin="round"/>
 ${blush}${eyes}${nose}${mouth}${whisk}
 </g></svg>`;
@@ -732,7 +761,7 @@ function renderLife(){
   </section>
   <button class="ff ${ffOn?'on':''}" id="ff">${ffOn?'⏸ 停止快轉<small>快轉中，遇到事件會暫停，處理完繼續</small>':'⏩ 快轉<small>自動餵飯、清貓砂、陪玩；遇到事件會暫停，處理完繼續</small>'}</button>
   <button class="shopbtn" id="shop"><span>🛍</span>貓咪用品店<small>存款 $${S.money} · 買東西佈置房間</small></button>
-  <div class="links"><button class="linkbtn" id="guide">📖 養貓守則</button>${S.past.length?`<button class="linkbtn" id="rainbow">🌈 彩虹橋（${S.past.length}）</button>`:''}<button class="linkbtn" id="album">回憶相簿（${S.memories.length}）</button><button class="linkbtn" id="photoBtn">${S.photo?'換照片 / 改回畫的貓':'上傳我家貓的照片'}</button><button class="linkbtn" id="mute">${muted?'🔇 聲音關':'🔊 聲音開'}</button><button class="linkbtn" id="restart">重新開始</button></div>`}`;
+  <div class="links"><button class="linkbtn" id="guide">📖 養貓守則</button><button class="linkbtn" id="artBtn">🎨 換畫風</button>${S.past.length?`<button class="linkbtn" id="rainbow">🌈 彩虹橋（${S.past.length}）</button>`:''}<button class="linkbtn" id="album">回憶相簿（${S.memories.length}）</button><button class="linkbtn" id="photoBtn">${S.photo?'換照片 / 改回畫的貓':'上傳我家貓的照片'}</button><button class="linkbtn" id="mute">${muted?'🔇 聲音關':'🔊 聲音開'}</button><button class="linkbtn" id="restart">重新開始</button></div>`}`;
   const cw = $('#cw');
   if(farewell){
     $('#fpet').onclick = farewellPet; $('#fhug').onclick = farewellHug;
@@ -748,7 +777,9 @@ function renderLife(){
   $('#mute').onclick = toggleMute;
   $('#shop').onclick = () => shopModal();
   $('#guide').onclick = () => showGuide();
+  $('#artBtn').onclick = artPicker;
   if(!S.guided) showGuide();
+  else if(!S.artPicked && !S.photo && !$('#modalRoot').innerHTML) artPicker();
   const rb = $('#rainbow'); if(rb) rb.onclick = rainbowModal;
   if(ffOn) app.querySelectorAll('[data-a]').forEach(b => b.disabled = true);
   startWander();
@@ -1269,10 +1300,21 @@ function rainbowModal(){
 }
 // a new cat moves into the same home: money, furniture and the cats before carry over
 function newLife(remember){
-  const home = {money:S.money, owned:S.owned, placed:S.placed, past:S.past, guided:S.guided};
+  const home = {money:S.money, owned:S.owned, placed:S.placed, past:S.past, guided:S.guided, art:S.art, artPicked:S.artPicked};
   if(remember) home.past = home.past.concat([{name:N(), coatId:S.coatId, seed:S.seed, gender:S.gender, ageM:S.ageM, photo:S.photo, letter:S.letter||'', memories:S.memories}]);
   S = Object.assign(fresh(), home);
   save(); render();
+}
+
+/* ---------- art style picker ---------- */
+function artPicker(){
+  const st = S.phase==='life'||S.phase==='farewell' ? stage() : 'kitten';
+  const opts = Object.entries(ARTS).map(([k,a]) => { artOverride = k; const svg = catSVG(S.coatId, S.seed, st, 'happy', S.ageM); artOverride = null;
+    return `<button class="artopt" data-art="${k}" aria-pressed="${artStyle()===k}"><span class="pv">${svg}</span><b>${a.name}</b><small>${a.desc}</small></button>`; }).join('');
+  modal(`<div class="kicker">換畫風</div><h2>哪一種最可愛？</h2><p>選一個你喜歡的畫法，之後隨時可以換。</p><div class="arts">${opts}</div>
+    ${S.photo?'<p style="font-size:13px;color:#7b7468">（現在用的是照片，要改回畫的貓才看得到畫風）</p>':''}`, r => {
+    r.querySelectorAll('[data-art]').forEach(b => b.onclick = () => { S.art = b.dataset.art; S.artPicked = true; save(); closeModal(); render(); meow('chirp'); });
+  });
 }
 
 /* ---------- first-day guide: what to look after ---------- */
@@ -1292,7 +1334,7 @@ function showGuide(){
       <p style="font-size:14px">一天有早上、下午、晚上，每個時段可以做一件事。點 ${esc(N())} 可以摸摸，不用花時間。忙的話可以按「快轉」，基本照顧會自動做。</p>
     </div>
     <button class="opt" id="okg" style="text-align:center;background:#F2B53B;font-weight:700">我會好好照顧${P()} ♥</button>`, r => {
-    $('#okg').onclick = () => { S.guided = true; save(); closeModal(); meow('chirp'); };
+    $('#okg').onclick = () => { S.guided = true; save(); closeModal(); meow('chirp'); if(!S.artPicked && !S.photo) setTimeout(artPicker, 300); };
   });
 }
 
