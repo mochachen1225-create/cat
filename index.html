@@ -69,6 +69,10 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .catwrap.kitten{width:36%}.catwrap.adult{width:48%}.catwrap.senior{width:48%}
 .catwrap svg{display:block;width:100%;height:auto;overflow:visible}
 .catwrap .bob{transform-origin:50% 100%;animation:breath 3.2s ease-in-out infinite}
+.catwrap.walking .bob{animation:walk .42s ease-in-out infinite}
+.catwrap.senior.walking .bob{animation-duration:.7s}
+.catwrap.right > svg{transform:scaleX(-1)}
+@keyframes walk{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-5%) rotate(3deg)}}
 .catwrap.flop .bob{animation:none;transform:translate(-6%,6%) rotate(-78deg) scale(.92);transition:transform .6s}
 .catwrap.senior .bob{animation-duration:4.4s}
 .catwrap.hop .bob{animation:hop .5s ease-out 2}
@@ -92,7 +96,7 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .photocat.senior .pic{filter:saturate(.75) sepia(.15)}
 .photocat .face{position:absolute;inset:0;pointer-events:none}
 
-.bubble{position:absolute;left:50%;top:5%;transform:translateX(-50%);max-width:78%;background:#fff;color:#2b2b33;font-family:var(--display);
+.bubble{position:absolute;left:50%;white-space:normal;width:max-content;top:5%;transform:translateX(-50%);max-width:78%;background:#fff;color:#2b2b33;font-family:var(--display);
   font-size:16px;line-height:1.45;padding:8px 14px;border-radius:16px;text-align:center;box-shadow:0 4px 12px #0002;z-index:4;transition:opacity .3s}
 .bubble::after{content:"";position:absolute;left:50%;bottom:-8px;margin-left:-8px;border:8px solid transparent;border-bottom:0;border-top-color:#fff}
 .bubble:empty{opacity:0}
@@ -564,7 +568,7 @@ function catHTML(st = stage(), ex = expr){
   return S.photo ? photoCat(S.photo, st, ex) : catSVG(S.coatId, S.seed, st, ex, S.ageM);
 }
 function render(){
-  clearInterval(idleTimer);
+  clearInterval(idleTimer); clearTimeout(wanderT);
   if(S.phase==='intro') return renderIntro();
   if(S.phase==='name') return renderName();
   if(S.phase==='end') return renderEnd();
@@ -654,7 +658,7 @@ function renderLife(){
   <section class="room t${t}" id="room">
     <div class="win"></div><div class="orb"></div><div class="frame"><div></div></div><div class="floor"></div><div class="rug"></div>
     <div class="bubble" id="bubble"></div>
-    <div class="catwrap ${st} ${!farewell&&S.stats.full<12?'flop':''}" id="cw" role="button" tabindex="0" aria-label="摸摸${esc(N())}">${catHTML(st, farewell?'sleep':expr)}</div>
+    <div class="catwrap ${st} ${!farewell&&S.stats.full<12?'flop':''}" id="cw" style="left:${clamp(catX, catHalfWidth()+2, 98-catHalfWidth())}%" role="button" tabindex="0" aria-label="摸摸${esc(N())}">${catHTML(st, farewell?'sleep':expr)}</div>
     <div class="dim"></div><div class="fx" id="fx"></div>
   </section>
   <div class="narr" id="narr">${esc(S.narr||'')}</div>
@@ -672,8 +676,8 @@ function renderLife(){
     <button class="act" data-a="vet"><span class="ic">🏥</span><span class="t">看醫生</span><span class="d">${S.sick?'快去！':'健康檢查'}</span></button>
     <button class="act primary" data-a="sleep"><span class="ic">🌙</span><span class="t">晚安</span><span class="d">過完這一天</span></button>
   </section>
-  <button class="ff" id="ff">⏩ 快轉<small>自動餵飯、清貓砂、陪玩，遇到事件會停下來</small></button>
-  <div class="links"><button class="linkbtn" id="album">回憶相簿（${S.memories.length}）</button><button class="linkbtn" id="photoBtn">${S.photo?'換照片 / 改回畫的貓':'上傳我家貓的照片'}</button><button class="linkbtn" id="restart">重新開始</button></div>`}`;
+  <button class="ff ${ffOn?'on':''}" id="ff">${ffOn?'⏸ 停止快轉<small>快轉中，遇到事件會暫停，處理完繼續</small>':'⏩ 快轉<small>自動餵飯、清貓砂、陪玩；遇到事件會暫停，處理完繼續</small>'}</button>
+  <div class="links"><button class="linkbtn" id="album">回憶相簿（${S.memories.length}）</button><button class="linkbtn" id="photoBtn">${S.photo?'換照片 / 改回畫的貓':'上傳我家貓的照片'}</button><button class="linkbtn" id="mute">${muted?'🔇 聲音關':'🔊 聲音開'}</button><button class="linkbtn" id="restart">重新開始</button></div>`}`;
   const cw = $('#cw');
   if(farewell){
     $('#fpet').onclick = farewellPet; $('#fhug').onclick = farewellHug;
@@ -686,6 +690,9 @@ function renderLife(){
   app.querySelectorAll('[data-a]').forEach(b => b.onclick = () => act(b.dataset.a));
   $('#album').onclick = showAlbum;
   $('#ff').onclick = fastForward;
+  $('#mute').onclick = toggleMute;
+  if(ffOn) app.querySelectorAll('[data-a]').forEach(b => b.disabled = true);
+  startWander();
   $('#photoBtn').onclick = photoMenu;
   $('#restart').onclick = confirmRestart;
   say(idleLine());
@@ -738,20 +745,23 @@ function idleLine(){
 function petCat(e){
   const now = Date.now();
   recentPets = recentPets.filter(t => now - t < 4000); recentPets.push(now);
+  freezeCat();
   const cw = $('#cw'), rect = cw.getBoundingClientRect();
   const y = e && e.clientY ? (e.clientY - rect.top) / rect.height : .3;
   const belly = y > .62;
   S.counts.pet++;
-  if(S.stats.bond < 12 && Math.random() < .35){ setExpr('sad'); anim('shrink'); say('（往後縮了一下，還有點怕你）'); narr('慢慢來，' + N() + ' 還在認識你。'); add('bond',1); save(); return; }
-  if(recentPets.length > 6){ S.counts.bite++; setExpr('angry'); anim('wiggle'); say('哈——！（夠了！）'); narr(fill('{n} 咬了你一口，跳開去舔毛。貓的耐心是有額度的。')); fxAtCat('💢','#E7756A'); recentPets = []; add('mood',-3); save(); return; }
-  if(belly && Math.random() < (S.stats.bond > 80 ? .15 : .4)){ S.counts.bite++; setExpr('angry'); anim('wiggle'); say('（抱住你的手，連咬帶踢）'); narr('你摸了肚肚。你明知道那是陷阱的。'); fxAtCat('💢','#E7756A'); save(); return; }
+  if(S.stats.bond < 12 && Math.random() < .35){ setExpr('sad'); anim('shrink'); say('（往後縮了一下，還有點怕你）'); meow('soft'); narr('慢慢來，' + N() + ' 還在認識你。'); add('bond',1); save(); return; }
+  if(recentPets.length > 6){ S.counts.bite++; setExpr('angry'); anim('wiggle'); say('哈——！（夠了！）'); hiss(); narr(fill('{n} 咬了你一口，跳開去舔毛。貓的耐心是有額度的。')); fxAtCat('💢','#E7756A'); recentPets = []; add('mood',-3); save(); return; }
+  if(belly && Math.random() < (S.stats.bond > 80 ? .15 : .4)){ S.counts.bite++; setExpr('angry'); anim('wiggle'); say('（抱住你的手，連咬帶踢）'); hiss(); narr('你摸了肚肚。你明知道那是陷阱的。'); fxAtCat('💢','#E7756A'); save(); return; }
   setExpr('happy');
   anim('shrink');
-  fxAtCat(Math.random()<.3 ? '呼嚕' : '♥');
+  const purring = Math.random() < .35;
+  fxAtCat(purring ? '呼嚕' : '♥');
+  if(purring) purr(); else meow(Math.random() < .3 ? 'chirp' : 'short');
   add('mood', 3);
   if(S.bondFromPets < 6){ add('bond',1); S.bondFromPets++; }
   S.petsToday++;
-  say(pick(belly ? ['（翻過來讓你摸肚肚）','呼嚕呼嚕呼嚕……'] : y < .35 ? ['（瞇起眼睛，用頭頂你的手）','呼嚕呼嚕……','（下巴抬高，這邊這邊）'] : ['（尾巴翹得高高的）','喵～','（背拱起來蹭你）']));
+  say(purring ? '呼嚕呼嚕呼嚕……' : pick(belly ? ['喵？（翻過來讓你摸肚肚）','喵嗚～'] : y < .35 ? ['喵～（瞇起眼睛，用頭頂你的手）','喵嗯～','喵！（下巴抬高，這邊這邊）'] : ['喵～（尾巴翹得高高的）','喵嗚～','咪～（背拱起來蹭你）']));
   save(); updateStats();
 }
 function updateStats(){
@@ -767,7 +777,7 @@ function act(a){
   // a filthy litter box gets in the way of everything else
   if(a!=='litter' && a!=='vet' && S.stats.clean < 20 && Math.random() < .45){
     S.counts.bite++; setExpr('angry'); anim('wiggle'); fxAtCat('💢','#E7756A');
-    say('（咬住你的腳踝，往貓砂盆的方向拖）');
+    say('喵嗷！（咬住你的腳踝，往貓砂盆的方向拖）'); meow('long');
     narr(fill('{n} 咬了你一口，一直把你往貓砂盆拖。貓砂太髒了，{p}不想做別的事。'));
     return spend();
   }
@@ -775,7 +785,7 @@ function act(a){
   if(a==='play'){
     if(S.sick || S.stats.health < 25){ narr(fill('{n} 看了逗貓棒一眼，又把頭埋回去。{p}今天沒力氣。')); return spend(); }
     S.weight = Math.max(0, S.weight - 2); add('mood', st==='kitten'?22:st==='senior'?10:18); add('full', st==='senior'?-4:-8); add('clean',-4); add('bond',2); S.counts.play++;
-    anim('hop'); setExpr('happy', 1400); fxAtCat('🪶');
+    anim('hop'); setExpr('happy', 1400); fxAtCat('🪶'); meow('chirp');
     narr(pick(st==='senior' ? ['{n} 躺著用一隻手撥逗貓棒，意思意思一下。','{n} 盯著羽毛看了很久，最後撲了一次。很帥。']
       : ['{n} 屁股扭扭扭——撲！整隻飛起來。','{n} 追著逗貓棒在客廳翻了三圈，撞到沙發。','{n} 抓到羽毛後死咬不放，後腳還一直踢。','玩到一半，{n} 突然覺得紙箱比較好玩。']).replace(/\{n\}/g,N()));
   } else if(a==='brush'){
@@ -789,7 +799,7 @@ function act(a){
     S.counts.vet++; add('health',25); add('mood',-14);
     if(S.sick){ S.sick=false; narr(fill('醫生幫 {n} 打了針、開了藥。回家路上{p}在提籠裡罵了一路，但精神好多了。')); mem('{p}生病了，你帶{p}去看醫生，{p}很勇敢'); }
     else narr(fill(pick(['醫生說 {n} 很健康。{p}在診間發出低吼，然後被量肛溫。','{n} 一看到提籠就躲進床底下，花了二十分鐘才抓到。'])));
-    setExpr('sad', 2500);
+    setExpr('sad', 2500); meow('long');
   }
   spend();
 }
@@ -807,7 +817,7 @@ function feedMenu(){
       if(f==='wet'){ S.weight += 1; add('full',30); add('mood',8); add('health',3); narr(fill(pick(['開罐聲一響，{n} 從家裡另一頭衝過來。','{n} 吃得臉都埋進碗裡，發出嗯嗯嗯的聲音。']))); fxAtCat('🐟'); }
       if(f==='treat'){ S.weight += 2; add('full',8); add('mood',16); S.treatsToday++; if(S.treatsToday>1) add('health',-5); narr(fill(S.treatsToday>1?'{n} 又吃了一條肉泥。很開心，但零食吃太多對身體不好喔。':'{n} 抱著你的手猛舔肉泥，舌頭刮得你好癢。')); fxAtCat('♥'); }
       if(S.stats.full >= 100 && f!=='treat') narr(fill('{n} 吃太飽了，把剩下的用空氣撥沙埋起來。'));
-      anim('hop'); setExpr('happy');
+      anim('hop'); setExpr('happy'); meow('short');
       spend();
     });
   });
@@ -891,10 +901,11 @@ function pickEvent(list){
   S.seen[ev.id] = (S.seen[ev.id]||0) + 1;
   return ev;
 }
-function runQueue(q){
-  if(!q.length){ save(); render(); return; }
+function runQueue(q, after){
+  if(!q.length){ save(); render(); if(after) after(); return; }
   const ev = q.shift();
-  showEvent(ev, () => runQueue(q));
+  if(/鬼叫|嗷嗚/.test(ev.text)) meow('long'); else if(Math.random() < .5) meow('short');
+  showEvent(ev, () => runQueue(q, after));
 }
 const LABEL = {full:'飽足',mood:'心情',clean:'清潔',health:'健康',bond:'親密'};
 function showEvent(ev, done){
@@ -916,8 +927,8 @@ function showEvent(ev, done){
   });
 }
 
-/* ---------- fast-forward: basic care runs itself, stops at anything that needs you ---------- */
-let ffOn = false;
+/* ---------- fast-forward: stays on until you stop it; pauses for events, then keeps going ---------- */
+let ffOn = false, ffTimer = null;
 function autoCare(slots){
   for(let i=0;i<slots;i++){
     const s = S.stats;
@@ -927,33 +938,141 @@ function autoCare(slots){
   }
   add('bond', .5);
 }
+const ffNeedsYou = () => S.sick || S.stats.health < 30;
+function ffStop(msg){
+  ffOn = false; clearTimeout(ffTimer);
+  if(msg) S.narr = msg;
+  save(); render();
+}
 function fastForward(){
-  if(ffOn){ ffOn = false; return; }
+  if(ffOn) return ffStop(fill('快轉停下來了。{n} 在你旁邊打了一個哈欠。'));
+  if(ffNeedsYou()) { narr(fill(S.sick ? '{n} 生病了，先帶{p}去看醫生再快轉吧。' : '{n} 的健康太差了，先帶{p}去看醫生再快轉吧。')); return; }
   ffOn = true;
-  const btn = $('#ff'); if(btn){ btn.classList.add('on'); btn.innerHTML = '⏸ 停止快轉<small>遇到事件會自動停下</small>'; }
-  app.querySelectorAll('[data-a]').forEach(b => b.disabled = true);
   autoCare(SLOTS.length - S.slot);
-  const step = () => {
-    if(!ffOn){ save(); render(); return; }
-    const prev = nightTick();
-    autoCare(0);
-    const q = buildMorning(prev);
-    if(q === null){ ffOn = false; save(); render(); return; }
-    if(q.length || S.sick || S.stats.health < 30){
-      ffOn = false;
-      if(!q.length) S.narr = fill(S.sick ? '{n} 好像生病了，快轉先停下來。' : '{n} 的健康變差了，快轉先停下來。帶{p}去看醫生吧。');
-      save(); render(); runQueue(q); return;
+  render();
+  ffTimer = setTimeout(ffStep, 500);
+}
+function ffResume(){
+  if(!ffOn || S.phase !== 'life') return;
+  if(ffNeedsYou()) return ffStop(fill(S.sick ? '{n} 好像生病了，快轉先停下來。' : '{n} 的健康變差了，快轉先停下來。帶{p}去看醫生吧。'));
+  autoCare(SLOTS.length);
+  save(); updateStats();
+  ffTimer = setTimeout(ffStep, 650);
+}
+function ffStep(){
+  if(!ffOn || S.phase !== 'life') return;
+  const prev = nightTick();
+  const q = buildMorning(prev);
+  if(q === null){ ffOn = false; save(); render(); return; }
+  if(q.length){ save(); render(); runQueue(q, ffResume); return; }   // pause for the event, then carry on
+  if(ffNeedsYou()) return ffStop(fill(S.sick ? '{n} 好像生病了，快轉先停下來。' : '{n} 的健康變差了，快轉先停下來。帶{p}去看醫生吧。'));
+  autoCare(SLOTS.length);
+  const sub = app.querySelector('.top .sub'); if(sub) sub.textContent = `${ageLabel(S.ageM)}（約人類 ${humanAge(S.ageM)} 歲）· ${COAT[S.coatId].name}`;
+  const cw = $('#cw'); if(cw && !cw.classList.contains(stage())) refreshCat();
+  narr(`⏩ ${ageLabel(S.ageM)}……日子平平淡淡地過去。`);
+  updateStats(); save();
+  ffTimer = setTimeout(ffStep, 650);
+}
+
+/* ---------- sound: synthesized meows, purrs and hisses (no audio files) ---------- */
+let actx = null, muted = false;
+try{ muted = localStorage.getItem('cat-mute') === '1'; }catch(e){}
+function ac(){
+  if(muted) return null;
+  try{ if(!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); if(actx.state === 'suspended') actx.resume(); }catch(e){ return null; }
+  return actx;
+}
+function meow(kind = 'short'){
+  const a = ac(); if(!a) return;
+  const t = a.currentTime + .02, st = stage();
+  const base = (st === 'kitten' ? 950 : st === 'senior' ? 540 : 700) * (.92 + Math.random()*.16);
+  const dur = kind === 'long' ? 1.1 : kind === 'soft' ? .7 : kind === 'chirp' ? .22 : .5;
+  const o = a.createOscillator(), vib = a.createOscillator(), vg = a.createGain(), f = a.createBiquadFilter(), f2 = a.createBiquadFilter(), g = a.createGain();
+  o.type = 'sawtooth';
+  o.frequency.setValueAtTime(base*.75, t);
+  o.frequency.linearRampToValueAtTime(base*1.2, t + dur*.35);
+  o.frequency.linearRampToValueAtTime(base*(kind==='long'?.6:.8), t + dur);
+  vib.frequency.value = 6; vg.gain.value = base*.02; vib.connect(vg); vg.connect(o.frequency);
+  // "m-e-ow": the formant opens then closes
+  f.type = 'bandpass'; f.Q.value = 2.5;
+  f.frequency.setValueAtTime(700, t); f.frequency.linearRampToValueAtTime(2100, t + dur*.4); f.frequency.linearRampToValueAtTime(800, t + dur);
+  f2.type = 'lowpass'; f2.frequency.value = 3500;
+  const peak = kind === 'soft' ? .12 : .28;
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + .05);
+  g.gain.setValueAtTime(peak, t + dur*.55); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  o.connect(f); f.connect(f2); f2.connect(g); g.connect(a.destination);
+  o.start(t); vib.start(t); o.stop(t + dur + .05); vib.stop(t + dur + .05);
+}
+function noise(a, dur){
+  const b = a.createBuffer(1, Math.ceil(a.sampleRate*dur), a.sampleRate), d = b.getChannelData(0);
+  for(let i=0;i<d.length;i++) d[i] = Math.random()*2-1;
+  const s = a.createBufferSource(); s.buffer = b; return s;
+}
+function purr(){
+  const a = ac(); if(!a) return;
+  const t = a.currentTime + .02, dur = 1.6, n = noise(a, dur), lp = a.createBiquadFilter(), g = a.createGain(), lfo = a.createOscillator(), lg = a.createGain(), out = a.createGain();
+  lp.type = 'lowpass'; lp.frequency.value = 220;
+  lfo.frequency.value = 24; lg.gain.value = .5; g.gain.value = .5; lfo.connect(lg); lg.connect(g.gain);
+  out.gain.setValueAtTime(.0001, t); out.gain.exponentialRampToValueAtTime(.9, t + .25); out.gain.setValueAtTime(.9, t + dur - .4); out.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  n.connect(lp); lp.connect(g); g.connect(out); out.connect(a.destination);
+  n.start(t); lfo.start(t); n.stop(t + dur); lfo.stop(t + dur);
+}
+function hiss(){
+  const a = ac(); if(!a) return;
+  const t = a.currentTime + .02, dur = .6, n = noise(a, dur), hp = a.createBiquadFilter(), g = a.createGain();
+  hp.type = 'highpass'; hp.frequency.value = 2800;
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.25, t + .04); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  n.connect(hp); hp.connect(g); g.connect(a.destination); n.start(t); n.stop(t + dur);
+}
+function toggleMute(){
+  muted = !muted;
+  try{ localStorage.setItem('cat-mute', muted ? '1' : '0'); }catch(e){}
+  const b = $('#mute'); if(b) b.textContent = muted ? '🔇 聲音關' : '🔊 聲音開';
+  if(!muted) meow('chirp');
+}
+
+/* ---------- wandering: the cat strolls around the room on its own ---------- */
+let wanderT = null, holdUntil = 0, catX = 50;
+function catHalfWidth(){ return stage() === 'kitten' ? 18 : 24; }
+function placeCat(x, ms){
+  const cw = $('#cw'), bub = $('#bubble'); if(!cw) return;
+  cw.style.transition = `left ${ms}ms linear, width .8s`;
+  cw.style.left = x + '%'; catX = x;
+  if(bub){ bub.style.transition = `left ${ms}ms linear, opacity .3s`; bub.style.left = clamp(x, 34, 66) + '%'; }
+}
+function freezeCat(){
+  const cw = $('#cw'), room = $('#room'); if(!cw || !room) return;
+  const r = room.getBoundingClientRect(), c = cw.getBoundingClientRect();
+  const x = ((c.left + c.width/2) - r.left) / r.width * 100;
+  cw.classList.remove('walking');
+  placeCat(x, 0);
+  holdUntil = Date.now() + 3000;
+}
+function startWander(){
+  clearTimeout(wanderT);
+  const tick = () => {
+    const cw = $('#cw');
+    if(!cw || S.phase !== 'life') return;
+    const busy = $('#modalRoot').innerHTML || cw.classList.contains('flop') || Date.now() < holdUntil || ffOn;
+    if(!busy){
+      const half = catHalfWidth(), cur = parseFloat(cw.style.left) || 50;
+      const night = S.slot === 2, st = stage();
+      const moveChance = st === 'kitten' ? .8 : st === 'senior' ? .35 : night ? .4 : .6;
+      if(Math.random() < moveChance){
+        const nx = half + 2 + Math.random() * (100 - 2*half - 4);
+        if(Math.abs(nx - cur) > 5){
+          const speed = st === 'kitten' ? 38 : st === 'senior' ? 110 : 60;   // ms per % of room
+          const ms = Math.round(Math.abs(nx - cur) * speed);
+          cw.classList.toggle('right', nx > cur);
+          cw.classList.add('walking');
+          placeCat(nx, ms);
+          setTimeout(() => { const c = $('#cw'); if(c) c.classList.remove('walking'); }, ms);
+        }
+      } else if(st === 'kitten' && Math.random() < .5){ anim('hop'); }
     }
-    autoCare(SLOTS.length);
-    // show the time passing
-    const sub = app.querySelector('.top .sub'); if(sub) sub.textContent = `${ageLabel(S.ageM)}（約人類 ${humanAge(S.ageM)} 歲）· ${COAT[S.coatId].name}`;
-    const cw = $('#cw'); if(cw && !cw.classList.contains(stage())) refreshCat();
-    narr(`⏩ ${ageLabel(S.ageM)}……日子平平淡淡地過去。`);
-    updateStats();
-    save();
-    setTimeout(step, 650);
+    wanderT = setTimeout(tick, 2600 + Math.random()*3800);
   };
-  setTimeout(step, 400);
+  wanderT = setTimeout(tick, 1500);
 }
 
 /* ---------- farewell & ending ---------- */
@@ -969,7 +1088,7 @@ function farewellPet(){
 function farewellHug(){
   const fh = $('#fhug'), fp = $('#fpet'); if(fh) fh.disabled = true; if(fp) fp.disabled = true;
   expr = 'normal'; refreshCat();
-  say('喵……');
+  say('喵……'); meow('soft');
   narr(fill('{n} 睜開眼睛看著你，好像想起了那個下雨天。'));
   setTimeout(() => { say('謝謝你，陪我一生。'); }, 2600);
   setTimeout(() => { expr = 'sleep'; refreshCat(); say(''); narr(fill('{n} 在你懷裡，慢慢閉上了眼睛。')); }, 6200);
