@@ -841,7 +841,7 @@ function refreshCat(){
   const cw = $('#cw'); if(!cw) return;
   const cls = cw.className.replace(/\b(kitten|adult|senior)\b/g,'').trim();
   cw.className = cls.replace('flop','').trim() + ' ' + stage() + (S.phase!=='farewell' && S.stats.full<12 ? ' flop' : '');
-  cw.innerHTML = catHTML(stage(), S.phase==='farewell'?'sleep':expr);
+  cw.innerHTML = catHTML(stage(), S.phase==='farewell' && !fAwake ? 'sleep' : expr);
 }
 function setExpr(e, ms = 1600){ expr = e; refreshCat(); clearTimeout(exprTimer); exprTimer = setTimeout(() => { expr = S.sick ? 'sad' : 'normal'; refreshCat(); }, ms); }
 function anim(cls){ const cw = $('#cw'); if(!cw) return; cw.classList.remove('hop','wiggle','shrink'); void cw.offsetWidth; cw.classList.add(cls); }
@@ -1425,7 +1425,7 @@ function showGuide(){
 }
 
 /* ---------- farewell & ending ---------- */
-let fPets = 0;
+let fPets = 0, fAwake = false;   // fAwake: the cat opens its eyes once more while you hold it
 function farewellPet(){
   fPets++;
   const ms = S.memories.slice(1);
@@ -1436,11 +1436,11 @@ function farewellPet(){
 }
 function farewellHug(){
   const fh = $('#fhug'), fp = $('#fpet'); if(fh) fh.disabled = true; if(fp) fp.disabled = true;
-  expr = 'normal'; refreshCat();
+  expr = 'normal'; fAwake = true; refreshCat(); app.querySelectorAll('.zzz').forEach(z => z.remove());
   say('ニャ……'); meow('soft');
   narr(fill('{n}が目を開けてあなたを見つめた。あの雨の日を思い出しているみたいに。'));
   setTimeout(() => { say('ずっといっしょにいてくれて、ありがとう。'); }, 2600);
-  setTimeout(() => { expr = 'sleep'; refreshCat(); say(''); narr(fill('{n}はあなたの腕の中で、ゆっくりと目を閉じた。')); }, 6200);
+  setTimeout(() => { expr = 'sleep'; fAwake = false; refreshCat(); say(''); narr(fill('{n}はあなたの腕の中で、ゆっくりと目を閉じた。')); }, 6200);
   setTimeout(() => { const r = $('#room'); if(r) r.classList.add('fadeout'); }, 8200);
   setTimeout(() => { S.phase = 'end'; save(); render(); }, 10600);
 }
