@@ -50,20 +50,40 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
   box-shadow:0 0 0 6px var(--ink-2),0 18px 40px #0008;user-select:none}
 .room .floor{position:absolute;left:0;right:0;bottom:0;height:30%;
   background:repeating-linear-gradient(90deg,var(--wood) 0 58px,var(--wood-dk) 58px 60px);box-shadow:inset 0 6px 0 #0000001a}
-.room .win{position:absolute;left:8%;top:9%;width:30%;aspect-ratio:1/1.1;border-radius:46% 46% 8px 8px;border:7px solid #fff;
-  box-shadow:0 0 0 2px #0001;overflow:hidden;transition:background 1s}
+.room .paper{position:absolute;inset:0 0 30% 0;background:
+  radial-gradient(circle at 12px 12px,#ffffff66 2.5px,transparent 3px) 0 0/24px 24px,
+  repeating-linear-gradient(90deg,transparent 0 22px,#00000008 22px 24px)}
+.room .win{position:absolute;left:9%;top:8%;width:28%;aspect-ratio:1/1.12;border-radius:46% 46% 6px 6px;border:7px solid #fff;
+  box-shadow:0 0 0 2px #0001;overflow:hidden;transition:background 1s;z-index:1}
 .room .win::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:6px;margin-left:-3px;background:#fff}
-.room .orb{position:absolute;width:26%;aspect-ratio:1;border-radius:50%;right:16%;top:20%;transition:all 1s}
-.room .frame{position:absolute;right:9%;top:12%;width:19%;aspect-ratio:1.2;background:#fff;border-radius:6px;padding:6px;transform:rotate(3deg);box-shadow:0 3px 8px #0002}
-.room .frame div{width:100%;height:100%;border-radius:3px;background:linear-gradient(#9fc6d9 0 55%,#8eb070 55%)}
+.room .orb{position:absolute;width:34%;aspect-ratio:1;border-radius:50%;left:12%;top:16%;transition:all 1s}
+.room .sill{position:absolute;left:0;right:0;bottom:0;height:9%;background:#fff}
+.room .sill span{position:absolute;right:10%;bottom:100%;width:22%;aspect-ratio:1;background:
+  radial-gradient(circle at 30% 35%,#7cc06a 30%,transparent 32%),radial-gradient(circle at 70% 30%,#6db65b 30%,transparent 32%),
+  radial-gradient(circle at 50% 15%,#86c974 28%,transparent 30%),linear-gradient(transparent 55%,#E39B6B 55%)}
+.room .curtain{position:absolute;top:5%;width:9%;height:46%;background:repeating-linear-gradient(90deg,#F2C6B6 0 7px,#E9B4A2 7px 12px);border-radius:0 0 40% 40%;z-index:1}
+.room .curtain.l{left:3.5%}.room .curtain.r{left:35%}
+.room .curtain::before{content:"";position:absolute;top:-6%;left:-30%;width:420%;height:5%;background:#9a7653;border-radius:4px}
+.room .curtain.r::before{display:none}
+.room .clock{position:absolute;left:48%;top:9%;width:10%;aspect-ratio:1;border-radius:50%;background:#fff;border:4px solid #E3A74A;box-shadow:0 3px 6px #0002}
+.room .clock i{position:absolute;left:50%;bottom:50%;width:3px;margin-left:-1.5px;background:#3b302b;border-radius:2px;transform-origin:50% 100%}
+.room .clock .h{height:26%;transform:rotate(-60deg)}.room .clock .m{height:38%;transform:rotate(40deg)}
+.room .base{position:absolute;left:0;right:0;bottom:30%;height:3%;background:#fff;box-shadow:0 2px 0 #0000000d}
+.spot{position:absolute;pointer-events:none;z-index:1}
+.spot svg{display:block;width:100%;height:100%;overflow:visible}
+.s-wall{right:5%;top:10%;width:32%;height:28%}
+.s-floorL{left:1%;bottom:21%;width:25%;height:56%}
+.s-floorR{right:1%;bottom:21%;width:24%;height:32%}
+.s-floorC{right:27%;bottom:25%;width:17%;height:19%}
+.s-front{left:1%;bottom:1%;width:22%;height:22%;z-index:3}
 .room .rug{position:absolute;left:50%;bottom:6%;width:62%;height:15%;transform:translateX(-50%);border-radius:50%;
   background:repeating-radial-gradient(ellipse at center,#E9A8A0 0 10px,#F3C7B8 10px 20px);opacity:.9}
-.room .dim{position:absolute;inset:0;background:#0B1030;opacity:0;pointer-events:none;transition:opacity 1s}
-.room.t2 .dim{opacity:.38}
+.room .dim{position:absolute;inset:0;background:#0B1030;opacity:0;pointer-events:none;transition:opacity 1s;z-index:4}
+.room.t2 .dim{opacity:.3}
 .room.t3 .dim{opacity:.62}
 .room.t0 .win{background:linear-gradient(#9fd5f2,#d9f0fa)} .room.t0 .orb{background:#FFE89A;box-shadow:0 0 18px #FFE89A}
-.room.t1 .win{background:linear-gradient(#f6c879,#fbe4b2)} .room.t1 .orb{background:#FFD36B;top:40%}
-.room.t2 .win,.room.t3 .win{background:linear-gradient(#141a3d,#2d3870)} .room.t2 .orb,.room.t3 .orb{background:#F4F1D0;box-shadow:inset -8px -2px 0 #c9c59a;width:20%}
+.room.t1 .win{background:linear-gradient(#f6c879,#fbe4b2)} .room.t1 .orb{background:#FFD36B;top:46%;left:52%}
+.room.t2 .win,.room.t3 .win{background:linear-gradient(#141a3d,#2d3870)} .room.t2 .orb,.room.t3 .orb{background:#F4F1D0;box-shadow:inset -6px -2px 0 #c9c59a;width:26%}
 
 .catwrap{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);cursor:pointer;transition:width .8s;touch-action:manipulation;z-index:2}
 .catwrap.kitten{width:36%}.catwrap.adult{width:48%}.catwrap.senior{width:48%}
@@ -97,10 +117,10 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .photocat .face{position:absolute;inset:0;pointer-events:none}
 
 .bubble{position:absolute;left:50%;white-space:normal;width:max-content;top:5%;transform:translateX(-50%);max-width:78%;background:#fff;color:#2b2b33;font-family:var(--display);
-  font-size:16px;line-height:1.45;padding:8px 14px;border-radius:16px;text-align:center;box-shadow:0 4px 12px #0002;z-index:4;transition:opacity .3s}
+  font-size:16px;line-height:1.45;padding:8px 14px;border-radius:16px;text-align:center;box-shadow:0 4px 12px #0002;z-index:5;transition:opacity .3s;z-index:5}
 .bubble::after{content:"";position:absolute;left:50%;bottom:-8px;margin-left:-8px;border:8px solid transparent;border-bottom:0;border-top-color:#fff}
 .bubble:empty{opacity:0}
-.fx{position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+.fx{position:absolute;inset:0;pointer-events:none;z-index:6;overflow:hidden}
 .float{position:absolute;font-size:22px;animation:floatup 1.4s ease-out forwards;font-family:var(--display);font-weight:700;color:var(--blush);white-space:nowrap}
 @keyframes floatup{0%{opacity:0;transform:translateY(0) scale(.6)}15%{opacity:1;transform:translateY(-8px) scale(1)}100%{opacity:0;transform:translateY(-90px) scale(1.1)}}
 .zzz{position:absolute;font-family:var(--display);font-size:20px;color:#fff;animation:zzz 2.6s linear infinite;opacity:0}
@@ -133,6 +153,28 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .deltas{display:flex;flex-wrap:wrap;gap:6px}
 .deltas .d{font-size:12px;padding:3px 9px;border-radius:99px;font-variant-numeric:tabular-nums;font-weight:500}
 .deltas .up{background:#8CC98A33;color:#2f6b2d}.deltas .dn{background:#E7756A2b;color:#9b3328}.deltas .warn{background:#2a2a3314;color:#5a5348}
+.tabs{display:flex;gap:6px}
+.tabs button{flex:1;border:0;border-radius:10px;padding:8px;background:#2a2a330d;color:#2a2a33;font-size:14px}
+.tabs button[aria-pressed=true]{background:#2a2a33;color:#F4EFE4}
+.shop{display:flex;flex-direction:column;gap:8px}
+.shop .item{display:flex;align-items:center;gap:10px;padding:8px;border-radius:12px;background:#2a2a330a}
+.shop .ic{width:52px;height:52px;flex:none;display:grid;place-items:center}
+.shop .ic svg{width:100%;height:100%}
+.shop .empty{font-size:12px;color:#9a917f;border:2px dashed #2a2a3326;border-radius:10px;width:44px;height:44px;display:grid;place-items:center}
+.shop .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.shop .tx b{font-size:15px}.shop .tx small{font-size:12px;color:#7b7468;line-height:1.5}
+.shop .buy{border:0;border-radius:10px;padding:8px 12px;background:#F2B53B;color:#1E2638;font-weight:700;font-variant-numeric:tabular-nums}
+.shop .buy:disabled{background:#2a2a3314;color:#9a917f}
+.shop .own{font-size:12px;color:#5d8a5b}
+.swap{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.swap button{border:1px solid #2a2a3326;background:#fff;border-radius:99px;padding:3px 10px;font-size:12px;color:#2a2a33}
+.past{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.pc{border:0;background:#2a2a330a;border-radius:14px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:2px;color:#2a2a33}
+.pc .mini{width:72px;display:block}.pc .mini svg{width:100%;height:auto;display:block}
+.pc .ph{display:block;width:64px;height:64px;border-radius:50%;background:center/cover;margin:4px auto}
+.pc small{font-size:11px;color:#7b7468}
+.letter.small{font-size:15px;line-height:1.85;box-shadow:none;padding:14px;background-size:auto;min-height:0}
+.carry{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
 .links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:4px}
 
@@ -360,7 +402,7 @@ let S = null;
 function fresh(){
   return {v:1, phase:'intro', coatId:pick(COATS).id, seed:Math.floor(Math.random()*1e9), gender:Math.random()<.5?'f':'m', name:'', photo:null,
     ageM:1, slot:0, day:1, lifespanM:(13+Math.floor(Math.random()*6))*12, stats:{full:45,mood:40,clean:30,health:55,bond:5},
-    counts:{pet:0,meal:0,play:0,brush:0,vet:0,bite:0,trip:0,er:0}, memories:[], flags:{}, seen:{}, sick:false, later:[], weight:0, neglect:{full:0,clean:0,mood:0}, petsToday:0, treatsToday:0, bondFromPets:0, narr:''};
+    counts:{pet:0,meal:0,play:0,brush:0,vet:0,bite:0,trip:0,er:0}, memories:[], flags:{}, seen:{}, sick:false, later:[], weight:0, neglect:{full:0,clean:0,mood:0}, money:300, owned:[], placed:{}, past:[], petsToday:0, treatsToday:0, bondFromPets:0, narr:''};
 }
 function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1)return s}catch(e){}return null}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){try{const t={...S,photo:null};localStorage.setItem(KEY,JSON.stringify(t))}catch(_){}}}
@@ -549,7 +591,7 @@ function neglectEvent(){
         {label:'好啦好啦，馬上清', fx:()=>{add('clean',35);add('bond',1);S.counts.bite++;return '{n} 監工到最後一鏟，確認乾淨了才離開。';}}]}
     : {id:'poopout', title:'盆外', text:'{n} 在貓砂盆旁邊的地板上大便了。{p}嫌貓砂太髒。', choices:[
         {label:'清乾淨，順便清貓砂', fx:()=>{add('clean',30);return '你發誓以後每天都要清。';}}]};
-  if(s.mood <= 15 || ng.mood >= 2) return Math.random() < .5
+  if(s.mood <= 15 || ng.mood >= 2) return Math.random() < .5 && !hasItem('scratch')
     ? {id:'sofa', title:'沙發', text:'沙發被抓得一條一條的，{n} 還在抓，叫{p}也不理你。太無聊、壓力大的貓會這樣發洩。', choices:[
         {label:'買貓抓板，每天陪{p}玩', fx:()=>{add('mood',18);ng.mood=0;return '{n} 抓了新的貓抓板一下，然後回去抓沙發。但至少{p}開心了一點。';}}]}
     : {id:'overgroom', title:'禿了一塊', text:'你發現 {n} 的肚子舔禿了一塊。醫生說是壓力太大，過度理毛。', choices:[
@@ -588,7 +630,7 @@ function renderIntro(){
     ${revealed
       ? `<p>是一隻 <b style="color:var(--eye)">${c.name}</b>${S.gender==='f'?'妹妹':'弟弟'}，冷得一直發抖，對你小小聲地「咪」了一聲。</p>
          <div class="btnrow"><button class="btn primary" id="take">帶${P()}回家</button><button class="btn" id="reroll">看看別的箱子</button></div>`
-      : `<p>下雨的晚上，你在巷口的紙箱裡，看見一團小小的、濕濕的東西。</p>
+      : `<p>${S.past.length?`${esc(S.past[S.past.length-1].name)} 走了以後，家裡安靜了好久。<br>`:''}下雨的晚上，你在巷口的紙箱裡，看見一團小小的、濕濕的東西。</p>
          <div class="btnrow"><button class="btn primary" id="look">蹲下來看看</button></div>`}
   </section>`;
   const look = $('#look'); if(look) look.onclick = () => { S.flags.revealed = true; save(); render(); };
@@ -600,7 +642,7 @@ function renderName(){
   const c = COAT[S.coatId];
   app.innerHTML = `
   <header class="top"><div><h1>幫${P()}取個名字</h1><div class="sub">${c.name} · 大約 1 個月大</div></div></header>
-  <section class="room"><div class="win"></div><div class="orb"></div><div class="floor"></div><div class="rug"></div>
+  <section class="room">${roomDecor()}
     <div class="catwrap kitten" id="cw">${catHTML('kitten','happy')}</div></section>
   <section class="panel">
     <div class="field"><label for="nameIn">名字</label><input type="text" id="nameIn" maxlength="10" value="${esc(S.name||c.names[0])}" autocomplete="off">
@@ -654,9 +696,9 @@ function renderLife(){
   app.innerHTML = `
   <header class="top"><div><h1>${esc(N())}</h1>
     <div class="sub">${ageLabel(S.ageM)}（約人類 ${humanAge(S.ageM)} 歲）· ${COAT[S.coatId].name}</div></div>
-    <div class="chips"><span class="chip">${stageName(S.ageM)}</span>${S.sick?'<span class="chip" style="background:var(--danger)">生病中</span>':''}<span class="chip amber">${farewell?'最後一天':SLOTS[S.slot]}</span></div></header>
+    <div class="chips"><span class="chip">${stageName(S.ageM)}</span>${S.sick?'<span class="chip" style="background:var(--danger)">生病中</span>':''}<span class="chip" id="money">$${S.money}</span><span class="chip amber">${farewell?'最後一天':SLOTS[S.slot]}</span></div></header>
   <section class="room t${t}" id="room">
-    <div class="win"></div><div class="orb"></div><div class="frame"><div></div></div><div class="floor"></div><div class="rug"></div>
+    ${roomDecor()}
     <div class="bubble" id="bubble"></div>
     <div class="catwrap ${st} ${!farewell&&S.stats.full<12?'flop':''}" id="cw" style="left:${clamp(catX, catHalfWidth()+2, 98-catHalfWidth())}%" role="button" tabindex="0" aria-label="摸摸${esc(N())}">${catHTML(st, farewell?'sleep':expr)}</div>
     <div class="dim"></div><div class="fx" id="fx"></div>
@@ -677,7 +719,7 @@ function renderLife(){
     <button class="act primary" data-a="sleep"><span class="ic">🌙</span><span class="t">晚安</span><span class="d">過完這一天</span></button>
   </section>
   <button class="ff ${ffOn?'on':''}" id="ff">${ffOn?'⏸ 停止快轉<small>快轉中，遇到事件會暫停，處理完繼續</small>':'⏩ 快轉<small>自動餵飯、清貓砂、陪玩；遇到事件會暫停，處理完繼續</small>'}</button>
-  <div class="links"><button class="linkbtn" id="album">回憶相簿（${S.memories.length}）</button><button class="linkbtn" id="photoBtn">${S.photo?'換照片 / 改回畫的貓':'上傳我家貓的照片'}</button><button class="linkbtn" id="mute">${muted?'🔇 聲音關':'🔊 聲音開'}</button><button class="linkbtn" id="restart">重新開始</button></div>`}`;
+  <div class="links"><button class="linkbtn" id="shop">🛍 用品店・佈置</button>${S.past.length?`<button class="linkbtn" id="rainbow">🌈 彩虹橋（${S.past.length}）</button>`:''}<button class="linkbtn" id="album">回憶相簿（${S.memories.length}）</button><button class="linkbtn" id="photoBtn">${S.photo?'換照片 / 改回畫的貓':'上傳我家貓的照片'}</button><button class="linkbtn" id="mute">${muted?'🔇 聲音關':'🔊 聲音開'}</button><button class="linkbtn" id="restart">重新開始</button></div>`}`;
   const cw = $('#cw');
   if(farewell){
     $('#fpet').onclick = farewellPet; $('#fhug').onclick = farewellHug;
@@ -691,6 +733,8 @@ function renderLife(){
   $('#album').onclick = showAlbum;
   $('#ff').onclick = fastForward;
   $('#mute').onclick = toggleMute;
+  $('#shop').onclick = () => shopModal();
+  const rb = $('#rainbow'); if(rb) rb.onclick = rainbowModal;
   if(ffOn) app.querySelectorAll('[data-a]').forEach(b => b.disabled = true);
   startWander();
   $('#photoBtn').onclick = photoMenu;
@@ -733,6 +777,7 @@ function idleLine(){
   const low = Object.entries({full:s.full,mood:s.mood,clean:s.clean,health:s.health}).sort((a,b)=>a[1]-b[1])[0];
   if(low[1] < 25) return {full:'喵嗚——！（碗空了！）', mood:'（尾巴甩來甩去，好無聊）', clean:'（看著貓砂盆，一臉嫌棄）', health:'（窩在角落，不太想動）'}[low[0]];
   if(s.bond > 60 && Math.random() < .25) return '（對你慢慢眨眼——這是貓在說我愛你）';
+  if(S.placed && S.placed.wall && Math.random() < .2) return ITEM[S.placed.wall].line;
   const lines = {
     kitten:['咪！','咪～咪～','（追著自己的尾巴轉圈）','（咬你的拖鞋）','（爬窗簾爬到一半下不來）','（打了一個小小的噴嚏）','（四腳朝天露出肚子……是陷阱嗎？）'],
     adult:['喵～','（瞇著眼睛看你）','喵嗯？','（理毛理到一半，舌頭忘了收）','（盯著空氣裡什麼都沒有的地方）','（把頭塞進你的手掌）','（翻肚肚）','（在你腳邊繞八字）'],
@@ -851,6 +896,8 @@ function nightTick(){
   // care nudges lifespan either way; neglect can end a life early
   if(st.health < 25) S.lifespanM -= 3;
   if(st.full > 60 && st.mood > 60 && st.clean > 60 && st.health > 60) S.lifespanM += 1;
+  applyItems();
+  S.money += SALARY;
   S.lifespanM = clamp(S.lifespanM, S.ageM + 1, 252);
   const prev = S.ageM;
   S.ageM += S.ageM < 6 ? 1 : S.ageM < 12 ? 2 : 6;
@@ -879,7 +926,7 @@ function buildMorning(prevAge){
   S.later = S.later.filter(l => l.day > S.day);
   for(const l of due){ if(l.id==='spray' && S.flags.neutered) continue; if(l.id==='sickWorse' && !S.sick) continue; if(CONSEQ[l.id]) queue.push(CONSEQ[l.id]); }
   const ng = neglectEvent(); if(ng) queue.push(ng);
-  if(S.neglect.clean >= 1 && S.ageM >= 12 && !S.later.some(l=>l.id==='uti') && Math.random() < .2) queue.push(CONSEQ.uti);
+  if(S.neglect.clean >= 1 && S.ageM >= 12 && !S.later.some(l=>l.id==='uti') && Math.random() < (hasItem('fountain') ? .08 : .2)) queue.push(CONSEQ.uti);
   const yrs = Math.floor(S.ageM/12);
   if(S.ageM >= 24 && yrs > Math.floor(prevAge/12)) queue.push({title:`${yrs} 歲生日`, text:`今天是 {n} 的 ${yrs} 歲生日。`, choices:[{label:'開罐罐慶祝', fx:()=>{add('mood',10);add('full',15);if(yrs%5===0) mem('你幫{p}過生日，你吃蛋糕，{p}吃罐罐');return '{n} 吃完，在你腳邊打了一個滿足的嗝。';}}]});
   if(S.flags.alarmCat && Math.random() < .3) queue.push(NIGHT.find(e=>e.id==='face'));
@@ -894,7 +941,7 @@ function morning(prevAge){
   if(q) runQueue(q);
 }
 function pickEvent(list){
-  const ok = list.filter(e => S.ageM >= (e.min||0) && (e.repeat || !S.seen[e.id]) && !(e.id==='sick' && S.sick));
+  const ok = list.filter(e => S.ageM >= (e.min||0) && (e.repeat || !S.seen[e.id]) && !(e.id==='sick' && S.sick) && !(e.id==='hairball' && hasItem('grass')) && !(e.id==='stairs' && hasItem('stairs')));
   if(!ok.length) return null;
   const unseen = ok.filter(e => !S.seen[e.id]);
   const ev = pick(unseen.length && Math.random() < .8 ? unseen : ok);
@@ -970,6 +1017,7 @@ function ffStep(){
   const sub = app.querySelector('.top .sub'); if(sub) sub.textContent = `${ageLabel(S.ageM)}（約人類 ${humanAge(S.ageM)} 歲）· ${COAT[S.coatId].name}`;
   const cw = $('#cw'); if(cw && !cw.classList.contains(stage())) refreshCat();
   narr(`⏩ ${ageLabel(S.ageM)}……日子平平淡淡地過去。`);
+  const mc = $('#money'); if(mc) mc.textContent = '$' + S.money;
   updateStats(); save();
   ffTimer = setTimeout(ffStep, 650);
 }
@@ -1058,8 +1106,11 @@ function startWander(){
       const half = catHalfWidth(), cur = parseFloat(cw.style.left) || 50;
       const night = S.slot === 2, st = stage();
       const moveChance = st === 'kitten' ? .8 : st === 'senior' ? .35 : night ? .4 : .6;
-      if(Math.random() < moveChance){
-        const nx = half + 2 + Math.random() * (100 - 2*half - 4);
+      const spots = Object.keys(SPOT_X).filter(k => S.placed[k]);
+      const visit = spots.length && Math.random() < .35 ? pick(spots) : null;
+      if(visit || Math.random() < moveChance){
+        const nx = visit ? clamp(SPOT_X[visit], half + 2, 98 - half) : half + 2 + Math.random() * (100 - 2*half - 4);
+        if(visit) setTimeout(() => { if(!$('#modalRoot').innerHTML) say(ITEM[S.placed[visit]].line); }, Math.round(Math.abs(nx - cur) * (st === 'kitten' ? 38 : st === 'senior' ? 110 : 60)));
         if(Math.abs(nx - cur) > 5){
           const speed = st === 'kitten' ? 38 : st === 'senior' ? 110 : 60;   // ms per % of room
           const ms = Math.round(Math.abs(nx - cur) * speed);
@@ -1073,6 +1124,139 @@ function startWander(){
     wanderT = setTimeout(tick, 2600 + Math.random()*3800);
   };
   wanderT = setTimeout(tick, 1500);
+}
+
+/* ---------- home: shop items placed in the room; carried over to the next cat ---------- */
+const SALARY = 150;
+const SPOTS = [
+  {id:'wall',   name:'牆上',     kind:'wall'},
+  {id:'floorL', name:'左邊角落', kind:'floor'},
+  {id:'floorR', name:'右邊角落', kind:'floor'},
+  {id:'floorC', name:'後面中間', kind:'floor'},
+  {id:'front',  name:'前面角落', kind:'floor'},
+];
+const SPOT_X = {floorL:14, floorR:84, floorC:66, front:14};   // where the cat walks to visit
+const ITEMS = [
+  {id:'box',     name:'紙箱屋',     kind:'floor', price:80,  desc:'心情 +3／天。貓永遠最愛紙箱', eff:()=>add('mood',3),
+   line:'（鑽進紙箱屋，只露出兩隻耳朵）', vb:'0 0 100 100',
+   svg:`<rect x="14" y="44" width="72" height="52" rx="3" fill="#CFA066" stroke="#8B6234" stroke-width="2.5"/><polygon points="14,46 26,24 40,46" fill="#CFA066" stroke="#8B6234" stroke-width="2.5" stroke-linejoin="round"/><polygon points="60,46 74,24 86,46" fill="#CFA066" stroke="#8B6234" stroke-width="2.5" stroke-linejoin="round"/><path d="M37 96 V74 Q50 58 63 74 V96Z" fill="#5E4026"/><path d="M20 58 h12 M68 58 h12" stroke="#8B6234" stroke-width="2"/>`},
+  {id:'grass',   name:'貓草盆栽',   kind:'floor', price:100, desc:'心情 +2／天，比較不會吐毛球', eff:()=>add('mood',2),
+   line:'（啃了兩口貓草，一臉滿足）', vb:'0 0 100 100',
+   svg:`<path d="M32 64 L68 64 L62 96 L38 96Z" fill="#E39B6B" stroke="#B26A3C" stroke-width="2.5" stroke-linejoin="round"/><rect x="29" y="60" width="42" height="8" rx="3" fill="#EFAE80" stroke="#B26A3C" stroke-width="2"/><g stroke="#6DB65B" stroke-width="4" stroke-linecap="round" fill="none"><path d="M40 60 Q36 40 30 30"/><path d="M46 60 Q46 36 44 20"/><path d="M52 60 Q54 34 58 22"/><path d="M58 60 Q64 42 72 34"/><path d="M50 60 Q48 44 38 36"/></g>`},
+  {id:'scratch', name:'貓抓板',     kind:'floor', price:150, desc:'心情 +3／天，從此不抓沙發', eff:()=>add('mood',3),
+   line:'（在貓抓板上用力抓抓抓）', vb:'0 0 100 100',
+   svg:`<polygon points="8,92 72,50 92,92" fill="#D9AC74" stroke="#8B6234" stroke-width="2.5" stroke-linejoin="round"/><path d="M24 84 L74 58 M36 88 L79 64 M50 90 L84 72 M64 91 L88 80" stroke="#A97B45" stroke-width="2"/><rect x="5" y="90" width="90" height="7" rx="3" fill="#8B6234"/>`},
+  {id:'stairs',  name:'寵物樓梯',   kind:'floor', price:180, desc:'老貓心情 +4／天，上沙發不費力', eff:()=>{ if(stage()==='senior') add('mood',4); else add('mood',1); },
+   line:'（一階一階慢慢走上樓梯）', vb:'0 0 100 100',
+   svg:`<path d="M10 96 V74 H36 V52 H62 V30 H90 V96Z" fill="#DCC093" stroke="#9D7A4A" stroke-width="2.5" stroke-linejoin="round"/><path d="M10 74 H36 M36 52 H62 M62 30 H90" stroke="#C96F6F" stroke-width="5"/>`},
+  {id:'tunnel',  name:'貓隧道',     kind:'floor', price:200, desc:'心情 +4／天，小貓 +6', eff:()=>add('mood', stage()==='kitten'?6:4),
+   line:'（衝進隧道，從另一頭探出頭來）', vb:'0 0 100 100',
+   svg:`<rect x="20" y="56" width="62" height="38" fill="#7FA8D8"/><path d="M34 56 v38 M48 56 v38 M62 56 v38" stroke="#5F86B8" stroke-width="3"/><ellipse cx="82" cy="75" rx="10" ry="19" fill="#7FA8D8" stroke="#5F86B8" stroke-width="2.5"/><ellipse cx="20" cy="75" rx="12" ry="20" fill="#5F86B8"/><ellipse cx="20" cy="75" rx="8" ry="15" fill="#2E3E5C"/>`},
+  {id:'heat',    name:'暖暖墊',     kind:'floor', price:220, desc:'健康 +1／天，老貓 +3', eff:()=>add('health', stage()==='senior'?3:1),
+   line:'（躺在暖暖墊上，攤成一張貓餅）', vb:'0 0 100 100',
+   svg:`<path d="M6 92 L22 70 L94 70 L78 92Z" fill="#E57C6E" stroke="#B5524A" stroke-width="2.5" stroke-linejoin="round"/><path d="M18 76 H88 M12 84 H82 M36 70 L26 92 M58 70 L48 92 M78 70 L68 92" stroke="#F3B1A6" stroke-width="3"/>`},
+  {id:'bed',     name:'甜甜圈貓窩', kind:'floor', price:250, desc:'健康 +1、心情 +2／天', eff:()=>{ add('health',1); add('mood',2); },
+   line:'（在貓窩裡轉三圈，捲成一團）', vb:'0 0 100 100',
+   svg:`<ellipse cx="50" cy="80" rx="44" ry="17" fill="#EBB8C9" stroke="#C98AA1" stroke-width="2.5"/><ellipse cx="50" cy="76" rx="28" ry="8" fill="#F9DFE7"/><path d="M12 76 q4 -6 8 0 q4 -6 8 0 M72 76 q4 -6 8 0 q4 -6 8 0" stroke="#fff" stroke-width="2" fill="none" opacity=".7"/>`},
+  {id:'fountain',name:'飲水機',     kind:'floor', price:300, desc:'健康 +2／天，比較不會泌尿道發炎', eff:()=>add('health',2),
+   line:'（用前腳撥水，玩得到處都是）', vb:'0 0 100 100',
+   svg:`<ellipse cx="50" cy="90" rx="34" ry="7" fill="#C9D5DC"/><path d="M18 90 Q18 56 50 56 Q82 56 82 90Z" fill="#fff" stroke="#AEBEC8" stroke-width="2.5"/><ellipse cx="50" cy="58" rx="25" ry="6" fill="#8FD0F5"/><path d="M43 58 Q50 36 57 58" fill="#BFE6FB" stroke="#8FD0F5" stroke-width="1.5"/><circle cx="50" cy="40" r="3" fill="#8FD0F5"/>`},
+  {id:'hammock', name:'窗邊吊床',   kind:'wall',  price:350, desc:'心情 +3、親密 +1／天', eff:()=>{ add('mood',3); add('bond',1); },
+   line:'（窩在吊床上看外面的鳥）', vb:'0 0 120 80',
+   svg:`<path d="M12 10 L24 40 M108 10 L96 40" stroke="#8C8C8C" stroke-width="2.5"/><circle cx="12" cy="10" r="6" fill="#CFE8F2" stroke="#9BBFCC" stroke-width="2"/><circle cx="108" cy="10" r="6" fill="#CFE8F2" stroke="#9BBFCC" stroke-width="2"/><path d="M20 40 Q60 78 100 40Z" fill="#F2C14E" stroke="#C99A2E" stroke-width="2.5" stroke-linejoin="round"/><path d="M36 48 Q60 66 84 48" stroke="#fff" stroke-width="2.5" fill="none" stroke-dasharray="4 4"/>`},
+  {id:'shelf',   name:'牆上貓步道', kind:'wall',  price:450, desc:'心情 +4／天，貓喜歡從高處看你', eff:()=>add('mood',4),
+   line:'（跳上牆上的貓步道，從高處俯視你）', vb:'0 0 120 80',
+   svg:`<g fill="#C79A62" stroke="#8B6234" stroke-width="2"><rect x="6" y="62" width="40" height="8" rx="2"/><rect x="40" y="38" width="40" height="8" rx="2"/><rect x="74" y="14" width="40" height="8" rx="2"/></g><g fill="#8B6234"><rect x="18" y="70" width="4" height="8"/><rect x="54" y="46" width="4" height="8"/><rect x="90" y="22" width="4" height="8"/></g><g fill="#8B623466"><circle cx="30" cy="56" r="2.5"/><circle cx="64" cy="32" r="2.5"/><circle cx="98" cy="8" r="2.5"/></g>`},
+  {id:'portrait',name:'貓咪畫像',   kind:'wall',  price:120, desc:'親密 +1／天。畫的是現在這隻貓', eff:()=>add('bond',1),
+   line:'（盯著牆上的畫像，好像認出自己了）', vb:'0 0 100 100', svg:''},
+  {id:'tank',    name:'小魚缸',     kind:'floor', price:500, desc:'心情 +4／天，可以看魚看一整天', eff:()=>add('mood',4),
+   line:'（臉貼在魚缸上，尾巴一直甩）', vb:'0 0 100 100',
+   svg:`<rect x="12" y="84" width="76" height="12" rx="2" fill="#8B6234"/><rect x="14" y="36" width="72" height="48" rx="4" fill="#BFE7F7" stroke="#8CB9CC" stroke-width="2.5"/><rect x="14" y="36" width="72" height="8" fill="#9FD6EE" opacity=".6"/><path d="M40 62 q10 -10 20 0 q-10 10 -20 0Z M60 62 l8 -6 v12Z" fill="#F29A4A"/><path d="M26 84 q-4 -16 2 -26 M30 84 q4 -12 0 -20" stroke="#5FAE5A" stroke-width="3" fill="none"/><circle cx="72" cy="52" r="2" fill="#fff"/><circle cx="68" cy="46" r="1.5" fill="#fff"/>`},
+  {id:'tree',    name:'貓跳台',     kind:'floor', price:600, desc:'心情 +5／天，親密 +1', eff:()=>{ add('mood',5); add('bond',1); },
+   line:'（爬上貓跳台最高層，得意地看著你）', vb:'0 0 100 160',
+   svg:`<g fill="#E6CB98" stroke="#B28A4E" stroke-width="2"><rect x="30" y="40" width="11" height="112"/><rect x="64" y="82" width="11" height="70"/></g><path d="M30 60h11M30 76h11M30 92h11M30 108h11M30 124h11M30 140h11M64 98h11M64 114h11M64 130h11" stroke="#B28A4E" stroke-width="1.5"/><g fill="#F1E4D0" stroke="#B9A88E" stroke-width="2"><rect x="8" y="146" width="84" height="10" rx="4"/><rect x="50" y="76" width="44" height="9" rx="4"/><rect x="14" y="36" width="46" height="9" rx="4"/></g><ellipse cx="37" cy="30" rx="22" ry="9" fill="#F1E4D0" stroke="#B9A88E" stroke-width="2"/><ellipse cx="37" cy="27" rx="14" ry="4" fill="#E2D2B8"/><path d="M90 85 V106" stroke="#999" stroke-width="1.5"/><circle cx="90" cy="110" r="5" fill="#F08DA2"/>`},
+  {id:'autolitter',name:'自動貓砂機',kind:'floor', price:900, desc:'清潔 +10／天。鏟屎官的救星', eff:()=>add('clean',10),
+   line:'（盯著自動貓砂機轉動，很警戒）', vb:'0 0 100 100',
+   svg:`<path d="M14 94 Q14 28 50 28 Q86 28 86 94Z" fill="#F6F6F3" stroke="#C3CBD0" stroke-width="2.5"/><circle cx="50" cy="66" r="18" fill="#3A3F4A"/><rect x="14" y="88" width="72" height="8" rx="3" fill="#D8DEE2"/><circle cx="50" cy="38" r="3" fill="#7BD389"/>`},
+];
+const ITEM = Object.fromEntries(ITEMS.map(i => [i.id, i]));
+const placedIds = () => Object.values(S.placed).filter(Boolean);
+const hasItem = id => placedIds().includes(id);
+function itemSVG(id){
+  const it = ITEM[id];
+  if(id === 'portrait'){
+    const inner = S.photo ? `<image href="${S.photo}" x="16" y="16" width="68" height="68" preserveAspectRatio="xMidYMid slice"/>`
+      : `<svg x="14" y="14" width="72" height="72" viewBox="0 34 212 180">${catSVG(S.coatId,S.seed,stage(),'happy',S.ageM).replace(/^<svg[^>]*>/,'').replace(/<\/svg>$/,'')}</svg>`;
+    return `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"><rect x="8" y="8" width="84" height="84" rx="4" fill="#C79A62" stroke="#8B6234" stroke-width="3"/><rect x="14" y="14" width="72" height="72" fill="#F6EFD9"/>${inner}</svg>`;
+  }
+  return `<svg viewBox="${it.vb}" preserveAspectRatio="xMidYMax meet">${it.svg}</svg>`;
+}
+function roomDecor(){
+  return `<div class="paper"></div>
+    <div class="win"><div class="orb"></div><div class="sill"><span></span></div></div>
+    <div class="curtain l"></div><div class="curtain r"></div>
+    <div class="clock"><i class="h"></i><i class="m"></i></div>
+    <div class="floor"></div><div class="base"></div><div class="rug"></div>
+    ${SPOTS.map(sp => S.placed[sp.id] ? `<div class="spot s-${sp.id}">${itemSVG(S.placed[sp.id])}</div>` : '').join('')}`;
+}
+function applyItems(){ for(const id of placedIds()) ITEM[id].eff(); }
+
+function shopModal(tab = 'shop'){
+  const owned = new Set(S.owned);
+  const body = tab === 'shop'
+    ? `<div class="shop">${ITEMS.map(it => `<div class="item"><div class="ic">${itemSVG(it.id)}</div>
+        <div class="tx"><b>${it.name}</b><small>${it.kind==='wall'?'掛牆上':'放地上'} · ${esc(it.desc)}</small></div>
+        ${owned.has(it.id) ? '<span class="own">已擁有</span>' : `<button class="buy" data-buy="${it.id}" ${S.money<it.price?'disabled':''}>$${it.price}</button>`}</div>`).join('')}</div>`
+    : `<div class="shop">${SPOTS.map(sp => { const cur = S.placed[sp.id];
+        const choices = S.owned.filter(id => ITEM[id].kind === sp.kind && !placedIds().includes(id));
+        return `<div class="item"><div class="ic">${cur ? itemSVG(cur) : '<span class="empty">空</span>'}</div>
+          <div class="tx"><b>${sp.name}</b><small>${cur ? ITEM[cur].name : '還沒放東西'}</small>
+          <div class="swap">${choices.map(id => `<button data-put="${sp.id}:${id}">${cur?'換成':'放'}${ITEM[id].name}</button>`).join('')}${cur?`<button data-put="${sp.id}:">收進倉庫</button>`:''}</div></div></div>`; }).join('')}</div>`;
+  modal(`<div class="kicker">存款 $${S.money} · 每天薪水 +$${SALARY}</div><h2>${tab==='shop'?'貓咪用品店':'佈置房間'}</h2>
+    <div class="tabs"><button data-tab="shop" aria-pressed="${tab==='shop'}">商店</button><button data-tab="room" aria-pressed="${tab==='room'}">佈置（${placedIds().length}/${SPOTS.length}）</button></div>
+    ${body}<button class="opt" id="cl" style="text-align:center">關閉</button>`, r => {
+    r.dataset.dismiss = '1';
+    $('#cl').onclick = () => { closeModal(); render(); };
+    r.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => shopModal(b.dataset.tab));
+    r.querySelectorAll('[data-buy]').forEach(b => b.onclick = () => buy(b.dataset.buy));
+    r.querySelectorAll('[data-put]').forEach(b => b.onclick = () => { const [sp, id] = b.dataset.put.split(':'); S.placed[sp] = id || null; save(); shopModal('room'); });
+  });
+}
+function buy(id){
+  const it = ITEM[id]; if(S.money < it.price || S.owned.includes(id)) return;
+  S.money -= it.price; S.owned.push(id);
+  const free = SPOTS.find(sp => sp.kind === it.kind && !S.placed[sp.id]);
+  if(free){ S.placed[free.id] = id; save(); closeModal(); render(); narr(fill(`你買了${it.name}。{n} 走過去聞了聞。`)); return; }
+  save();
+  // room full: pick something to swap out
+  const same = SPOTS.filter(sp => sp.kind === it.kind);
+  modal(`<div class="kicker">房間放滿了</div><h2>${it.name}要放哪裡？</h2><p>換下來的東西會收進倉庫，之後可以再換回來。</p>
+    <div class="opts">${same.map(sp => `<button class="opt" data-sw="${sp.id}">換掉${ITEM[S.placed[sp.id]].name}<small>${sp.name}</small></button>`).join('')}
+    <button class="opt" data-sw="" style="text-align:center;background:none">先收進倉庫</button></div>`, r => {
+    r.querySelectorAll('[data-sw]').forEach(b => b.onclick = () => { if(b.dataset.sw) S.placed[b.dataset.sw] = id; save(); closeModal(); render(); if(b.dataset.sw) narr(fill(`${it.name}放好了。{n} 馬上過去研究。`)); });
+  });
+}
+
+/* ---------- the rainbow bridge: cats who lived here before ---------- */
+function rainbowModal(){
+  modal(`<div class="kicker">彩虹橋</div><h2>曾經陪你的貓</h2>
+    ${S.past.length ? `<div class="past">${S.past.map((c,i) => `<button class="pc" data-past="${i}"><span class="mini">${c.photo?`<span class="ph" style="background-image:url('${c.photo}')"></span>`:catSVG(c.coatId,c.seed,'adult','happy',60)}</span><b>${esc(c.name)}</b><small>${COAT[c.coatId].name} · 享年 ${ageLabel(c.ageM)}</small></button>`).join('')}</div>` : '<p>還沒有。</p>'}
+    <button class="opt" id="cl" style="text-align:center">關閉</button>`, r => {
+    r.dataset.dismiss = '1'; $('#cl').onclick = closeModal;
+    r.querySelectorAll('[data-past]').forEach(b => b.onclick = () => {
+      const c = S.past[+b.dataset.past];
+      modal(`<div class="kicker">${esc(c.name)} 寫給你的信</div><div class="letter small">${esc(c.letter||'')}</div>
+        ${c.memories && c.memories.length ? `<div class="mem">${c.memories.map(m=>`<span class="a">${ageLabel(m.ageM)}</span><span class="x">${esc(m.text)}</span>`).join('')}</div>` : ''}
+        <button class="opt" id="bk" style="text-align:center">返回</button>`, r2 => { r2.dataset.dismiss = '1'; $('#bk').onclick = rainbowModal; });
+    });
+  });
+}
+// a new cat moves into the same home: money, furniture and the cats before carry over
+function newLife(remember){
+  const home = {money:S.money, owned:S.owned, placed:S.placed, past:S.past};
+  if(remember) home.past = home.past.concat([{name:N(), coatId:S.coatId, seed:S.seed, gender:S.gender, ageM:S.ageM, photo:S.photo, letter:S.letter||'', memories:S.memories}]);
+  S = Object.assign(fresh(), home);
+  save(); render();
 }
 
 /* ---------- farewell & ending ---------- */
@@ -1129,9 +1313,10 @@ function renderEnd(){
   <section class="summary">
     <div><b>${yrs}</b><span>一起的年</span></div><div><b>${S.counts.pet}</b><span>摸摸</span></div>
     <div><b>${S.counts.meal}</b><span>頓飯</span></div><div><b>${S.memories.length}</b><span>個回憶</span></div></section>
-  <div class="btnrow"><button class="btn" id="album">看回憶相簿</button><button class="btn primary" id="again">再去巷口看看</button></div>`;
+  <p class="carry">${esc(N())} 會留在彩虹橋相簿裡。家裡的東西和存款都還在，等下一隻貓。</p>
+  <div class="btnrow"><button class="btn" id="album">看回憶相簿</button><button class="btn primary" id="again">某天，又是一個下雨天……</button></div>`;
   $('#album').onclick = showAlbum;
-  $('#again').onclick = () => { S = fresh(); save(); render(); };
+  $('#again').onclick = () => newLife(true);
   typeLetter(S.letter);
 }
 function typeLetter(txt){
@@ -1173,17 +1358,18 @@ function photoMenu(){
     });
 }
 function confirmRestart(){
-  modal(`<div class="kicker">重新開始</div><h2>確定要重新開始嗎？</h2><p>${esc(N())} 的一生會被清掉，沒辦法復原。</p>
+  modal(`<div class="kicker">重新開始</div><h2>確定要重新開始嗎？</h2><p>${esc(N())} 的一生會被清掉，沒辦法復原。家裡的東西和存款會留著。</p>
     <div class="opts"><button class="opt" id="no" style="text-align:center">不要，繼續陪${P()}</button><button class="opt" id="yes" style="text-align:center;color:#b5473d">重新開始</button></div>`, r => {
       r.dataset.dismiss = '1';
       $('#no').onclick = closeModal;
-      $('#yes').onclick = () => { closeModal(); S = fresh(); save(); render(); };
+      $('#yes').onclick = () => { closeModal(); newLife(false); };
     });
 }
 
 /* ---------- boot ---------- */
 function start(data){
   S = (data && data.S && data.S.v === 1) ? data.S : (load() || fresh());
+  S.money = S.money ?? 300; S.owned = S.owned || []; S.placed = S.placed || {}; S.past = S.past || [];
   S.later = S.later || []; S.weight = S.weight || 0; S.neglect = S.neglect || {full:0,clean:0,mood:0}; S.counts.er = S.counts.er || 0;
   if(S.phase === 'farewell') fPets = 0;
   render();
