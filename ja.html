@@ -186,6 +186,8 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 .room.painted{aspect-ratio:900/840;background:#F6EEDF}
 .sky.painted{aspect-ratio:784/900;max-height:72vh;background:#F6EEDF;display:flex;justify-content:center}
 .painted img{display:block;width:100%;height:100%;object-fit:cover;animation:fade 1.2s}
+.fffloat{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:60;border:3px solid #2B2B2B;
+  background:#F2B53B;color:#1E2638;font-weight:700;font-size:16px;border-radius:99px;padding:12px 26px;box-shadow:0 8px 20px #0007}
 .links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:4px}
 
@@ -267,7 +269,6 @@ button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid va
 <body>
 <div id="app"></div>
 <div id="modalRoot"></div>
-<input type="file" id="photoInput" accept="image/*" class="visually-hidden" tabindex="-1">
 
 <script>
 (() => {
@@ -301,17 +302,6 @@ const darken = (hex, f) => {const n=parseInt(hex.slice(1),16);const r=Math.round
 
 /* ---------- drawing ---------- */
 const soften = (hex, k) => {const n=parseInt(hex.slice(1),16);const f=v=>Math.round(v+(255-v)*k);return '#'+((1<<24)|(f(n>>16)<<16)|(f(n>>8&255)<<8)|f(n&255)).toString(16).slice(1)};
-// the round silhouette an uploaded photo is cut into
-function dangoShape(stage){
-  const cx = 100;
-  const P = stage==='kitten' ? {T:112,Bm:200,a:46,b:52} : stage==='senior' ? {T:96,Bm:200,a:54,b:68} : {T:94,Bm:200,a:53,b:64};
-  const {T,Bm,a,b} = P, hy = T + a*.82, mid = Bm - hy;
-  const blob = `M${cx-a},${hy} C${cx-a},${T+a*.22} ${cx-a*.55},${T} ${cx},${T} C${cx+a*.55},${T} ${cx+a},${T+a*.22} ${cx+a},${hy}
-    C${cx+a*1.04},${hy+mid*.3} ${cx+b*1.06},${Bm-mid*.35} ${cx+b*.95},${Bm-7} C${cx+b*.82},${Bm+2} ${cx-b*.82},${Bm+2} ${cx-b*.95},${Bm-7}
-    C${cx-b*1.06},${Bm-mid*.35} ${cx-a*1.04},${hy+mid*.3} ${cx-a},${hy}Z`;
-  const earL = [[cx-a*.97,hy-a*.42],[cx-a*.8,T-a*.26],[cx-a*.3,T+a*.06]], earR = earL.map(([x,y])=>[2*cx-x,y]);
-  return {T,Bm,a,b,hy,mid,blob,earL,earR};
-}
 // "sticker" style: Japanese planner-sticker look — 1:1 head and body, thick #2B2B2B line, white die-cut edge, macaron colours
 const INK = '#2B2B2B';
 function duckSVG(x, y, s=1){
@@ -423,64 +413,6 @@ let uidN = 0;
 function catSVG(coatId, seed, stage, expr, ageM, deco){
   return stickerSVG(coatId, seed, stage, expr, ageM, deco);
 }
-// photo version: the user's own photo cut into the cat silhouette (body, ears and tail)
-function photoCat(photo, stage, expr, pos = S && S.photoPos){
-  const pz = pos || {x:0, y:0, z:1};
-  const {T,Bm,a,b,blob,earL,earR} = dangoShape(stage), cx = 100, id = 'k'+(++uidN), line = '#6B5A53';
-  const poly = p => p.map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ');
-  const tx = cx+b*.86, ty = Bm-10, tk = stage==='kitten' ? .75 : 1;
-  const tailD = `M${tx},${ty} C${tx+26*tk},${ty+2} ${tx+34*tk},${ty-30*tk} ${tx+18*tk},${ty-52*tk}`;
-  // the photo covers the body's bounding box; ears and tail sample it too
-  const by = T-a*.3, bh = Bm-by+4, bw = Math.max(bh, (b+4)*2), bx = cx - bw/2;
-  const ar = pz.ar || 1, iw = bw*pz.z*Math.max(1, ar), ih = bh*pz.z*Math.max(1, 1/ar);
-  const flt = stage==='senior' ? ' style="filter:saturate(.75) sepia(.15)"' : '';
-  const markX = cx + a*.75, markY = T - 2;
-  const marks = expr==='happy' ? `<text x="${markX}" y="${markY}" font-size="20">💕</text>`
-    : expr==='sleep' ? `<text x="${markX}" y="${markY}" font-size="18" fill="#fff" stroke="#6B5A53" stroke-width=".6" font-family="serif">z z</text>`
-    : expr==='angry' ? `<text x="${markX}" y="${markY}" font-size="20">💢</text>`
-    : expr==='sad'||expr==='dizzy' ? `<text x="${markX}" y="${markY}" font-size="18">💧</text>` : '';
-  return `<svg viewBox="4 66 204 146" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<defs><pattern id="${id}p" patternUnits="userSpaceOnUse" x="${bx}" y="${by}" width="${bw}" height="${bh}">
-<image href="${photo}" x="${(bw-iw)/2 + pz.x*bw}" y="${(bh-ih)/2 + pz.y*bh}" width="${iw}" height="${ih}" preserveAspectRatio="xMidYMid slice"${flt}/></pattern></defs>
-<ellipse cx="100" cy="${Bm+3}" rx="${b+14}" ry="6" fill="#0000001c"/>
-<g class="bob ${expr==='sleep'?'sleepy':''}">
-<g class="tail" style="transform-origin:${tx}px ${ty}px"><path d="${tailD}" stroke="${line}" stroke-width="12.5" fill="none" stroke-linecap="round"/><path d="${tailD}" stroke="url(#${id}p)" stroke-width="8.5" fill="none" stroke-linecap="round"/></g>
-<g stroke="${line}" stroke-width="2.3" stroke-linejoin="round" fill="url(#${id}p)"><polygon points="${poly(earL)}"/><polygon points="${poly(earR)}"/><path d="${blob}"/></g>
-<g fill="none" stroke="#ffffffcc" stroke-width="2" stroke-linecap="round">${[[cx-15,Bm-3],[cx+15,Bm-3]].map(([x,y])=>`<path d="M${x-9},${y+1} Q${x},${y-9} ${x+9},${y+1}"/>`).join('')}</g>
-${marks}
-</g></svg>`;
-}
-
-// drag to move, slider to zoom; preview is the real cat-shaped cut
-function photoAdjust(){
-  if(!S.photo) return;
-  const pos = {...(S.photoPos || {x:0, y:0, z:1})};
-  const st = S.phase==='life' ? stage() : 'adult';
-  modal(`<div class="kicker">写真の調整</div><h2>ねこを真ん中に</h2><p>指でドラッグして写真を動かせます。スライダーで拡大・縮小。拡大すると、もっと大きく動かせます。</p>
-    <div class="adj" id="adj"></div>
-    <div class="zoom"><span>小</span><input type="range" id="zoomIn" min="1" max="3" step="0.01" value="${pos.z}" aria-label="拡大・縮小"><span>大</span></div>
-    <div class="opts"><button class="opt" id="adjOk" style="text-align:center;background:#F2B53B;font-weight:700">完了</button><button class="opt" id="adjReset" style="text-align:center;background:none">リセット</button></div>`, r => {
-    const box = $('#adj'), zoom = $('#zoomIn');
-    const draw = () => { box.innerHTML = photoCat(S.photo, st, 'normal', pos); };
-    const ar = pos.ar || 1;
-    // keep the photo covering the whole cat: it can only slide as far as it is bigger than the cat
-    const lim = () => { const mx = (pos.z*Math.max(1,ar) - 1)/2, my = (pos.z*Math.max(1,1/ar) - 1)/2; pos.x = clamp(pos.x, -mx, mx); pos.y = clamp(pos.y, -my, my); };
-    let drag = null;
-    box.onpointerdown = e => { drag = {x:e.clientX, y:e.clientY, px:pos.x, py:pos.y}; box.setPointerCapture(e.pointerId); };
-    box.onpointermove = e => {
-      if(!drag) return;
-      // the preview is ~1.5x the photo tile wide, so scale finger movement to the tile
-      const w = box.clientWidth / 1.5;
-      pos.x = drag.px + (e.clientX - drag.x) / w; pos.y = drag.py + (e.clientY - drag.y) / w; lim(); draw();
-    };
-    box.onpointerup = box.onpointercancel = () => { drag = null; };
-    zoom.oninput = () => { pos.z = +zoom.value; lim(); draw(); };
-    $('#adjReset').onclick = () => { pos.x = 0; pos.y = 0; pos.z = 1; zoom.value = 1; draw(); };
-    $('#adjOk').onclick = () => { S.photoPos = {...pos}; save(); closeModal(); render(); };
-    draw();
-  });
-}
-
 /* ---------- language: index.html is Chinese; en.html / ja.html are generated from it (tools/build-i18n.py) ---------- */
 const LANG = 'ja';
 const LANGS = [['zh','中文','index.html'],['en','English','en.html'],['ja','日本語','ja.html']];   // i18n-skip
@@ -811,10 +743,10 @@ const app = $('#app');
 let idleTimer = null, recentPets = [], expr = 'normal', exprTimer = null;
 
 function catHTML(st = stage(), ex = expr){
-  return S.photo ? photoCat(S.photo, st, ex) : catSVG(S.coatId, S.seed, st, ex, S.ageM);
+  return catSVG(S.coatId, S.seed, st, ex, S.ageM);
 }
 function render(){
-  clearInterval(idleTimer); clearTimeout(wanderT);
+  clearInterval(idleTimer); clearTimeout(wanderT); syncFfFloat();
   if(S.phase==='intro') return renderIntro();
   if(S.phase==='name') return renderName();
   if(S.phase==='end') return renderEnd();
@@ -855,15 +787,11 @@ function renderName(){
     <div class="field"><label for="nameIn">名前</label><input type="text" id="nameIn" maxlength="10" value="${esc(S.name||c.names[0])}" autocomplete="off">
       <div class="sugs">${c.names.map(n=>`<button type="button" data-n="${esc(n)}">${esc(n)}</button>`).join('')}</div></div>
     <div class="field"><label>性別</label><div class="seg"><button type="button" data-g="f" aria-pressed="${S.gender==='f'}">女の子</button><button type="button" data-g="m" aria-pressed="${S.gender==='m'}">男の子</button></div></div>
-    <div class="field"><label>写真（なくてもOK）</label>
-      <div class="upload"><div class="thumb">${S.photo?photoCat(S.photo,'adult','normal'):'📷'}</div>
-      <div class="txt"><b>${S.photo?'うちの子の写真を使う':'描いた子ねこを使う'}</b>うちの子の写真をアップロードすると、ねこの形に切りぬかれて、いっしょに大きくなります。顔がまんなかに写っている写真がおすすめ。</div>
-      <button class="btn" type="button" id="up">${S.photo?'変更':'アップロード'}</button>${S.photo?'<button class="btn" type="button" id="rmPhoto">削除</button>':''}</div>${S.photo?'<button class="btn" type="button" id="adjPhoto">✋ 写真の位置を調整</button>':''}</div>
     <div class="btnrow"><button class="btn primary" id="go">おうちへ帰ろう</button></div>
   </section>`;
   if(S.ownerAge === undefined) S.ownerAge = 30;   // default; the player can change or clear it
-  const photoField = app.querySelector('.upload') && app.querySelector('.upload').closest('.field');
-  if(photoField) photoField.insertAdjacentHTML('beforebegin', `<div class="field"><label for="ageIn">${'あなたは今なん歳？（空欄でもOK）'}</label>
+  const goRow = $('#go') && $('#go').closest('.btnrow');
+  if(goRow) goRow.insertAdjacentHTML('beforebegin', `<div class="field"><label for="ageIn">${'あなたは今なん歳？（空欄でもOK）'}</label>
     <input type="number" id="ageIn" min="3" max="120" inputmode="numeric" value="${S.ownerAge ?? ''}" placeholder="${'例：30'}">
     <small class="hint">${'さいごに、ねこは出会ったときのあなたの年を思い出します。'}</small></div>`);
   const ageIn = $('#ageIn');
@@ -873,9 +801,6 @@ function renderName(){
   S.name = inp.value.trim();
   app.querySelectorAll('[data-n]').forEach(b => b.onclick = () => { inp.value = b.dataset.n; S.name = b.dataset.n; save(); });
   app.querySelectorAll('[data-g]').forEach(b => b.onclick = () => { S.gender = b.dataset.g; save(); render(); });
-  $('#up').onclick = () => $('#photoInput').click();
-  const rm = $('#rmPhoto'); if(rm) rm.onclick = () => { S.photo = null; save(); render(); };
-  const ap = $('#adjPhoto'); if(ap) ap.onclick = photoAdjust;
   $('#go').onclick = () => {
     S.name = (inp.value.trim() || c.names[0]).slice(0,10);
     S.phase = 'life'; S.narr = fill('タオルで{n}をふいて、あたたかい毛布の上にのせてあげた。少しごはんを食べると、あなたの手のそばで眠ってしまった。');
@@ -885,23 +810,6 @@ function renderName(){
   };
 }
 
-$('#photoInput').addEventListener('change', e => {
-  const f = e.target.files && e.target.files[0]; e.target.value = '';
-  if(!f) return;
-  const rd = new FileReader();
-  rd.onload = () => {
-    const img = new Image();
-    img.onload = () => {
-      // keep the whole picture (so it can be moved around later), just shrink it to fit local storage
-      const k = Math.min(1, 480 / Math.max(img.width, img.height)), cv = document.createElement('canvas');
-      cv.width = Math.round(img.width*k); cv.height = Math.round(img.height*k);
-      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
-      S.photo = cv.toDataURL('image/jpeg', .82); S.photoPos = {x:0, y:0, z:1, ar: cv.width/cv.height}; save(); render(); photoAdjust();
-    };
-    img.src = rd.result;
-  };
-  rd.readAsDataURL(f);
-});
 
 function statRow(k, label){
   const v = Math.round(S.stats[k]);
@@ -937,7 +845,7 @@ function renderLife(){
   </section>
   <button class="ff ${ffOn?'on':''}" id="ff">${ffOn?'⏸ 早送りを止める<small>早送り中。できごとがあると止まり、終わると再開します</small>':'⏩ 早送り<small>ごはん・トイレ掃除・遊びは自動で。できごとがあると止まり、終わると再開します</small>'}</button>
   <button class="shopbtn" id="shop"><span>🛍</span>ねこグッズのお店<small>貯金 $${S.money} · お部屋をかざろう</small></button>
-  <div class="links"><button class="linkbtn" id="guide">📖 ねこの飼い方</button>${S.past.length?`<button class="linkbtn" id="rainbow">🌈 虹の橋（${S.past.length}）</button>`:''}<button class="linkbtn" id="album">思い出アルバム（${S.memories.length}）</button><button class="linkbtn" id="photoBtn">${S.photo?'写真を変える / 絵に戻す':'うちの子の写真を使う'}</button><button class="linkbtn" id="mute">${muted?'🔇 音オフ':'🔊 音オン'}</button><button class="linkbtn" id="restart">はじめから</button></div>`}`;
+  <div class="links"><button class="linkbtn" id="guide">📖 ねこの飼い方</button>${S.past.length?`<button class="linkbtn" id="rainbow">🌈 虹の橋（${S.past.length}）</button>`:''}<button class="linkbtn" id="album">思い出アルバム（${S.memories.length}）</button><button class="linkbtn" id="mute">${muted?'🔇 音オフ':'🔊 音オン'}</button><button class="linkbtn" id="restart">はじめから</button></div>`}`;
   const cw = $('#cw');
   if(farewell){
     $('#fpet').onclick = farewellPet; $('#fhug').onclick = farewellHug;
@@ -961,7 +869,6 @@ function renderLife(){
   const rb = $('#rainbow'); if(rb) rb.onclick = rainbowModal;
   if(ffOn) app.querySelectorAll('[data-a]').forEach(b => b.disabled = true);
   startWander();
-  $('#photoBtn').onclick = photoMenu;
   $('#restart').onclick = confirmRestart;
   say(idleLine());
   idleTimer = setInterval(() => { if(!$('#modalRoot').innerHTML) say(idleLine()); }, 9000);
@@ -1221,6 +1128,18 @@ function autoCare(slots){
   }
   add('bond', .5);
 }
+// a stop button that floats above event pop-ups, so fast-forward can always be stopped
+function syncFfFloat(){
+  let b = document.getElementById('ffFloat');
+  if(!ffOn){ if(b) b.remove(); return; }
+  if(b) return;
+  b = document.createElement('button'); b.id = 'ffFloat'; b.className = 'fffloat'; b.textContent = '⏸ 早送りをとめる';
+  b.onclick = () => {
+    ffOn = false; clearTimeout(ffTimer); b.remove(); save();
+    if(!$('#modalRoot').innerHTML) ffStop(fill('早送りが止まった。{n}がとなりで大きなあくびをした。'));
+  };
+  document.body.appendChild(b);
+}
 const ffNeedsYou = () => S.sick || S.stats.health < 30;
 function ffStop(msg){
   ffOn = false; clearTimeout(ffTimer);
@@ -1430,8 +1349,7 @@ function stickerDefs(id){
 function itemSVG(id){
   const it = ITEM[id], fid = 'st' + (++uidN);
   if(id === 'portrait'){
-    const inner = S.photo ? photoCat(S.photo, stage(), 'happy').replace('<svg ', '<svg x="18" y="20" width="64" height="60" ')
-      : catSVG(S.coatId,S.seed,stage(),'happy',S.ageM).replace('<svg ', '<svg x="16" y="16" width="68" height="68" ');
+    const inner = catSVG(S.coatId,S.seed,stage(),'happy',S.ageM).replace('<svg ', '<svg x="16" y="16" width="68" height="68" ');
     return `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">${stickerDefs(fid)}<g filter="url(#${fid})" stroke="${INK}" stroke-width="3" stroke-linejoin="round">
 <rect x="8" y="8" width="84" height="84" rx="10" fill="#F6D7A7"/><rect x="16" y="16" width="68" height="68" rx="6" fill="#FFF6EC" stroke-width="2.4"/></g>${inner}
 <g fill="#FFB3C1"><circle cx="12" cy="12" r="4"/><circle cx="88" cy="88" r="4"/></g></svg>`;
@@ -1655,7 +1573,7 @@ function renderEnd(){
   const yrs = Math.floor(S.ageM/12);
   app.innerHTML = `
   <header class="top"><div><h1>${esc(N())}</h1><div class="sub">${COAT[S.coatId].name} · ${ageLabel(S.ageM)}まで生きた</div></div></header>
-  <section class="sky"><div class="stars"></div><div class="bow"></div><div class="soul">${S.photo?photoCat(S.photo,'adult','happy'):catSVG(S.coatId,S.seed,'adult','happy',60,true)}</div></section>
+  <section class="sky"><div class="stars"></div><div class="bow"></div><div class="soul">${catSVG(S.coatId,S.seed,'adult','happy',60,true)}</div></section>
   <div class="letter" id="letter"><span class="cur"></span></div>
   <section class="summary">
     <div><b>${yrs}</b><span>いっしょにいた年</span></div><div><b>${S.counts.pet}</b><span>なでなで</span></div>
@@ -1696,16 +1614,7 @@ function showAlbum(){
     ${S.memories.length ? `<div class="mem">${S.memories.map(m=>`<span class="a">${ageLabel(m.ageM)}</span><span class="x">${esc(m.text)}</span>`).join('')}</div>` : '<p>まだ思い出はありません。</p>'}
     <button class="opt" id="cl" style="text-align:center">閉じる</button>`, r => { r.dataset.dismiss = '1'; $('#cl').onclick = closeModal; });
 }
-function photoMenu(){
-  modal(`<div class="kicker">写真</div><h2>${esc(N())}のすがた</h2><p>うちの子の写真をアップロードするか、わたしたちが描いた${COAT[S.coatId].name}を使えます。</p>
-    <div class="opts"><button class="opt" id="pu">写真をアップロード</button>${S.photo?'<button class="opt" id="pa">写真の位置を調整</button><button class="opt" id="pd">絵のねこに戻す</button>':''}<button class="opt" id="pc" style="text-align:center;background:none">キャンセル</button></div>`, r => {
-      r.dataset.dismiss = '1';
-      $('#pu').onclick = () => { closeModal(); $('#photoInput').click(); };
-      const pa = $('#pa'); if(pa) pa.onclick = photoAdjust;
-      const pd = $('#pd'); if(pd) pd.onclick = () => { S.photo = null; save(); closeModal(); render(); };
-      $('#pc').onclick = closeModal;
-    });
-}
+
 function confirmRestart(){
   modal(`<div class="kicker">はじめから</div><h2>本当にはじめからやり直す？</h2><p>${esc(N())}の一生が消えてしまい、元には戻せません。家具と貯金は残ります。</p>
     <div class="opts"><button class="opt" id="no" style="text-align:center">やめる、まだいっしょにいる</button><button class="opt" id="yes" style="text-align:center;color:#b5473d">はじめから</button></div>`, r => {
@@ -1719,6 +1628,8 @@ function confirmRestart(){
 function start(data){
   let chosen = null; try{ chosen = localStorage.getItem('cat-lang'); }catch(e){}
   S = (data && data.S && data.S.v === 1) ? data.S : (load() || fresh());
+  S.photo = null; delete S.photoPos; S.past = (S.past || []).map(c => ({...c, photo:null}));
+  save();
   S.money = S.money ?? 300; S.owned = S.owned || []; S.placed = S.placed || {}; S.past = S.past || [];
   S.later = S.later || []; S.weight = S.weight || 0; S.neglect = S.neglect || {full:0,clean:0,mood:0}; S.counts.er = S.counts.er || 0;
   if(S.phase === 'farewell') fPets = 0;
